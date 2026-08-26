@@ -382,19 +382,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         id="hero"
         className="relative z-10 min-h-[92vh] lg:min-h-[98vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent"
       >
-        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism with Soft Bottom Fade */}
+        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism (Fixed Stationary Background) */}
         <div
-          className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
+          className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end will-change-transform"
           style={{
+            transform: `translate3d(0, ${Math.min(scrollY, 1200)}px, 0)`,
             maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
             WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
           }}
         >
-          {/* Multi-axis 3D Parallax Prism Container (Anchored in Background) */}
+          {/* Multi-axis 3D Parallax Prism Container (Stationary, Only Reacts to Mouse) */}
           <div
             className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
             style={{
-              transform: `translate3d(${50 + mousePos.x * 20}px, ${scrollY * 0.1 + mousePos.y * 14}px, 0) scale(${1 + Math.min(scrollY * 0.0003, 0.1)}) perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
+              transform: `translate3d(${50 + mousePos.x * 20}px, ${mousePos.y * 14}px, 0) scale(1.05) perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
               transformOrigin: "78% 50%",
             }}
           >
@@ -405,17 +406,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             />
           </div>
 
-          {/* Floating Atmospheric Sparkle Orbs with Counter-Parallax */}
+          {/* Floating Atmospheric Sparkle Orbs with Mouse Gyroscope */}
           <div
             className="absolute top-1/4 right-1/3 w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-400/30 to-violet-400/40 blur-xl will-change-transform transition-transform duration-300"
             style={{
-              transform: `translate3d(${mousePos.x * -28}px, ${scrollY * -0.2 + mousePos.y * -20}px, 0)`,
+              transform: `translate3d(${mousePos.x * -28}px, ${mousePos.y * -20}px, 0)`,
             }}
           />
           <div
             className="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-pink-400/25 to-purple-400/35 blur-2xl will-change-transform transition-transform duration-300"
             style={{
-              transform: `translate3d(${mousePos.x * 22}px, ${scrollY * -0.15 + mousePos.y * 18}px, 0)`,
+              transform: `translate3d(${mousePos.x * 22}px, ${mousePos.y * 18}px, 0)`,
             }}
           />
 
