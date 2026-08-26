@@ -1202,12 +1202,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div className="w-full min-w-full shrink-0 flex items-center justify-center">
               <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                  {/* Left: Free-Floating 3D Copilot Playbook Visual */}
+                  {/* Left: 3D Copilot Playbook Visual (Pure Image, No Glow, No Shadow) */}
                   <div className="lg:col-span-7 relative flex items-center justify-center pointer-events-auto select-none">
                     <img
                       src={copilotPlaybookImg}
-                      alt="Microsoft Copilot AI Adoption Playbook 3D Dashboard"
-                      className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
+                      alt="Microsoft Copilot AI Adoption Playbook 3D Visual"
+                      className="w-full h-auto max-w-[660px] object-contain"
                     />
                   </div>
 
