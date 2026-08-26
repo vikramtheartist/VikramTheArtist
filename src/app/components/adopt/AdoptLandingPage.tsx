@@ -562,11 +562,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       <section
         id="problem"
         ref={problemRef}
-        className="w-full min-h-[220vh] relative z-20 bg-transparent"
+        className="w-full min-h-[280vh] relative z-20 bg-transparent"
       >
-        {/* Sticky 100vh Viewport Container: Background & Headline stick to screen */}
+        {/* Sticky 100vh Viewport Container: Background & Headline stick rock-solid to screen */}
         <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-          {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Multiply Blending */}
+          {/* Full-Bleed Iceberg Artwork Background with Seamless Multiply Blending (Completely stationary during scroll) */}
           <div
             className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
             style={{
@@ -592,7 +592,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[580px] max-h-[780px]">
             {/* Top Row (Above Water / Upper Content Area) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Top Left: Badge, Headline & Context (Sticks along with Background Iceberg) */}
+              {/* Top Left: Badge, Headline & Context (Sticks firmly along with Background Iceberg) */}
               <div className="lg:col-span-6 flex flex-col items-start text-left">
                 <div className="mb-4">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
@@ -619,9 +619,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               <div
                 className="lg:col-span-6 flex justify-start lg:justify-end transition-all duration-700 ease-out"
                 style={{
-                  opacity: problemProgress >= 0.18 ? 1 : 0,
-                  transform: `translate3d(0, ${problemProgress >= 0.18 ? 0 : 36}px, 0)`,
-                  pointerEvents: problemProgress >= 0.18 ? "auto" : "none",
+                  opacity: problemProgress >= 0.15 ? 1 : 0,
+                  transform: `translate3d(0, ${problemProgress >= 0.15 ? 0 : 36}px, 0)`,
+                  pointerEvents: problemProgress >= 0.15 ? "auto" : "none",
                 }}
               >
                 <div
@@ -678,9 +678,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-4 sm:pt-8 transition-all duration-700 ease-out"
               style={{
-                opacity: problemProgress >= 0.5 ? 1 : 0,
-                transform: `translate3d(0, ${problemProgress >= 0.5 ? 0 : 40}px, 0)`,
-                pointerEvents: problemProgress >= 0.5 ? "auto" : "none",
+                opacity: problemProgress >= 0.35 ? 1 : 0,
+                transform: `translate3d(0, ${problemProgress >= 0.35 ? 0 : 40}px, 0)`,
+                pointerEvents: problemProgress >= 0.35 ? "auto" : "none",
               }}
             >
               {/* Bottom Left: 4 Checkmark Bullet Items */}
