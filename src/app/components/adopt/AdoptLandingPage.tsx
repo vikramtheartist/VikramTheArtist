@@ -1490,37 +1490,29 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </h2>
               </div>
 
-              {/* Right Side: Buttons + Subtext Below Buttons */}
-              <div className="flex flex-col items-start lg:items-end gap-1.5 shrink-0">
-                {/* Buttons Row */}
-                <div className="flex flex-wrap items-center gap-3">
-                  {/* 1. Launch the Playbook (Purple Gradient Pill + Circular Arrow) */}
-                  <button
-                    onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
-                    className="pl-5 pr-1.5 py-1.5 rounded-full bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#8b5cf6] text-white font-bold text-[13px] shadow-[0_8px_20px_-4px_rgba(99,102,241,0.5)] border border-white/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 cursor-pointer group"
-                  >
-                    <span>Launch the Playbook</span>
-                    <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5">
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </button>
+              {/* Right Side: Center-Aligned Action Buttons */}
+              <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3 shrink-0">
+                {/* 1. Launch the Playbook (Purple Gradient Pill + Circular Arrow) */}
+                <button
+                  onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
+                  className="pl-5 pr-1.5 py-1.5 rounded-full bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#8b5cf6] text-white font-bold text-[13px] shadow-[0_8px_20px_-4px_rgba(99,102,241,0.5)] border border-white/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 cursor-pointer group"
+                >
+                  <span>Launch the Playbook</span>
+                  <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5">
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                </button>
 
-                  {/* 2. Launch AdoptIQ.ai (Glossy White Pill + Purple Icon) */}
-                  <a
-                    href="https://adoptiqai.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-5 py-2 rounded-full bg-white text-[#1e293b] font-bold text-[13px] shadow-sm hover:shadow-md hover:bg-slate-50 transition-all flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95 text-decoration-none group"
-                  >
-                    <span>Launch AdoptIQ.ai</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-[#8b5cf6] stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                  </a>
-                </div>
-
-                {/* Subtext Placed Below The Buttons */}
-                <p className="text-white/95 text-[11.5px] sm:text-[12px] font-medium leading-tight max-w-lg lg:text-right">
-                  ADOPT is the blueprint for turning AI potential into human progress—at scale.
-                </p>
+                {/* 2. Launch AdoptIQ.ai (Glossy White Pill + Purple Icon) */}
+                <a
+                  href="https://adoptiqai.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-5 py-2 rounded-full bg-white text-[#1e293b] font-bold text-[13px] shadow-sm hover:shadow-md hover:bg-slate-50 transition-all flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95 text-decoration-none group"
+                >
+                  <span>Launch AdoptIQ.ai</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-[#8b5cf6] stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
               </div>
             </div>
 
@@ -1528,7 +1520,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div className="relative z-10 pt-3 mt-3.5 sm:mt-4 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-1.5 text-white/90 text-[11px] sm:text-[11.5px]">
               <div className="flex items-center gap-1.5">
                 <span className="font-extrabold text-white tracking-wide">ADOPT</span>
-                <span>— A Behavioral Operating System for Enterprise AI Adoption</span>
+                <span>is the blueprint for turning AI potential into human progress—at scale.</span>
               </div>
               <div className="text-white/80">
                 <span>Crafted with pixel-precision by Vikram &bull; All rights reserved</span>
