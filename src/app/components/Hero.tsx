@@ -243,7 +243,6 @@ import { Eye, Sparkles, TrendingUp } from "lucide-react";
 const cards = [
   {
     title: "Observe",
-    tag: "DISCOVER & FRAME",
     icon: Eye,
     tagColor: "rgba(168, 85, 247, 0.95)",
     iconBg: "rgba(168, 85, 247, 0.12)",
@@ -252,7 +251,6 @@ const cards = [
   },
   {
     title: "Create",
-    tag: "DESIGN & DECIDE",
     icon: Sparkles,
     tagColor: "rgba(56, 189, 248, 0.95)",
     iconBg: "rgba(56, 189, 248, 0.12)",
@@ -261,7 +259,6 @@ const cards = [
   },
   {
     title: "Evolve",
-    tag: "SCALE & REFINE",
     icon: TrendingUp,
     tagColor: "rgba(244, 114, 182, 0.95)",
     iconBg: "rgba(244, 114, 182, 0.12)",
@@ -395,14 +392,14 @@ export function Hero() {
           ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}
         >
-          {cards.map(({ title, tag, icon: Icon, tagColor, iconBg, iconBorder, body }) => (
+          {cards.map(({ title, icon: Icon, tagColor, iconBg, iconBorder, body }) => (
             <div
               key={title}
               className="hero-philosophy-card flex flex-col justify-between"
             >
               <div>
-                {/* Header: Icon + Category Eyebrow matching ProjectCard */}
-                <div className="flex items-center gap-3 mb-4">
+                {/* Header: Frosted Icon + Title */}
+                <div className="flex items-center gap-3.5 mb-4">
                   <div
                     className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
                     style={{
@@ -413,35 +410,21 @@ export function Hero() {
                   >
                     <Icon className="w-5 h-5" style={{ color: tagColor }} strokeWidth={1.8} />
                   </div>
-                  <span
+                  <h3
                     style={{
-                      fontFamily: "'Inter', sans-serif",
-                      fontSize: "11px",
-                      fontWeight: 600,
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      color: tagColor,
+                      fontFamily: "'Poppins', sans-serif",
+                      fontWeight: 400,
+                      fontSize: "24px",
+                      lineHeight: 1.25,
+                      color: "white",
+                      margin: 0,
                     }}
                   >
-                    {tag}
-                  </span>
+                    {title}
+                  </h3>
                 </div>
 
-                {/* Title matching ProjectCard typography */}
-                <h3
-                  style={{
-                    fontFamily: "'Poppins', sans-serif",
-                    fontWeight: 400,
-                    fontSize: "24px",
-                    lineHeight: 1.25,
-                    color: "white",
-                    marginBottom: "12px",
-                  }}
-                >
-                  {title}
-                </h3>
-
-                {/* Body Text matching ProjectCard description */}
+                {/* Body Text */}
                 <p
                   style={{
                     fontFamily: "'Inter', sans-serif",
