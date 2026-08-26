@@ -32,7 +32,7 @@ const projects: {
         <img
           src={adoptThumb}
           alt="Driving Copilot Adoption"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", opacity: 0.9 }}
         />
       </div>
     ),
