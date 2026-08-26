@@ -797,19 +797,16 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
 
-          {/* ── THE 5 STAGES OF THE ADOPT PLAYBOOK (5 GLASS CARDS GRID WITH BASE CAUSTIC GLOW) ─ */}
-          <div className="relative pt-4 pb-10">
-            {/* Luminous Glass Reflective Ground Sheen */}
-            <div className="absolute bottom-2 left-0 right-0 h-24 bg-gradient-to-b from-transparent via-white/40 to-white/80 pointer-events-none rounded-b-[40px] -z-0" />
-
+          {/* ── THE 5 STAGES OF THE ADOPT PLAYBOOK (5 GLASS CARDS GRID ON TRANSPARENT BG) ─ */}
+          <div className="relative pt-4 pb-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 lg:gap-5 relative z-10 items-stretch">
               {STAGES_DATA.map((stage, idx) => {
                 const glowColors: Record<string, { light: string; core: string }> = {
-                  aware: { light: "rgba(56, 189, 248, 0.7)", core: "rgba(2, 132, 199, 0.9)" },
-                  desire: { light: "rgba(251, 113, 133, 0.7)", core: "rgba(244, 63, 94, 0.9)" },
-                  open: { light: "rgba(167, 139, 250, 0.7)", core: "rgba(139, 92, 246, 0.9)" },
-                  proficient: { light: "rgba(251, 191, 36, 0.7)", core: "rgba(245, 158, 11, 0.9)" },
-                  transform: { light: "rgba(52, 211, 153, 0.7)", core: "rgba(16, 185, 129, 0.9)" },
+                  aware: { light: "rgba(56, 189, 248, 0.65)", core: "rgba(2, 132, 199, 0.85)" },
+                  desire: { light: "rgba(251, 113, 133, 0.65)", core: "rgba(244, 63, 94, 0.85)" },
+                  open: { light: "rgba(167, 139, 250, 0.65)", core: "rgba(139, 92, 246, 0.85)" },
+                  proficient: { light: "rgba(251, 191, 36, 0.65)", core: "rgba(245, 158, 11, 0.85)" },
+                  transform: { light: "rgba(52, 211, 153, 0.65)", core: "rgba(16, 185, 129, 0.85)" },
                 };
                 const currentGlow = glowColors[stage.id] || { light: "rgba(99, 102, 241, 0.6)", core: "rgba(79, 70, 229, 0.8)" };
 
@@ -820,7 +817,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     className="flex flex-col h-full cursor-pointer group transition-all duration-300 hover:-translate-y-2.5 relative"
                   >
                     {/* Glass Card */}
-                    <div className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden drop-shadow-[0_16px_35px_rgba(0,0,0,0.06)] group-hover:drop-shadow-[0_24px_50px_rgba(67,68,250,0.22)] transition-all duration-300 flex items-center justify-center z-10">
+                    <div className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.18)] transition-all duration-300 flex items-center justify-center z-10">
                       <img
                         src={stage.cardImg}
                         alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
@@ -828,27 +825,24 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       />
                     </div>
 
-                    {/* ── GLASSY BASE SHADOWS & CAUSTIC LIGHT REFLECTIONS ── */}
+                    {/* ── GLASSY BASE CAUSTIC LIGHT GLOW (TRANSPARENT BACKGROUND) ── */}
                     <div className="relative w-full flex flex-col items-center justify-center -mt-4 sm:-mt-5 pointer-events-none z-0">
                       {/* 1. Core Intense Colored Glass Light Contact Point */}
                       <div
-                        className="w-[75%] h-4 sm:h-5 rounded-[100%] blur-[6px] transition-all duration-500 group-hover:scale-115 group-hover:blur-[8px] opacity-90 group-hover:opacity-100"
+                        className="w-[72%] h-3.5 sm:h-4.5 rounded-[100%] blur-[5px] transition-all duration-500 group-hover:scale-115 group-hover:blur-[7px] opacity-85 group-hover:opacity-100"
                         style={{
                           background: `radial-gradient(ellipse at center, ${currentGlow.core} 0%, ${currentGlow.light} 55%, transparent 80%)`,
-                          boxShadow: `0 4px 22px ${currentGlow.light}`,
+                          boxShadow: `0 3px 18px ${currentGlow.light}`,
                         }}
                       />
 
-                      {/* 2. Soft Ambient Caustic Bloom on Ground Surface */}
+                      {/* 2. Soft Ambient Caustic Bloom */}
                       <div
-                        className="w-[90%] h-6 sm:h-8 rounded-[100%] blur-xl -mt-3.5 transition-all duration-500 group-hover:scale-120 opacity-65 group-hover:opacity-95"
+                        className="w-[85%] h-5 sm:h-7 rounded-[100%] blur-lg -mt-3 transition-all duration-500 group-hover:scale-120 opacity-50 group-hover:opacity-85"
                         style={{
                           background: `radial-gradient(ellipse at center, ${currentGlow.light} 0%, transparent 70%)`,
                         }}
                       />
-
-                      {/* 3. Dark Precision Ground Contact Creep Shadow for 3D Depth */}
-                      <div className="w-[50%] h-1.5 rounded-[100%] bg-slate-900/12 blur-[2px] -mt-5" />
                     </div>
                   </div>
                 );
