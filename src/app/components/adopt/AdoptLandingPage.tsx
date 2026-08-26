@@ -547,20 +547,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent"
+        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 -mt-20 sm:-mt-28 lg:-mt-36 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent"
       >
-        {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Multiply Blending */}
+        {/* Seamless Floating Iceberg Rising Upwards from Below on Scroll */}
         <div
-          className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
+          className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden flex items-center justify-center"
           style={{
-            maskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+            maskImage: "linear-gradient(to bottom, black 0%, black 80%, transparent 98%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 80%, transparent 98%)",
           }}
         >
           <div
-            className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
+            className="w-full h-[120%] absolute -top-[10%] inset-x-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              transform: `translate3d(${mousePos.x * 8}px, ${Math.max(-120, (scrollY - 300) * -0.12) + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
             }}
           >
             <img
