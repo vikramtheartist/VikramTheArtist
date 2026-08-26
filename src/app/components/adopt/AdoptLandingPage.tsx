@@ -320,8 +320,16 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </header>
 
-      {/* ── SECTION 1: HERO (REDUCED HEIGHT BY 20%) ─────────────────── */}
-      <section className="relative min-h-[72vh] flex flex-col justify-between pt-24 pb-8 lg:pt-28 lg:pb-8 overflow-hidden bg-transparent">
+      {/* ── SECTION 1: HERO (STICKY WITH PARALLAX BLUR EFFECT) ──────── */}
+      <section
+        className="sticky top-0 z-10 min-h-[85vh] flex flex-col justify-between pt-20 pb-12 lg:pt-24 lg:pb-12 overflow-hidden bg-transparent will-change-transform transition-all duration-150 ease-out"
+        style={{
+          filter: `blur(${Math.min(Math.max((scrollY - 40) * 0.024, 0), 16)}px)`,
+          opacity: Math.max(1 - Math.max(scrollY - 60, 0) * 0.0016, 0.2),
+          transform: `scale(${Math.max(1 - Math.max(scrollY - 40, 0) * 0.00028, 0.95)})`,
+          transformOrigin: "50% 30%",
+        }}
+      >
         {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism */}
         <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end">
           {/* Parallax & Scroll-Surging Forward Animation Container */}
@@ -452,161 +460,167 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 2: THE CORE PROBLEM (100% EXACT PIXEL-TO-PIXEL MATCH) ──── */}
-      <section id="problem" className="py-14 lg:py-20 relative overflow-hidden bg-transparent">
-        <div className="w-full max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-10">
-          {/* Main Enclosed Card with Light Luminous Iceberg Visual Background */}
-          <div className="relative rounded-[36px] sm:rounded-[48px] bg-gradient-to-b from-[#fbfcff] via-[#f7f9ff] to-[#f4f7fe] border border-[#e2e8f5] shadow-[0_25px_70px_-15px_rgba(147,197,253,0.22)] min-h-[640px] text-left overflow-hidden">
-            {/* Background Light Luminous Iceberg Artwork */}
-            <div className="absolute inset-0 select-none pointer-events-none z-0">
-              <img
-                src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
-                alt="AI Adoption Iceberg Analogy"
-                className="w-full h-full object-cover object-center"
-              />
-              {/* Subtle ambient light gradient for razor-sharp typography contrast */}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  background:
-                    "linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.75) 30%, rgba(255,255,255,0.15) 54%, transparent 70%), linear-gradient(to top, rgba(244,247,254,0.7) 0%, transparent 35%)",
-                }}
-              />
-            </div>
+      {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
+      <section
+        id="problem"
+        className="w-full min-h-screen relative z-20 py-20 lg:py-28 overflow-hidden flex items-center justify-center bg-gradient-to-b from-[#fbfcff]/95 via-[#f6f9fe] to-[#f4f7fe]"
+      >
+        {/* Full-Bleed Parallax Iceberg Artwork Background */}
+        <div className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden">
+          <div
+            className="w-full h-[125%] -top-[12%] absolute inset-x-0 will-change-transform transition-transform duration-100 ease-out flex items-center justify-center"
+            style={{
+              transform: `translate3d(0, ${(scrollY - 500) * -0.06}px, 0) scale(1.02)`,
+            }}
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
+              alt="AI Adoption Iceberg Analogy"
+              className="w-full h-full object-cover object-center"
+            />
+          </div>
 
-            {/* Content Container */}
-            <div className="relative z-10 p-8 sm:p-12 lg:p-16 flex flex-col justify-between min-h-[640px]">
-              {/* Top Row (Above Water / Upper Content Area) */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                {/* Top Left: Badge, Headline & Context */}
-                <div className="lg:col-span-6 flex flex-col items-start">
-                  <div className="mb-4">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
-                      <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
-                      <span>THE CORE PROBLEM</span>
-                    </div>
-                    <div className="w-8 h-[2.5px] bg-[#38bdf8] rounded-full mt-2.5" />
-                  </div>
+          {/* Light ambient scrim gradients for perfect text readability edge-to-edge */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.76) 28%, rgba(255,255,255,0.18) 52%, transparent 70%), linear-gradient(to top, rgba(244,247,254,0.95) 0%, transparent 25%), linear-gradient(to bottom, rgba(244,247,254,0.95) 0%, transparent 25%)",
+            }}
+          />
+        </div>
 
-                  <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
-                    AI adoption is not<br />
-                    a feature problem.<br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
-                      It’s a behavior<br className="hidden sm:inline" /> problem.
-                    </span>
-                  </h2>
-
-                  <p className="text-[14px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-8">
-                    Even powerful products fail when they collide with familiar habits, uncertainty, and inertia.
-                  </p>
+        {/* Full-Width Centered Content Container */}
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px]">
+          {/* Top Row (Above Water / Upper Content Area) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Top Left: Badge, Headline & Context */}
+            <div className="lg:col-span-6 flex flex-col items-start text-left">
+              <div className="mb-4">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
+                  <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
+                  <span>THE CORE PROBLEM</span>
                 </div>
-
-                {/* Top Right: ABOVE THE SURFACE Callout Card */}
-                <div className="lg:col-span-6 flex justify-start lg:justify-end">
-                  <div className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.12)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2">
-                    {/* Connecting Line to Mountain Peak */}
-                    <div className="hidden lg:block absolute -left-16 top-6 w-16 h-8 pointer-events-none">
-                      <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
-                        <path d="M64 10 L 22 10 L 0 28" stroke="#a5b4fc" strokeWidth="1.2" />
-                        <circle cx="0" cy="28" r="3.5" fill="#6366f1" />
-                      </svg>
-                    </div>
-
-                    <div className="flex items-center gap-3.5 mb-3.5">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs">
-                        <Mountain className="w-5 h-5 text-[#6366f1] stroke-[2]" />
-                      </div>
-                      <div>
-                        <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
-                          ABOVE THE SURFACE
-                        </div>
-                        <div className="text-[12px] text-[#64748b] font-medium">
-                          What teams optimize
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2 pl-2">
-                      {[
-                        "Advanced capabilities",
-                        "Continuous innovation",
-                        "Feature-rich roadmap",
-                        "Enterprise-grade security",
-                      ].map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155]">
-                          <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0">
-                            <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
-                          </div>
-                          <span>{item}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <div className="w-8 h-[2.5px] bg-[#38bdf8] rounded-full mt-2.5" />
               </div>
 
-              {/* Bottom Row (Below Water / Lower Content Area) */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
-                {/* Bottom Left: 4 Checkmark Bullet Items */}
-                <div className="lg:col-span-6 space-y-4 max-w-[440px]">
+              <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
+                AI adoption is not<br />
+                a feature problem.<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
+                  It’s a behavior<br className="hidden sm:inline" /> problem.
+                </span>
+              </h2>
+
+              <p className="text-[14px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-8">
+                Even powerful products fail when they collide with familiar habits, uncertainty, and inertia.
+              </p>
+            </div>
+
+            {/* Top Right: ABOVE THE SURFACE Callout Card */}
+            <div className="lg:col-span-6 flex justify-start lg:justify-end">
+              <div className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.12)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2">
+                {/* Connecting Line to Mountain Peak */}
+                <div className="hidden lg:block absolute -left-16 top-6 w-16 h-8 pointer-events-none">
+                  <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
+                    <path d="M64 10 L 22 10 L 0 28" stroke="#a5b4fc" strokeWidth="1.2" />
+                    <circle cx="0" cy="28" r="3.5" fill="#6366f1" />
+                  </svg>
+                </div>
+
+                <div className="flex items-center gap-3.5 mb-3.5">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs">
+                    <Mountain className="w-5 h-5 text-[#6366f1] stroke-[2]" />
+                  </div>
+                  <div>
+                    <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
+                      ABOVE THE SURFACE
+                    </div>
+                    <div className="text-[12px] text-[#64748b] font-medium">
+                      What teams optimize
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2 pl-2">
                   {[
-                    "Users don't resist products.",
-                    "They resist changing routines.",
-                    "Better technology does not automatically create behavior change.",
-                    "Sustainable adoption starts with human behavior.",
-                  ].map((text, idx) => (
-                    <div key={idx} className="flex items-start gap-3.5 group">
-                      <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs">
-                        <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
+                    "Advanced capabilities",
+                    "Continuous innovation",
+                    "Feature-rich roadmap",
+                    "Enterprise-grade security",
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155]">
+                      <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0">
+                        <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
                       </div>
-                      <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-snug">
-                        {text}
-                      </span>
+                      <span>{item}</span>
                     </div>
                   ))}
                 </div>
+              </div>
+            </div>
+          </div>
 
-                {/* Bottom Right: BELOW THE SURFACE Callout Card */}
-                <div className="lg:col-span-6 flex justify-start lg:justify-end">
-                  <div className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.12)] w-full max-w-[320px] text-left lg:mr-4 mb-2">
-                    {/* Connecting Line to Submerged Iceberg */}
-                    <div className="hidden lg:block absolute -left-16 top-6 w-16 h-4 pointer-events-none">
-                      <svg className="w-full h-full" viewBox="0 0 64 16" fill="none">
-                        <path d="M64 8 L 0 8" stroke="#a5b4fc" strokeWidth="1.2" />
-                        <circle cx="0" cy="8" r="3.5" fill="#6366f1" />
-                      </svg>
+          {/* Bottom Row (Below Water / Lower Content Area) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
+            {/* Bottom Left: 4 Checkmark Bullet Items */}
+            <div className="lg:col-span-6 space-y-4 max-w-[440px] text-left">
+              {[
+                "Users don't resist products.",
+                "They resist changing routines.",
+                "Better technology does not automatically create behavior change.",
+                "Sustainable adoption starts with human behavior.",
+              ].map((text, idx) => (
+                <div key={idx} className="flex items-start gap-3.5 group">
+                  <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs">
+                    <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
+                  </div>
+                  <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-snug">
+                    {text}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Right: BELOW THE SURFACE Callout Card */}
+            <div className="lg:col-span-6 flex justify-start lg:justify-end">
+              <div className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.12)] w-full max-w-[320px] text-left lg:mr-4 mb-2">
+                {/* Connecting Line to Submerged Iceberg */}
+                <div className="hidden lg:block absolute -left-16 top-6 w-16 h-4 pointer-events-none">
+                  <svg className="w-full h-full" viewBox="0 0 64 16" fill="none">
+                    <path d="M64 8 L 0 8" stroke="#a5b4fc" strokeWidth="1.2" />
+                    <circle cx="0" cy="8" r="3.5" fill="#6366f1" />
+                  </svg>
+                </div>
+
+                <div className="flex items-center gap-3.5 mb-3.5">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs">
+                    <Lock className="w-5 h-5 text-[#6366f1] stroke-[2]" />
+                  </div>
+                  <div>
+                    <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
+                      BELOW THE SURFACE
                     </div>
-
-                    <div className="flex items-center gap-3.5 mb-3.5">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs">
-                        <Lock className="w-5 h-5 text-[#6366f1] stroke-[2]" />
-                      </div>
-                      <div>
-                        <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
-                          BELOW THE SURFACE
-                        </div>
-                        <div className="text-[12px] text-[#64748b] font-medium">
-                          What holds adoption back
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="space-y-2 pl-2">
-                      {[
-                        "Familiar habits",
-                        "Fear of change",
-                        "Unclear personal value",
-                        "Low motivation to switch",
-                      ].map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155]">
-                          <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0">
-                            <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
-                          </div>
-                          <span>{item}</span>
-                        </div>
-                      ))}
+                    <div className="text-[12px] text-[#64748b] font-medium">
+                      What holds adoption back
                     </div>
                   </div>
+                </div>
+
+                <div className="space-y-2 pl-2">
+                  {[
+                    "Familiar habits",
+                    "Fear of change",
+                    "Unclear personal value",
+                    "Low motivation to switch",
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155]">
+                      <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0">
+                        <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
+                      </div>
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
