@@ -285,157 +285,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const sectionRef = React.useRef<HTMLDivElement>(null);
-  const isTransitioningRef = React.useRef(false);
-  const [scrollProgress, setScrollProgress] = useState(0); // 0.0 to 1.0
-  const resetTimerRef = React.useRef<number | null>(null);
-  const engineUnlockTimestampRef = React.useRef<number>(0);
-  const SCROLL_THRESHOLD = 160;
-
-  React.useEffect(() => {
-    let accumulatedDelta = 0;
-
-    const handleWheel = (e: WheelEvent) => {
-      if (!sectionRef.current) return;
-
-      const rect = sectionRef.current.getBoundingClientRect();
-      // Active section in view
-      const isInSectionView = rect.top <= window.innerHeight * 0.65 && rect.bottom >= window.innerHeight * 0.35;
-
-      if (!isInSectionView) return;
-
-      // 1. While on Slide 1 (Copilot) and user scrolls Down -> PREVENT vertical scroll and switch to Slide 2
-      if (activeTab === "copilot" && e.deltaY > 0) {
-        e.preventDefault();
-        if (isTransitioningRef.current) return;
-
-        if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
-
-        accumulatedDelta += e.deltaY * 0.7;
-        const progress = Math.min(1, Math.max(0, accumulatedDelta / SCROLL_THRESHOLD));
-        setScrollProgress(progress);
-
-        if (accumulatedDelta >= SCROLL_THRESHOLD) {
-          isTransitioningRef.current = true;
-          setActiveTab("engine");
-          // Lock on Slide 2 for at least 2.2 seconds before permitting scroll down to footer
-          engineUnlockTimestampRef.current = Date.now() + 2200;
-          accumulatedDelta = 0;
-          setTimeout(() => {
-            setScrollProgress(0);
-            isTransitioningRef.current = false;
-          }, 750);
-        } else {
-          resetTimerRef.current = window.setTimeout(() => {
-            accumulatedDelta = 0;
-            setScrollProgress(0);
-          }, 350);
-        }
-        return;
-      }
-
-      // 2. While on Slide 2 (Engine) and user scrolls Down -> Dwell lock prevents premature scroll to footer
-      if (activeTab === "engine" && e.deltaY > 0) {
-        if (Date.now() < engineUnlockTimestampRef.current) {
-          e.preventDefault();
-          return;
-        }
-        // Once dwell time has elapsed, naturally allows continuing scroll to footer!
-      }
-
-      // 3. While on Slide 2 (Engine) and user scrolls Up -> PREVENT vertical scroll and switch back to Slide 1
-      if (activeTab === "engine" && e.deltaY < 0) {
-        e.preventDefault();
-        if (isTransitioningRef.current) return;
-
-        if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
-
-        accumulatedDelta += Math.abs(e.deltaY) * 0.7;
-        const progress = Math.min(1, Math.max(0, accumulatedDelta / SCROLL_THRESHOLD));
-        setScrollProgress(progress);
-
-        if (accumulatedDelta >= SCROLL_THRESHOLD) {
-          isTransitioningRef.current = true;
-          setActiveTab("copilot");
-          accumulatedDelta = 0;
-          setTimeout(() => {
-            setScrollProgress(0);
-            isTransitioningRef.current = false;
-          }, 750);
-        } else {
-          resetTimerRef.current = window.setTimeout(() => {
-            accumulatedDelta = 0;
-            setScrollProgress(0);
-          }, 350);
-        }
-        return;
-      }
-    };
-
-    let touchStartY = 0;
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const isInSectionView = rect.top <= window.innerHeight * 0.65 && rect.bottom >= window.innerHeight * 0.35;
-
-      if (!isInSectionView) return;
-
-      const deltaY = touchStartY - e.touches[0].clientY;
-
-      // Swipe Up (scroll Down) on Copilot
-      if (deltaY > 0 && activeTab === "copilot") {
-        e.preventDefault();
-        if (isTransitioningRef.current) return;
-        const progress = Math.min(1, Math.max(0, deltaY / 100));
-        setScrollProgress(progress);
-        if (deltaY > 100) {
-          isTransitioningRef.current = true;
-          setActiveTab("engine");
-          engineUnlockTimestampRef.current = Date.now() + 2200;
-          setTimeout(() => {
-            setScrollProgress(0);
-            isTransitioningRef.current = false;
-          }, 750);
-        }
-      }
-      // Swipe Up (scroll Down) on Engine before dwell time
-      else if (deltaY > 0 && activeTab === "engine") {
-        if (Date.now() < engineUnlockTimestampRef.current) {
-          e.preventDefault();
-        }
-      }
-      // Swipe Down (scroll Up) on Engine
-      else if (deltaY < 0 && activeTab === "engine") {
-        e.preventDefault();
-        if (isTransitioningRef.current) return;
-        const progress = Math.min(1, Math.max(0, Math.abs(deltaY) / 100));
-        setScrollProgress(progress);
-        if (deltaY < -100) {
-          isTransitioningRef.current = true;
-          setActiveTab("copilot");
-          setTimeout(() => {
-            setScrollProgress(0);
-            isTransitioningRef.current = false;
-          }, 750);
-        }
-      }
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-      if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
-    };
-  }, [activeTab]);
-
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -1336,16 +1185,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div className="w-full min-w-full shrink-0 flex items-center justify-center">
               <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-                  {/* Left: Free-Floating 3D Copilot Playbook Visual with Scroll-Driven Motion */}
+                  {/* Left: Free-Floating 3D Copilot Playbook Visual */}
                   <div className="lg:col-span-7 relative flex items-center justify-center pointer-events-auto select-none">
                     <img
                       src={copilotPlaybookImg}
                       alt="Microsoft Copilot AI Adoption Playbook 3D Dashboard"
-                      style={{
-                        transform: `perspective(1000px) rotateY(${scrollProgress * -10}deg) rotateX(${scrollProgress * 6}deg) scale(${1 + scrollProgress * 0.05}) translateZ(${scrollProgress * 25}px)`,
-                        filter: `drop-shadow(0 ${20 + scrollProgress * 15}px ${50 + scrollProgress * 25}px rgba(244,63,94,${0.18 + scrollProgress * 0.25}))`,
-                      }}
-                      className="w-full h-auto max-w-[540px] object-contain transition-transform duration-200 ease-out will-change-transform"
+                      className="w-full h-auto max-w-[540px] object-contain drop-shadow-[0_20px_50px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
                     />
                   </div>
 
@@ -1450,16 +1295,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div className="w-full min-w-full shrink-0 flex items-center justify-center">
               <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-                  {/* Left: Free-Floating 3D SaaS Dashboard Visual with Scroll-Driven Motion */}
+                  {/* Left: Free-Floating 3D SaaS Dashboard Visual */}
                   <div className="lg:col-span-7 relative flex items-center justify-center pointer-events-auto select-none">
                     <img
                       src={adoptIqImg}
                       alt="AdoptIQ.ai 3D Dashboard Engine at Work"
-                      style={{
-                        transform: `perspective(1000px) rotateY(${scrollProgress * 10}deg) rotateX(${scrollProgress * -6}deg) scale(${1 + scrollProgress * 0.05}) translateZ(${scrollProgress * 25}px)`,
-                        filter: `drop-shadow(0 ${20 + scrollProgress * 15}px ${50 + scrollProgress * 25}px rgba(99,102,241,${0.18 + scrollProgress * 0.25}))`,
-                      }}
-                      className="w-full h-auto max-w-[540px] object-contain transition-transform duration-200 ease-out will-change-transform"
+                      className="w-full h-auto max-w-[540px] object-contain drop-shadow-[0_20px_50px_rgba(99,102,241,0.18)] transition-transform duration-500 hover:scale-[1.02]"
                     />
                   </div>
 
