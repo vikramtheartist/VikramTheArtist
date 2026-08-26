@@ -420,8 +420,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </div>
             </div>
 
-            {/* Main Headline */}
-            <h1 className="text-[68px] sm:text-[84px] lg:text-[96px] font-black tracking-[-0.04em] text-[#0a0e1a] leading-[0.92] mb-4">
+            {/* Main Headline with Signature Cobalt-to-Purple Gradient */}
+            <h1 className="text-[68px] sm:text-[84px] lg:text-[96px] font-black tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea] leading-[0.92] mb-4 font-sans inline-block">
               ADOPT
             </h1>
 
