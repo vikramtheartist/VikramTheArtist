@@ -315,12 +315,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
           if (problemRef.current) {
             const rect = problemRef.current.getBoundingClientRect();
-            const windowHeight = window.innerHeight || 800;
-            const scrollRange = problemRef.current.offsetHeight - windowHeight;
-            if (scrollRange > 0) {
+            const totalScrollable = rect.height - window.innerHeight;
+            if (totalScrollable > 0) {
               const currentScroll = -rect.top;
-              const prog = Math.max(0, Math.min(1, currentScroll / scrollRange));
-              setProblemProgress(prog);
+              const progress = Math.min(Math.max(currentScroll / totalScrollable, 0), 1);
+              setProblemProgress(progress);
             }
           }
 
@@ -559,14 +558,15 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 2: THE CORE PROBLEM (PINNED SEQUENTIAL SCROLL PROGRESSION) ──── */}
+      {/* ── SECTION 2: THE CORE PROBLEM (STICKY STORYTELLING SCROLLTRACK) ──── */}
       <section
         id="problem"
         ref={problemRef}
-        className="w-full min-h-[320vh] lg:min-h-[340vh] relative z-20 overflow-visible bg-transparent"
+        className="w-full min-h-[220vh] relative z-20 bg-transparent"
       >
-        <div className="sticky top-0 h-screen w-full flex items-center justify-center py-10 lg:py-14 overflow-hidden">
-          {/* Phase 1: Full-Bleed Parallax Iceberg Artwork (Anchored from the Start) */}
+        {/* Sticky 100vh Viewport Container: Background & Headline stick to screen */}
+        <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+          {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Multiply Blending */}
           <div
             className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
             style={{
@@ -589,16 +589,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
 
           {/* Full-Width Centered Content Container */}
-          <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[620px]">
+          <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[580px] max-h-[780px]">
             {/* Top Row (Above Water / Upper Content Area) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Phase 1: Badge, Headline & Context (Stays Anchored from the Start) */}
-              <div
-                className="lg:col-span-6 flex flex-col items-start text-left will-change-transform transition-transform duration-200"
-                style={{
-                  transform: `translate3d(${mousePos.x * -6}px, ${mousePos.y * -4}px, 0)`,
-                }}
-              >
+              {/* Top Left: Badge, Headline & Context (Sticks along with Background Iceberg) */}
+              <div className="lg:col-span-6 flex flex-col items-start text-left">
                 <div className="mb-4">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
                     <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
@@ -607,7 +602,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   <div className="w-8 h-[2.5px] bg-[#38bdf8] rounded-full mt-2.5 shadow-[0_0_8px_rgba(56,189,248,0.6)]" />
                 </div>
 
-                <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
+                <h2 className="text-[42px] sm:text-[50px] lg:text-[56px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
                   AI adoption is not<br />
                   a feature problem.<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
@@ -615,19 +610,24 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   </span>
                 </h2>
 
-                <p className="text-[14px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-8">
+                <p className="text-[14px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-4 sm:mb-6">
                   Even powerful products fail when they collide with familiar habits, uncertainty, and inertia.
                 </p>
               </div>
 
-              {/* Phase 2: ABOVE THE SURFACE Callout Card (Scrolls in with Below Surface Card in Step 2) */}
-              <div className="lg:col-span-6 flex justify-start lg:justify-end">
+              {/* Top Right: ABOVE THE SURFACE Callout Card (Reveals smoothly on initial downward scroll) */}
+              <div
+                className="lg:col-span-6 flex justify-start lg:justify-end transition-all duration-700 ease-out"
+                style={{
+                  opacity: problemProgress >= 0.18 ? 1 : 0,
+                  transform: `translate3d(0, ${problemProgress >= 0.18 ? 0 : 36}px, 0)`,
+                  pointerEvents: problemProgress >= 0.18 ? "auto" : "none",
+                }}
+              >
                 <div
-                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default will-change-transform"
+                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                   style={{
-                    opacity: Math.max(0, Math.min(1, ((problemProgress - 0.15) / 0.32) * 3.5)),
-                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(0, ${(1 - Math.max(0, Math.min(1, (problemProgress - 0.15) / 0.32))) * 160}px, 0)`,
-                    pointerEvents: problemProgress > 0.18 ? "auto" : "none",
+                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
                   }}
                 >
                   {/* Connecting Line to Mountain Peak with Pulsing Sonar Beacon */}
@@ -674,17 +674,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </div>
             </div>
 
-            {/* Bottom Row (Below Water / Lower Content Area) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
-              {/* Phase 3: 4 Checkmark Bullet Items (Scrolls in Next in Step 3) */}
-              <div
-                className="lg:col-span-6 space-y-4 max-w-[440px] text-left will-change-transform transition-all duration-300 ease-out"
-                style={{
-                  opacity: Math.max(0, Math.min(1, ((problemProgress - 0.55) / 0.32) * 3.5)),
-                  transform: `translate3d(0, ${(1 - Math.max(0, Math.min(1, (problemProgress - 0.55) / 0.32))) * 140}px, 0)`,
-                  pointerEvents: problemProgress > 0.58 ? "auto" : "none",
-                }}
-              >
+            {/* Bottom Row: Checkmarks & BELOW THE SURFACE Card (Reveals on continued downward scroll) */}
+            <div
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-4 sm:pt-8 transition-all duration-700 ease-out"
+              style={{
+                opacity: problemProgress >= 0.5 ? 1 : 0,
+                transform: `translate3d(0, ${problemProgress >= 0.5 ? 0 : 40}px, 0)`,
+                pointerEvents: problemProgress >= 0.5 ? "auto" : "none",
+              }}
+            >
+              {/* Bottom Left: 4 Checkmark Bullet Items */}
+              <div className="lg:col-span-6 space-y-3.5 max-w-[440px] text-left">
                 {[
                   "Users don't resist products.",
                   "They resist changing routines.",
@@ -705,14 +705,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 ))}
               </div>
 
-              {/* Phase 2: BELOW THE SURFACE Callout Card (Scrolls in with Above Surface Card in Step 2) */}
+              {/* Bottom Right: BELOW THE SURFACE Callout Card */}
               <div className="lg:col-span-6 flex justify-start lg:justify-end">
                 <div
-                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default will-change-transform"
+                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                   style={{
-                    opacity: Math.max(0, Math.min(1, ((problemProgress - 0.15) / 0.32) * 3.5)),
-                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(0, ${(1 - Math.max(0, Math.min(1, (problemProgress - 0.15) / 0.32))) * 160}px, 0)`,
-                    pointerEvents: problemProgress > 0.18 ? "auto" : "none",
+                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
                   }}
                 >
                   {/* Connecting Line to Submerged Iceberg with Pulsing Sonar Beacon */}
