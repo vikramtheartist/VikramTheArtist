@@ -1106,77 +1106,74 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </div>
             </div>
 
-            {/* Right: Brand Title, Headline, 4-Step Workflow Pill & CTA */}
+            {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA */}
             <div className="lg:col-span-5 flex flex-col items-start text-left pl-0 lg:pl-4">
               {/* Eyebrow Badge */}
-              <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed] text-[11px] font-extrabold tracking-wider uppercase mb-4 shadow-2xs">
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
                 AI ADOPTION ENGINE
               </div>
 
               {/* Brand Title with Gradient */}
-              <h2 className="text-[56px] sm:text-[68px] lg:text-[76px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#4f46e5] via-[#6366f1] to-[#3b82f6] tracking-tight leading-[0.95] mb-3">
+              <h2 className="text-[54px] sm:text-[66px] lg:text-[74px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#4f46e5] via-[#6366f1] to-[#3b82f6] tracking-tight leading-[0.95] mb-2">
                 AdoptIQ.ai
               </h2>
 
-              {/* Decorative Gradient Line with Star Accent */}
-              <div className="flex items-center gap-2 w-full max-w-sm mb-5">
-                <div className="h-[2px] flex-1 bg-gradient-to-r from-[#4f46e5]/40 via-[#7c3aed]/40 to-transparent rounded-full" />
-                <span className="text-[#7c3aed] text-xs font-black">✦</span>
-                <div className="h-[2px] flex-1 bg-gradient-to-l from-[#3b82f6]/40 via-[#7c3aed]/40 to-transparent rounded-full" />
-              </div>
-
-              {/* Headline */}
-              <h3 className="text-[30px] sm:text-[36px] lg:text-[40px] font-black text-[#0a0e1a] tracking-tight leading-[1.12] mb-4 max-w-lg">
-                Turn adoption signals into the next best action.
-              </h3>
-
-              {/* Supporting Paragraph */}
-              <p className="text-[15px] sm:text-[16px] text-[#64748b] leading-relaxed mb-8 max-w-lg font-normal">
-                Powered by the ADOPT Playbook, AdoptIQ diagnoses where adoption is breaking and recommends the highest-leverage intervention.
+              {/* Sub-tagline */}
+              <p className="text-[15px] sm:text-[16px] font-semibold text-[#64748b] mb-4 tracking-tight">
+                The AI engine powered by the ADOPT playbook
               </p>
 
-              {/* 4-Step Workflow Flow Card (Pill Container) */}
-              <div className="w-full max-w-lg rounded-[28px] bg-white/92 backdrop-blur-xl border border-slate-200/80 shadow-[0_10px_30px_-8px_rgba(0,0,0,0.05)] p-4 sm:p-5 flex items-center justify-between gap-2 mb-8">
-                {/* 1. Ask */}
-                <div className="flex flex-col items-center gap-1.5 flex-1">
-                  <div className="w-10 h-10 rounded-full bg-[#eff6ff] text-[#3b82f6] border border-[#dbeafe] flex items-center justify-center text-base shadow-2xs">
-                    💬
-                  </div>
-                  <span className="text-xs font-bold text-[#0f172a]">Ask</span>
+              {/* Headline */}
+              <h3 className="text-[28px] sm:text-[34px] lg:text-[38px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
+                Turn messy adoption signals into a prioritized behavioral action plan.
+              </h3>
+
+              {/* 4 Pipeline Flow Steps in Pill */}
+              <div className="w-full max-w-lg p-2.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-xs flex items-center justify-between mb-5">
+                {[
+                  { icon: "💬", label: "Ask" },
+                  { icon: "🧠", label: "Diagnose" },
+                  { icon: "📋", label: "Prioritize" },
+                  { icon: "🪄", label: "Generate" }
+                ].map((step, idx, arr) => (
+                  <React.Fragment key={idx}>
+                    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[12px] font-bold text-[#334155]">
+                      <span className="text-[14px]">{step.icon}</span>
+                      <span>{step.label}</span>
+                    </div>
+                    {idx < arr.length - 1 && <span className="text-slate-300 text-xs">→</span>}
+                  </React.Fragment>
+                ))}
+              </div>
+
+              {/* 3 Core Value Pillars */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
+                <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
+                  <span className="text-xl">🧠</span>
+                  <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
+                    Systematize Behavioral Diagnosis
+                  </span>
                 </div>
 
-                {/* Dotted Track */}
-                <div className="w-8 border-b-2 border-dotted border-slate-300 -mt-4 hidden sm:block" />
-
-                {/* 2. Diagnose */}
-                <div className="flex flex-col items-center gap-1.5 flex-1">
-                  <div className="w-10 h-10 rounded-full bg-[#fff1f2] text-[#f43f5e] border border-[#ffe4e6] flex items-center justify-center text-base shadow-2xs">
-                    🧠
-                  </div>
-                  <span className="text-xs font-bold text-[#0f172a]">Diagnose</span>
+                <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
+                  <span className="text-xl">🪄</span>
+                  <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
+                    Prescribe Contextual UX Interventions
+                  </span>
                 </div>
 
-                {/* Dotted Track */}
-                <div className="w-8 border-b-2 border-dotted border-slate-300 -mt-4 hidden sm:block" />
-
-                {/* 3. Prioritize */}
-                <div className="flex flex-col items-center gap-1.5 flex-1">
-                  <div className="w-10 h-10 rounded-full bg-[#fffbeb] text-[#f59e0b] border border-[#fef3c7] flex items-center justify-center text-base shadow-2xs">
-                    📋
-                  </div>
-                  <span className="text-xs font-bold text-[#0f172a]">Prioritize</span>
+                <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
+                  <span className="text-xl">👥</span>
+                  <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
+                    Unify Cross-Functional Alignment
+                  </span>
                 </div>
+              </div>
 
-                {/* Dotted Track */}
-                <div className="w-8 border-b-2 border-dotted border-slate-300 -mt-4 hidden sm:block" />
-
-                {/* 4. Generate */}
-                <div className="flex flex-col items-center gap-1.5 flex-1">
-                  <div className="w-10 h-10 rounded-full bg-[#f5f3ff] text-[#8b5cf6] border border-[#ede9fe] flex items-center justify-center text-base shadow-2xs">
-                    ✨
-                  </div>
-                  <span className="text-xs font-bold text-[#0f172a]">Generate</span>
-                </div>
+              {/* Generate Actionable Plans Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#f0fdf4] border border-[#bbf7d0] text-[#16a34a] text-[12px] font-bold mb-7 shadow-2xs">
+                <span>⚡</span>
+                <span>Generate actionable remediation plans</span>
               </div>
 
               {/* CTA Button: Cobalt/Indigo Gradient Pill */}
