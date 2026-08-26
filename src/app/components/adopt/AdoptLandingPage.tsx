@@ -1332,10 +1332,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         setPasswordError("");
                         setShowPasswordModal(true);
                       }}
-                      className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#f97316] via-[#f43f5e] to-[#ec4899] text-white font-bold text-[15px] shadow-[0_12px_28px_-6px_rgba(244,63,94,0.45)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 cursor-pointer group"
+                      className="adopt-hero-btn-primary group"
                     >
                       <span>View Copilot Case Study</span>
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      <span className="adopt-btn-circle-arrow">
+                        <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
+                      </span>
                     </button>
                   </div>
                 </div>
@@ -1431,11 +1433,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       href="https://adoptiqai.vercel.app/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#2563eb] via-[#4344fa] to-[#4f46e5] text-white font-bold text-[15px] shadow-[0_12px_28px_-6px_rgba(37,99,235,0.48)] hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2.5 cursor-pointer text-decoration-none group"
+                      className="adopt-hero-btn-primary group text-decoration-none"
                     >
                       <span>Launch AdoptIQ.ai</span>
-                      <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                        <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                      <span className="adopt-btn-circle-arrow">
+                        <ArrowUpRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
                       </span>
                     </a>
                   </div>
@@ -1492,14 +1494,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
               {/* Right Side: Center-Aligned Action Buttons */}
               <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3 shrink-0">
-                {/* 1. Launch the Playbook (Purple Gradient Pill + Circular Arrow) */}
+                {/* 1. Launch the Playbook (Signature Blue Pill + Circular Arrow) */}
                 <button
                   onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
-                  className="pl-5 pr-1.5 py-1.5 rounded-full bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#8b5cf6] text-white font-bold text-[13px] shadow-[0_8px_20px_-4px_rgba(99,102,241,0.5)] border border-white/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 cursor-pointer group"
+                  className="adopt-hero-btn-primary group"
                 >
                   <span>Launch the Playbook</span>
-                  <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5">
-                    <ArrowRight className="w-3.5 h-3.5" />
+                  <span className="adopt-btn-circle-arrow">
+                    <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
                   </span>
                 </button>
 
