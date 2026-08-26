@@ -28,7 +28,7 @@ import {
 } from "lucide-react";
 import "../../../styles/adopt-landing.css";
 import adoptIqImg from "../../../assets/img/AdoptIQ.png";
-import copilotPlaybookImg from "../../../assets/img/Scale Copilot.png";
+import copilotPlaybookImg from "../../../assets/img/CopilotPlaybook.png";
 import awareCardImg from "../../../assets/img/Aware.png";
 import desireCardImg from "../../../assets/img/Desire.png";
 import openCardImg from "../../../assets/img/Open.png";
@@ -1193,13 +1193,23 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div className="w-full min-w-full shrink-0 flex items-center justify-center">
               <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                  {/* Left: Free-Floating 3D Copilot Playbook Visual */}
-                  <div className="lg:col-span-7 relative flex items-center justify-center pointer-events-auto select-none">
+                  {/* Left: Free-Floating 3D Copilot Playbook Visual with Abstract Glow & Shadows */}
+                  <div className="lg:col-span-7 relative flex items-center justify-center pointer-events-auto select-none py-4">
+                    {/* Abstract Neon Glow Halo Behind Visual */}
+                    <div className="absolute w-[460px] sm:w-[540px] h-[340px] sm:h-[400px] rounded-[100%] bg-gradient-to-tr from-[#f43f5e]/22 via-[#c084fc]/28 to-[#6366f1]/22 blur-3xl pointer-events-none -z-10 animate-pulse" style={{ animationDuration: '7s' }} />
+                    <div className="absolute top-1/6 right-1/4 w-40 h-40 rounded-full bg-cyan-400/18 blur-2xl pointer-events-none -z-10" />
+                    <div className="absolute bottom-1/4 left-1/4 w-48 h-48 rounded-full bg-pink-500/18 blur-2xl pointer-events-none -z-10" />
+
+                    {/* Main Visual Image */}
                     <img
                       src={copilotPlaybookImg}
-                      alt="Microsoft Copilot AI Adoption Playbook 3D Dashboard"
-                      className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
+                      alt="Microsoft Copilot AI Adoption Playbook 3D Rocket & Community"
+                      className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_28px_65px_rgba(244,63,94,0.22)] transition-transform duration-500 hover:scale-[1.03] relative z-10"
                     />
+
+                    {/* Luminous Ground Contact Shadow & Caustic Reflection Beneath Pedestal */}
+                    <div className="absolute bottom-1 sm:bottom-2 w-[65%] h-6 sm:h-8 rounded-[100%] bg-gradient-to-r from-[#6366f1]/30 via-[#c084fc]/45 to-[#f43f5e]/30 blur-xl pointer-events-none z-0" />
+                    <div className="absolute bottom-3 sm:bottom-4 w-[45%] h-3 rounded-[100%] bg-slate-900/16 blur-[5px] pointer-events-none z-0" />
                   </div>
 
                   {/* Right: Narrative, Headlines, Metrics & Case Study CTA */}
