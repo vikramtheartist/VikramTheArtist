@@ -865,24 +865,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           {/* ── AUTHENTIC FROSTED GLASS STAGE DEEP-DIVE MODAL ──────── */}
           {activeStageDetail !== null && (
             <div
-              className="fixed inset-0 z-50 bg-blue-950/10 backdrop-blur-[4px] flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in"
+              className="fixed inset-0 z-50 bg-slate-900/20 backdrop-blur-2xl flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in"
               onClick={() => setActiveStageDetail(null)}
             >
-              {/* Vibrant Radiant Blue Light Aura directly behind the Glass Card (Bright, Non-Dark) */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center -z-0">
-                {/* Large Radiant Cobalt & Cyan Azure Glow Cloud */}
-                <div className="absolute w-[1050px] h-[800px] rounded-full bg-gradient-to-tr from-[#2563eb]/70 via-[#38bdf8]/65 to-[#60a5fa]/55 blur-[120px]" />
-
-                {/* Top-Left Sky Blue Ambient Highlight */}
-                <div className="absolute top-[10%] left-[16%] w-[650px] h-[520px] rounded-full bg-gradient-to-br from-[#0284c7]/60 via-[#38bdf8]/70 to-transparent blur-[100px]" />
-
-                {/* Bottom-Right Royal Indigo / Deep Azure Bloom */}
-                <div className="absolute bottom-[8%] right-[15%] w-[750px] h-[580px] rounded-full bg-gradient-to-tl from-[#1d4ed8]/65 via-[#4f46e5]/50 to-transparent blur-[110px]" />
-
-                {/* Center Soft Cyan Caustic Refraction Glow */}
-                <div className="absolute w-[750px] h-[480px] rounded-full bg-[#38bdf8]/40 blur-[85px]" />
-              </div>
-
               {/* Frosted Glass Floating Card Container */}
               <div
                 className="frosted-glass-modal relative w-full max-w-[1400px] max-h-[92vh] overflow-y-auto adopt-custom-scrollbar p-6 sm:p-10 lg:p-12 text-left z-10"
@@ -1001,18 +986,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
                     </div>
 
-                    {/* Active Stage Indicator Pill cleanly below the character with frosted glass styling */}
-                    <div className="mt-6 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full frosted-glass-pill text-sm font-black text-[#0f172a] relative z-30">
-                      <span
-                        className="w-2.5 h-2.5 rounded-full"
-                        style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }}
-                      />
-                      <span>
-                        {STAGES_DATA[activeStageDetail].num} {STAGES_DATA[activeStageDetail].title}
-                      </span>
-                    </div>
-
-                    <div className="mt-2 text-center text-xs text-slate-500 font-semibold">
+                    <div className="mt-4 text-center text-xs text-slate-500 font-semibold">
                       Click characters or arrows to revolve 3D stage ring
                     </div>
                   </div>
