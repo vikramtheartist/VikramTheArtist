@@ -28,7 +28,23 @@
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
+  --mx: 0;
+  --my: 0;
+  --sy: 0;
 }
+
+/* ── Performance & Rendering Optimizations ────────────────────── */
+.adopt-section-lazy {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
+}
+
+.adopt-gpu-layer {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
 
 /* ── Hero Eyebrow Pill ─────────────────────────────────────────── */
 .adopt-hero-badge {

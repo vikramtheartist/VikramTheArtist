@@ -301,17 +301,19 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     };
   }, [activeStageDetail, showPasswordModal]);
 
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const pageRef = React.useRef<HTMLDivElement | null>(null);
 
   React.useEffect(() => {
     let ticking = false;
     const handleMouseMove = (e: MouseEvent) => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setMousePos({
-            x: (e.clientX / window.innerWidth - 0.5) * 2,
-            y: (e.clientY / window.innerHeight - 0.5) * 2,
-          });
+          const mx = (e.clientX / window.innerWidth - 0.5) * 2;
+          const my = (e.clientY / window.innerHeight - 0.5) * 2;
+          if (pageRef.current) {
+            pageRef.current.style.setProperty("--mx", mx.toFixed(3));
+            pageRef.current.style.setProperty("--my", my.toFixed(3));
+          }
           ticking = false;
         });
         ticking = true;
@@ -326,7 +328,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
+          const sy = window.scrollY;
+          if (pageRef.current) {
+            pageRef.current.style.setProperty("--sy", sy.toFixed(1));
+          }
+          if (sy < 1200) {
+            setScrollY(sy);
+          }
           ticking = false;
         });
         ticking = true;
@@ -344,7 +352,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   };
 
   return (
-    <div className="adopt-page-wrapper selection:bg-indigo-500 selection:text-white relative">
+    <div ref={pageRef} className="adopt-page-wrapper selection:bg-indigo-500 selection:text-white relative">
       {/* ── CONTINUOUS FLOWING MOODBOARD GRADIENT ATMOSPHERE (FULL PAGE) ─ */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
         {/* Top Hero Glows: Pastel Mint/Cyan + Iris Violet/Lilac + Strawberry Pink */}
@@ -412,13 +420,15 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div
             className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
             style={{
-              transform: `translate3d(${50 + mousePos.x * 20}px, ${mousePos.y * 14}px, 0) scale(1.05) perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
+              transform: "translate3d(calc(50px + var(--mx, 0) * 20px), calc(var(--my, 0) * 14px), 0) scale(1.05) perspective(1000px) rotateY(calc(var(--mx, 0) * 3.5deg)) rotateX(calc(var(--my, 0) * -3deg))",
               transformOrigin: "78% 50%",
             }}
           >
             <img
               src={`${import.meta.env.BASE_URL}IMG/adopt_hero_glass_bg.jpg`}
               alt="ADOPT 8K 3D Glass Artwork"
+              fetchPriority="high"
+              decoding="async"
               className="w-full h-full object-cover object-[80%_center] lg:object-[78%_center] opacity-95 transition-opacity duration-700 animate-hero-float scale-105"
             />
           </div>
@@ -427,13 +437,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div
             className="absolute top-1/4 right-1/3 w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-400/30 to-violet-400/40 blur-xl will-change-transform transition-transform duration-300"
             style={{
-              transform: `translate3d(${mousePos.x * -28}px, ${mousePos.y * -20}px, 0)`,
+              transform: "translate3d(calc(var(--mx, 0) * -28px), calc(var(--my, 0) * -20px), 0)",
             }}
           />
           <div
             className="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-pink-400/25 to-purple-400/35 blur-2xl will-change-transform transition-transform duration-300"
             style={{
-              transform: `translate3d(${mousePos.x * 22}px, ${mousePos.y * 18}px, 0)`,
+              transform: "translate3d(calc(var(--mx, 0) * 22px), calc(var(--my, 0) * 18px), 0)",
             }}
           />
 
@@ -451,7 +461,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div
             className="max-w-2xl text-left will-change-transform transition-transform duration-200"
             style={{
-              transform: `translate3d(${mousePos.x * -6}px, ${mousePos.y * -4}px, 0)`,
+              transform: "translate3d(calc(var(--mx, 0) * -6px), calc(var(--my, 0) * -4px), 0)",
             }}
           >
             {/* Eyebrow Badge */}
@@ -578,12 +588,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div
             className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              transform: "translate3d(calc(var(--mx, 0) * 8px), calc((var(--sy, 0) - 500) * -0.035px + var(--my, 0) * 6px), 0) perspective(1200px) rotateY(calc(var(--mx, 0) * 2deg)) rotateX(calc(var(--my, 0) * -1.5deg))",
             }}
           >
             <img
               src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-contain sm:object-cover object-center mix-blend-multiply transition-transform duration-700 opacity-95"
             />
           </div>
@@ -631,7 +643,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 <div
                   className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full text-left mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                   style={{
-                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
+                    transform: "perspective(1000px) rotateY(calc(var(--mx, 0) * 3.5deg)) rotateX(calc(var(--my, 0) * -3.5deg))",
                   }}
                 >
                   {/* Connecting Line to Mountain Peak with Pulsing Sonar Beacon */}
@@ -725,7 +737,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 <div
                   className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full text-left mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                   style={{
-                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
+                    transform: "perspective(1000px) rotateY(calc(var(--mx, 0) * 3.5deg)) rotateX(calc(var(--my, 0) * -3.5deg))",
                   }}
                 >
                   {/* Connecting Line to Submerged Iceberg with Pulsing Sonar Beacon */}
@@ -778,7 +790,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 3: THE 5 STAGES OF THE ADOPT PLAYBOOK ─────────────────── */}
       <section
         id="playbook-stages"
-        className="py-14 lg:py-22 relative overflow-hidden bg-transparent"
+        className="py-14 lg:py-22 relative overflow-hidden bg-transparent adopt-section-lazy"
       >
         {/* Subtle Ambient Micro-Sparkles floating in continuous atmosphere */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
@@ -852,7 +864,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 <div className="w-[80px] h-[80px] rounded-[20px] bg-gradient-to-tr from-[#f5f3ff] via-[#fdf4ff] to-[#fff1f2] border border-[#f3e8ff] flex items-center justify-center p-2 shrink-0 shadow-2xs">
                   <svg className="w-full h-full" viewBox="0 0 60 60" fill="none">
                     <path
-                      d="M6 48C18 48 24 38 34 26C42 16 48 10 54 8"
+                      d="M64 10 L 22 10 L 0 28"
                       stroke="url(#insight_grad_full)"
                       strokeWidth="3.5"
                       strokeLinecap="round"
@@ -893,6 +905,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       <img
                         src={stage.cardImg}
                         alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                       />
                     </div>
@@ -1176,7 +1190,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* (APPLIED PLAYBOOK, AI ADOPTION ENGINE, CLOSING CTA & FOOTER) */}
       <section
         id="case-study"
-        className="pt-14 sm:pt-20 lg:pt-24 pb-0 relative overflow-hidden bg-transparent"
+        className="pt-14 sm:pt-20 lg:pt-24 pb-0 relative overflow-hidden bg-transparent adopt-section-lazy"
       >
         {/* Anchors for navigation links */}
         <div id="adoptiq" className="absolute -top-24 left-0 pointer-events-none" />
@@ -1270,6 +1284,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     <img
                       src={copilotPlaybookImg}
                       alt="Microsoft Copilot AI Adoption Playbook 3D Dashboard"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
                     />
                   </div>
@@ -1380,6 +1396,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     <img
                       src={adoptIqImg}
                       alt="AdoptIQ.ai 3D Dashboard Engine at Work"
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(99,102,241,0.18)] transition-transform duration-500 hover:scale-[1.02]"
                     />
                   </div>
