@@ -285,6 +285,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   }, [activeStageDetail, showPasswordModal]);
 
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const problemRef = React.useRef<HTMLElement>(null);
+  const [problemProgress, setProblemProgress] = useState(0);
 
   React.useEffect(() => {
     let ticking = false;
@@ -310,12 +312,23 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setScrollY(window.scrollY);
+
+          if (problemRef.current) {
+            const rect = problemRef.current.getBoundingClientRect();
+            const windowHeight = window.innerHeight || 800;
+            const totalDistance = rect.height + windowHeight * 0.3;
+            const currentDist = windowHeight - rect.top;
+            const prog = Math.max(0, Math.min(1, currentDist / totalDistance));
+            setProblemProgress(prog);
+          }
+
           ticking = false;
         });
         ticking = true;
       }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -544,204 +557,204 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
+      {/* ── SECTION 2: THE CORE PROBLEM (SEQUENTIAL SCROLLYTELLING CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 -mt-24 sm:-mt-32 lg:-mt-44 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent"
+        ref={problemRef}
+        className="w-full min-h-[145vh] lg:min-h-[160vh] relative z-20 overflow-visible bg-transparent"
       >
-        {/* 1. Separate Soft Blue Ambient Background Glow (Fades in independently on scroll) */}
-        <div
-          className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden transition-opacity duration-500"
-          style={{
-            opacity: Math.min(1, Math.max(0, (scrollY - 280) / 320)),
-            background: "radial-gradient(ellipse 85% 65% at 50% 60%, rgba(186, 230, 253, 0.4) 0%, rgba(224, 242, 254, 0.2) 50%, transparent 80%)",
-          }}
-        />
-
-        {/* 2. Pure Transparent Iceberg (Moves Upward FIRST on scroll into Hero) */}
-        <div
-          className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden flex items-center justify-center"
-          style={{
-            maskImage: "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
-          }}
-        >
+        <div className="sticky top-0 min-h-screen w-full flex items-center justify-center py-12 lg:py-16 overflow-hidden">
+          {/* Step 1: Full-Bleed Parallax Iceberg Artwork Background (Rises Upward First) */}
           <div
-            className="w-full h-[125%] absolute -top-[12%] inset-x-0 will-change-transform transition-transform duration-200 ease-out flex items-center justify-center"
+            className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden will-change-transform transition-all duration-500 ease-out"
             style={{
-              transform: `translate3d(${mousePos.x * 8}px, ${Math.max(-200, (scrollY - 180) * -0.25) + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              opacity: Math.min(1, Math.max(0.1, problemProgress * 4.5)),
+              maskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
             }}
           >
-            <img
-              src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_transparent.png`}
-              alt="AI Adoption Iceberg Analogy"
-              className="w-full h-full object-contain sm:object-cover object-center transition-transform duration-700 opacity-95"
-            />
-          </div>
-        </div>
-
-        {/* Full-Width Centered Content Container */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px]">
-          {/* Top Row (Above Water / Upper Content Area) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Top Left: Badge, Headline & Context (Enters Second, after Iceberg) */}
             <div
-              className="lg:col-span-6 flex flex-col items-start text-left will-change-transform transition-transform duration-200"
+              className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
               style={{
-                transform: `translate3d(0, ${Math.max(-70, (scrollY - 340) * -0.12)}px, 0)`,
-                opacity: Math.min(1, Math.max(0.1, (scrollY - 160) / 220)),
+                transform: `translate3d(${mousePos.x * 8}px, ${Math.max(0, (1 - Math.min(1, problemProgress * 3.5)) * 60) + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
               }}
             >
-              <div className="mb-4">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
-                  <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
-                  <span>THE CORE PROBLEM</span>
-                </div>
-                <div className="w-8 h-[2.5px] bg-[#38bdf8] rounded-full mt-2.5 shadow-[0_0_8px_rgba(56,189,248,0.6)]" />
-              </div>
-
-              <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
-                AI adoption is not<br />
-                a feature problem.<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
-                  It’s a behavior<br className="hidden sm:inline" /> problem.
-                </span>
-              </h2>
-
-              <p className="text-[14px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-8">
-                Even powerful products fail when they collide with familiar habits, uncertainty, and inertia.
-              </p>
+              <img
+                src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
+                alt="AI Adoption Iceberg Analogy"
+                className="w-full h-full object-contain sm:object-cover object-center mix-blend-multiply transition-transform duration-700 opacity-95"
+              />
             </div>
+          </div>
 
-            {/* Top Right: ABOVE THE SURFACE Callout Card (Enters Third) */}
-            <div
-              className="lg:col-span-6 flex justify-start lg:justify-end will-change-transform transition-transform duration-200"
-              style={{
-                transform: `translate3d(0, ${Math.max(-50, (scrollY - 400) * -0.09)}px, 0)`,
-                opacity: Math.min(1, Math.max(0.1, (scrollY - 220) / 240)),
-              }}
-            >
+          {/* Full-Width Centered Content Container */}
+          <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px]">
+            {/* Top Row (Above Water / Upper Content Area) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+              {/* Step 1: Badge, Headline & Context (Rises Upward First) */}
               <div
-                className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
+                className="lg:col-span-6 flex flex-col items-start text-left will-change-transform transition-all duration-500 ease-out"
                 style={{
-                  transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
+                  opacity: Math.min(1, Math.max(0.15, problemProgress * 4.5)),
+                  transform: `translate3d(0, ${Math.max(0, (1 - Math.min(1, problemProgress * 3.5)) * 60)}px, 0)`,
                 }}
               >
-                {/* Connecting Line to Mountain Peak with Pulsing Sonar Beacon */}
-                <div className="hidden lg:block absolute -left-16 top-6 w-16 h-8 pointer-events-none">
-                  {/* Glowing Radar Sonar Ping Node */}
-                  <div className="absolute left-0 top-[25px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#6366f1] animate-adopt-sonar" />
-                  <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
-                    <path d="M64 10 L 22 10 L 0 28" stroke="#a5b4fc" strokeWidth="1.4" className="animate-adopt-dash" />
-                    <circle cx="0" cy="28" r="3.5" fill="#6366f1" />
-                    <circle cx="0" cy="28" r="6" stroke="#c7d2fe" strokeWidth="1" opacity="0.6" />
-                  </svg>
+                <div className="mb-4">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
+                    <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
+                    <span>THE CORE PROBLEM</span>
+                  </div>
+                  <div className="w-8 h-[2.5px] bg-[#38bdf8] rounded-full mt-2.5 shadow-[0_0_8px_rgba(56,189,248,0.6)]" />
                 </div>
 
-                <div className="flex items-center gap-3.5 mb-3.5">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
-                    <Mountain className="w-5 h-5 text-[#6366f1] stroke-[2]" />
-                  </div>
-                  <div>
-                    <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
-                      ABOVE THE SURFACE
-                    </div>
-                    <div className="text-[12px] text-[#64748b] font-medium">
-                      What teams optimize
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2 pl-2">
-                  {[
-                    "Advanced capabilities",
-                    "Continuous innovation",
-                    "Feature-rich roadmap",
-                    "Enterprise-grade security",
-                  ].map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155] hover:text-[#0f172a] transition-colors">
-                      <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0 shadow-xs">
-                        <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
-                      </div>
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Row (Below Water / Lower Content Area) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
-            {/* Bottom Left: 4 Checkmark Bullet Items with Interactive Micro-Slide */}
-            <div className="lg:col-span-6 space-y-4 max-w-[440px] text-left">
-              {[
-                "Users don't resist products.",
-                "They resist changing routines.",
-                "Better technology does not automatically create behavior change.",
-                "Sustainable adoption starts with human behavior.",
-              ].map((text, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-start gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
-                >
-                  <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)] transition-all">
-                    <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
-                  </div>
-                  <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-snug group-hover:text-[#0f172a] transition-colors">
-                    {text}
+                <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
+                  AI adoption is not<br />
+                  a feature problem.<br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
+                    It’s a behavior<br className="hidden sm:inline" /> problem.
                   </span>
+                </h2>
+
+                <p className="text-[14px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-8">
+                  Even powerful products fail when they collide with familiar habits, uncertainty, and inertia.
+                </p>
+              </div>
+
+              {/* Step 2: ABOVE THE SURFACE Callout Card (Revealed Next) */}
+              <div className="lg:col-span-6 flex justify-start lg:justify-end">
+                <div
+                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default will-change-transform"
+                  style={{
+                    opacity: Math.min(1, Math.max(0, (problemProgress - 0.22) * 4.5)),
+                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(0, ${Math.max(0, (1 - Math.min(1, Math.max(0, (problemProgress - 0.22) * 3.5))) * 60)}px, 0)`,
+                    pointerEvents: problemProgress > 0.22 ? "auto" : "none",
+                  }}
+                >
+                  {/* Connecting Line to Mountain Peak with Pulsing Sonar Beacon */}
+                  <div className="hidden lg:block absolute -left-16 top-6 w-16 h-8 pointer-events-none">
+                    {/* Glowing Radar Sonar Ping Node */}
+                    <div className="absolute left-0 top-[25px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#6366f1] animate-adopt-sonar" />
+                    <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
+                      <path d="M64 10 L 22 10 L 0 28" stroke="#a5b4fc" strokeWidth="1.4" className="animate-adopt-dash" />
+                      <circle cx="0" cy="28" r="3.5" fill="#6366f1" />
+                      <circle cx="0" cy="28" r="6" stroke="#c7d2fe" strokeWidth="1" opacity="0.6" />
+                    </svg>
+                  </div>
+
+                  <div className="flex items-center gap-3.5 mb-3.5">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
+                      <Mountain className="w-5 h-5 text-[#6366f1] stroke-[2]" />
+                    </div>
+                    <div>
+                      <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
+                        ABOVE THE SURFACE
+                      </div>
+                      <div className="text-[12px] text-[#64748b] font-medium">
+                        What teams optimize
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 pl-2">
+                    {[
+                      "Advanced capabilities",
+                      "Continuous innovation",
+                      "Feature-rich roadmap",
+                      "Enterprise-grade security",
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155] hover:text-[#0f172a] transition-colors">
+                        <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0 shadow-xs">
+                          <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
+                        </div>
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              ))}
+              </div>
             </div>
 
-            {/* Bottom Right: BELOW THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
-            <div className="lg:col-span-6 flex justify-start lg:justify-end">
+            {/* Bottom Row (Below Water / Lower Content Area) */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
+              {/* Step 4: 4 Checkmark Bullet Items (Revealed in Step 4) */}
               <div
-                className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
+                className="lg:col-span-6 space-y-4 max-w-[440px] text-left will-change-transform transition-all duration-500 ease-out"
                 style={{
-                  transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
+                  opacity: Math.min(1, Math.max(0, (problemProgress - 0.68) * 4.5)),
+                  transform: `translate3d(0, ${Math.max(0, (1 - Math.min(1, Math.max(0, (problemProgress - 0.68) * 3.5))) * 60)}px, 0)`,
+                  pointerEvents: problemProgress > 0.68 ? "auto" : "none",
                 }}
               >
-                {/* Connecting Line to Submerged Iceberg with Pulsing Sonar Beacon */}
-                <div className="hidden lg:block absolute -left-16 top-6 w-16 h-4 pointer-events-none">
-                  {/* Glowing Radar Sonar Ping Node */}
-                  <div className="absolute left-0 top-[8px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#38bdf8] animate-adopt-sonar" />
-                  <svg className="w-full h-full" viewBox="0 0 64 16" fill="none">
-                    <path d="M64 8 L 0 8" stroke="#38bdf8" strokeWidth="1.4" className="animate-adopt-dash" />
-                    <circle cx="0" cy="8" r="3.5" fill="#38bdf8" />
-                    <circle cx="0" cy="8" r="6" stroke="#7dd3fc" strokeWidth="1" opacity="0.6" />
-                  </svg>
-                </div>
-
-                <div className="flex items-center gap-3.5 mb-3.5">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
-                    <Lock className="w-5 h-5 text-[#6366f1] stroke-[2]" />
-                  </div>
-                  <div>
-                    <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
-                      BELOW THE SURFACE
+                {[
+                  "Users don't resist products.",
+                  "They resist changing routines.",
+                  "Better technology does not automatically create behavior change.",
+                  "Sustainable adoption starts with human behavior.",
+                ].map((text, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)] transition-all">
+                      <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
                     </div>
-                    <div className="text-[12px] text-[#64748b] font-medium">
-                      What holds adoption back
-                    </div>
+                    <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-snug group-hover:text-[#0f172a] transition-colors">
+                      {text}
+                    </span>
                   </div>
-                </div>
+                ))}
+              </div>
 
-                <div className="space-y-2 pl-2">
-                  {[
-                    "Familiar habits",
-                    "Fear of change",
-                    "Unclear personal value",
-                    "Low motivation to switch",
-                  ].map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155] hover:text-[#0f172a] transition-colors">
-                      <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0 shadow-xs">
-                        <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
+              {/* Step 3: BELOW THE SURFACE Callout Card (Revealed Next) */}
+              <div className="lg:col-span-6 flex justify-start lg:justify-end">
+                <div
+                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default will-change-transform"
+                  style={{
+                    opacity: Math.min(1, Math.max(0, (problemProgress - 0.45) * 4.5)),
+                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(0, ${Math.max(0, (1 - Math.min(1, Math.max(0, (problemProgress - 0.45) * 3.5))) * 60)}px, 0)`,
+                    pointerEvents: problemProgress > 0.45 ? "auto" : "none",
+                  }}
+                >
+                  {/* Connecting Line to Submerged Iceberg with Pulsing Sonar Beacon */}
+                  <div className="hidden lg:block absolute -left-16 top-6 w-16 h-4 pointer-events-none">
+                    {/* Glowing Radar Sonar Ping Node */}
+                    <div className="absolute left-0 top-[8px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#38bdf8] animate-adopt-sonar" />
+                    <svg className="w-full h-full" viewBox="0 0 64 16" fill="none">
+                      <path d="M64 8 L 0 8" stroke="#38bdf8" strokeWidth="1.4" className="animate-adopt-dash" />
+                      <circle cx="0" cy="8" r="3.5" fill="#38bdf8" />
+                      <circle cx="0" cy="8" r="6" stroke="#7dd3fc" strokeWidth="1" opacity="0.6" />
+                    </svg>
+                  </div>
+
+                  <div className="flex items-center gap-3.5 mb-3.5">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
+                      <Lock className="w-5 h-5 text-[#6366f1] stroke-[2]" />
+                    </div>
+                    <div>
+                      <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
+                        BELOW THE SURFACE
                       </div>
-                      <span>{item}</span>
+                      <div className="text-[12px] text-[#64748b] font-medium">
+                        What holds adoption back
+                      </div>
                     </div>
-                  ))}
+                  </div>
+
+                  <div className="space-y-2 pl-2">
+                    {[
+                      "Familiar habits",
+                      "Fear of change",
+                      "Unclear personal value",
+                      "Low motivation to switch",
+                    ].map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155] hover:text-[#0f172a] transition-colors">
+                        <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0 shadow-xs">
+                          <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
+                        </div>
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
