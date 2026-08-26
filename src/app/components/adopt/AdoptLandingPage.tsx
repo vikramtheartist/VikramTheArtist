@@ -559,14 +559,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 2: THE CORE PROBLEM (PINNED SEQUENTIAL SCROLL PROGRESSION) ──── */}
+      {/* ── SECTION 2: THE CORE PROBLEM (HIGH-PERFORMANCE STICKY PARALLAX SECTION) ──── */}
       <section
         id="problem"
         ref={problemRef}
-        className="w-full min-h-[320vh] lg:min-h-[340vh] relative z-20 overflow-visible bg-transparent"
+        className="w-full min-h-[300vh] lg:min-h-[320vh] relative z-20 overflow-visible bg-transparent"
       >
         <div className="sticky top-0 h-screen w-full flex items-center justify-center py-10 lg:py-14 overflow-hidden">
-          {/* Phase 1: Full-Bleed Parallax Iceberg Artwork (Anchored from the Start) */}
+          {/* Phase 1: Core Visual Center (Full-Bleed Parallax Iceberg Artwork in Liquid Glass / Pastel Aesthetic) */}
           <div
             className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
             style={{
@@ -592,7 +592,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[620px]">
             {/* Top Row (Above Water / Upper Content Area) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Phase 1: Badge, Headline & Context (Stays Anchored from the Start) */}
+              {/* Phase 1 (0% - 20% scroll): Badge, Headline & Subtitle (Pins & Stays Fully Visible) */}
               <div
                 className="lg:col-span-6 flex flex-col items-start text-left will-change-transform transition-transform duration-200"
                 style={{
@@ -620,14 +620,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </p>
               </div>
 
-              {/* Phase 2: ABOVE THE SURFACE Callout Card (Enters 1st on Downward Scroll) */}
+              {/* Phase 3 (40% - 70% scroll): ABOVE THE SURFACE Glass Card (Floats into view from the right) */}
               <div className="lg:col-span-6 flex justify-start lg:justify-end">
                 <div
                   className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default will-change-transform"
                   style={{
-                    opacity: Math.max(0, Math.min(1, ((problemProgress - 0.16) / 0.24) * 3.5)),
-                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(0, ${(1 - Math.max(0, Math.min(1, (problemProgress - 0.16) / 0.24))) * 160}px, 0)`,
-                    pointerEvents: problemProgress > 0.18 ? "auto" : "none",
+                    opacity: Math.max(0, Math.min(1, ((problemProgress - 0.40) / 0.30) * 3.5)),
+                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(${(1 - Math.max(0, Math.min(1, (problemProgress - 0.40) / 0.30))) * 120}px, 0, 0)`,
+                    pointerEvents: problemProgress > 0.42 ? "auto" : "none",
                   }}
                 >
                   {/* Connecting Line to Mountain Peak with Pulsing Sonar Beacon */}
@@ -676,43 +676,49 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
             {/* Bottom Row (Below Water / Lower Content Area) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
-              {/* Phase 4: 4 Checkmark Bullet Items (Enters 3rd on Downward Scroll) */}
-              <div
-                className="lg:col-span-6 space-y-4 max-w-[440px] text-left will-change-transform transition-all duration-300 ease-out"
-                style={{
-                  opacity: Math.max(0, Math.min(1, ((problemProgress - 0.70) / 0.22) * 3.5)),
-                  transform: `translate3d(0, ${(1 - Math.max(0, Math.min(1, (problemProgress - 0.70) / 0.22))) * 140}px, 0)`,
-                  pointerEvents: problemProgress > 0.72 ? "auto" : "none",
-                }}
-              >
+              {/* Phase 2 (20% - 40% scroll): Left-hand Bullet Points (Fade in & Slide up sequentially with staggered delay) */}
+              <div className="lg:col-span-6 space-y-4 max-w-[440px] text-left">
                 {[
                   "Users don't resist products.",
                   "They resist changing routines.",
                   "Better technology does not automatically create behavior change.",
                   "Sustainable adoption starts with human behavior.",
-                ].map((text, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-start gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
-                  >
-                    <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)] transition-all">
-                      <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
+                ].map((text, idx) => {
+                  const bulletPhase = Math.max(0, Math.min(1, (problemProgress - 0.20) / 0.20));
+                  const itemStart = idx * 0.18;
+                  const itemProgress = Math.max(0, Math.min(1, (bulletPhase - itemStart) / 0.46));
+                  const itemOpacity = itemProgress > 0.01 ? Math.min(1, itemProgress * 2.5) : 0;
+                  const itemTranslateY = (1 - itemProgress) * 35;
+
+                  return (
+                    <div
+                      key={idx}
+                      className="flex items-start gap-3.5 group cursor-default transition-all duration-200 will-change-transform hover:translate-x-1.5"
+                      style={{
+                        opacity: itemOpacity,
+                        transform: `translate3d(0, ${itemTranslateY}px, 0)`,
+                        pointerEvents: itemProgress > 0.5 ? "auto" : "none",
+                      }}
+                    >
+                      <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)] transition-all">
+                        <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
+                      </div>
+                      <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-snug group-hover:text-[#0f172a] transition-colors">
+                        {text}
+                      </span>
                     </div>
-                    <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-snug group-hover:text-[#0f172a] transition-colors">
-                      {text}
-                    </span>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
-              {/* Phase 3: BELOW THE SURFACE Callout Card (Enters 2nd on Downward Scroll) */}
+              {/* Phase 4 (70% - 100% scroll): BELOW THE SURFACE Glass Card (Scales & Fades into Position) */}
               <div className="lg:col-span-6 flex justify-start lg:justify-end">
                 <div
                   className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default will-change-transform"
                   style={{
-                    opacity: Math.max(0, Math.min(1, ((problemProgress - 0.44) / 0.24) * 3.5)),
-                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(0, ${(1 - Math.max(0, Math.min(1, (problemProgress - 0.44) / 0.24))) * 160}px, 0)`,
-                    pointerEvents: problemProgress > 0.46 ? "auto" : "none",
+                    opacity: Math.max(0, Math.min(1, ((problemProgress - 0.70) / 0.28) * 3.5)),
+                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(0, ${(1 - Math.max(0, Math.min(1, (problemProgress - 0.70) / 0.28))) * 50}px, 0) scale(${0.85 + Math.max(0, Math.min(1, (problemProgress - 0.70) / 0.28)) * 0.15})`,
+                    pointerEvents: problemProgress > 0.72 ? "auto" : "none",
                   }}
                 >
                   {/* Connecting Line to Submerged Iceberg with Pulsing Sonar Beacon */}
