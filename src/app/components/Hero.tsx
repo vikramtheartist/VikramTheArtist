@@ -245,39 +245,27 @@ const cards = [
     title: "Observe",
     tag: "DISCOVER & FRAME",
     icon: Eye,
-    tagGradient: "linear-gradient(135deg, rgba(168, 85, 247, 0.35) 0%, rgba(99, 102, 241, 0.25) 100%)",
-    tagBorder: "rgba(192, 132, 252, 0.45)",
-    tagGlow: "0 4px 14px rgba(168, 85, 247, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.50)",
-    iconColor: "#d8b4fe",
-    waveStart: "#ec4899",
-    waveMid: "#a855f7",
-    waveEnd: "#06b6d4",
+    tagColor: "rgba(168, 85, 247, 0.95)",
+    iconBg: "rgba(168, 85, 247, 0.12)",
+    iconBorder: "rgba(168, 85, 247, 0.25)",
     body: "I understand the system—users, data, AI, and context to frame the right problem.",
   },
   {
     title: "Create",
     tag: "DESIGN & DECIDE",
     icon: Sparkles,
-    tagGradient: "linear-gradient(135deg, rgba(6, 182, 212, 0.35) 0%, rgba(59, 130, 246, 0.25) 100%)",
-    tagBorder: "rgba(56, 189, 248, 0.45)",
-    tagGlow: "0 4px 14px rgba(6, 182, 212, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.50)",
-    iconColor: "#7dd3fc",
-    waveStart: "#06b6d4",
-    waveMid: "#3b82f6",
-    waveEnd: "#a855f7",
+    tagColor: "rgba(56, 189, 248, 0.95)",
+    iconBg: "rgba(56, 189, 248, 0.12)",
+    iconBorder: "rgba(56, 189, 248, 0.25)",
     body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
   },
   {
     title: "Evolve",
     tag: "SCALE & REFINE",
     icon: TrendingUp,
-    tagGradient: "linear-gradient(135deg, rgba(168, 85, 247, 0.35) 0%, rgba(236, 72, 153, 0.25) 100%)",
-    tagBorder: "rgba(244, 114, 182, 0.45)",
-    tagGlow: "0 4px 14px rgba(236, 72, 153, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.50)",
-    iconColor: "#f472b6",
-    waveStart: "#a855f7",
-    waveMid: "#ec4899",
-    waveEnd: "#38bdf8",
+    tagColor: "rgba(244, 114, 182, 0.95)",
+    iconBg: "rgba(244, 114, 182, 0.12)",
+    iconBorder: "rgba(244, 114, 182, 0.25)",
     body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
   },
 ];
@@ -407,112 +395,65 @@ export function Hero() {
           ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}
         >
-          {cards.map(({ title, tag, icon: Icon, tagGradient, tagBorder, tagGlow, iconColor, waveStart, waveMid, waveEnd, body }) => (
+          {cards.map(({ title, tag, icon: Icon, tagColor, iconBg, iconBorder, body }) => (
             <div
               key={title}
-              className="group hero-philosophy-card"
+              className="hero-philosophy-card flex flex-col justify-between"
             >
-              <div className="hero-philosophy-card-inner">
-                {/* Top Specular Inner Edge Light Sheen */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-[1.5px] pointer-events-none z-10"
-                  style={{
-                    background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.7) 25%, rgba(192,132,252,0.9) 60%, transparent 100%)",
-                  }}
-                />
-
-                {/* Corner Ambient Radial Violet Glow */}
-                <div
-                  className="absolute -top-10 -right-10 w-36 h-36 rounded-full pointer-events-none z-0 transition-opacity duration-500 opacity-60 group-hover:opacity-100"
-                  style={{
-                    background: "radial-gradient(circle, rgba(168,85,247,0.32) 0%, rgba(99,102,241,0.15) 45%, transparent 70%)",
-                    filter: "blur(18px)",
-                  }}
-                />
-
-                {/* Header: Glossy Pill Badge with Icon */}
-                <div className="relative z-10 flex items-center mb-1">
+              <div>
+                {/* Header: Icon + Category Eyebrow matching ProjectCard */}
+                <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-md transition-all duration-300"
+                    className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0"
                     style={{
-                      background: tagGradient,
-                      border: `1px solid ${tagBorder}`,
-                      boxShadow: tagGlow,
+                      background: iconBg,
+                      border: `1px solid ${iconBorder}`,
+                      boxShadow: "inset 0 1px 1px rgba(255, 255, 255, 0.35)",
                     }}
                   >
-                    <Icon className="w-3.5 h-3.5" style={{ color: iconColor }} strokeWidth={2.2} />
-                    <span
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: "10.5px",
-                        fontWeight: 700,
-                        letterSpacing: "0.08em",
-                        color: "#ffffff",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {tag}
-                    </span>
+                    <Icon className="w-5 h-5" style={{ color: tagColor }} strokeWidth={1.8} />
                   </div>
+                  <span
+                    style={{
+                      fontFamily: "'Inter', sans-serif",
+                      fontSize: "11px",
+                      fontWeight: 600,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      color: tagColor,
+                    }}
+                  >
+                    {tag}
+                  </span>
                 </div>
 
-                {/* Title: Bold Crisp Specular Typography */}
+                {/* Title matching ProjectCard typography */}
                 <h3
-                  className="relative z-10 tracking-tight"
                   style={{
                     fontFamily: "'Poppins', sans-serif",
-                    fontWeight: 700,
-                    fontSize: "26px",
-                    lineHeight: 1.15,
-                    letterSpacing: "-0.02em",
-                    color: "#ffffff",
-                    margin: 0,
-                    textShadow: "0 2px 10px rgba(0,0,0,0.4)",
+                    fontWeight: 400,
+                    fontSize: "24px",
+                    lineHeight: 1.25,
+                    color: "white",
+                    marginBottom: "12px",
                   }}
                 >
                   {title}
                 </h3>
 
-                {/* Body Text */}
+                {/* Body Text matching ProjectCard description */}
                 <p
-                  className="relative z-10"
                   style={{
                     fontFamily: "'Inter', sans-serif",
                     fontWeight: 400,
-                    fontSize: "14.5px",
-                    lineHeight: 1.65,
-                    color: "rgba(226, 232, 240, 0.88)",
+                    fontSize: "15px",
+                    lineHeight: 1.7,
+                    color: "rgba(255, 255, 255, 0.8)",
                     margin: 0,
                   }}
                 >
                   {body}
                 </p>
-
-                {/* Cyber Wave Topographic Contour Lines SVG at Bottom */}
-                <svg
-                  className="absolute bottom-0 left-0 right-0 w-full h-[105px] pointer-events-none z-0 transition-opacity duration-500 opacity-45 group-hover:opacity-75"
-                  viewBox="0 0 300 110"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="none"
-                >
-                  <defs>
-                    <linearGradient id={`card-wave-grad-${title}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor={waveStart} stopOpacity="0.85" />
-                      <stop offset="50%" stopColor={waveMid} stopOpacity="0.9" />
-                      <stop offset="100%" stopColor={waveEnd} stopOpacity="0.85" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M-10 100 C 50 60, 110 115, 170 75 C 230 35, 275 85, 310 70" stroke={`url(#card-wave-grad-${title})`} strokeWidth="1.2" strokeOpacity="0.75" />
-                  <path d="M-10 90 C 45 45, 120 105, 180 60 C 240 18, 270 75, 310 55" stroke={`url(#card-wave-grad-${title})`} strokeWidth="1.0" strokeOpacity="0.55" />
-                  <path d="M-10 80 C 60 30, 130 90, 190 45 C 250 8, 265 65, 310 40" stroke={`url(#card-wave-grad-${title})`} strokeWidth="0.8" strokeOpacity="0.38" />
-                  <path d="M-10 110 C 70 75, 140 125, 200 85 C 260 45, 285 95, 310 82" stroke={`url(#card-wave-grad-${title})`} strokeWidth="0.8" strokeOpacity="0.28" />
-                  {/* Glowing starry sparks along contours */}
-                  <circle cx="75" cy="78" r="1.4" fill="#ec4899" fillOpacity="0.85" />
-                  <circle cx="155" cy="65" r="1.2" fill="#c084fc" fillOpacity="0.9" />
-                  <circle cx="220" cy="45" r="1.4" fill="#38bdf8" fillOpacity="0.85" />
-                  <circle cx="270" cy="72" r="1" fill="#ec4899" fillOpacity="0.75" />
-                </svg>
               </div>
             </div>
           ))}
