@@ -382,19 +382,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         id="hero"
         className="relative z-10 min-h-[92vh] lg:min-h-[98vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent"
       >
-        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism (Sticks to UI, zero scroll movement) */}
+        {/* Background Visual Asset: Fixed 8K 3D Translucent Waves & Glass Play Prism (Sticks to Screen on Scroll) */}
         <div
-          className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
+          className="fixed top-0 left-0 w-full h-screen pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
           style={{
-            maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+            opacity: Math.max(0, 1 - scrollY / 900),
+            maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
           }}
         >
-          {/* Multi-axis 3D Prism Container (Zero scroll translation, subtle interactive mouse gyro only) */}
+          {/* Multi-axis 3D Gyroscope Prism Container */}
           <div
             className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
             style={{
-              transform: `translate3d(${50 + mousePos.x * 18}px, ${mousePos.y * 12}px, 0) scale(1.05) perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
+              transform: `translate3d(${50 + mousePos.x * 20}px, ${mousePos.y * 14}px, 0) scale(1.05) perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
               transformOrigin: "78% 50%",
             }}
           >
@@ -405,17 +406,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             />
           </div>
 
-          {/* Floating Atmospheric Sparkle Orbs */}
+          {/* Floating Atmospheric Sparkle Orbs with Mouse Gyroscope */}
           <div
             className="absolute top-1/4 right-1/3 w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-400/30 to-violet-400/40 blur-xl will-change-transform transition-transform duration-300"
             style={{
-              transform: `translate3d(${mousePos.x * -24}px, ${mousePos.y * -16}px, 0)`,
+              transform: `translate3d(${mousePos.x * -28}px, ${mousePos.y * -20}px, 0)`,
             }}
           />
           <div
             className="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-pink-400/25 to-purple-400/35 blur-2xl will-change-transform transition-transform duration-300"
             style={{
-              transform: `translate3d(${mousePos.x * 18}px, ${mousePos.y * 14}px, 0)`,
+              transform: `translate3d(${mousePos.x * 22}px, ${mousePos.y * 18}px, 0)`,
             }}
           />
 
@@ -428,7 +429,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           />
         </div>
 
-        {/* Hero Content (Scrolls naturally upwards over the anchored background) */}
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 my-auto">
           {/* Left Text Column */}
           <div
@@ -488,8 +488,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
 
-          {/* Credibility Metric Bar */}
-          <div className="pt-4 relative z-10">
+          {/* Credibility Metric Bar with Differential Layer Parallax */}
+          <div
+            className="pt-4 relative z-10 will-change-transform transition-transform duration-200"
+            style={{
+              transform: `translate3d(0, ${scrollY * -0.1}px, 0)`,
+            }}
+          >
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl">
               {/* Stat 1: 1M WAU */}
               <div className="flex items-center gap-3 group cursor-default">
@@ -544,7 +549,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         id="problem"
         className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent"
       >
-        {/* Full-Bleed Parallax Iceberg Artwork Background with Depth Parallax */}
+        {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Multiply Blending */}
         <div
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
           style={{
@@ -553,9 +558,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           }}
         >
           <div
-            className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-200 ease-out flex items-center justify-center"
+            className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 600) * 0.12 + mousePos.y * 6}px, 0) scale(1.04) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
             }}
           >
             <img
@@ -566,17 +571,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
         </div>
 
-        {/* Full-Width Centered Content Container with Distinct Multi-Object Parallax Layers */}
+        {/* Full-Width Centered Content Container */}
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px]">
           {/* Top Row (Above Water / Upper Content Area) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Top Left: Badge, Headline & Context (Parallax Layer 1: Float Speed A) */}
-            <div
-              className="lg:col-span-6 flex flex-col items-start text-left will-change-transform transition-transform duration-200"
-              style={{
-                transform: `translate3d(0, ${(scrollY - 600) * -0.08}px, 0)`,
-              }}
-            >
+            {/* Top Left: Badge, Headline & Context */}
+            <div className="lg:col-span-6 flex flex-col items-start text-left">
               <div className="mb-4">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
                   <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
@@ -598,13 +598,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </p>
             </div>
 
-            {/* Top Right: ABOVE THE SURFACE Callout Card (Parallax Layer 2: Fast Foreground Float Speed B) */}
-            <div
-              className="lg:col-span-6 flex justify-start lg:justify-end will-change-transform transition-transform duration-200"
-              style={{
-                transform: `translate3d(0, ${(scrollY - 600) * -0.16}px, 0)`,
-              }}
-            >
+            {/* Top Right: ABOVE THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
+            <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
                 className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                 style={{
@@ -657,13 +652,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
           {/* Bottom Row (Below Water / Lower Content Area) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
-            {/* Bottom Left: 4 Checkmark Bullet Items (Parallax Layer 3: Steady Mid-Range Float Speed C) */}
-            <div
-              className="lg:col-span-6 space-y-4 max-w-[440px] text-left will-change-transform transition-transform duration-200"
-              style={{
-                transform: `translate3d(0, ${(scrollY - 750) * -0.06}px, 0)`,
-              }}
-            >
+            {/* Bottom Left: 4 Checkmark Bullet Items with Interactive Micro-Slide */}
+            <div className="lg:col-span-6 space-y-4 max-w-[440px] text-left">
               {[
                 "Users don't resist products.",
                 "They resist changing routines.",
@@ -684,13 +674,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ))}
             </div>
 
-            {/* Bottom Right: BELOW THE SURFACE Callout Card (Parallax Layer 4: Deep Refractive Float Speed D) */}
-            <div
-              className="lg:col-span-6 flex justify-start lg:justify-end will-change-transform transition-transform duration-200"
-              style={{
-                transform: `translate3d(0, ${(scrollY - 750) * -0.14}px, 0)`,
-              }}
-            >
+            {/* Bottom Right: BELOW THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
+            <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
                 className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                 style={{
