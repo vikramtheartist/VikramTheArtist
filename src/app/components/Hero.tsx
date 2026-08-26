@@ -390,9 +390,11 @@ export function Hero() {
               className="hero-3d-card group relative flex flex-col justify-between overflow-hidden cursor-default"
               style={{
                 borderRadius: "28px",
-                background: "linear-gradient(165deg, #2b1f88 0%, #1e1564 35%, #130f48 70%, #0d0a33 100%)",
-                border: "1px solid rgba(255, 255, 255, 0.22)",
-                boxShadow: "inset 0 1.5px 1.5px rgba(255, 255, 255, 0.45), inset 0 -2px 3px rgba(0, 0, 0, 0.5), 0 20px 45px -10px rgba(10, 8, 40, 0.8), 0 0 35px -5px rgba(99, 102, 241, 0.25)",
+                background: "linear-gradient(165deg, rgba(43, 31, 136, 0.58) 0%, rgba(30, 21, 100, 0.52) 35%, rgba(19, 15, 72, 0.58) 70%, rgba(13, 10, 51, 0.72) 100%)",
+                backdropFilter: "blur(20px) saturate(1.35)",
+                WebkitBackdropFilter: "blur(20px) saturate(1.35)",
+                border: "1px solid rgba(255, 255, 255, 0.24)",
+                boxShadow: "inset 0 1.5px 1.5px rgba(255, 255, 255, 0.45), inset 0 -2px 3px rgba(0, 0, 0, 0.4), 0 20px 45px -10px rgba(10, 8, 40, 0.65), 0 0 35px -5px rgba(99, 102, 241, 0.22)",
                 transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             >
@@ -483,8 +485,8 @@ export function Hero() {
               <div
                 className="w-full h-4"
                 style={{
-                  background: "linear-gradient(180deg, #090624 0%, #06041a 100%)",
-                  borderTop: "1px solid rgba(0, 0, 0, 0.4)",
+                  background: "linear-gradient(180deg, rgba(9, 6, 36, 0.70) 0%, rgba(6, 4, 26, 0.85) 100%)",
+                  borderTop: "1px solid rgba(0, 0, 0, 0.35)",
                   boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.05)",
                 }}
               />
