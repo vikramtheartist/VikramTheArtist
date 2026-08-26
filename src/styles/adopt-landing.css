@@ -611,55 +611,11 @@
 .frosted-glass-pill {
   background: rgba(255, 255, 255, 0.55);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
-  backdrop-filter: blur(160%);
+  backdrop-filter: blur(16px) saturate(160%);
   border: 1px solid rgba(255, 255, 255, 0.8);
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.04),
     inset 0 1px 1.5px rgba(255, 255, 255, 0.95);
 }
 
-/* ── AI Gradient Glowing Card Border & Spill Effect on Hover ── */
-.ai-glow-spill-mask {
-  mask-image: radial-gradient(
-    ellipse 100% 100% at 50% 50%,
-    transparent 50%,
-    black 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 100% 100% at 50% 50%,
-    transparent 50%,
-    black 100%
-  );
-}
 
-.ai-gradient-rotating-bg {
-  position: absolute;
-  top: -75%;
-  left: -75%;
-  width: 250%;
-  height: 250%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0%,
-    rgba(244, 114, 182, 0) 5%,
-    #f472b6 10%,
-    #c084fc 18%,
-    #818cf8 26%,
-    #38bdf8 34%,
-    #2dd4bf 42%,
-    #fbbf24 46%,
-    rgba(251, 191, 36, 0) 52%,
-    transparent 56%
-  );
-  animation: ai-conic-rotate 3.2s linear infinite;
-  will-change: transform;
-}
-
-@keyframes ai-conic-rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

@@ -576,9 +576,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           }}
         >
           <div
-            className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
+            className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-200 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 750) * -0.04 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
             }}
           >
             <img
@@ -593,8 +593,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px]">
           {/* Top Row (Above Water / Upper Content Area) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Top Left: Badge, Headline & Context */}
-            <div className="lg:col-span-6 flex flex-col items-start text-left">
+            {/* Top Left: Badge, Headline & Context (Parallax Speed: -0.12) */}
+            <div
+              className="lg:col-span-6 flex flex-col items-start text-left will-change-transform transition-transform duration-150 ease-out"
+              style={{
+                transform: `translate3d(0, ${(scrollY - 750) * -0.12}px, 0)`,
+              }}
+            >
               <div className="mb-4">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
                   <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
@@ -616,14 +621,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </p>
             </div>
 
-            {/* Top Right: ABOVE THE SURFACE Callout Card with Fade & Slide In */}
+            {/* Top Right: ABOVE THE SURFACE Callout Card (Parallax Speed: -0.18, Buoyant Surface Drift) */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className="w-full max-w-[320px] transition-all duration-700 ease-out"
+                className="w-full max-w-[320px] will-change-transform transition-all duration-700 ease-out"
                 style={{
                   opacity: coreProblemInView ? 1 : 0,
                   transform: coreProblemInView
-                    ? "translate3d(0, 0, 0)"
+                    ? `translate3d(0, ${(scrollY - 750) * -0.18}px, 0)`
                     : "translate3d(50px, 0, 0)",
                   transitionDelay: "150ms",
                 }}
@@ -681,8 +686,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
           {/* Bottom Row (Below Water / Lower Content Area) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
-            {/* Bottom Left: 4 Checkmark Bullet Items with Interactive Micro-Slide */}
-            <div className="lg:col-span-6 space-y-4 max-w-[440px] text-left">
+            {/* Bottom Left: 4 Checkmark Bullet Items (Parallax Speed: -0.09) */}
+            <div
+              className="lg:col-span-6 space-y-4 max-w-[440px] text-left will-change-transform transition-transform duration-150 ease-out"
+              style={{
+                transform: `translate3d(0, ${(scrollY - 1000) * -0.09}px, 0)`,
+              }}
+            >
               {[
                 "Users don't resist products.",
                 "They resist changing routines.",
@@ -703,14 +713,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ))}
             </div>
 
-            {/* Bottom Right: BELOW THE SURFACE Callout Card with Staggered Fade & Slide In */}
+            {/* Bottom Right: BELOW THE SURFACE Callout Card (Parallax Speed: -0.05, Submerged Drag) */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className="w-full max-w-[320px] transition-all duration-700 ease-out"
+                className="w-full max-w-[320px] will-change-transform transition-all duration-700 ease-out"
                 style={{
                   opacity: coreProblemInView ? 1 : 0,
                   transform: coreProblemInView
-                    ? "translate3d(0, 0, 0)"
+                    ? `translate3d(0, ${(scrollY - 1000) * -0.05}px, 0)`
                     : "translate3d(50px, 0, 0)",
                   transitionDelay: "380ms",
                 }}
@@ -881,26 +891,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     onClick={() => setActiveStageDetail(idx)}
                     className="flex flex-col h-full cursor-pointer group transition-all duration-300 hover:-translate-y-2.5 relative"
                   >
-                    {/* AI Gradient Rotating Glowing Border & Spill Container on Roll Over */}
-                    <div className="relative p-[2px] rounded-[30px] sm:rounded-[34px] transition-all duration-300 group-hover:drop-shadow-[0_20px_45px_rgba(192,132,252,0.22)]">
-                      {/* Rotating Outer Conic Border Glow */}
-                      <div className="absolute inset-0 rounded-[inherit] overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-                        <div className="ai-gradient-rotating-bg" />
-                      </div>
-
-                      {/* Glass Card Body */}
-                      <div className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden transition-all duration-300 flex items-center justify-center z-10">
-                        <img
-                          src={stage.cardImg}
-                          alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
-                          className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
-                        />
-
-                        {/* Inner AI Glow Spill with Radial Mask */}
-                        <div className="ai-glow-spill-mask opacity-0 group-hover:opacity-75 blur-xl pointer-events-none absolute inset-[-40%] z-20 overflow-hidden transition-opacity duration-300">
-                          <div className="ai-gradient-rotating-bg" />
-                        </div>
-                      </div>
+                    {/* Glass Card */}
+                    <div className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.18)] transition-all duration-300 flex items-center justify-center z-10">
+                      <img
+                        src={stage.cardImg}
+                        alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
+                        className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
                     </div>
 
                     {/* ── GLASSY BASE CAUSTIC LIGHT GLOW (TRANSPARENT BACKGROUND) ── */}
