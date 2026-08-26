@@ -1240,7 +1240,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                     <img
                       src={copilotPlaybookImg}
-                      alt="Microsoft Copilot AI Adoption Playbook 3D Dashboard"
+                      alt="Scale Copilot Adoption AI Adoption Playbook 3D Dashboard"
                       className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
                     />
                   </div>
@@ -1255,7 +1255,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                     {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
                     <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
-                      Microsoft Copilot
+                      Scale Copilot Adoption
                     </h2>
 
                     {/* Sub-tagline */}
@@ -1265,7 +1265,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                     {/* Headline */}
                     <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
-                      How behavioral design transformed awareness into repeat usage and advocacy.
+                      How the Adopt Playbook drove awareness into repeat usage and advocacy
                     </h3>
 
                     {/* 3 Metric Cards */}
