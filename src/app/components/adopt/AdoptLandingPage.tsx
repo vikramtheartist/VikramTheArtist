@@ -1301,26 +1301,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
                     </div>
 
-                    {/* 3 Strategic Playbook Pillars */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-6">
-                      <div className="p-3 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1">
-                        <span className="text-lg">🧩</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                          Friction Diagnosis
-                        </span>
+                    {/* Featured Key Outcome Card (24% more Active Copilot days) */}
+                    <div className="w-full max-w-lg p-3.5 sm:p-4 rounded-[22px] bg-white border border-[#e2e8f0] shadow-xs flex items-center gap-3.5 sm:gap-4 mb-7 hover:border-[#ddd6fe] transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#ede9fe] to-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 shadow-2xs">
+                        <TrendingUp className="w-6 h-6 stroke-[2.5]" />
                       </div>
-
-                      <div className="p-3 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1">
-                        <span className="text-lg">🧭</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                          Micro-Interventions
+                      <div className="flex flex-col text-left">
+                        <span className="text-[20px] sm:text-[22px] font-black text-[#0f172a] tracking-tight leading-tight">
+                          24% more
                         </span>
-                      </div>
-
-                      <div className="p-3 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1">
-                        <span className="text-lg">🚀</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                          Habit Formation
+                        <span className="text-[12.5px] sm:text-[13px] font-medium text-[#475569] leading-snug">
+                          Active Copilot days / week among CAC members
                         </span>
                       </div>
                     </div>
