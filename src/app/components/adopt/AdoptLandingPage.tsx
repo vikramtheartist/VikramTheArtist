@@ -1222,7 +1222,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
         {/* Horizontal Sliding Track with Smooth Cubic Animation & 5s Auto-Slide */}
         <div
-          className="relative w-full overflow-hidden mb-12 lg:mb-16"
+          className="relative w-full overflow-hidden mb-8 lg:mb-12 pt-2 pb-10"
           onMouseEnter={() => setIsSlidePaused(true)}
           onMouseLeave={() => setIsSlidePaused(false)}
         >
@@ -1233,7 +1233,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             }}
           >
             {/* ── SLIDE 1: APPLIED PLAYBOOK (Microsoft Copilot Case Study) ── */}
-            <div className="w-full min-w-full shrink-0 flex items-center justify-center">
+            <div className="w-full min-w-full shrink-0 flex items-center justify-center pb-4">
               <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
                   {/* Left: Free-Floating 3D Copilot Playbook Visual (Shifted Left) */}
@@ -1317,26 +1317,28 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     </div>
 
                     {/* CTA Button: Protected Figma Case Study */}
-                    <button
-                      onClick={() => {
-                        setPasswordInput("");
-                        setPasswordError("");
-                        setShowPasswordModal(true);
-                      }}
-                      className="adopt-hero-btn-primary group"
-                    >
-                      <span>View Copilot Case Study</span>
-                      <span className="adopt-btn-circle-arrow">
-                        <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
-                      </span>
-                    </button>
+                    <div className="pt-1 pb-3">
+                      <button
+                        onClick={() => {
+                          setPasswordInput("");
+                          setPasswordError("");
+                          setShowPasswordModal(true);
+                        }}
+                        className="adopt-hero-btn-primary group"
+                      >
+                        <span>View Copilot Case Study</span>
+                        <span className="adopt-btn-circle-arrow">
+                          <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
+                        </span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* ── SLIDE 2: AI ADOPTION ENGINE (AdoptIQ.ai) ──────────────── */}
-            <div className="w-full min-w-full shrink-0 flex items-center justify-center">
+            <div className="w-full min-w-full shrink-0 flex items-center justify-center pb-4">
               <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
                   {/* Left: Free-Floating 3D SaaS Dashboard Visual (Shifted Left) */}
@@ -1420,17 +1422,19 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     </div>
 
                     {/* CTA Button: Cobalt/Indigo Gradient Pill */}
-                    <a
-                      href="https://adoptiqai.vercel.app/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="adopt-hero-btn-primary group text-decoration-none"
-                    >
-                      <span>Launch AdoptIQ.ai</span>
-                      <span className="adopt-btn-circle-arrow">
-                        <ArrowUpRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
-                      </span>
-                    </a>
+                    <div className="pt-1 pb-3">
+                      <a
+                        href="https://adoptiqai.vercel.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="adopt-hero-btn-primary group text-decoration-none"
+                      >
+                        <span>Launch AdoptIQ.ai</span>
+                        <span className="adopt-btn-circle-arrow">
+                          <ArrowUpRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
+                        </span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
