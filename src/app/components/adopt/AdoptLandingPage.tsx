@@ -862,18 +862,31 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
 
-          {/* ── INTERACTIVE CIRCULAR STAGE DEEP-DIVE MODAL / VIEW ──────── */}
+          {/* ── INTERACTIVE LIQUID GLASS STAGE DEEP-DIVE MODAL ──────── */}
           {activeStageDetail !== null && (
-            <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in">
+            <div
+              className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in"
+              onClick={() => setActiveStageDetail(null)}
+            >
               <div
-                className="relative w-full max-w-[1400px] max-h-[92vh] overflow-y-auto adopt-custom-scrollbar rounded-[36px] bg-white/95 backdrop-blur-2xl border border-white shadow-[0_30px_90px_-20px_rgba(15,23,42,0.35)] p-6 sm:p-10 lg:p-12 text-left"
+                className="relative w-full max-w-[1400px] max-h-[92vh] overflow-y-auto adopt-custom-scrollbar rounded-[36px] sm:rounded-[44px] bg-white/80 backdrop-blur-3xl border border-white/80 shadow-[0_30px_90px_-15px_rgba(15,23,42,0.3),0_0_0_1.5px_rgba(255,255,255,0.85)_inset,0_0_50px_rgba(186,230,253,0.22)_inset] p-6 sm:p-10 lg:p-12 text-left overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Modal Top Bar: Minimalist Close Button */}
-                <div className="flex items-center justify-end pb-3 mb-4">
+                {/* Specular Liquid Glass Top Sheen Reflex */}
+                <div className="absolute top-0 left-0 right-0 h-36 rounded-t-[44px] bg-gradient-to-b from-white/70 via-white/15 to-transparent pointer-events-none -z-0" />
+                {/* Ambient Chromatic Liquid Rim Light */}
+                <div className="absolute inset-0 rounded-[44px] pointer-events-none -z-0 bg-gradient-to-br from-cyan-400/5 via-transparent to-purple-400/8" />
+
+                {/* Modal Top Bar: Minimalist Liquid Glass Close Button */}
+                <div className="flex items-center justify-between pb-3 mb-4 relative z-20">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 backdrop-blur-md border border-white/90 shadow-2xs text-[11px] font-extrabold tracking-wider uppercase" style={{ color: STAGES_DATA[activeStageDetail].color }}>
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }} />
+                    <span>STAGE DEEP DIVE • {STAGES_DATA[activeStageDetail].pillar}</span>
+                  </div>
+
                   <button
                     onClick={() => setActiveStageDetail(null)}
-                    className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition-colors cursor-pointer"
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/80 hover:bg-white text-slate-600 hover:text-slate-900 backdrop-blur-xl border border-white/90 shadow-[0_4px_14px_rgba(0,0,0,0.06)] flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
                     aria-label="Close details"
                   >
                     <X className="w-5 h-5" />
@@ -881,12 +894,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </div>
 
                 {/* ── Main Split Content: Left Circular 3D Ring + Center/Right Rich Details ── */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                  {/* Left Column: Pure 3D Revolving Character Carousel (Transparent, Floating) */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
+                  {/* Left Column: Pure 3D Revolving Character Carousel */}
                   <div className="lg:col-span-5 flex flex-col items-center justify-center relative p-0 sm:p-2 bg-transparent border-0">
                     {/* Compact 3D Viewport */}
                     <div className="adopt-3d-compact-viewport">
-                      <div className="adopt-3d-compact-ground-shadow" />
+                      {/* Dynamic Colored Ground Caustic Shadow */}
+                      <div
+                        className="adopt-3d-compact-ground-shadow"
+                        style={{
+                          background: `radial-gradient(ellipse at center, ${STAGES_DATA[activeStageDetail].color}40 0%, ${STAGES_DATA[activeStageDetail].color}15 40%, transparent 70%)`,
+                        }}
+                      />
 
                       {/* Left / Right Arrow Controls */}
                       <button
@@ -897,7 +916,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                               : prev - 1
                           )
                         }
-                        className="absolute left-1 sm:left-2 z-40 w-10 h-10 rounded-full bg-white/95 border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-[#4344fa] hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                        className="absolute left-1 sm:left-2 z-40 w-10 h-10 rounded-full bg-white/90 backdrop-blur-xl border border-white shadow-md flex items-center justify-center text-slate-700 hover:text-[#4344fa] hover:scale-110 active:scale-95 transition-all cursor-pointer"
                         aria-label="Previous Stage"
                       >
                         <ArrowRight className="w-4 h-4 rotate-180" />
@@ -911,7 +930,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                               : prev + 1
                           )
                         }
-                        className="absolute right-1 sm:right-2 z-40 w-10 h-10 rounded-full bg-white/95 border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-[#4344fa] hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                        className="absolute right-1 sm:right-2 z-40 w-10 h-10 rounded-full bg-white/90 backdrop-blur-xl border border-white shadow-md flex items-center justify-center text-slate-700 hover:text-[#4344fa] hover:scale-110 active:scale-95 transition-all cursor-pointer"
                         aria-label="Next Stage"
                       >
                         <ArrowRight className="w-4 h-4" />
@@ -971,8 +990,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
                     </div>
 
-                    {/* Active Stage Indicator Pill cleanly below the character with adequate vertical clearance */}
-                    <div className="mt-6 inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/95 border border-slate-200/90 shadow-xs text-sm font-extrabold text-[#0f172a] relative z-30">
+                    {/* Active Stage Indicator Pill cleanly below the character with liquid glass styling */}
+                    <div className="mt-6 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/85 backdrop-blur-xl border border-white/90 shadow-[0_6px_20px_rgba(0,0,0,0.06),0_0_0_1px_rgba(255,255,255,0.8)_inset] text-sm font-black text-[#0f172a] relative z-30">
                       <span
                         className="w-2.5 h-2.5 rounded-full"
                         style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }}
@@ -987,24 +1006,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     </div>
                   </div>
 
-                  {/* Center & Right Section: Rich Stage Details (Clean layout without duplicate static character) */}
+                  {/* Center & Right Section: Rich Stage Details in Liquid Glass UI */}
                   <div className="lg:col-span-7 flex flex-col items-start justify-between">
-                    {/* Header: Figma-styled Red Selection Bounding Box Title & Tagline */}
+                    {/* Header: Title & Tagline */}
                     <div className="w-full mb-6">
-                      {/* Figma-style Selection Bounding Box around Title */}
-                      <div className="relative inline-block border-2 border-dashed border-[#f43f5e] px-4 py-2 rounded-xl mb-4 bg-rose-50/20">
-                        {/* 4 Corner Handles */}
-                        <div className="absolute -top-1.5 -left-1.5 w-3 h-3 bg-[#f43f5e] border border-white shadow-2xs" />
-                        <div className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-[#f43f5e] border border-white shadow-2xs" />
-                        <div className="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-[#f43f5e] border border-white shadow-2xs" />
-                        <div className="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-[#f43f5e] border border-white shadow-2xs" />
-
-                        <h2
+                      <div className="flex items-center gap-3 mb-2">
+                        <span
                           className="text-[44px] sm:text-[56px] font-black tracking-tight leading-none"
                           style={{ color: STAGES_DATA[activeStageDetail].color }}
                         >
                           {STAGES_DATA[activeStageDetail].title}
-                        </h2>
+                        </span>
                       </div>
 
                       {/* Bold Tagline */}
@@ -1018,8 +1030,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       {STAGES_DATA[activeStageDetail].body}
                     </p>
 
-                    {/* Quote Box with Seth Godin / Author Attribution */}
-                    <div className="w-full p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#f8fafc] via-[#fdf4ff] to-[#f8fafc] border border-slate-200/80 mb-8 shadow-2xs">
+                    {/* Quote Box with Liquid Glass Styling */}
+                    <div className="w-full p-5 rounded-[22px] bg-white/60 backdrop-blur-xl border border-white/80 shadow-[0_6px_24px_rgba(0,0,0,0.03),0_0_0_1px_rgba(255,255,255,0.7)_inset] mb-7">
                       <div className="text-[17px] sm:text-[19px] font-serif italic text-[#0f172a] leading-snug">
                         “{STAGES_DATA[activeStageDetail].quote}”
                         <span className="not-italic text-sm font-sans font-semibold text-[#64748b] ml-3">
@@ -1029,20 +1041,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     </div>
 
                     {/* ── "THROUGH" Tactics & Channels Grid ── */}
-                    <div className="w-full mb-8">
-                      <div className="text-[12px] font-black tracking-widest text-[#64748b] uppercase mb-4">
+                    <div className="w-full mb-7">
+                      <div className="text-[12px] font-black tracking-widest text-[#64748b] uppercase mb-3.5">
                         T H R O U G H
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         {STAGES_DATA[activeStageDetail].through.map((item, i) => (
                           <div
                             key={i}
-                            className="p-4 rounded-2xl bg-white/90 border border-slate-200/80 shadow-2xs flex flex-col items-start text-left hover:border-slate-300 transition-colors"
+                            className="p-4.5 rounded-[20px] bg-white/65 backdrop-blur-xl border border-white/80 shadow-[0_4px_16px_rgba(0,0,0,0.03),0_0_0_1px_rgba(255,255,255,0.7)_inset] hover:bg-white/85 hover:shadow-[0_10px_25px_rgba(67,68,250,0.08)] hover:-translate-y-0.5 transition-all flex flex-col items-start text-left"
                           >
                             <div className="flex items-center gap-2 mb-1.5">
                               <div
-                                className="w-2 h-2 rounded-full shrink-0"
+                                className="w-2 h-2 rounded-full shrink-0 shadow-2xs"
                                 style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }}
                               />
                               <h4 className="text-[14px] font-bold text-[#0f172a]">
@@ -1057,12 +1069,15 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
                     </div>
 
-                    {/* Key Principles Footer Bar */}
-                    <div className="w-full p-4 rounded-2xl bg-[#f0f9ff]/80 border border-[#bae6fd]/80 text-[#0369a1] text-[13px] sm:text-[14px] leading-relaxed shadow-2xs">
-                      <strong className="font-extrabold text-[#0284c7] mr-1.5">
+                    {/* Key Principles Liquid Glass Footer Bar */}
+                    <div className="w-full p-4.5 rounded-[22px] bg-white/70 backdrop-blur-xl border border-white/90 shadow-[0_4px_20px_rgba(2,132,199,0.06),0_0_0_1px_rgba(255,255,255,0.8)_inset] text-[13px] sm:text-[14px] leading-relaxed text-[#0f172a]">
+                      <strong
+                        className="font-extrabold mr-1.5"
+                        style={{ color: STAGES_DATA[activeStageDetail].color }}
+                      >
                         Key Principles:
                       </strong>
-                      <span>{STAGES_DATA[activeStageDetail].keyPrinciples}</span>
+                      <span className="text-[#334155]">{STAGES_DATA[activeStageDetail].keyPrinciples}</span>
                     </div>
                   </div>
                 </div>
