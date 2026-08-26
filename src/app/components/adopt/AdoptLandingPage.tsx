@@ -1251,81 +1251,81 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       <section
         ref={sectionRef}
         id="case-study"
-        className="pt-10 sm:pt-14 pb-8 relative overflow-hidden bg-transparent"
+        className="pt-4 sm:pt-6 pb-2 relative overflow-hidden bg-transparent min-h-[92vh] flex flex-col justify-between"
       >
         {/* Anchors for navigation links */}
         <div id="adoptiq" className="absolute -top-24 left-0 pointer-events-none" />
         <div id="impact" className="absolute -top-24 left-0 pointer-events-none" />
 
         {/* Top Interactive Switcher & Navigation Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-8 lg:mb-10 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-3 lg:mb-4 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full">
           {/* Left: Dual Interactive Switcher Pill */}
-          <div className="inline-flex p-1.5 rounded-full bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-[0_10px_30px_-6px_rgba(0,0,0,0.08)]">
+          <div className="inline-flex p-1 rounded-full bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-[0_8px_24px_-6px_rgba(0,0,0,0.06)]">
             <button
               onClick={() => setActiveTab("copilot")}
-              className={`flex items-center gap-2.5 px-6 py-2.5 rounded-full text-[13px] font-extrabold tracking-wide uppercase transition-all duration-300 cursor-pointer ${
+              className={`flex items-center gap-2 px-5 py-2 rounded-full text-[12px] font-extrabold tracking-wide uppercase transition-all duration-300 cursor-pointer ${
                 activeTab === "copilot"
-                  ? "bg-gradient-to-r from-[#f43f5e] via-[#c084fc] to-[#6366f1] text-white shadow-[0_4px_16px_rgba(244,63,94,0.4)] scale-100"
+                  ? "bg-gradient-to-r from-[#f43f5e] via-[#c084fc] to-[#6366f1] text-white shadow-[0_4px_14px_rgba(244,63,94,0.35)] scale-100"
                   : "text-[#64748b] hover:text-[#0f172a] hover:bg-slate-50/80"
               }`}
             >
-              <span className="text-[11px] opacity-75">01</span>
+              <span className="text-[10px] opacity-75">01</span>
               <span>APPLIED PLAYBOOK</span>
             </button>
 
             <button
               onClick={() => setActiveTab("engine")}
-              className={`flex items-center gap-2.5 px-6 py-2.5 rounded-full text-[13px] font-extrabold tracking-wide uppercase transition-all duration-300 cursor-pointer ${
+              className={`flex items-center gap-2 px-5 py-2 rounded-full text-[12px] font-extrabold tracking-wide uppercase transition-all duration-300 cursor-pointer ${
                 activeTab === "engine"
-                  ? "bg-gradient-to-r from-[#2563eb] via-[#4344fa] to-[#4f46e5] text-white shadow-[0_4px_16px_rgba(37,99,235,0.4)] scale-100"
+                  ? "bg-gradient-to-r from-[#2563eb] via-[#4344fa] to-[#4f46e5] text-white shadow-[0_4px_14px_rgba(37,99,235,0.35)] scale-100"
                   : "text-[#64748b] hover:text-[#0f172a] hover:bg-slate-50/80"
               }`}
             >
-              <span className="text-[11px] opacity-75">02</span>
+              <span className="text-[10px] opacity-75">02</span>
               <span>AI ADOPTION ENGINE</span>
             </button>
           </div>
 
           {/* Right: Slide Indicator & Smooth Nav Buttons */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5">
               <span className="text-xs font-black tracking-widest text-[#0f172a] uppercase">
                 {activeTab === "copilot" ? "01" : "02"}
               </span>
               <span className="text-xs text-slate-400 font-medium">/ 02</span>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <button
                 onClick={() => setActiveTab("copilot")}
                 disabled={activeTab === "copilot"}
-                className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all ${
+                className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all ${
                   activeTab === "copilot"
                     ? "border-slate-200 text-slate-300 opacity-40 cursor-not-allowed"
                     : "border-slate-200/90 bg-white/90 hover:bg-white text-slate-700 shadow-xs hover:border-slate-300 cursor-pointer active:scale-95"
                 }`}
                 aria-label="Previous Slide"
               >
-                <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+                <ChevronLeft className="w-3.5 h-3.5 stroke-[2.5]" />
               </button>
               <button
                 onClick={() => setActiveTab("engine")}
                 disabled={activeTab === "engine"}
-                className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all ${
+                className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all ${
                   activeTab === "engine"
                     ? "border-slate-200 text-slate-300 opacity-40 cursor-not-allowed"
                     : "border-slate-200/90 bg-white/90 hover:bg-white text-slate-700 shadow-xs hover:border-slate-300 cursor-pointer active:scale-95"
                 }`}
                 aria-label="Next Slide"
               >
-                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+                <ChevronRight className="w-3.5 h-3.5 stroke-[2.5]" />
               </button>
             </div>
           </div>
         </div>
 
         {/* Horizontal Sliding Track with Smooth Cubic Animation */}
-        <div className="relative w-full overflow-hidden mb-10 lg:mb-14">
+        <div className="relative w-full overflow-hidden mb-3 lg:mb-4">
           <div
             className="flex transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
             style={{
@@ -1335,7 +1335,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* ── SLIDE 1: APPLIED PLAYBOOK (Microsoft Copilot Case Study) ── */}
             <div className="w-full min-w-full shrink-0 flex items-center justify-center">
               <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
                   {/* Left: Free-Floating 3D Copilot Playbook Visual with Scroll-Driven Motion */}
                   <div className="lg:col-span-7 relative flex items-center justify-center pointer-events-auto select-none">
                     <img
@@ -1343,87 +1343,87 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       alt="Microsoft Copilot AI Adoption Playbook 3D Dashboard"
                       style={{
                         transform: `perspective(1000px) rotateY(${scrollProgress * -10}deg) rotateX(${scrollProgress * 6}deg) scale(${1 + scrollProgress * 0.05}) translateZ(${scrollProgress * 25}px)`,
-                        filter: `drop-shadow(0 ${25 + scrollProgress * 20}px ${60 + scrollProgress * 30}px rgba(244,63,94,${0.18 + scrollProgress * 0.25}))`,
+                        filter: `drop-shadow(0 ${20 + scrollProgress * 15}px ${50 + scrollProgress * 25}px rgba(244,63,94,${0.18 + scrollProgress * 0.25}))`,
                       }}
-                      className="w-full h-auto max-w-[660px] object-contain transition-transform duration-200 ease-out will-change-transform"
+                      className="w-full h-auto max-w-[540px] object-contain transition-transform duration-200 ease-out will-change-transform"
                     />
                   </div>
 
                   {/* Right: Narrative, Headlines, Metrics & Case Study CTA */}
-                  <div className="lg:col-span-5 flex flex-col items-start text-left pl-0 lg:pl-4">
+                  <div className="lg:col-span-5 flex flex-col items-start text-left pl-0 lg:pl-2">
                     {/* Eyebrow Badge */}
-                    <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
-                      <span className="text-[12px]">✦</span>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777] text-[10px] font-extrabold tracking-wider uppercase mb-2 shadow-2xs">
+                      <span className="text-[11px]">✦</span>
                       <span>APPLIED PLAYBOOK</span>
                     </div>
 
                     {/* Brand Title with Gradient */}
-                    <h2 className="text-[54px] sm:text-[64px] lg:text-[70px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#f43f5e] via-[#c084fc] to-[#6366f1] tracking-tight leading-[0.95] mb-2">
+                    <h2 className="text-[44px] sm:text-[52px] lg:text-[56px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#f43f5e] via-[#c084fc] to-[#6366f1] tracking-tight leading-[0.95] mb-1">
                       Microsoft Copilot
                     </h2>
 
                     {/* Sub-tagline */}
-                    <p className="text-[15px] sm:text-[16px] font-semibold text-[#64748b] mb-4 tracking-tight">
+                    <p className="text-[13px] sm:text-[14px] font-semibold text-[#64748b] mb-2 tracking-tight">
                       Enterprise scale AI adoption case study
                     </p>
 
                     {/* Headline */}
-                    <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
+                    <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-3 max-w-lg">
                       How behavioral design transformed awareness into repeat usage and advocacy.
                     </h3>
 
                     {/* 3 Metric Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#fbcfe8] transition-colors">
-                        <div className="w-2 h-2 rounded-full bg-[#f97316]" />
-                        <div className="text-[19px] font-black text-[#0f172a] leading-tight">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full max-w-lg mb-3">
+                      <div className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-0.5 hover:border-[#fbcfe8] transition-colors">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#f97316]" />
+                        <div className="text-[16px] font-black text-[#0f172a] leading-tight">
                           936K → 3.4M
                         </div>
-                        <div className="text-[11px] text-[#64748b] font-medium">
+                        <div className="text-[10px] text-[#64748b] font-medium">
                           Copilot WAU
                         </div>
                       </div>
 
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#bfdbfe] transition-colors">
-                        <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
-                        <div className="text-[19px] font-black text-[#0f172a] leading-tight">
+                      <div className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-0.5 hover:border-[#bfdbfe] transition-colors">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6]" />
+                        <div className="text-[16px] font-black text-[#0f172a] leading-tight">
                           336 → 859
                         </div>
-                        <div className="text-[11px] text-[#64748b] font-medium">
-                          CAC-enabled tenants
+                        <div className="text-[10px] text-[#64748b] font-medium">
+                          CAC tenants
                         </div>
                       </div>
 
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#fbcfe8] transition-colors">
-                        <div className="w-2 h-2 rounded-full bg-[#ec4899]" />
-                        <div className="text-[19px] font-black text-[#0f172a] leading-tight">
+                      <div className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-0.5 hover:border-[#fbcfe8] transition-colors">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#ec4899]" />
+                        <div className="text-[16px] font-black text-[#0f172a] leading-tight">
                           509K → 1.5M
                         </div>
-                        <div className="text-[11px] text-[#64748b] font-medium">
+                        <div className="text-[10px] text-[#64748b] font-medium">
                           Community WAU
                         </div>
                       </div>
                     </div>
 
                     {/* 3 Strategic Playbook Pillars */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-6">
-                      <div className="p-3 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1">
-                        <span className="text-lg">🧩</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full max-w-lg mb-3.5">
+                      <div className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-0.5">
+                        <span className="text-base">🧩</span>
+                        <span className="text-[10.5px] font-bold text-[#0f172a] leading-snug">
                           Friction Diagnosis
                         </span>
                       </div>
 
-                      <div className="p-3 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1">
-                        <span className="text-lg">🧭</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
+                      <div className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-0.5">
+                        <span className="text-base">🧭</span>
+                        <span className="text-[10.5px] font-bold text-[#0f172a] leading-snug">
                           Micro-Interventions
                         </span>
                       </div>
 
-                      <div className="p-3 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1">
-                        <span className="text-lg">🚀</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
+                      <div className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-0.5">
+                        <span className="text-base">🚀</span>
+                        <span className="text-[10.5px] font-bold text-[#0f172a] leading-snug">
                           Habit Formation
                         </span>
                       </div>
@@ -1436,10 +1436,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         setPasswordError("");
                         setShowPasswordModal(true);
                       }}
-                      className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#f97316] via-[#f43f5e] to-[#ec4899] text-white font-bold text-[15px] shadow-[0_12px_28px_-6px_rgba(244,63,94,0.45)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2.5 cursor-pointer group"
+                      className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#f97316] via-[#f43f5e] to-[#ec4899] text-white font-bold text-[13.5px] shadow-[0_8px_20px_-4px_rgba(244,63,94,0.4)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer group"
                     >
                       <span>View Copilot Case Study</span>
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
                     </button>
                   </div>
                 </div>
@@ -1449,7 +1449,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* ── SLIDE 2: AI ADOPTION ENGINE (AdoptIQ.ai) ──────────────── */}
             <div className="w-full min-w-full shrink-0 flex items-center justify-center">
               <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
                   {/* Left: Free-Floating 3D SaaS Dashboard Visual with Scroll-Driven Motion */}
                   <div className="lg:col-span-7 relative flex items-center justify-center pointer-events-auto select-none">
                     <img
@@ -1457,37 +1457,37 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       alt="AdoptIQ.ai 3D Dashboard Engine at Work"
                       style={{
                         transform: `perspective(1000px) rotateY(${scrollProgress * 10}deg) rotateX(${scrollProgress * -6}deg) scale(${1 + scrollProgress * 0.05}) translateZ(${scrollProgress * 25}px)`,
-                        filter: `drop-shadow(0 ${25 + scrollProgress * 20}px ${60 + scrollProgress * 30}px rgba(99,102,241,${0.18 + scrollProgress * 0.25}))`,
+                        filter: `drop-shadow(0 ${20 + scrollProgress * 15}px ${50 + scrollProgress * 25}px rgba(99,102,241,${0.18 + scrollProgress * 0.25}))`,
                       }}
-                      className="w-full h-auto max-w-[660px] object-contain transition-transform duration-200 ease-out will-change-transform"
+                      className="w-full h-auto max-w-[540px] object-contain transition-transform duration-200 ease-out will-change-transform"
                     />
                   </div>
 
                   {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA */}
-                  <div className="lg:col-span-5 flex flex-col items-start text-left pl-0 lg:pl-4">
+                  <div className="lg:col-span-5 flex flex-col items-start text-left pl-0 lg:pl-2">
                     {/* Eyebrow Badge */}
-                    <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
-                      <span className="text-[12px]">✦</span>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed] text-[10px] font-extrabold tracking-wider uppercase mb-2 shadow-2xs">
+                      <span className="text-[11px]">✦</span>
                       <span>AI ADOPTION ENGINE</span>
                     </div>
 
                     {/* Brand Title with Gradient */}
-                    <h2 className="text-[54px] sm:text-[66px] lg:text-[74px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#4f46e5] via-[#6366f1] to-[#3b82f6] tracking-tight leading-[0.95] mb-2">
+                    <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#4f46e5] via-[#6366f1] to-[#3b82f6] tracking-tight leading-[0.95] mb-1">
                       AdoptIQ.ai
                     </h2>
 
                     {/* Sub-tagline */}
-                    <p className="text-[15px] sm:text-[16px] font-semibold text-[#64748b] mb-4 tracking-tight">
+                    <p className="text-[13px] sm:text-[14px] font-semibold text-[#64748b] mb-2 tracking-tight">
                       The AI engine powered by the ADOPT playbook
                     </p>
 
                     {/* Headline */}
-                    <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
+                    <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-3 max-w-lg">
                       Turn messy adoption signals into a prioritized behavioral action plan.
                     </h3>
 
                     {/* 4 Pipeline Flow Steps in Pill */}
-                    <div className="w-full max-w-lg p-2.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-xs flex items-center justify-between mb-5">
+                    <div className="w-full max-w-lg p-2 rounded-xl bg-white border border-[#e2e8f0] shadow-xs flex items-center justify-between mb-3">
                       {[
                         { icon: "💬", label: "Ask" },
                         { icon: "🧠", label: "Diagnose" },
@@ -1495,41 +1495,41 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         { icon: "🪄", label: "Generate" }
                       ].map((step, idx, arr) => (
                         <React.Fragment key={idx}>
-                          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[12px] font-bold text-[#334155]">
-                            <span className="text-[14px]">{step.icon}</span>
+                          <div className="flex items-center gap-1 px-2 py-0.5 rounded-lg text-[11px] font-bold text-[#334155]">
+                            <span className="text-[12px]">{step.icon}</span>
                             <span>{step.label}</span>
                           </div>
-                          {idx < arr.length - 1 && <span className="text-slate-300 text-xs">→</span>}
+                          {idx < arr.length - 1 && <span className="text-slate-300 text-[10px]">→</span>}
                         </React.Fragment>
                       ))}
                     </div>
 
                     {/* 3 Core Value Pillars */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
-                        <span className="text-xl">🧠</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                          Systematize Behavioral Diagnosis
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full max-w-lg mb-3">
+                      <div className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#c7d2fe] transition-colors">
+                        <span className="text-base">🧠</span>
+                        <span className="text-[10.5px] font-bold text-[#0f172a] leading-snug">
+                          Systematize Diagnosis
                         </span>
                       </div>
 
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
-                        <span className="text-xl">🪄</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                          Prescribe Contextual UX Interventions
+                      <div className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#c7d2fe] transition-colors">
+                        <span className="text-base">🪄</span>
+                        <span className="text-[10.5px] font-bold text-[#0f172a] leading-snug">
+                          Prescribe UX Fixes
                         </span>
                       </div>
 
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
-                        <span className="text-xl">👥</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                          Unify Cross-Functional Alignment
+                      <div className="p-2.5 rounded-xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#c7d2fe] transition-colors">
+                        <span className="text-base">👥</span>
+                        <span className="text-[10.5px] font-bold text-[#0f172a] leading-snug">
+                          Unify Alignment
                         </span>
                       </div>
                     </div>
 
                     {/* Generate Actionable Plans Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#f0fdf4] border border-[#bbf7d0] text-[#16a34a] text-[12px] font-bold mb-7 shadow-2xs">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#f0fdf4] border border-[#bbf7d0] text-[#16a34a] text-[11px] font-bold mb-3.5 shadow-2xs">
                       <span>⚡</span>
                       <span>Generate actionable remediation plans</span>
                     </div>
@@ -1539,11 +1539,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       href="https://adoptiqai.vercel.app/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#2563eb] via-[#4344fa] to-[#4f46e5] text-white font-bold text-[15px] shadow-[0_12px_28px_-6px_rgba(37,99,235,0.48)] hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2.5 cursor-pointer text-decoration-none group"
+                      className="px-6 py-2.5 rounded-full bg-gradient-to-r from-[#2563eb] via-[#4344fa] to-[#4f46e5] text-white font-bold text-[13.5px] shadow-[0_8px_20px_-4px_rgba(37,99,235,0.4)] hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer text-decoration-none group"
                     >
                       <span>Launch AdoptIQ.ai</span>
-                      <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                        <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                      <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                        <ArrowUpRight className="w-3.5 h-3.5 stroke-[2.5]" />
                       </span>
                     </a>
                   </div>
@@ -1553,10 +1553,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
         </div>
 
-        {/* ── CLOSING CTA BANNER (Matching Attached Reference Image) ── */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full mb-8">
+        {/* ── CLOSING CTA BANNER (Ultra-Compact & Subtext Below Buttons) ── */}
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full mb-3">
           <div
-            className="relative rounded-[28px] sm:rounded-[36px] p-6 sm:p-10 lg:px-14 lg:py-10 border border-white/50 shadow-[0_20px_55px_-12px_rgba(168,85,247,0.22)] overflow-hidden text-left"
+            className="relative rounded-[22px] sm:rounded-[26px] px-6 py-3.5 sm:px-8 sm:py-3.5 lg:px-10 lg:py-3.5 border border-white/50 shadow-[0_12px_36px_-8px_rgba(168,85,247,0.2)] overflow-hidden text-left"
             style={{
               background:
                 "linear-gradient(105deg, #7888f8 0%, #9ca7fc 24%, #b79dfb 48%, #d896ea 74%, #f794ca 100%)",
@@ -1564,82 +1564,79 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           >
             {/* Elegant Soft Curved Wave Lines in Background */}
             <svg
-              className="absolute inset-0 w-full h-full pointer-events-none opacity-45 select-none"
-              viewBox="0 0 1200 240"
+              className="absolute inset-0 w-full h-full pointer-events-none opacity-40 select-none"
+              viewBox="0 0 1200 160"
               fill="none"
               preserveAspectRatio="none"
             >
               <path
-                d="M-50 130 C 280 210, 680 30, 1250 150"
+                d="M-50 90 C 280 150, 680 20, 1250 110"
                 stroke="white"
                 strokeWidth="1.5"
                 strokeOpacity="0.65"
                 fill="none"
               />
               <path
-                d="M-50 180 C 380 50, 780 230, 1250 70"
+                d="M-50 130 C 380 30, 780 160, 1250 50"
                 stroke="white"
                 strokeWidth="1.2"
                 strokeOpacity="0.45"
                 fill="none"
               />
-              <path
-                d="M-50 40 C 480 170, 880 10, 1250 190"
-                stroke="white"
-                strokeWidth="0.8"
-                strokeOpacity="0.35"
-                fill="none"
-              />
             </svg>
 
             {/* Glowing Atmosphere Nodes */}
-            <div className="absolute top-0 right-1/4 w-80 h-80 bg-white/15 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-pink-300/20 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute top-0 right-1/4 w-64 h-64 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-pink-300/20 rounded-full blur-2xl pointer-events-none" />
 
-            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-              {/* Left Copy */}
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+              {/* Left Headline */}
               <div className="max-w-xl">
-                <h2 className="text-[32px] sm:text-[38px] lg:text-[42px] font-bold text-white tracking-tight leading-[1.12] mb-2">
-                  Design for behavior.<br />
-                  Build what lasts.
+                <h2 className="text-[20px] sm:text-[24px] lg:text-[26px] font-bold text-white tracking-tight leading-[1.15]">
+                  Design for behavior. Build what lasts.
                 </h2>
-                <p className="text-white/95 text-[14px] sm:text-[15px] leading-relaxed font-normal max-w-lg">
-                  ADOPT is the blueprint for turning AI potential into human progress—at scale.
-                </p>
               </div>
 
-              {/* Right CTA Buttons (Matching Attached Visual Exactly) */}
-              <div className="flex flex-wrap items-center gap-4 shrink-0">
-                {/* 1. Launch the Playbook (Purple Gradient Pill + Circular Arrow) */}
-                <button
-                  onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
-                  className="pl-6 pr-2 py-2 rounded-full bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#8b5cf6] text-white font-bold text-[14px] shadow-[0_10px_25px_-5px_rgba(99,102,241,0.5)] border border-white/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 cursor-pointer group"
-                >
-                  <span>Launch the Playbook</span>
-                  <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5">
-                    <ArrowRight className="w-4 h-4" />
-                  </span>
-                </button>
+              {/* Right Side: Buttons + Subtext Below Buttons */}
+              <div className="flex flex-col items-start lg:items-end gap-1 shrink-0">
+                {/* Buttons Row */}
+                <div className="flex flex-wrap items-center gap-3">
+                  {/* 1. Launch the Playbook (Purple Gradient Pill + Circular Arrow) */}
+                  <button
+                    onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
+                    className="pl-5 pr-1.5 py-1.5 rounded-full bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#8b5cf6] text-white font-bold text-[13px] shadow-[0_8px_20px_-4px_rgba(99,102,241,0.5)] border border-white/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer group"
+                  >
+                    <span>Launch the Playbook</span>
+                    <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5">
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </button>
 
-                {/* 2. Launch AdoptIQ.ai (Glossy White Pill + Purple Icon) */}
-                <a
-                  href="https://adoptiqai.vercel.app/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 rounded-full bg-white text-[#1e293b] font-bold text-[14px] shadow-sm hover:shadow-md hover:bg-slate-50 transition-all flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95 text-decoration-none group"
-                >
-                  <span>Launch AdoptIQ.ai</span>
-                  <ArrowUpRight className="w-4 h-4 text-[#8b5cf6] stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
+                  {/* 2. Launch AdoptIQ.ai (Glossy White Pill + Purple Icon) */}
+                  <a
+                    href="https://adoptiqai.vercel.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2 rounded-full bg-white text-[#1e293b] font-bold text-[13px] shadow-xs hover:shadow-md hover:bg-slate-50 transition-all flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95 text-decoration-none group"
+                  >
+                    <span>Launch AdoptIQ.ai</span>
+                    <ArrowUpRight className="w-3.5 h-3.5 text-[#8b5cf6] stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </a>
+                </div>
+
+                {/* Subtext Placed Below The Buttons */}
+                <p className="text-white/90 text-[11.5px] sm:text-[12px] font-medium leading-tight">
+                  ADOPT is the blueprint for turning AI potential into human progress—at scale.
+                </p>
               </div>
             </div>
           </div>
         </div>
 
         {/* ── FOOTER ATTRIBUTION LINE ─────────────────────────────────── */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full pt-4 border-t border-slate-200/60 text-xs text-slate-500">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full pt-2 pb-1 border-t border-slate-200/50 text-[11px] text-slate-500">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5">
               <span className="font-extrabold text-slate-800">ADOPT</span>
               <span>— A Behavioral Operating System for Enterprise AI Adoption</span>
             </div>
