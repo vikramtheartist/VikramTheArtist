@@ -241,28 +241,25 @@ function SpaceSmoke() {
 /* ── Philosophy cards ───────────────────────────────────────── */
 const cards = [
   {
+    tag: "POWERFUL",
     title: "Observe",
-    body: "I understand the system—users, data, AI, and context to frame the right problem.",
     icon: Eye,
-    glowBg: "rgba(168, 85, 247, 0.18)",
-    iconColor: "#c084fc",
-    accentColor: "#a855f7",
+    body: "I understand the system—users, data, AI, and context to frame the right problem.",
+    ribbonGradient: "linear-gradient(90deg, #d946ef 0%, #a855f7 40%, #6366f1 75%, #38bdf8 100%)",
   },
   {
+    tag: "POWERFUL",
     title: "Create",
-    body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
     icon: Sparkles,
-    glowBg: "rgba(56, 189, 248, 0.18)",
-    iconColor: "#38bdf8",
-    accentColor: "#0284c7",
+    body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
+    ribbonGradient: "linear-gradient(90deg, #ec4899 0%, #8b5cf6 40%, #3b82f6 75%, #06b6d4 100%)",
   },
   {
+    tag: "POWERFUL",
     title: "Evolve",
-    body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
     icon: TrendingUp,
-    glowBg: "rgba(217, 70, 239, 0.18)",
-    iconColor: "#e879f9",
-    accentColor: "#d946ef",
+    body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
+    ribbonGradient: "linear-gradient(90deg, #f43f5e 0%, #a855f7 40%, #6366f1 75%, #38bdf8 100%)",
   },
 ];
 
@@ -275,40 +272,36 @@ export function Hero() {
   const [showCursor, setShowCursor] = useState(true);
   const cardsRef = useRef<HTMLDivElement>(null);
 
+  // Fade out cards as user scrolls toward My Work section
   useLayoutEffect(() => {
-    const grid = cardsRef.current;
-    if (!grid) return;
-    grid.classList.add("hero-cards-anim");
-    const onEnd = () => grid.classList.remove("hero-cards-anim");
-    grid.addEventListener("animationend", onEnd);
-    return () => grid.removeEventListener("animationend", onEnd);
-  }, []);
-
-  useEffect(() => {
     let raf = 0;
-    let cachedWorkTop = 0;
+    let workTop = 0;
+    const cards = cardsRef.current;
+    if (!cards) return;
 
     const measureWork = () => {
-      const work = document.getElementById("work");
-      if (work) {
-        cachedWorkTop = work.getBoundingClientRect().top + window.scrollY;
+      const el = document.getElementById("work");
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        workTop = rect.top + window.scrollY;
       }
     };
-
     measureWork();
 
     const update = () => {
-      const cards = cardsRef.current;
-      if (!cards) return;
-      const triggerY = window.innerHeight * 0.30;
-      const workTopRelative = cachedWorkTop - window.scrollY;
-
-      if (workTopRelative <= triggerY) {
-        cards.style.transform   = "translate3d(0, -100px, 0)";
-        cards.style.opacity     = "0";
+      if (!workTop) measureWork();
+      const scrollY = window.scrollY;
+      const vh = window.innerHeight;
+      const fadeStart = workTop - vh * 0.9;
+      const fadeEnd   = workTop - vh * 0.4;
+      if (scrollY >= fadeEnd) {
+        cards.style.opacity = "0";
         cards.style.pointerEvents = "none";
+      } else if (scrollY > fadeStart) {
+        const p = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+        cards.style.opacity = String(Math.max(0, 1 - p));
+        cards.style.pointerEvents = p > 0.5 ? "none" : "";
       } else {
-        cards.style.transform   = "translate3d(0, 0, 0)";
         cards.style.opacity     = "1";
         cards.style.pointerEvents = "";
       }
@@ -386,66 +379,113 @@ export function Hero() {
             animation: hero-cards-in 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s both;
           }
         `}</style>
-        <div className="hero-cards-grid" ref={cardsRef}
-          style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}>
-          {cards.map(({ title, body, icon: Icon, iconColor, glowBg, accentColor }) => (
+        <div
+          className="hero-cards-grid"
+          ref={cardsRef}
+          style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}
+        >
+          {cards.map(({ tag, title, body, icon: Icon, ribbonGradient }) => (
             <div
               key={title}
-              className="flex flex-col hero-philosophy-card liquid-glass group cursor-default text-left"
+              className="hero-3d-card group relative flex flex-col justify-between overflow-hidden cursor-default"
               style={{
-                padding: '24px 22px',
-                gap: '14px',
-                borderRadius: '20px',
-                position: 'relative',
+                borderRadius: "28px",
+                background: "linear-gradient(165deg, #2b1f88 0%, #1e1564 35%, #130f48 70%, #0d0a33 100%)",
+                border: "1px solid rgba(255, 255, 255, 0.22)",
+                boxShadow: "inset 0 1.5px 1.5px rgba(255, 255, 255, 0.45), inset 0 -2px 3px rgba(0, 0, 0, 0.5), 0 20px 45px -10px rgba(10, 8, 40, 0.8), 0 0 35px -5px rgba(99, 102, 241, 0.25)",
+                transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
               }}
             >
-              {/* Header with Glowing Icon Badge & Title */}
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border border-white/20 shadow-sm transition-transform duration-300 group-hover:scale-110"
-                  style={{
-                    backgroundColor: glowBg,
-                    boxShadow: `0 0 16px ${glowBg}`,
-                  }}
-                >
-                  <Icon className="w-5 h-5 stroke-[2.2]" style={{ color: iconColor }} />
+              {/* Inner content area */}
+              <div className="p-6 pb-4 sm:p-7 sm:pb-5 flex flex-col flex-1">
+                {/* Top row: Eyebrow pill tag & Glowing Cyan Icon */}
+                <div className="flex items-center justify-between mb-4">
+                  <span
+                    className="inline-flex items-center px-3 py-1 rounded-full text-[10.5px] font-bold tracking-widest uppercase text-white/80"
+                    style={{
+                      background: "rgba(255, 255, 255, 0.12)",
+                      border: "1px solid rgba(255, 255, 255, 0.18)",
+                      backdropFilter: "blur(8px)",
+                      boxShadow: "inset 0 1px 1px rgba(255, 255, 255, 0.25)",
+                    }}
+                  >
+                    {tag}
+                  </span>
+                  <div
+                    className="w-8 h-8 flex items-center justify-center text-[#38bdf8] transition-transform duration-300 group-hover:scale-110"
+                    style={{
+                      filter: "drop-shadow(0 0 8px rgba(56, 189, 248, 0.65)) drop-shadow(0 0 16px rgba(56, 189, 248, 0.35))",
+                    }}
+                  >
+                    <Icon className="w-6 h-6 stroke-[2.2]" />
+                  </div>
                 </div>
+
+                {/* Title */}
                 <h3
+                  className="text-[24px] sm:text-[26px] font-bold text-white tracking-tight leading-tight mb-2.5"
                   style={{
-                    fontFamily: "'Poppins', sans-serif",
-                    fontWeight: 500,
-                    fontSize: '20px',
-                    lineHeight: 1.2,
-                    color: 'var(--text-1)',
-                    margin: 0,
-                    letterSpacing: '-0.01em',
+                    fontFamily: "'Inter', -apple-system, sans-serif",
+                    textShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
                   }}
                 >
                   {title}
                 </h3>
+
+                {/* Body */}
+                <p
+                  className="text-white/75 text-[14px] sm:text-[14.5px] leading-[1.65] font-normal"
+                  style={{
+                    fontFamily: "'Inter', -apple-system, sans-serif",
+                  }}
+                >
+                  {body}
+                </p>
               </div>
 
-              {/* High-Contrast Body Text */}
-              <p
+              {/* Bottom Decorative Wavy Ribbon */}
+              <div
+                className="relative w-full h-8 overflow-hidden"
                 style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontWeight: 400,
-                  fontSize: '15px',
-                  lineHeight: 1.65,
-                  color: 'var(--text-2)',
-                  margin: 0,
-                  opacity: 0.92,
+                  background: ribbonGradient,
+                  boxShadow: "inset 0 1px 1px rgba(255, 255, 255, 0.3), inset 0 -1px 2px rgba(0, 0, 0, 0.3)",
                 }}
               >
-                {body}
-              </p>
+                <svg
+                  className="absolute inset-0 w-full h-full opacity-45"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 300 32"
+                  fill="none"
+                >
+                  <path
+                    d="M0 16 C 25 8, 50 24, 75 16 C 100 8, 125 24, 150 16 C 175 8, 200 24, 225 16 C 250 8, 275 24, 300 16"
+                    stroke="white"
+                    strokeWidth="2"
+                    fill="none"
+                  />
+                  <path
+                    d="M0 22 C 25 14, 50 30, 75 22 C 100 14, 125 30, 150 22 C 175 14, 200 30, 225 22 C 250 14, 275 30, 300 22"
+                    stroke="white"
+                    strokeWidth="1.5"
+                    fill="none"
+                  />
+                  <path
+                    d="M0 10 C 25 2, 50 18, 75 10 C 100 2, 125 18, 150 10 C 175 2, 200 18, 225 10 C 250 2, 275 18, 300 10"
+                    stroke="white"
+                    strokeWidth="1.2"
+                    strokeOpacity="0.7"
+                    fill="none"
+                  />
+                </svg>
+              </div>
 
-              {/* Bottom Subtle Glowing Accent Indicator */}
+              {/* 3D Bottom Pedestal / Base Lip */}
               <div
-                className="w-8 h-1 rounded-full mt-auto transition-all duration-300 group-hover:w-14"
+                className="w-full h-4"
                 style={{
-                  backgroundColor: accentColor,
-                  boxShadow: `0 0 8px ${accentColor}`,
+                  background: "linear-gradient(180deg, #090624 0%, #06041a 100%)",
+                  borderTop: "1px solid rgba(0, 0, 0, 0.4)",
+                  boxShadow: "inset 0 1px 0 rgba(255, 255, 255, 0.05)",
                 }}
               />
             </div>
