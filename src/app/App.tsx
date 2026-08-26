@@ -67,11 +67,11 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
     const Y_OFFSET_EARTH = -40; // Earth moved upwards by 40px
     const X_OFFSET_EARTH = 0;   // Earth centered horizontally
     const Y_OFFSET_SUN = isLight ? -35 : -20; // Sun (aligned with earth displacement)
-    const setPos = (top: number, left: number) => {
+    const setPos = (top: number, left: number, scale: number = 1) => {
       const tAtm = top + Y_OFFSET;
-      el.style.transform = `translate3d(${left + X_OFFSET_EARTH}px, ${top + Y_OFFSET_EARTH}px, 0) translate(-50%, -50%)`;
-      if (sun) sun.style.transform = `translate3d(${left}px, ${top + Y_OFFSET_SUN}px, 0) translate(-50%, -50%)`;
-      if (atm) atm.style.transform = `translate3d(${left}px, ${tAtm}px, 0) translate(-50%, -50%)`;
+      el.style.transform = `translate3d(${left + X_OFFSET_EARTH}px, ${top + Y_OFFSET_EARTH}px, 0) translate(-50%, -50%) scale(${scale})`;
+      if (sun) sun.style.transform = `translate3d(${left}px, ${top + Y_OFFSET_SUN}px, 0) translate(-50%, -50%) scale(${scale})`;
+      if (atm) atm.style.transform = `translate3d(${left}px, ${tAtm}px, 0) translate(-50%, -50%) scale(${scale})`;
     };
 
     // Lite-perf: park everything in a sensible static spot, skip scroll listener entirely.
@@ -79,7 +79,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const h = el.offsetHeight || 1200;
-      setPos(vh * 0.75 + h / 2, vw / 2);
+      setPos(vh * 0.75 + h / 2, vw / 2, 1);
       return;
     }
 
@@ -118,14 +118,21 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       const vh      = window.innerHeight;
 
       // Top of Earth aligns right below 'My work' title (~75% of viewport height at scroll=0)
-      const phase1Y = vh * 0.75 + cachedEarthH / 2 - scrollY * 0.7;
+      const initialCenterY = vh * 0.75 + cachedEarthH / 2;
+      const phase1Y = initialCenterY - scrollY * 0.7;
+
+      // Calculate scroll progress towards reaching the stop spot (vh / 2)
+      const totalTravelToStop = Math.max(1, initialCenterY - vh / 2);
+      const scrollProgress = Math.min(1, Math.max(0, (initialCenterY - phase1Y) / totalTravelToStop));
+      // Proportional scale: from 1.0 (full size) down to 0.25 (75% reduced size) at stop spot
+      const currentScale = Math.max(0.25, 1 - scrollProgress * 0.75);
 
       if (!hasCards && cachedCardsCount < 3) {
         measureCards();
       }
 
       if (!hasCards) {
-        setPos(phase1Y, vw / 2);
+        setPos(phase1Y, vw / 2, currentScale);
         return;
       }
 
@@ -139,13 +146,13 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       const BLEND = 180;
 
       if (stickTrigger > BLEND) {
-        setPos(phase1Y, vw / 2);
+        setPos(phase1Y, vw / 2, currentScale);
       } else if (stickTrigger > 0) {
         const p     = 1 - stickTrigger / BLEND;
         const eased = p * p * (3 - 2 * p);
-        setPos(phase1Y + (vh / 2 - phase1Y) * eased, vw / 2);
+        setPos(phase1Y + (vh / 2 - phase1Y) * eased, vw / 2, 0.25);
       } else if (exitTrigger > 0) {
-        setPos(vh / 2, vw / 2);
+        setPos(vh / 2, vw / 2, 0.25);
       } else {
         const dist     = Math.abs(exitTrigger);
         const progress = Math.min(1, dist / (vh * 0.7));
@@ -157,6 +164,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
         setPos(
           vh / 2 + (toY - vh / 2) * eased,
           vw / 2 + (toX - vw / 2) * eased,
+          0.25,
         );
       }
     };
