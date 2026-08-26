@@ -124,8 +124,8 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       // Calculate scroll progress towards reaching the stop spot (vh / 2)
       const totalTravelToStop = Math.max(1, initialCenterY - vh / 2);
       const scrollProgress = Math.min(1, Math.max(0, (initialCenterY - phase1Y) / totalTravelToStop));
-      // Proportional scale: from 1.0 (full size) down to 0.25 (75% reduced size) at stop spot
-      const currentScale = Math.max(0.25, 1 - scrollProgress * 0.75);
+      // Proportional scale: from 1.0 (full size) down to 0.50 (50% reduced size) at stop spot
+      const currentScale = Math.max(0.50, 1 - scrollProgress * 0.50);
 
       if (!hasCards && cachedCardsCount < 3) {
         measureCards();
@@ -150,9 +150,9 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       } else if (stickTrigger > 0) {
         const p     = 1 - stickTrigger / BLEND;
         const eased = p * p * (3 - 2 * p);
-        setPos(phase1Y + (vh / 2 - phase1Y) * eased, vw / 2, 0.25);
+        setPos(phase1Y + (vh / 2 - phase1Y) * eased, vw / 2, 0.50);
       } else if (exitTrigger > 0) {
-        setPos(vh / 2, vw / 2, 0.25);
+        setPos(vh / 2, vw / 2, 0.50);
       } else {
         const dist     = Math.abs(exitTrigger);
         const progress = Math.min(1, dist / (vh * 0.7));
@@ -164,7 +164,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
         setPos(
           vh / 2 + (toY - vh / 2) * eased,
           vw / 2 + (toX - vw / 2) * eased,
-          0.25,
+          0.50,
         );
       }
     };
