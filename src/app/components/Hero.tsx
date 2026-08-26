@@ -242,39 +242,27 @@ import { Eye, Sparkles, TrendingUp } from "lucide-react";
 /* ── Philosophy cards ───────────────────────────────────────── */
 const cards = [
   {
-    badge: "OBSERVE",
-    badgeBg: "rgba(124, 58, 237, 0.25)",
-    badgeBorder: "rgba(168, 85, 247, 0.4)",
-    badgeColor: "#c084fc",
     title: "Observe",
-    icon: <Eye className="w-5 h-5 text-[#c084fc]" />,
-    orbGradient: "radial-gradient(circle at 35% 30%, #c084fc 0%, #7c3aed 45%, #2e1065 85%)",
-    glowColor: "rgba(168, 85, 247, 0.35)",
-    waveColor: "#a855f7",
+    icon: <Eye className="w-5 h-5 text-indigo-400" />,
+    iconBg: "rgba(99, 102, 241, 0.18)",
+    iconBorder: "rgba(168, 85, 247, 0.35)",
+    lineColor: "#a855f7",
     body: "I understand the system—users, data, AI, and context to frame the right problem.",
   },
   {
-    badge: "CREATE",
-    badgeBg: "rgba(14, 165, 233, 0.25)",
-    badgeBorder: "rgba(56, 189, 248, 0.4)",
-    badgeColor: "#38bdf8",
     title: "Create",
-    icon: <Sparkles className="w-5 h-5 text-[#38bdf8]" />,
-    orbGradient: "radial-gradient(circle at 35% 30%, #38bdf8 0%, #0284c7 45%, #082f49 85%)",
-    glowColor: "rgba(56, 189, 248, 0.35)",
-    waveColor: "#38bdf8",
+    icon: <Sparkles className="w-5 h-5 text-sky-400" />,
+    iconBg: "rgba(14, 165, 233, 0.18)",
+    iconBorder: "rgba(56, 189, 248, 0.35)",
+    lineColor: "#38bdf8",
     body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
   },
   {
-    badge: "EVOLVE",
-    badgeBg: "rgba(236, 72, 153, 0.25)",
-    badgeBorder: "rgba(244, 114, 182, 0.4)",
-    badgeColor: "#f472b6",
     title: "Evolve",
-    icon: <TrendingUp className="w-5 h-5 text-[#f472b6]" />,
-    orbGradient: "radial-gradient(circle at 35% 30%, #f472b6 0%, #c026d3 45%, #4a044e 85%)",
-    glowColor: "rgba(236, 72, 153, 0.35)",
-    waveColor: "#f472b6",
+    icon: <TrendingUp className="w-5 h-5 text-fuchsia-400" />,
+    iconBg: "rgba(217, 70, 239, 0.18)",
+    iconBorder: "rgba(244, 114, 182, 0.35)",
+    lineColor: "#f472b6",
     body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
   },
 ];
@@ -401,95 +389,66 @@ export function Hero() {
         `}</style>
         <div className="hero-cards-grid" ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}>
-          {cards.map(({ badge, badgeBg, badgeBorder, badgeColor, title, icon, orbGradient, glowColor, waveColor, body }) => (
-            <div key={title} className="flex flex-col transition-all duration-300 hero-philosophy-card group"
+          {cards.map(({ title, icon, iconBg, iconBorder, lineColor, body }) => (
+            <div key={title} className="flex flex-col justify-between transition-all duration-300 hero-philosophy-card group"
               style={{
                 padding: '24px 22px',
-                borderRadius: '24px',
+                borderRadius: '26px',
+                minHeight: '190px',
                 position: 'relative',
+                zIndex: 2,
               }}>
               
-              {/* Top Row: Pill Badge & Holographic Orb Bezel */}
-              <div className="flex items-center justify-between mb-4">
-                <span
-                  style={{
-                    fontSize: '11px',
-                    fontWeight: 700,
-                    letterSpacing: '0.08em',
-                    padding: '4px 10px',
-                    borderRadius: '8px',
-                    backgroundColor: badgeBg,
-                    border: `1px solid ${badgeBorder}`,
-                    color: badgeColor,
-                    textTransform: 'uppercase',
-                    boxShadow: `0 0 12px ${glowColor}`,
-                  }}
-                >
-                  {badge}
-                </span>
-
-                {/* 3D Glass Sphere Bezel */}
-                <div
-                  className="relative flex items-center justify-center rounded-full"
-                  style={{
-                    width: '42px',
-                    height: '42px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.20)',
-                    boxShadow: `inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 0 16px ${glowColor}`,
-                  }}
-                >
+              <div>
+                {/* Header Row: Icon & Title */}
+                <div className="flex items-center gap-3 mb-3">
                   <div
-                    className="flex items-center justify-center rounded-full"
+                    className="flex items-center justify-center rounded-xl"
                     style={{
-                      width: '32px',
-                      height: '32px',
-                      background: orbGradient,
-                      boxShadow: `inset 0 2px 4px rgba(255, 255, 255, 0.5), inset 0 -2px 4px rgba(0, 0, 0, 0.5)`,
+                      width: '38px',
+                      height: '38px',
+                      background: iconBg,
+                      border: `1px solid ${iconBorder}`,
+                      boxShadow: `inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 0 16px ${iconBg}`,
                     }}
                   >
                     {icon}
                   </div>
+                  <h3 style={{
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 500,
+                    fontSize: '20px',
+                    lineHeight: 1.2,
+                    color: 'var(--text-1)',
+                    margin: 0
+                  }}>
+                    {title}
+                  </h3>
                 </div>
+
+                {/* Body Text */}
+                <p style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 400,
+                  fontSize: '14.5px',
+                  lineHeight: 1.6,
+                  color: 'rgba(255, 255, 255, 0.78)',
+                  margin: '0 0 14px 0'
+                }}>
+                  {body}
+                </p>
               </div>
 
-              {/* Title */}
-              <h3 style={{
-                fontFamily: "'Poppins', sans-serif",
-                fontWeight: 600,
-                fontSize: '20px',
-                letterSpacing: '0.02em',
-                lineHeight: 1.2,
-                color: 'var(--text-1)',
-                margin: '0 0 6px 0'
-              }}>
-                {title}
-              </h3>
-
-              {/* Liquid Fluid Wave Divider */}
-              <div className="w-full my-2 overflow-hidden" style={{ height: '8px', opacity: 0.85 }}>
-                <svg viewBox="0 0 200 12" className="w-full h-full" fill="none">
-                  <path
-                    d="M 0 6 Q 12 0 25 6 T 50 6 T 75 6 T 100 6 T 125 6 T 150 6 T 175 6 T 200 6"
-                    stroke={waveColor}
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    style={{ filter: `drop-shadow(0 0 4px ${waveColor})` }}
-                  />
-                </svg>
-              </div>
-
-              {/* Body Description */}
-              <p style={{
-                fontFamily: "'Inter', sans-serif",
-                fontWeight: 400,
-                fontSize: '14.5px',
-                lineHeight: 1.6,
-                color: 'rgba(255, 255, 255, 0.82)',
-                margin: '4px 0 0 0'
-              }}>
-                {body}
-              </p>
+              {/* Glowing Accent Underline */}
+              <div
+                style={{
+                  width: '36px',
+                  height: '3px',
+                  borderRadius: '2px',
+                  backgroundColor: lineColor,
+                  boxShadow: `0 0 10px ${lineColor}`,
+                }}
+              />
             </div>
           ))}
         </div>
