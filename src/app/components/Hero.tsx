@@ -431,18 +431,17 @@ export function Hero() {
                   }}
                 />
 
-                {/* Title: Bold Crisp Specular Typography */}
+                {/* Title: Unbolded Clean Typography */}
                 <h3
                   className="relative z-10 tracking-tight"
                   style={{
                     fontFamily: "'Poppins', sans-serif",
-                    fontWeight: 700,
-                    fontSize: "26px",
-                    lineHeight: 1.15,
-                    letterSpacing: "-0.02em",
+                    fontWeight: 300,
+                    fontSize: "24px",
+                    lineHeight: 1.2,
+                    letterSpacing: "-0.01em",
                     color: "#ffffff",
-                    margin: "4px 0 2px 0",
-                    textShadow: "0 2px 10px rgba(0,0,0,0.4)",
+                    margin: "2px 0 4px 0",
                   }}
                 >
                   {title}
