@@ -272,6 +272,23 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     window.scrollTo(0, 0);
   }, []);
 
+  const [coreProblemInView, setCoreProblemInView] = useState(false);
+  const coreProblemRef = React.useRef<HTMLElement | null>(null);
+
+  React.useEffect(() => {
+    if (!coreProblemRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setCoreProblemInView(true);
+        }
+      },
+      { threshold: 0.12 }
+    );
+    observer.observe(coreProblemRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   // Prevent background page scrolling when modal window is open/active
   React.useEffect(() => {
     if (activeStageDetail !== null || showPasswordModal) {
@@ -285,8 +302,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   }, [activeStageDetail, showPasswordModal]);
 
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const problemRef = React.useRef<HTMLElement>(null);
-  const [problemProgress, setProblemProgress] = useState(0);
 
   React.useEffect(() => {
     let ticking = false;
@@ -312,24 +327,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setScrollY(window.scrollY);
-
-          if (problemRef.current) {
-            const rect = problemRef.current.getBoundingClientRect();
-            const totalScrollable = rect.height - window.innerHeight;
-            if (totalScrollable > 0) {
-              const currentScroll = -rect.top;
-              const progress = Math.min(Math.max(currentScroll / totalScrollable, 0), 1);
-              setProblemProgress(progress);
-            }
-          }
-
           ticking = false;
         });
         ticking = true;
       }
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -558,74 +561,75 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 2: THE CORE PROBLEM (STICKY STORYTELLING SCROLLTRACK) ──── */}
+      {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        ref={problemRef}
-        className="w-full min-h-[250vh] relative z-20 bg-transparent"
+        ref={coreProblemRef}
+        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent"
       >
-        {/* Sticky 100vh Viewport Container: Background & Headline stick rock-solid to screen */}
-        <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-          {/* Full-Bleed Iceberg Artwork Background with Seamless Multiply Blending (Completely framed inside viewport) */}
+        {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Multiply Blending */}
+        <div
+          className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
+          style={{
+            maskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+          }}
+        >
           <div
-            className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden flex items-center justify-center"
+            className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
-              maskImage: "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
+              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
             }}
           >
-            <div
-              className="w-full h-full max-h-[88vh] will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
-              style={{
-                transform: `translate3d(${mousePos.x * 8}px, ${mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
-              }}
-            >
-              <img
-                src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
-                alt="AI Adoption Iceberg Analogy"
-                className="w-auto h-full max-h-[88vh] object-contain object-center mix-blend-multiply transition-transform duration-700 opacity-95"
-              />
-            </div>
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
+              alt="AI Adoption Iceberg Analogy"
+              className="w-full h-full object-contain sm:object-cover object-center mix-blend-multiply transition-transform duration-700 opacity-95"
+            />
           </div>
+        </div>
 
-          {/* Full-Width Centered Content Container */}
-          <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between h-[84vh] max-h-[680px]">
-            {/* Top Row (Above Water / Upper Content Area) */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Top Left: Badge, Headline & Context (Sticks firmly along with Background Iceberg) */}
-              <div className="lg:col-span-6 flex flex-col items-start text-left">
-                <div className="mb-3 sm:mb-4">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
-                    <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
-                    <span>THE CORE PROBLEM</span>
-                  </div>
-                  <div className="w-8 h-[2.5px] bg-[#38bdf8] rounded-full mt-2.5 shadow-[0_0_8px_rgba(56,189,248,0.6)]" />
+        {/* Full-Width Centered Content Container */}
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px]">
+          {/* Top Row (Above Water / Upper Content Area) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            {/* Top Left: Badge, Headline & Context */}
+            <div className="lg:col-span-6 flex flex-col items-start text-left">
+              <div className="mb-4">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
+                  <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
+                  <span>THE CORE PROBLEM</span>
                 </div>
-
-                <h2 className="text-[38px] sm:text-[46px] lg:text-[52px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-3 sm:mb-4 font-sans">
-                  AI adoption is not<br />
-                  a feature problem.<br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
-                    It’s a behavior<br className="hidden sm:inline" /> problem.
-                  </span>
-                </h2>
-
-                <p className="text-[13.5px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-2">
-                  Even powerful products fail when they collide with familiar habits, uncertainty, and inertia.
-                </p>
+                <div className="w-8 h-[2.5px] bg-[#38bdf8] rounded-full mt-2.5 shadow-[0_0_8px_rgba(56,189,248,0.6)]" />
               </div>
 
-              {/* Top Right: ABOVE THE SURFACE Callout Card (Reveals early as user begins downward scroll) */}
+              <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
+                AI adoption is not<br />
+                a feature problem.<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
+                  It’s a behavior<br className="hidden sm:inline" /> problem.
+                </span>
+              </h2>
+
+              <p className="text-[14px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-8">
+                Even powerful products fail when they collide with familiar habits, uncertainty, and inertia.
+              </p>
+            </div>
+
+            {/* Top Right: ABOVE THE SURFACE Callout Card with Fade & Slide In */}
+            <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className="lg:col-span-6 flex justify-start lg:justify-end transition-all duration-700 ease-out"
+                className="w-full max-w-[320px] transition-all duration-700 ease-out"
                 style={{
-                  opacity: problemProgress >= 0.08 ? 1 : 0,
-                  transform: `translate3d(0, ${problemProgress >= 0.08 ? 0 : 36}px, 0)`,
-                  pointerEvents: problemProgress >= 0.08 ? "auto" : "none",
+                  opacity: coreProblemInView ? 1 : 0,
+                  transform: coreProblemInView
+                    ? "translate3d(0, 0, 0)"
+                    : "translate3d(50px, 0, 0)",
+                  transitionDelay: "150ms",
                 }}
               >
                 <div
-                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
+                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                   style={{
                     transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
                   }}
@@ -673,42 +677,46 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Bottom Row: Checkmarks & BELOW THE SURFACE Card (Reveals cleanly right within the visible screen) */}
-            <div
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-2 sm:pt-4 transition-all duration-700 ease-out"
-              style={{
-                opacity: problemProgress >= 0.20 ? 1 : 0,
-                transform: `translate3d(0, ${problemProgress >= 0.20 ? 0 : 36}px, 0)`,
-                pointerEvents: problemProgress >= 0.20 ? "auto" : "none",
-              }}
-            >
-              {/* Bottom Left: 4 Checkmark Bullet Items */}
-              <div className="lg:col-span-6 space-y-3.5 max-w-[440px] text-left">
-                {[
-                  "Users don't resist products.",
-                  "They resist changing routines.",
-                  "Better technology does not automatically create behavior change.",
-                  "Sustainable adoption starts with human behavior.",
-                ].map((text, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-start gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
-                  >
-                    <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)] transition-all">
-                      <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
-                    </div>
-                    <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-snug group-hover:text-[#0f172a] transition-colors">
-                      {text}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Bottom Right: BELOW THE SURFACE Callout Card */}
-              <div className="lg:col-span-6 flex justify-start lg:justify-end">
+          {/* Bottom Row (Below Water / Lower Content Area) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
+            {/* Bottom Left: 4 Checkmark Bullet Items with Interactive Micro-Slide */}
+            <div className="lg:col-span-6 space-y-4 max-w-[440px] text-left">
+              {[
+                "Users don't resist products.",
+                "They resist changing routines.",
+                "Better technology does not automatically create behavior change.",
+                "Sustainable adoption starts with human behavior.",
+              ].map((text, idx) => (
                 <div
-                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
+                  key={idx}
+                  className="flex items-start gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
+                >
+                  <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)] transition-all">
+                    <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
+                  </div>
+                  <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-snug group-hover:text-[#0f172a] transition-colors">
+                    {text}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Right: BELOW THE SURFACE Callout Card with Staggered Fade & Slide In */}
+            <div className="lg:col-span-6 flex justify-start lg:justify-end">
+              <div
+                className="w-full max-w-[320px] transition-all duration-700 ease-out"
+                style={{
+                  opacity: coreProblemInView ? 1 : 0,
+                  transform: coreProblemInView
+                    ? "translate3d(0, 0, 0)"
+                    : "translate3d(50px, 0, 0)",
+                  transitionDelay: "380ms",
+                }}
+              >
+                <div
+                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                   style={{
                     transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
                   }}
