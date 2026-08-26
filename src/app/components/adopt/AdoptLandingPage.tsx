@@ -289,70 +289,86 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   const isTransitioningRef = React.useRef(false);
   const [scrollProgress, setScrollProgress] = useState(0); // 0.0 to 1.0
   const resetTimerRef = React.useRef<number | null>(null);
-  const SCROLL_THRESHOLD = 180; // Requires deliberate scroll energy
+  const engineUnlockTimestampRef = React.useRef<number>(0);
+  const SCROLL_THRESHOLD = 160;
 
   React.useEffect(() => {
     let accumulatedDelta = 0;
 
     const handleWheel = (e: WheelEvent) => {
-      if (!sectionRef.current || isTransitioningRef.current) return;
+      if (!sectionRef.current) return;
 
       const rect = sectionRef.current.getBoundingClientRect();
-      // When the section is in view occupying the screen
-      const isInFocus = rect.top <= 140 && rect.bottom >= window.innerHeight * 0.55;
+      // Active section in view
+      const isInSectionView = rect.top <= window.innerHeight * 0.65 && rect.bottom >= window.innerHeight * 0.35;
 
-      if (isInFocus) {
-        // Clear any decay timer
-        if (resetTimerRef.current) {
-          clearTimeout(resetTimerRef.current);
-          resetTimerRef.current = null;
-        }
+      if (!isInSectionView) return;
 
-        // 1. On Slide 1 (Copilot) & scrolling Down: accumulate scroll + animate motion
-        if (activeTab === "copilot" && e.deltaY > 0) {
-          e.preventDefault();
-          accumulatedDelta += e.deltaY * 0.65;
-          const progress = Math.min(1, Math.max(0, accumulatedDelta / SCROLL_THRESHOLD));
-          setScrollProgress(progress);
+      // 1. While on Slide 1 (Copilot) and user scrolls Down -> PREVENT vertical scroll and switch to Slide 2
+      if (activeTab === "copilot" && e.deltaY > 0) {
+        e.preventDefault();
+        if (isTransitioningRef.current) return;
 
-          if (accumulatedDelta >= SCROLL_THRESHOLD) {
-            isTransitioningRef.current = true;
-            setActiveTab("engine");
+        if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+
+        accumulatedDelta += e.deltaY * 0.7;
+        const progress = Math.min(1, Math.max(0, accumulatedDelta / SCROLL_THRESHOLD));
+        setScrollProgress(progress);
+
+        if (accumulatedDelta >= SCROLL_THRESHOLD) {
+          isTransitioningRef.current = true;
+          setActiveTab("engine");
+          // Lock on Slide 2 for at least 2.2 seconds before permitting scroll down to footer
+          engineUnlockTimestampRef.current = Date.now() + 2200;
+          accumulatedDelta = 0;
+          setTimeout(() => {
+            setScrollProgress(0);
+            isTransitioningRef.current = false;
+          }, 750);
+        } else {
+          resetTimerRef.current = window.setTimeout(() => {
             accumulatedDelta = 0;
-            setTimeout(() => {
-              setScrollProgress(0);
-              isTransitioningRef.current = false;
-            }, 750);
-          } else {
-            // Decay back if user stops scrolling
-            resetTimerRef.current = window.setTimeout(() => {
-              accumulatedDelta = 0;
-              setScrollProgress(0);
-            }, 300);
-          }
+            setScrollProgress(0);
+          }, 350);
         }
-        // 2. On Slide 2 (Engine) & scrolling Up: accumulate scroll + animate motion
-        else if (activeTab === "engine" && e.deltaY < 0) {
-          e.preventDefault();
-          accumulatedDelta += Math.abs(e.deltaY) * 0.65;
-          const progress = Math.min(1, Math.max(0, accumulatedDelta / SCROLL_THRESHOLD));
-          setScrollProgress(progress);
+        return;
+      }
 
-          if (accumulatedDelta >= SCROLL_THRESHOLD) {
-            isTransitioningRef.current = true;
-            setActiveTab("copilot");
-            accumulatedDelta = 0;
-            setTimeout(() => {
-              setScrollProgress(0);
-              isTransitioningRef.current = false;
-            }, 750);
-          } else {
-            resetTimerRef.current = window.setTimeout(() => {
-              accumulatedDelta = 0;
-              setScrollProgress(0);
-            }, 300);
-          }
+      // 2. While on Slide 2 (Engine) and user scrolls Down -> Dwell lock prevents premature scroll to footer
+      if (activeTab === "engine" && e.deltaY > 0) {
+        if (Date.now() < engineUnlockTimestampRef.current) {
+          e.preventDefault();
+          return;
         }
+        // Once dwell time has elapsed, naturally allows continuing scroll to footer!
+      }
+
+      // 3. While on Slide 2 (Engine) and user scrolls Up -> PREVENT vertical scroll and switch back to Slide 1
+      if (activeTab === "engine" && e.deltaY < 0) {
+        e.preventDefault();
+        if (isTransitioningRef.current) return;
+
+        if (resetTimerRef.current) clearTimeout(resetTimerRef.current);
+
+        accumulatedDelta += Math.abs(e.deltaY) * 0.7;
+        const progress = Math.min(1, Math.max(0, accumulatedDelta / SCROLL_THRESHOLD));
+        setScrollProgress(progress);
+
+        if (accumulatedDelta >= SCROLL_THRESHOLD) {
+          isTransitioningRef.current = true;
+          setActiveTab("copilot");
+          accumulatedDelta = 0;
+          setTimeout(() => {
+            setScrollProgress(0);
+            isTransitioningRef.current = false;
+          }, 750);
+        } else {
+          resetTimerRef.current = window.setTimeout(() => {
+            accumulatedDelta = 0;
+            setScrollProgress(0);
+          }, 350);
+        }
+        return;
       }
     };
 
@@ -362,36 +378,49 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (!sectionRef.current || isTransitioningRef.current) return;
+      if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
-      const isInFocus = rect.top <= 140 && rect.bottom >= window.innerHeight * 0.55;
+      const isInSectionView = rect.top <= window.innerHeight * 0.65 && rect.bottom >= window.innerHeight * 0.35;
 
-      if (isInFocus) {
-        const deltaY = touchStartY - e.touches[0].clientY;
-        if (deltaY > 0 && activeTab === "copilot") {
+      if (!isInSectionView) return;
+
+      const deltaY = touchStartY - e.touches[0].clientY;
+
+      // Swipe Up (scroll Down) on Copilot
+      if (deltaY > 0 && activeTab === "copilot") {
+        e.preventDefault();
+        if (isTransitioningRef.current) return;
+        const progress = Math.min(1, Math.max(0, deltaY / 100));
+        setScrollProgress(progress);
+        if (deltaY > 100) {
+          isTransitioningRef.current = true;
+          setActiveTab("engine");
+          engineUnlockTimestampRef.current = Date.now() + 2200;
+          setTimeout(() => {
+            setScrollProgress(0);
+            isTransitioningRef.current = false;
+          }, 750);
+        }
+      }
+      // Swipe Up (scroll Down) on Engine before dwell time
+      else if (deltaY > 0 && activeTab === "engine") {
+        if (Date.now() < engineUnlockTimestampRef.current) {
           e.preventDefault();
-          const progress = Math.min(1, Math.max(0, deltaY / 120));
-          setScrollProgress(progress);
-          if (deltaY > 120) {
-            isTransitioningRef.current = true;
-            setActiveTab("engine");
-            setTimeout(() => {
-              setScrollProgress(0);
-              isTransitioningRef.current = false;
-            }, 750);
-          }
-        } else if (deltaY < -0 && activeTab === "engine") {
-          e.preventDefault();
-          const progress = Math.min(1, Math.max(0, Math.abs(deltaY) / 120));
-          setScrollProgress(progress);
-          if (deltaY < -120) {
-            isTransitioningRef.current = true;
-            setActiveTab("copilot");
-            setTimeout(() => {
-              setScrollProgress(0);
-              isTransitioningRef.current = false;
-            }, 750);
-          }
+        }
+      }
+      // Swipe Down (scroll Up) on Engine
+      else if (deltaY < 0 && activeTab === "engine") {
+        e.preventDefault();
+        if (isTransitioningRef.current) return;
+        const progress = Math.min(1, Math.max(0, Math.abs(deltaY) / 100));
+        setScrollProgress(progress);
+        if (deltaY < -100) {
+          isTransitioningRef.current = true;
+          setActiveTab("copilot");
+          setTimeout(() => {
+            setScrollProgress(0);
+            isTransitioningRef.current = false;
+          }, 750);
         }
       }
     };
