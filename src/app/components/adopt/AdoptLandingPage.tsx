@@ -1098,7 +1098,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── FINAL SECTION: CONNECTED SHOWCASE, CTA BANNER & FOOTER ── */}
       {/* (APPLIED PLAYBOOK, AI ADOPTION ENGINE, CLOSING CTA & FOOTER) */}
       <section
-        ref={sectionRef}
         id="case-study"
         className="pt-4 sm:pt-6 pb-2 relative overflow-hidden bg-transparent min-h-[92vh] flex flex-col justify-between"
       >
