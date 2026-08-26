@@ -45,7 +45,10 @@ const STAGES_DATA = [
     color: "#0284c7",
     colorBg: "bg-[#0284c7]",
     badgeBg: "bg-[#f0f9ff]/90",
-    badgeBorder: "border-[#e0f2fe]/60",
+    badgeBorder: "border-[#bae6fd]",
+    rimGradient: "linear-gradient(145deg, rgba(56, 189, 248, 0.75) 0%, rgba(255, 255, 255, 0.95) 25%, rgba(56, 189, 248, 0.3) 60%, rgba(14, 165, 233, 0.8) 100%)",
+    glowColor: "rgba(56, 189, 248, 0.35)",
+    floorGlow: "#38bdf8",
     image: "Aware.png",
     pillar: "Signal",
     tagline: "Create awareness and promote about the existence of your product or feature.",
@@ -78,10 +81,13 @@ const STAGES_DATA = [
     num: "02",
     title: "Desire",
     question: '"Why should I care?"',
-    color: "#f43f5e",
-    colorBg: "bg-[#f43f5e]",
+    color: "#e11d48",
+    colorBg: "bg-[#e11d48]",
     badgeBg: "bg-[#fff1f2]/90",
-    badgeBorder: "border-[#ffe4e6]/60",
+    badgeBorder: "border-[#fecdd3]",
+    rimGradient: "linear-gradient(145deg, rgba(244, 63, 94, 0.75) 0%, rgba(255, 255, 255, 0.95) 25%, rgba(244, 63, 94, 0.3) 60%, rgba(225, 29, 72, 0.8) 100%)",
+    glowColor: "rgba(244, 63, 94, 0.35)",
+    floorGlow: "#fb7185",
     image: "Desire.png",
     pillar: "Emotional Pull",
     tagline: "Spark emotional connection and demonstrate tangible personal value.",
@@ -114,10 +120,13 @@ const STAGES_DATA = [
     num: "03",
     title: "Open",
     question: '"How do I start?"',
-    color: "#8b5cf6",
-    colorBg: "bg-[#8b5cf6]",
-    badgeBg: "bg-[#f5f3ff]/90",
-    badgeBorder: "border-[#ede9fe]/60",
+    color: "#7c3aed",
+    colorBg: "bg-[#7c3aed]",
+    badgeBg: "bg-[#faf5ff]/90",
+    badgeBorder: "border-[#e9d5ff]",
+    rimGradient: "linear-gradient(145deg, rgba(168, 85, 247, 0.75) 0%, rgba(255, 255, 255, 0.95) 25%, rgba(168, 85, 247, 0.3) 60%, rgba(124, 58, 237, 0.8) 100%)",
+    glowColor: "rgba(168, 85, 247, 0.35)",
+    floorGlow: "#c084fc",
     image: "Open.png",
     pillar: "First Action",
     tagline: "Lower activation barriers and guide users to their first successful interaction.",
@@ -150,10 +159,13 @@ const STAGES_DATA = [
     num: "04",
     title: "Proficient",
     question: '"How do I get better?"',
-    color: "#f59e0b",
-    colorBg: "bg-[#f59e0b]",
+    color: "#d97706",
+    colorBg: "bg-[#d97706]",
     badgeBg: "bg-[#fffbeb]/90",
-    badgeBorder: "border-[#fef3c7]/60",
+    badgeBorder: "border-[#fde68a]",
+    rimGradient: "linear-gradient(145deg, rgba(245, 158, 11, 0.75) 0%, rgba(255, 255, 255, 0.95) 25%, rgba(245, 158, 11, 0.3) 60%, rgba(217, 119, 6, 0.8) 100%)",
+    glowColor: "rgba(245, 158, 11, 0.35)",
+    floorGlow: "#fcd34d",
     image: "Proficient.png",
     pillar: "Reinforcement",
     tagline: "Deepen skills, build recurring workflow habits, and achieve mastery.",
@@ -186,10 +198,13 @@ const STAGES_DATA = [
     num: "05",
     title: "Transform",
     question: '"How can I lead others?"',
-    color: "#10b981",
-    colorBg: "bg-[#10b981]",
-    badgeBg: "bg-[#ecfdf5]/90",
-    badgeBorder: "border-[#d1fae5]/60",
+    color: "#16a34a",
+    colorBg: "bg-[#16a34a]",
+    badgeBg: "bg-[#f0fdf4]/90",
+    badgeBorder: "border-[#bbf7d0]",
+    rimGradient: "linear-gradient(145deg, rgba(16, 185, 129, 0.75) 0%, rgba(255, 255, 255, 0.95) 25%, rgba(16, 185, 129, 0.3) 60%, rgba(22, 163, 74, 0.8) 100%)",
+    glowColor: "rgba(16, 185, 129, 0.35)",
+    floorGlow: "#4ade80",
     image: "Transform.png",
     pillar: "Identity Shift",
     tagline: "Empower champions to scale knowledge, build community, and lead enterprise change.",
@@ -787,55 +802,71 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
 
-          {/* ── THE 5 FLAT CONNECTED STAGE CARDS (UNIFORM HEIGHT GRID) ─ */}
-          <div className="relative pt-4 pb-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 relative z-10 items-stretch">
+          {/* ── THE 5 GLASSMORPHIC STAGE CARDS (EXACT MATCH REFERENCE DESIGN) ─ */}
+          <div className="relative pt-6 pb-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-6 relative z-10 items-stretch">
               {STAGES_DATA.map((stage, idx) => (
                 <div
                   key={stage.id}
                   onClick={() => setActiveStageDetail(idx)}
-                  className="flex flex-col h-full cursor-pointer group"
+                  className="group relative flex flex-col h-full cursor-pointer transition-transform duration-500 hover:-translate-y-2.5"
                 >
-                  <div className="w-full h-full rounded-[32px] sm:rounded-[36px] bg-white/92 backdrop-blur-xl border border-slate-200/75 p-5 sm:p-6 flex flex-col justify-between shadow-[0_10px_30px_-5px_rgba(0,0,0,0.04)] relative min-h-[490px] lg:min-h-[510px] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_22px_45px_-8px_rgba(67,68,250,0.16)] hover:border-[#c7d2fe]">
-                    {/* Top Half: Number & Character */}
-                    <div>
-                      <div className="flex items-center justify-between mb-1.5">
+                  {/* Chromatic Glass Rim Outer Container */}
+                  <div
+                    className="w-full h-full p-[1.5px] rounded-[32px] sm:rounded-[36px] transition-all duration-500 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.06)] group-hover:shadow-[0_24px_50px_-10px_rgba(0,0,0,0.14)]"
+                    style={{
+                      background: stage.rimGradient,
+                    }}
+                  >
+                    {/* Inner Translucent Frosted Glass Body */}
+                    <div className="w-full h-full rounded-[30.5px] sm:rounded-[34.5px] bg-gradient-to-b from-white/85 via-white/60 to-white/90 backdrop-blur-2xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden min-h-[500px] lg:min-h-[520px]">
+                      {/* Top Gloss Arc Highlight */}
+                      <div className="absolute top-0 inset-x-0 h-36 bg-gradient-to-b from-white/70 via-white/20 to-transparent pointer-events-none rounded-t-[30px]" />
+
+                      {/* Top Header: Number Badge */}
+                      <div className="relative z-20 flex items-center justify-between">
                         <span
-                          className="text-[14px] font-black tracking-tight"
+                          className="text-[14px] sm:text-[15px] font-black tracking-tight"
                           style={{ color: stage.color }}
                         >
                           {stage.num}
                         </span>
-                        <span className="text-[11px] font-bold text-slate-400 group-hover:text-[#4344fa] transition-colors flex items-center gap-1">
-                          <span>Details</span>
-                          <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
-                        </span>
                       </div>
 
-                      {/* Character Illustration */}
-                      <div className="w-full h-64 sm:h-70 lg:h-74 flex items-center justify-center my-1 relative z-10 overflow-visible">
+                      {/* Center Character Graphic */}
+                      <div className="w-full h-64 sm:h-72 lg:h-76 flex items-center justify-center my-auto relative z-10 overflow-visible select-none pointer-events-none">
                         <img
                           src={`${import.meta.env.BASE_URL}IMG/${stage.image}`}
                           alt={`${stage.title} Character`}
-                          className="w-auto h-full max-h-full object-contain drop-shadow-md scale-110 sm:scale-115 transition-transform duration-300 group-hover:scale-120"
+                          className="w-auto h-full max-h-full object-contain drop-shadow-[0_14px_28px_rgba(0,0,0,0.12)] scale-110 sm:scale-115 transition-transform duration-500 group-hover:scale-120"
                         />
                       </div>
-                    </div>
 
-                    {/* Bottom Half: Title & Question Quote Pill */}
-                    <div className="mt-auto pt-2 flex flex-col items-center text-center">
-                      <h3 className="text-[22px] font-black text-[#0a0e1a] leading-tight mb-2.5 text-center">
-                        {stage.title}
-                      </h3>
+                      {/* Bottom Half: Stage Title & Question Quote Pill */}
+                      <div className="mt-auto pt-2 flex flex-col items-center text-center relative z-20">
+                        <h3 className="text-[22px] sm:text-[24px] font-black text-[#0f172a] leading-tight mb-2.5 text-center">
+                          {stage.title}
+                        </h3>
 
-                      <div
-                        className={`w-full py-2.5 px-3 rounded-2xl ${stage.badgeBg} border ${stage.badgeBorder} text-[12px] font-bold text-center tracking-tight shadow-2xs transition-all group-hover:shadow-xs`}
-                        style={{ color: stage.color }}
-                      >
-                        {stage.question}
+                        <div
+                          className={`w-full py-2.5 px-3 rounded-2xl ${stage.badgeBg} border ${stage.badgeBorder} text-[12px] sm:text-[12.5px] font-bold text-center tracking-tight shadow-xs transition-all`}
+                          style={{ color: stage.color }}
+                        >
+                          {stage.question}
+                        </div>
                       </div>
                     </div>
                   </div>
+
+                  {/* Glossy Floor Reflection & Ground Glow */}
+                  <div
+                    className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-4/5 h-8 rounded-full blur-xl pointer-events-none opacity-60 transition-all duration-500 group-hover:opacity-95 group-hover:scale-110"
+                    style={{ backgroundColor: stage.floorGlow }}
+                  />
+                  <div
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2/3 h-2 rounded-full blur-xs pointer-events-none opacity-40"
+                    style={{ backgroundColor: stage.floorGlow }}
+                  />
                 </div>
               ))}
             </div>
