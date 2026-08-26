@@ -547,7 +547,7 @@ export function WorkSection({
         className="text-center mb-12 h-grad-bright"
         style={{
           fontFamily: "'Poppins', sans-serif",
-          fontSize: "2.5rem",
+          fontSize: "3.125rem",
           lineHeight: 1.2,
           fontWeight: 300,
           position: "relative",
