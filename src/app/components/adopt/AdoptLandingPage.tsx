@@ -21,6 +21,8 @@ import {
   BarChart3,
   Download,
   ShieldCheck,
+  Mountain,
+  Lock,
   X
 } from "lucide-react";
 import "../../../styles/adopt-landing.css";
@@ -450,125 +452,154 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PIXEL PERFECT) ──── */}
+      {/* ── SECTION 2: THE CORE PROBLEM (ICEBERG 100% PIXEL PERFECT) ──── */}
       <section id="problem" className="py-14 lg:py-20 relative overflow-hidden bg-transparent">
         <div className="w-full max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-10">
-          {/* Main Enclosed Card with Glassmorphism */}
-          <div className="relative rounded-[36px] sm:rounded-[44px] bg-white/92 backdrop-blur-xl border border-slate-200/75 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.05)] p-8 sm:p-12 lg:p-16 overflow-hidden">
-            {/* Background Texture Artwork with Floating Iridescent Ribbons */}
-            <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden opacity-95">
+          {/* Main Enclosed Card with Iceberg Visual Background */}
+          <div className="relative rounded-[36px] sm:rounded-[44px] overflow-hidden border border-slate-200/80 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.18)] min-h-[640px] text-left">
+            {/* Background Iceberg Artwork */}
+            <div className="absolute inset-0 select-none pointer-events-none z-0">
               <img
-                src={`${import.meta.env.BASE_URL}IMG/core_problem_ribbon_bg.jpg`}
-                alt="Flowing Iridescent Ribbons Artwork"
+                src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_bg.jpg`}
+                alt="AI Adoption Iceberg Analogy"
                 className="w-full h-full object-cover object-center"
+              />
+              {/* Subtle ambient gradients for optimal text contrast */}
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(to right, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.62) 28%, rgba(255,255,255,0) 55%), linear-gradient(to top, rgba(2, 22, 54, 0.92) 0%, rgba(2, 22, 54, 0.65) 36%, transparent 65%)",
+                }}
               />
             </div>
 
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-              {/* Left Column: Problem Statement */}
-              <div className="lg:col-span-5 flex flex-col items-start text-left">
-                <div className="inline-flex items-center gap-2 mb-4">
-                  <div className="w-6 h-6 rounded-full bg-[#f0f3ff] text-[#4f46e5] flex items-center justify-center shadow-2xs">
-                    <Sparkles className="w-3.5 h-3.5 text-[#4344fa]" />
+            {/* Content Container */}
+            <div className="relative z-10 p-8 sm:p-12 lg:p-16 flex flex-col justify-between min-h-[640px]">
+              {/* Top Row (Above Water) */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                {/* Top Left: Headline & Context */}
+                <div className="lg:col-span-6 flex flex-col items-start">
+                  <div className="mb-4">
+                    <span className="text-[12px] font-extrabold tracking-[0.14em] text-[#334155] uppercase block mb-1.5">
+                      THE CORE PROBLEM
+                    </span>
+                    <div className="w-10 h-[2.5px] bg-[#334155]/60 rounded-full" />
                   </div>
-                  <span className="text-[12px] font-bold text-[#4344fa] tracking-wider uppercase">
-                    THE CORE PROBLEM
-                  </span>
+
+                  <h2 className="text-[38px] sm:text-[48px] lg:text-[54px] font-extrabold text-[#0b1a30] tracking-[-0.03em] leading-[1.08] mb-3">
+                    AI adoption is not<br />
+                    a feature problem.<br />
+                    <span className="text-[#1d63ff] font-extrabold">
+                      It’s a behavior problem.
+                    </span>
+                  </h2>
+
+                  <p className="text-[14px] sm:text-[16px] text-[#475569] leading-relaxed max-w-[460px] font-medium">
+                    Even powerful products fail when they collide with familiar habits, uncertainty, and inertia.
+                  </p>
                 </div>
 
-                <h2 className="text-[36px] sm:text-[44px] lg:text-[50px] font-black text-[#0a0e1a] tracking-tight leading-[1.08] mb-4">
-                  AI adoption is not<br />
-                  a feature problem.<br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d4dfc] via-[#633bfa] to-[#4344fa]">
-                    It's a behavior problem.
-                  </span>
-                </h2>
+                {/* Top Right: ABOVE THE SURFACE Callout */}
+                <div className="lg:col-span-6 flex justify-start lg:justify-end">
+                  <div className="relative flex flex-col items-start bg-white/75 backdrop-blur-md border border-white/60 p-5 rounded-2xl shadow-sm max-w-xs lg:mr-8 mt-2 lg:mt-4">
+                    {/* Connecting Line to Mountain Peak */}
+                    <div className="hidden lg:block absolute -left-16 top-5 w-16 h-8 pointer-events-none">
+                      <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
+                        <path d="M64 12 L 20 12 L 0 30" stroke="#94a3b8" strokeWidth="1.2" strokeDasharray="3 3" />
+                        <circle cx="0" cy="30" r="3" fill="#3b82f6" />
+                      </svg>
+                    </div>
 
-                <p className="text-[15px] sm:text-[16px] text-[#64748b] leading-[1.6] mb-8 font-normal max-w-[460px]">
-                  Even the most powerful tools fail when they collide with human habits, uncertainty, and inertia.
-                </p>
-
-                {/* Bullets */}
-                <div className="space-y-4 w-full">
-                  {[
-                    "Users don't resist the product.",
-                    "They resist changing their routine.",
-                    "Better tech does not automatically create behavior change.",
-                    "Sustainable adoption happens when we design for the human, not just the feature."
-                  ].map((text, idx) => (
-                    <div key={idx} className="flex items-start gap-3.5">
-                      <div className="w-6 h-6 rounded-full bg-[#edf2fe] text-[#4344fa] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                        <Check className="w-4 h-4 text-[#4344fa]" />
+                    <div className="flex items-center gap-3.5 mb-3.5">
+                      <div className="w-10 h-10 rounded-full bg-white border border-slate-200 shadow-2xs flex items-center justify-center text-[#1e293b] shrink-0">
+                        <Mountain className="w-5 h-5 text-[#334155] stroke-[2]" />
                       </div>
-                      <span className="text-[14px] sm:text-[15px] text-[#334155] font-medium leading-snug pt-0.5">
+                      <div>
+                        <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
+                          ABOVE THE SURFACE
+                        </div>
+                        <div className="text-[12px] text-[#64748b] font-medium">
+                          What teams optimize
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 pl-2 w-full">
+                      {[
+                        "Advanced capabilities",
+                        "Continuous innovation",
+                        "Feature-rich roadmap",
+                        "Enterprise-grade security",
+                      ].map((item, idx) => (
+                        <div key={idx} className="flex items-center gap-2.5 text-[13px] font-semibold text-[#1e293b]">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_8px_rgba(59,130,246,0.8)] shrink-0" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Row (Below Water / Submerged Ocean) */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-12 sm:pt-16">
+                {/* Bottom Left: 4 Checkmark Points */}
+                <div className="lg:col-span-6 space-y-3.5 max-w-md">
+                  {[
+                    "Users don't resist products.",
+                    "They resist changing routines.",
+                    "Better technology does not automatically create behavior change.",
+                    "Sustainable adoption starts with human behavior.",
+                  ].map((text, idx) => (
+                    <div key={idx} className="flex items-start gap-3.5 group">
+                      <div className="w-6 h-6 rounded-full bg-white/10 border border-white/30 backdrop-blur-md flex items-center justify-center text-[#93c5fd] shrink-0 mt-0.5 shadow-[0_0_12px_rgba(147,197,253,0.3)]">
+                        <Check className="w-3.5 h-3.5 text-[#93c5fd] stroke-[2.5]" />
+                      </div>
+                      <span className="text-[14px] sm:text-[15px] text-white/95 font-medium leading-snug">
                         {text}
                       </span>
                     </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Right Column: Comparison Cards */}
-              <div className="lg:col-span-7 relative">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white border border-slate-200 shadow-lg flex items-center justify-center">
-                  <span className="text-[12px] font-black text-[#0f172a] tracking-tight">VS.</span>
-                </div>
+                {/* Bottom Right: BELOW THE SURFACE Callout */}
+                <div className="lg:col-span-6 flex justify-start lg:justify-end">
+                  <div className="relative flex flex-col items-start bg-[#031c44]/80 backdrop-blur-md border border-white/20 p-5 rounded-2xl shadow-xl max-w-xs lg:mr-8 mb-2">
+                    {/* Connecting Line to Submerged Iceberg */}
+                    <div className="hidden lg:block absolute -left-16 top-6 w-16 h-2 pointer-events-none">
+                      <svg className="w-full h-full" viewBox="0 0 64 8" fill="none">
+                        <path d="M64 4 L 0 4" stroke="#38bdf8" strokeWidth="1.2" strokeDasharray="3 3" />
+                        <circle cx="0" cy="4" r="3" fill="#38bdf8" />
+                      </svg>
+                    </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-                  <div className="rounded-[32px] bg-white/92 backdrop-blur-md border border-[#e0e7ff] p-7 sm:p-8 flex flex-col justify-between shadow-[0_15px_35px_-10px_rgba(61,77,252,0.08)] min-h-[390px] text-left transition-all duration-300 hover:shadow-[0_20px_45px_-10px_rgba(61,77,252,0.12)]">
-                    <div>
-                      <div className="flex items-center gap-3.5 mb-6">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#4f7cf8] via-[#4344fa] to-[#3730a3] flex items-center justify-center text-white shadow-md shadow-indigo-500/25 shrink-0">
-                          <Layers className="w-6 h-6 text-white stroke-[2.2]" />
+                    <div className="flex items-center gap-3.5 mb-3.5">
+                      <div className="w-10 h-10 rounded-full bg-white/10 border border-white/25 shadow-inner flex items-center justify-center text-white shrink-0">
+                        <Lock className="w-5 h-5 text-white stroke-[2]" />
+                      </div>
+                      <div>
+                        <div className="text-[13px] font-black text-white tracking-wider uppercase">
+                          BELOW THE SURFACE
                         </div>
-                        <h3 className="text-[20px] font-extrabold text-[#0f172a] tracking-tight leading-tight">
-                          Powerful Product
-                        </h3>
-                      </div>
-                      <div className="space-y-4 mb-8">
-                        {["Advanced capabilities", "Continuous innovation", "Feature-rich roadmap", "Enterprise-grade security"].map((feat, idx) => (
-                          <div key={idx} className="flex items-center gap-3 text-[14px] text-[#334155] font-medium">
-                            <div className="w-3 h-3 rounded-full bg-[#eff4ff] border border-[#bfdbfe] flex items-center justify-center shrink-0">
-                              <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6]" />
-                            </div>
-                            <span>{feat}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="w-full py-2.5 px-5 rounded-full bg-gradient-to-r from-[#eef2ff] to-[#f5f3ff] border border-[#c7d2fe] text-[#4344fa] text-[13px] font-bold flex items-center justify-between shadow-2xs select-none pointer-events-none">
-                      <span>What we build</span>
-                      <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-2xs">
-                        <ArrowRight className="w-3.5 h-3.5 text-[#4344fa] stroke-[2.5]" />
-                      </span>
-                    </div>
-                  </div>
-                  <div className="rounded-[32px] bg-white/92 backdrop-blur-md border border-[#ffe4e6] p-7 sm:p-8 flex flex-col justify-between shadow-[0_15px_35px_-10px_rgba(244,63,94,0.08)] min-h-[390px] text-left transition-all duration-300 hover:shadow-[0_20px_45px_-10px_rgba(244,63,94,0.12)]">
-                    <div>
-                      <div className="flex items-center gap-3.5 mb-6">
-                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#fb7185] via-[#f43f5e] to-[#e11d48] flex items-center justify-center text-white shadow-md shadow-rose-500/25 shrink-0">
-                          <Users className="w-6 h-6 text-white stroke-[2.2]" />
+                        <div className="text-[12px] text-slate-300 font-medium">
+                          What holds adoption back
                         </div>
-                        <h3 className="text-[20px] font-extrabold text-[#0f172a] tracking-tight leading-tight">
-                          Familiar Habits
-                        </h3>
-                      </div>
-                      <div className="space-y-4 mb-8">
-                        {["Comfort with the old way", "Fear of change", "Unclear personal value", "No motivation to adopt"].map((habit, idx) => (
-                          <div key={idx} className="flex items-center gap-3 text-[14px] text-[#475569] font-medium">
-                            <div className="w-3 h-3 rounded-full bg-[#fff1f2] border border-[#fecdd3] flex items-center justify-center shrink-0">
-                              <div className="w-1.5 h-1.5 rounded-full bg-[#f43f5e]" />
-                            </div>
-                            <span>{habit}</span>
-                          </div>
-                        ))}
                       </div>
                     </div>
-                    <div className="w-full py-2.5 px-5 rounded-full bg-gradient-to-r from-[#fff1f2] to-[#fdf2f8] border border-[#fecdd3] text-[#f43f5e] text-[13px] font-bold flex items-center justify-between shadow-2xs select-none pointer-events-none">
-                      <span>What holds users back</span>
-                      <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-2xs">
-                        <ArrowRight className="w-3.5 h-3.5 text-[#f43f5e] stroke-[2.5]" />
-                      </span>
+
+                    <div className="space-y-2 pl-2 w-full">
+                      {[
+                        "Familiar habits",
+                        "Fear of change",
+                        "Unclear personal value",
+                        "Low motivation to switch",
+                      ].map((item, idx) => (
+                        <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-white/95">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_rgba(56,189,248,0.9)] shrink-0" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
