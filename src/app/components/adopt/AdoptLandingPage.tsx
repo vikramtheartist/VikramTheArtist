@@ -390,11 +390,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
           }}
         >
-          {/* Multi-axis 3D Parallax Prism Container */}
+          {/* Multi-axis 3D Parallax Prism Container (Anchored in Background) */}
           <div
             className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
             style={{
-              transform: `translate3d(${50 + Math.min(scrollY * 0.18, 120) + mousePos.x * 20}px, ${Math.min(scrollY * -0.08, -60) + mousePos.y * 14}px, 0) scale(${1 + Math.min(scrollY * 0.0008, 0.28)}) perspective(1000px) rotateY(${Math.min(scrollY * -0.016, 6) + mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
+              transform: `translate3d(${50 + mousePos.x * 20}px, ${scrollY * 0.1 + mousePos.y * 14}px, 0) scale(${1 + Math.min(scrollY * 0.0003, 0.1)}) perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
               transformOrigin: "78% 50%",
             }}
           >
@@ -428,12 +428,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           />
         </div>
 
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 my-auto">
-          {/* Left Text Column with Layered Parallax Offsets */}
+        <div
+          className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 my-auto will-change-transform transition-transform duration-100 ease-out"
+          style={{
+            transform: `translate3d(0, ${scrollY * -0.45}px, 0)`,
+            opacity: Math.max(0, 1 - scrollY / 700),
+          }}
+        >
+          {/* Left Text Column */}
           <div
             className="max-w-2xl text-left will-change-transform transition-transform duration-200"
             style={{
-              transform: `translate3d(${mousePos.x * -6}px, ${scrollY * -0.06 + mousePos.y * -4}px, 0)`,
+              transform: `translate3d(${mousePos.x * -6}px, ${mousePos.y * -4}px, 0)`,
             }}
           >
             {/* Eyebrow Badge */}
