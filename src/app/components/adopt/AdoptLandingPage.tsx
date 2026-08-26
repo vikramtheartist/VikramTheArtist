@@ -562,20 +562,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       <section
         id="problem"
         ref={problemRef}
-        className="w-full min-h-[280vh] relative z-20 bg-transparent"
+        className="w-full min-h-[250vh] relative z-20 bg-transparent"
       >
         {/* Sticky 100vh Viewport Container: Background & Headline stick rock-solid to screen */}
         <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-          {/* Full-Bleed Iceberg Artwork Background with Seamless Multiply Blending (Completely stationary during scroll) */}
+          {/* Full-Bleed Iceberg Artwork Background with Seamless Multiply Blending (Completely framed inside viewport) */}
           <div
-            className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
+            className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden flex items-center justify-center"
             style={{
-              maskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+              maskImage: "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
             }}
           >
             <div
-              className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
+              className="w-full h-full max-h-[88vh] will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
               style={{
                 transform: `translate3d(${mousePos.x * 8}px, ${mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
               }}
@@ -583,18 +583,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               <img
                 src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
                 alt="AI Adoption Iceberg Analogy"
-                className="w-full h-full object-contain sm:object-cover object-center mix-blend-multiply transition-transform duration-700 opacity-95"
+                className="w-auto h-full max-h-[88vh] object-contain object-center mix-blend-multiply transition-transform duration-700 opacity-95"
               />
             </div>
           </div>
 
           {/* Full-Width Centered Content Container */}
-          <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[580px] max-h-[780px]">
+          <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between h-[84vh] max-h-[680px]">
             {/* Top Row (Above Water / Upper Content Area) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Top Left: Badge, Headline & Context (Sticks firmly along with Background Iceberg) */}
               <div className="lg:col-span-6 flex flex-col items-start text-left">
-                <div className="mb-4">
+                <div className="mb-3 sm:mb-4">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
                     <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
                     <span>THE CORE PROBLEM</span>
@@ -602,7 +602,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   <div className="w-8 h-[2.5px] bg-[#38bdf8] rounded-full mt-2.5 shadow-[0_0_8px_rgba(56,189,248,0.6)]" />
                 </div>
 
-                <h2 className="text-[42px] sm:text-[50px] lg:text-[56px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
+                <h2 className="text-[38px] sm:text-[46px] lg:text-[52px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-3 sm:mb-4 font-sans">
                   AI adoption is not<br />
                   a feature problem.<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
@@ -610,18 +610,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   </span>
                 </h2>
 
-                <p className="text-[14px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-4 sm:mb-6">
+                <p className="text-[13.5px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-2">
                   Even powerful products fail when they collide with familiar habits, uncertainty, and inertia.
                 </p>
               </div>
 
-              {/* Top Right: ABOVE THE SURFACE Callout Card (Reveals smoothly on initial downward scroll) */}
+              {/* Top Right: ABOVE THE SURFACE Callout Card (Reveals early as user begins downward scroll) */}
               <div
                 className="lg:col-span-6 flex justify-start lg:justify-end transition-all duration-700 ease-out"
                 style={{
-                  opacity: problemProgress >= 0.15 ? 1 : 0,
-                  transform: `translate3d(0, ${problemProgress >= 0.15 ? 0 : 36}px, 0)`,
-                  pointerEvents: problemProgress >= 0.15 ? "auto" : "none",
+                  opacity: problemProgress >= 0.08 ? 1 : 0,
+                  transform: `translate3d(0, ${problemProgress >= 0.08 ? 0 : 36}px, 0)`,
+                  pointerEvents: problemProgress >= 0.08 ? "auto" : "none",
                 }}
               >
                 <div
@@ -674,13 +674,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </div>
             </div>
 
-            {/* Bottom Row: Checkmarks & BELOW THE SURFACE Card (Reveals on continued downward scroll) */}
+            {/* Bottom Row: Checkmarks & BELOW THE SURFACE Card (Reveals cleanly right within the visible screen) */}
             <div
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-4 sm:pt-8 transition-all duration-700 ease-out"
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-2 sm:pt-4 transition-all duration-700 ease-out"
               style={{
-                opacity: problemProgress >= 0.35 ? 1 : 0,
-                transform: `translate3d(0, ${problemProgress >= 0.35 ? 0 : 40}px, 0)`,
-                pointerEvents: problemProgress >= 0.35 ? "auto" : "none",
+                opacity: problemProgress >= 0.20 ? 1 : 0,
+                transform: `translate3d(0, ${problemProgress >= 0.20 ? 0 : 36}px, 0)`,
+                pointerEvents: problemProgress >= 0.20 ? "auto" : "none",
               }}
             >
               {/* Bottom Left: 4 Checkmark Bullet Items */}
