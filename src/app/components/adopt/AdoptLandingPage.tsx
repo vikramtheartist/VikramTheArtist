@@ -382,16 +382,15 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         id="hero"
         className="relative z-10 min-h-[92vh] lg:min-h-[98vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent"
       >
-        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism (Fixed Stationary Background) */}
+        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism */}
         <div
-          className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end will-change-transform"
+          className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
           style={{
-            transform: `translate3d(0, ${Math.min(scrollY, 1200)}px, 0)`,
-            maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+            maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
           }}
         >
-          {/* Multi-axis 3D Parallax Prism Container (Stationary, Only Reacts to Mouse) */}
+          {/* Multi-axis 3D Parallax Prism Container */}
           <div
             className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
             style={{
@@ -566,7 +565,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div
             className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              transform: `translate3d(${mousePos.x * 8}px, ${mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
             }}
           >
             <img
