@@ -1,4 +1,5 @@
 import { useMemo, useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+import { Eye, Sparkles, TrendingUp } from "lucide-react";
 
 /* ── Star Canvas (replaces 740 individual DOM nodes) ────────────
  * All 4 star layers drawn on one <canvas>. Each layer has a parallax
@@ -237,29 +238,32 @@ function SpaceSmoke() {
   );
 }
 
-/* ── Liquid Glass Card Component ────────────────────────────── */
-export interface LiquidGlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  className?: string;
-}
-
-export function LiquidGlassCard({ children, className = "", style, ...props }: LiquidGlassCardProps) {
-  return (
-    <div
-      className={`liquid-glass-card ${className}`}
-      style={style}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-}
-
 /* ── Philosophy cards ───────────────────────────────────────── */
 const cards = [
-  { title: "Observe", body: "I understand the system—users, data, AI, and context to frame the right problem." },
-  { title: "Create",  body: "I design end-to-end experiences that turn complexity into clear, usable decisions." },
-  { title: "Evolve",  body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust." },
+  {
+    title: "Observe",
+    body: "I understand the system—users, data, AI, and context to frame the right problem.",
+    icon: Eye,
+    glowBg: "rgba(168, 85, 247, 0.18)",
+    iconColor: "#c084fc",
+    accentColor: "#a855f7",
+  },
+  {
+    title: "Create",
+    body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
+    icon: Sparkles,
+    glowBg: "rgba(56, 189, 248, 0.18)",
+    iconColor: "#38bdf8",
+    accentColor: "#0284c7",
+  },
+  {
+    title: "Evolve",
+    body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
+    icon: TrendingUp,
+    glowBg: "rgba(217, 70, 239, 0.18)",
+    iconColor: "#e879f9",
+    accentColor: "#d946ef",
+  },
 ];
 
 /* ── Hero ───────────────────────────────────────────────────── */
@@ -384,22 +388,67 @@ export function Hero() {
         `}</style>
         <div className="hero-cards-grid" ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}>
-          {cards.map(({ title, body }) => (
-            <LiquidGlassCard
+          {cards.map(({ title, body, icon: Icon, iconColor, glowBg, accentColor }) => (
+            <div
               key={title}
-              className="flex flex-col transition-all duration-300 hover:scale-[1.02]"
+              className="flex flex-col hero-philosophy-card liquid-glass group cursor-default text-left"
               style={{
-                padding: '26px 24px',
-                gap: '8px',
+                padding: '24px 22px',
+                gap: '14px',
+                borderRadius: '20px',
+                position: 'relative',
               }}
             >
-              <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 300, fontSize: '20px', lineHeight: 1.2, color: 'var(--text-1)', margin: 0 }}>
-                {title}
-              </h3>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, fontSize: '17px', lineHeight: 1.7, color: 'var(--text-2)', margin: 0 }}>
+              {/* Header with Glowing Icon Badge & Title */}
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border border-white/20 shadow-sm transition-transform duration-300 group-hover:scale-110"
+                  style={{
+                    backgroundColor: glowBg,
+                    boxShadow: `0 0 16px ${glowBg}`,
+                  }}
+                >
+                  <Icon className="w-5 h-5 stroke-[2.2]" style={{ color: iconColor }} />
+                </div>
+                <h3
+                  style={{
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 500,
+                    fontSize: '20px',
+                    lineHeight: 1.2,
+                    color: 'var(--text-1)',
+                    margin: 0,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  {title}
+                </h3>
+              </div>
+
+              {/* High-Contrast Body Text */}
+              <p
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: 400,
+                  fontSize: '15px',
+                  lineHeight: 1.65,
+                  color: 'var(--text-2)',
+                  margin: 0,
+                  opacity: 0.92,
+                }}
+              >
                 {body}
               </p>
-            </LiquidGlassCard>
+
+              {/* Bottom Subtle Glowing Accent Indicator */}
+              <div
+                className="w-8 h-1 rounded-full mt-auto transition-all duration-300 group-hover:w-14"
+                style={{
+                  backgroundColor: accentColor,
+                  boxShadow: `0 0 8px ${accentColor}`,
+                }}
+              />
+            </div>
           ))}
         </div>
       </section>
