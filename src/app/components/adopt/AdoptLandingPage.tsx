@@ -298,11 +298,24 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             const totalScrollDistance = stickyTrackRef.current.offsetHeight - window.innerHeight;
             if (totalScrollDistance > 0) {
               const currentScroll = -rect.top;
-              const progress = Math.max(0, Math.min(1, currentScroll / totalScrollDistance));
-              setHorizontalProgress(progress);
-              if (progress >= 0.5 && activeTab !== "engine") {
+              const rawProgress = Math.max(0, Math.min(1, currentScroll / totalScrollDistance));
+              
+              // Dwell zones: 0 to 0.15 stays on Slide 1, 0.85 to 1.0 stays on Slide 2
+              let slideProgress = 0;
+              if (rawProgress <= 0.15) {
+                slideProgress = 0;
+              } else if (rawProgress >= 0.85) {
+                slideProgress = 1;
+              } else {
+                const norm = (rawProgress - 0.15) / 0.70;
+                // smooth cubic bezier ease-in-out
+                slideProgress = norm < 0.5 ? 2 * norm * norm : -1 + (4 - 2 * norm) * norm;
+              }
+
+              setHorizontalProgress(slideProgress);
+              if (slideProgress >= 0.5 && activeTab !== "engine") {
                 setActiveTab("engine");
-              } else if (progress < 0.5 && activeTab !== "copilot") {
+              } else if (slideProgress < 0.5 && activeTab !== "copilot") {
                 setActiveTab("copilot");
               }
             }
@@ -1146,15 +1159,15 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       <section
         ref={stickyTrackRef}
         id="case-study"
-        className="relative h-[240vh] w-full bg-transparent"
+        className="relative h-[300vh] w-full bg-transparent"
       >
         {/* Anchor for Section 5 navigation link */}
-        <div id="adoptiq" className="absolute top-[60vh] left-0 pointer-events-none" />
+        <div id="adoptiq" className="absolute top-[80vh] left-0 pointer-events-none" />
 
         {/* Sticky Window Container pinned to Viewport Center */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center py-6 sm:py-10 z-20">
+        <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center pt-20 pb-8 z-20">
           {/* Top Interactive Switcher & Navigation Header */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-8 lg:mb-10 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full z-10">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-6 lg:mb-8 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full z-10">
             {/* Left: Dual Interactive Switcher Pill */}
             <div className="inline-flex p-1.5 rounded-full bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-[0_10px_30px_-6px_rgba(0,0,0,0.08)]">
               <button
