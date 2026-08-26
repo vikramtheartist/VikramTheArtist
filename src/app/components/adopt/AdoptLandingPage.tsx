@@ -1393,62 +1393,71 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
         </div>
 
-        {/* ── CLOSING CTA BANNER (Sticky Pinned to Bottom of Screen) ── */}
-        <div className="sticky bottom-3 z-30 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full mt-auto mb-1">
+        {/* ── CLOSING CTA FOOTER CARD (Enlarged with Integrated Attribution) ── */}
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full mt-auto mb-6">
           <div
-            className="relative rounded-[22px] sm:rounded-[26px] px-6 py-3 sm:px-8 sm:py-3 lg:px-10 lg:py-3 border border-white/60 shadow-[0_16px_40px_-8px_rgba(168,85,247,0.35)] backdrop-blur-md overflow-hidden text-left"
+            className="relative rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 lg:px-16 lg:py-12 border border-white/60 shadow-[0_24px_60px_-12px_rgba(168,85,247,0.35)] overflow-hidden text-left"
             style={{
               background:
-                "linear-gradient(105deg, rgba(120, 136, 248, 0.96) 0%, rgba(156, 167, 252, 0.96) 24%, rgba(183, 157, 251, 0.96) 48%, rgba(216, 150, 234, 0.96) 74%, rgba(247, 148, 202, 0.96) 100%)",
+                "linear-gradient(105deg, #7888f8 0%, #9ca7fc 24%, #b79dfb 48%, #d896ea 74%, #f794ca 100%)",
             }}
           >
             {/* Elegant Soft Curved Wave Lines in Background */}
             <svg
-              className="absolute inset-0 w-full h-full pointer-events-none opacity-40 select-none"
-              viewBox="0 0 1200 160"
+              className="absolute inset-0 w-full h-full pointer-events-none opacity-45 select-none"
+              viewBox="0 0 1200 240"
               fill="none"
               preserveAspectRatio="none"
             >
               <path
-                d="M-50 90 C 280 150, 680 20, 1250 110"
+                d="M-50 130 C 280 210, 680 30, 1250 150"
                 stroke="white"
                 strokeWidth="1.5"
                 strokeOpacity="0.65"
                 fill="none"
               />
               <path
-                d="M-50 130 C 380 30, 780 160, 1250 50"
+                d="M-50 180 C 380 50, 780 230, 1250 70"
                 stroke="white"
                 strokeWidth="1.2"
                 strokeOpacity="0.45"
                 fill="none"
               />
+              <path
+                d="M-50 40 C 480 170, 880 10, 1250 190"
+                stroke="white"
+                strokeWidth="0.8"
+                strokeOpacity="0.35"
+                fill="none"
+              />
             </svg>
 
             {/* Glowing Atmosphere Nodes */}
-            <div className="absolute top-0 right-1/4 w-64 h-64 bg-white/15 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-pink-300/20 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute top-0 right-1/4 w-80 h-80 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-pink-300/20 rounded-full blur-2xl pointer-events-none" />
 
-            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+            {/* Main Action Content Row */}
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
               {/* Left Headline */}
               <div className="max-w-xl">
-                <h2 className="text-[20px] sm:text-[24px] lg:text-[26px] font-bold text-white tracking-tight leading-[1.15]">
-                  Design for behavior. Build what lasts.
+                <h2 className="text-[32px] sm:text-[40px] lg:text-[46px] font-bold text-white tracking-tight leading-[1.12]">
+                  Design for behavior.<br />
+                  Build what lasts.
                 </h2>
               </div>
 
               {/* Right Side: Buttons + Subtext Below Buttons */}
-              <div className="flex flex-col items-start lg:items-end gap-1 shrink-0">
+              <div className="flex flex-col items-start lg:items-end gap-2.5 shrink-0">
                 {/* Buttons Row */}
-                <div className="flex flex-wrap items-center gap-3">
+                <div className="flex flex-wrap items-center gap-4">
                   {/* 1. Launch the Playbook (Purple Gradient Pill + Circular Arrow) */}
                   <button
                     onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
-                    className="pl-5 pr-1.5 py-1.5 rounded-full bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#8b5cf6] text-white font-bold text-[13px] shadow-[0_8px_20px_-4px_rgba(99,102,241,0.5)] border border-white/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer group"
+                    className="pl-6 pr-2 py-2 rounded-full bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#8b5cf6] text-white font-bold text-[14px] shadow-[0_10px_25px_-5px_rgba(99,102,241,0.5)] border border-white/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 cursor-pointer group"
                   >
                     <span>Launch the Playbook</span>
-                    <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5">
-                      <ArrowRight className="w-3.5 h-3.5" />
+                    <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5">
+                      <ArrowRight className="w-4 h-4" />
                     </span>
                   </button>
 
@@ -1457,31 +1466,29 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     href="https://adoptiqai.vercel.app/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-5 py-2 rounded-full bg-white text-[#1e293b] font-bold text-[13px] shadow-xs hover:shadow-md hover:bg-slate-50 transition-all flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95 text-decoration-none group"
+                    className="px-6 py-3 rounded-full bg-white text-[#1e293b] font-bold text-[14px] shadow-sm hover:shadow-md hover:bg-slate-50 transition-all flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95 text-decoration-none group"
                   >
                     <span>Launch AdoptIQ.ai</span>
-                    <ArrowUpRight className="w-3.5 h-3.5 text-[#8b5cf6] stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <ArrowUpRight className="w-4 h-4 text-[#8b5cf6] stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </a>
                 </div>
 
                 {/* Subtext Placed Below The Buttons */}
-                <p className="text-white/90 text-[11.5px] sm:text-[12px] font-medium leading-tight">
+                <p className="text-white/95 text-[13px] sm:text-[14px] font-medium leading-relaxed max-w-lg lg:text-right">
                   ADOPT is the blueprint for turning AI potential into human progress—at scale.
                 </p>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* ── FOOTER ATTRIBUTION LINE ─────────────────────────────────── */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full pt-2 pb-1 border-t border-slate-200/50 text-[11px] text-slate-500">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
-            <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-slate-800">ADOPT</span>
-              <span>— A Behavioral Operating System for Enterprise AI Adoption</span>
-            </div>
-            <div>
-              <span>Crafted with pixel-precision by Vikram &bull; All rights reserved</span>
+            {/* Integrated Attribution & Copyright Row Inside The Card */}
+            <div className="relative z-10 pt-6 mt-8 sm:mt-10 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-3 text-white/90 text-[12px] sm:text-[13px]">
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-white tracking-wide">ADOPT</span>
+                <span>— A Behavioral Operating System for Enterprise AI Adoption</span>
+              </div>
+              <div className="text-white/80">
+                <span>Crafted with pixel-precision by Vikram &bull; All rights reserved</span>
+              </div>
             </div>
           </div>
         </div>
