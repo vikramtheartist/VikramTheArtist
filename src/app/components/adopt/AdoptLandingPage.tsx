@@ -463,20 +463,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-screen relative z-20 py-20 lg:py-28 overflow-hidden flex items-center justify-center bg-gradient-to-b from-[#fbfcff]/95 via-[#f6f9fe] to-[#f4f7fe]"
+        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-20 lg:pt-24 lg:pb-36 overflow-hidden flex items-center justify-center bg-gradient-to-b from-[#fbfcff]/95 via-[#f6f9fe] to-[#f4f7fe]"
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background */}
         <div className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden">
           <div
-            className="w-full h-[125%] -top-[12%] absolute inset-x-0 will-change-transform transition-transform duration-100 ease-out flex items-center justify-center"
+            className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-100 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(0, ${(scrollY - 500) * -0.06}px, 0) scale(1.02)`,
+              transform: `translate3d(0, ${(scrollY - 500) * -0.035}px, 0)`,
             }}
           >
             <img
               src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-contain sm:object-cover object-center"
             />
           </div>
 
@@ -485,7 +485,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.76) 28%, rgba(255,255,255,0.18) 52%, transparent 70%), linear-gradient(to top, rgba(244,247,254,0.95) 0%, transparent 25%), linear-gradient(to bottom, rgba(244,247,254,0.95) 0%, transparent 25%)",
+                "linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.76) 28%, rgba(255,255,255,0.18) 52%, transparent 70%), linear-gradient(to top, rgba(244,247,254,0.9) 0%, transparent 12%), linear-gradient(to bottom, rgba(244,247,254,0.9) 0%, transparent 12%)",
             }}
           />
         </div>
