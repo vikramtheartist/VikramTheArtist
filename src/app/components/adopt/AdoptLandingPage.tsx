@@ -320,23 +320,22 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </header>
 
-      {/* ── SECTION 1: HERO (STICKY WITH PARALLAX BLUR EFFECT) ──────── */}
+      {/* ── SECTION 1: HERO (STICKY WITH FLUID PARALLAX BLUR TRANSITION) ─ */}
       <section
-        className="sticky top-0 z-10 min-h-[85vh] flex flex-col justify-between pt-20 pb-12 lg:pt-24 lg:pb-12 overflow-hidden bg-transparent will-change-transform transition-all duration-150 ease-out"
+        className="sticky top-0 z-10 h-screen w-full flex flex-col justify-between pt-20 pb-12 lg:pt-24 lg:pb-12 overflow-hidden bg-transparent will-change-transform"
         style={{
-          filter: `blur(${Math.min(Math.max((scrollY - 40) * 0.024, 0), 16)}px)`,
-          opacity: Math.max(1 - Math.max(scrollY - 60, 0) * 0.0016, 0.2),
-          transform: `scale(${Math.max(1 - Math.max(scrollY - 40, 0) * 0.00028, 0.95)})`,
-          transformOrigin: "50% 30%",
+          filter: `blur(${Math.min(Math.max((scrollY - 50) * 0.04, 0), 28)}px)`,
+          transform: `scale(${Math.max(1 - Math.max(scrollY - 50, 0) * 0.00015, 0.96)})`,
+          transformOrigin: "50% 35%",
         }}
       >
-        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism */}
+        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism (Living Fluid Atmosphere) */}
         <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end">
           {/* Parallax & Scroll-Surging Forward Animation Container */}
           <div
             className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
             style={{
-              transform: `translate3d(${50 + Math.min(scrollY * 0.14, 80)}px, ${Math.min(scrollY * -0.06, -40)}px, 0) scale(${1 + Math.min(scrollY * 0.00065, 0.24)}) perspective(1000px) rotateY(${Math.min(scrollY * -0.012, 5)}deg)`,
+              transform: `translate3d(${50 + Math.min(scrollY * 0.16, 90)}px, ${Math.min(scrollY * -0.07, -45)}px, 0) scale(${1 + Math.min(scrollY * 0.00065, 0.24)}) perspective(1000px) rotateY(${Math.min(scrollY * -0.012, 5)}deg)`,
               transformOrigin: "78% 50%",
             }}
           >
@@ -347,7 +346,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             />
           </div>
 
-          {/* Seamless luminous ambient gradient overlay on the left to perfectly integrate text */}
+          {/* Seamless luminous ambient gradient overlay on the left */}
           <div
             className="absolute inset-0 pointer-events-none z-10"
             style={{
@@ -356,7 +355,16 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           />
         </div>
 
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 my-auto">
+        {/* Hero Interactive Text Content: Blurs & Fades smoothly on scroll */}
+        <div
+          className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 my-auto will-change-transform transition-all duration-150 ease-out"
+          style={{
+            filter: `blur(${Math.min(Math.max((scrollY - 20) * 0.045, 0), 20)}px)`,
+            opacity: Math.max(1 - Math.max(scrollY - 30, 0) * 0.0035, 0),
+            transform: `translate3d(0, ${Math.min(scrollY * 0.22, 100)}px, 0) scale(${Math.max(1 - Math.max(scrollY - 20, 0) * 0.0003, 0.92)})`,
+            pointerEvents: scrollY > 200 ? "none" : "auto",
+          }}
+        >
           <div className="max-w-2xl text-left">
             {/* Eyebrow Badge */}
             <div className="mb-4">
@@ -460,38 +468,47 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
+      {/* ── SECTION 2: THE CORE PROBLEM (TRANSPARENT PARALLAX OVER FLUID BLUR BACKDROP) ── */}
       <section
         id="problem"
-        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-20 lg:pt-24 lg:pb-36 overflow-hidden flex items-center justify-center bg-gradient-to-b from-[#fbfcff]/95 via-[#f6f9fe] to-[#f4f7fe]"
+        className="w-full min-h-screen relative z-20 py-16 sm:py-24 lg:py-32 overflow-hidden flex items-center justify-center bg-transparent"
       >
-        {/* Full-Bleed Parallax Iceberg Artwork Background */}
-        <div className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden">
+        {/* Isolated Parallax Iceberg Artwork (Transparent Background Integration) */}
+        <div className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden flex items-center justify-center">
           <div
             className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-100 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(0, ${(scrollY - 500) * -0.035}px, 0)`,
+              transform: `translate3d(0, ${(scrollY - 450) * -0.04}px, 0)`,
             }}
           >
             <img
               src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
-              className="w-full h-full object-contain sm:object-cover object-center"
+              className="w-full h-full object-contain object-center"
+              style={{
+                mixBlendMode: "multiply",
+              }}
             />
           </div>
 
-          {/* Light ambient scrim gradients for perfect text readability edge-to-edge */}
+          {/* Subtle luminous halo accent to enhance crystal depth */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.76) 28%, rgba(255,255,255,0.18) 52%, transparent 70%), linear-gradient(to top, rgba(244,247,254,0.9) 0%, transparent 12%), linear-gradient(to bottom, rgba(244,247,254,0.9) 0%, transparent 12%)",
+                "radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 65%)",
             }}
           />
         </div>
 
-        {/* Full-Width Centered Content Container */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px]">
+        {/* Full-Width Centered Content Container with Smooth Scroll-In Focus */}
+        <div
+          className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px] will-change-transform transition-all duration-200 ease-out"
+          style={{
+            opacity: Math.min(Math.max((scrollY - 80) * 0.0035, 0), 1),
+            transform: `translate3d(0, ${Math.max(45 - Math.max(scrollY - 80, 0) * 0.1, 0)}px, 0)`,
+          }}
+        >
           {/* Top Row (Above Water / Upper Content Area) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Top Left: Badge, Headline & Context */}
