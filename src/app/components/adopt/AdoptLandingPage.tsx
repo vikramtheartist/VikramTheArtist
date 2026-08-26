@@ -1209,15 +1209,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       <section id="adoptiq" className="py-16 lg:py-24 relative overflow-hidden bg-transparent">
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left: 3D SaaS Dashboard Visual Graphic Artwork */}
-            <div className="lg:col-span-7 relative flex items-center justify-center">
-              <div className="relative w-full rounded-[32px] overflow-hidden">
-                <img
-                  src={`${import.meta.env.BASE_URL}IMG/adoptiq_dashboard_graphic.png`}
-                  alt="AdoptIQ.ai 3D Dashboard Engine at Work"
-                  className="w-full h-auto object-contain rounded-[28px] transition-transform duration-500 hover:scale-[1.01]"
-                />
-              </div>
+            {/* Left: Free-Floating 3D SaaS Dashboard Visual (No Card / No Background Box) */}
+            <div className="lg:col-span-7 relative flex items-center justify-center pointer-events-auto select-none">
+              <img
+                src={`${import.meta.env.BASE_URL}IMG/adoptiq_dashboard_graphic.png`}
+                alt="AdoptIQ.ai 3D Dashboard Engine at Work"
+                className="w-full h-auto max-w-[640px] object-contain drop-shadow-[0_25px_60px_rgba(99,102,241,0.2)] transition-transform duration-500 hover:scale-[1.02]"
+              />
             </div>
 
             {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA */}
