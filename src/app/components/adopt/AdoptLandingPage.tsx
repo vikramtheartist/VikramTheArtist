@@ -316,10 +316,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           if (problemRef.current) {
             const rect = problemRef.current.getBoundingClientRect();
             const windowHeight = window.innerHeight || 800;
-            const totalDistance = rect.height + windowHeight * 0.3;
-            const currentDist = windowHeight - rect.top;
-            const prog = Math.max(0, Math.min(1, currentDist / totalDistance));
-            setProblemProgress(prog);
+            const scrollRange = problemRef.current.offsetHeight - windowHeight;
+            if (scrollRange > 0) {
+              const currentScroll = -rect.top;
+              const prog = Math.max(0, Math.min(1, currentScroll / scrollRange));
+              setProblemProgress(prog);
+            }
           }
 
           ticking = false;
@@ -557,18 +559,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 2: THE CORE PROBLEM (SEQUENTIAL SCROLLYTELLING CENTERPIECE) ──── */}
+      {/* ── SECTION 2: THE CORE PROBLEM (PINNED SEQUENTIAL SCROLL PROGRESSION) ──── */}
       <section
         id="problem"
         ref={problemRef}
-        className="w-full min-h-[145vh] lg:min-h-[160vh] relative z-20 overflow-visible bg-transparent"
+        className="w-full min-h-[260vh] lg:min-h-[280vh] relative z-20 overflow-visible bg-transparent"
       >
-        <div className="sticky top-0 min-h-screen w-full flex items-center justify-center py-12 lg:py-16 overflow-hidden">
-          {/* Step 1: Full-Bleed Parallax Iceberg Artwork Background (Rises Upward First) */}
+        <div className="sticky top-0 h-screen w-full flex items-center justify-center py-10 lg:py-14 overflow-hidden">
+          {/* Phase 1: Full-Bleed Parallax Iceberg Artwork (Visible As Section Enters) */}
           <div
-            className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden will-change-transform transition-all duration-500 ease-out"
+            className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
             style={{
-              opacity: Math.min(1, Math.max(0.1, problemProgress * 4.5)),
               maskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
               WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
             }}
@@ -576,7 +577,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div
               className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
               style={{
-                transform: `translate3d(${mousePos.x * 8}px, ${Math.max(0, (1 - Math.min(1, problemProgress * 3.5)) * 60) + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+                transform: `translate3d(${mousePos.x * 8}px, ${mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
               }}
             >
               <img
@@ -588,15 +589,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
 
           {/* Full-Width Centered Content Container */}
-          <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px]">
+          <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[620px]">
             {/* Top Row (Above Water / Upper Content Area) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* Step 1: Badge, Headline & Context (Rises Upward First) */}
+              {/* Phase 1: Badge, Headline & Context (Appears First As Section Scrolls Into View) */}
               <div
-                className="lg:col-span-6 flex flex-col items-start text-left will-change-transform transition-all duration-500 ease-out"
+                className="lg:col-span-6 flex flex-col items-start text-left will-change-transform transition-transform duration-200"
                 style={{
-                  opacity: Math.min(1, Math.max(0.15, problemProgress * 4.5)),
-                  transform: `translate3d(0, ${Math.max(0, (1 - Math.min(1, problemProgress * 3.5)) * 60)}px, 0)`,
+                  transform: `translate3d(${mousePos.x * -6}px, ${mousePos.y * -4}px, 0)`,
                 }}
               >
                 <div className="mb-4">
@@ -620,14 +620,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </p>
               </div>
 
-              {/* Step 2: ABOVE THE SURFACE Callout Card (Revealed Next) */}
+              {/* Phase 2: ABOVE THE SURFACE Callout Card (Scrolls Up From Bottom While Sticky) */}
               <div className="lg:col-span-6 flex justify-start lg:justify-end">
                 <div
-                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default will-change-transform"
+                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default will-change-transform"
                   style={{
-                    opacity: Math.min(1, Math.max(0, (problemProgress - 0.22) * 4.5)),
-                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(0, ${Math.max(0, (1 - Math.min(1, Math.max(0, (problemProgress - 0.22) * 3.5))) * 60)}px, 0)`,
-                    pointerEvents: problemProgress > 0.22 ? "auto" : "none",
+                    opacity: Math.max(0, Math.min(1, ((problemProgress - 0.08) / 0.36) * 3.5)),
+                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(0, ${(1 - Math.max(0, Math.min(1, (problemProgress - 0.08) / 0.36))) * 160}px, 0)`,
+                    pointerEvents: problemProgress > 0.12 ? "auto" : "none",
                   }}
                 >
                   {/* Connecting Line to Mountain Peak with Pulsing Sonar Beacon */}
@@ -676,13 +676,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
             {/* Bottom Row (Below Water / Lower Content Area) */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
-              {/* Step 4: 4 Checkmark Bullet Items (Revealed in Step 4) */}
+              {/* Phase 3: 4 Checkmark Bullet Items (Scrolls Up From Bottom While Sticky) */}
               <div
-                className="lg:col-span-6 space-y-4 max-w-[440px] text-left will-change-transform transition-all duration-500 ease-out"
+                className="lg:col-span-6 space-y-4 max-w-[440px] text-left will-change-transform transition-all duration-300 ease-out"
                 style={{
-                  opacity: Math.min(1, Math.max(0, (problemProgress - 0.68) * 4.5)),
-                  transform: `translate3d(0, ${Math.max(0, (1 - Math.min(1, Math.max(0, (problemProgress - 0.68) * 3.5))) * 60)}px, 0)`,
-                  pointerEvents: problemProgress > 0.68 ? "auto" : "none",
+                  opacity: Math.max(0, Math.min(1, ((problemProgress - 0.48) / 0.36) * 3.5)),
+                  transform: `translate3d(0, ${(1 - Math.max(0, Math.min(1, (problemProgress - 0.48) / 0.36))) * 140}px, 0)`,
+                  pointerEvents: problemProgress > 0.52 ? "auto" : "none",
                 }}
               >
                 {[
@@ -705,14 +705,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 ))}
               </div>
 
-              {/* Step 3: BELOW THE SURFACE Callout Card (Revealed Next) */}
+              {/* Phase 2: BELOW THE SURFACE Callout Card (Scrolls Up From Bottom While Sticky) */}
               <div className="lg:col-span-6 flex justify-start lg:justify-end">
                 <div
-                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default will-change-transform"
+                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default will-change-transform"
                   style={{
-                    opacity: Math.min(1, Math.max(0, (problemProgress - 0.45) * 4.5)),
-                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(0, ${Math.max(0, (1 - Math.min(1, Math.max(0, (problemProgress - 0.45) * 3.5))) * 60)}px, 0)`,
-                    pointerEvents: problemProgress > 0.45 ? "auto" : "none",
+                    opacity: Math.max(0, Math.min(1, ((problemProgress - 0.08) / 0.36) * 3.5)),
+                    transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg) translate3d(0, ${(1 - Math.max(0, Math.min(1, (problemProgress - 0.08) / 0.36))) * 160}px, 0)`,
+                    pointerEvents: problemProgress > 0.12 ? "auto" : "none",
                   }}
                 >
                   {/* Connecting Line to Submerged Iceberg with Pulsing Sonar Beacon */}
