@@ -353,18 +353,19 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </header>
 
-      {/* ── SECTION 1: HERO (STICKY WITH PARALLAX BLUR EFFECT) ──────── */}
+      {/* ── SECTION 1: HERO (SEAMLESS ATMOSPHERE) ────────────────────── */}
       <section
-        className="sticky top-0 z-10 min-h-[85vh] flex flex-col justify-between pt-20 pb-12 lg:pt-24 lg:pb-12 overflow-hidden bg-transparent will-change-transform transition-all duration-150 ease-out"
-        style={{
-          filter: `blur(${Math.min(Math.max((scrollY - 40) * 0.024, 0), 16)}px)`,
-          opacity: Math.max(1 - Math.max(scrollY - 60, 0) * 0.0016, 0.2),
-          transform: `scale(${Math.max(1 - Math.max(scrollY - 40, 0) * 0.00028, 0.95)})`,
-          transformOrigin: "50% 30%",
-        }}
+        id="hero"
+        className="relative z-10 min-h-[92vh] lg:min-h-[98vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent"
       >
-        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism with Parallax Depth */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end">
+        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism with Soft Bottom Fade */}
+        <div
+          className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
+          style={{
+            maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+          }}
+        >
           {/* Multi-axis 3D Parallax Prism Container */}
           <div
             className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
@@ -523,8 +524,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         id="problem"
         className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-20 lg:pt-24 lg:pb-36 overflow-hidden flex items-center justify-center bg-transparent"
       >
-        {/* Full-Bleed Parallax Iceberg Artwork Background with 3D Depth */}
-        <div className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden">
+        {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Top & Bottom Fade Masks */}
+        <div
+          className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
+          style={{
+            maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+          }}
+        >
           <div
             className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
