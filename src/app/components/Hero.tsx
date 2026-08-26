@@ -237,6 +237,24 @@ function SpaceSmoke() {
   );
 }
 
+/* ── Liquid Glass Card Component ────────────────────────────── */
+export interface LiquidGlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function LiquidGlassCard({ children, className = "", style, ...props }: LiquidGlassCardProps) {
+  return (
+    <div
+      className={`liquid-glass-card ${className}`}
+      style={style}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
 /* ── Philosophy cards ───────────────────────────────────────── */
 const cards = [
   { title: "Observe", body: "I understand the system—users, data, AI, and context to frame the right problem." },
@@ -367,18 +385,21 @@ export function Hero() {
         <div className="hero-cards-grid" ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}>
           {cards.map(({ title, body }) => (
-            <div key={title} className="flex flex-col transition-colors duration-300 hero-philosophy-card"
+            <LiquidGlassCard
+              key={title}
+              className="flex flex-col transition-all duration-300 hover:scale-[1.02]"
               style={{
-                padding: '26px 24px', gap: '8px',
-                borderRadius: '20px',
-              }}>
+                padding: '26px 24px',
+                gap: '8px',
+              }}
+            >
               <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 300, fontSize: '20px', lineHeight: 1.2, color: 'var(--text-1)', margin: 0 }}>
                 {title}
               </h3>
               <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, fontSize: '17px', lineHeight: 1.7, color: 'var(--text-2)', margin: 0 }}>
                 {body}
               </p>
-            </div>
+            </LiquidGlassCard>
           ))}
         </div>
       </section>
