@@ -64,9 +64,9 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
     if (!el) return;
 
     const Y_OFFSET = 0;         // Atmospheric halo
-    const Y_OFFSET_EARTH = 0;   // Earth precisely aligned
+    const Y_OFFSET_EARTH = -40; // Earth moved upwards by 40px
     const X_OFFSET_EARTH = 0;   // Earth centered horizontally
-    const Y_OFFSET_SUN = isLight ? 5 : 20; // Sun (aligned with earth displacement)
+    const Y_OFFSET_SUN = isLight ? -35 : -20; // Sun (aligned with earth displacement)
     const setPos = (top: number, left: number) => {
       const tAtm = top + Y_OFFSET;
       el.style.transform = `translate3d(${left + X_OFFSET_EARTH}px, ${top + Y_OFFSET_EARTH}px, 0) translate(-50%, -50%)`;
