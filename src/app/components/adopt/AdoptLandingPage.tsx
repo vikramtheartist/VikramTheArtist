@@ -350,13 +350,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           transformOrigin: "50% 30%",
         }}
       >
-        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism */}
+        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism with Parallax Depth */}
         <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end">
-          {/* Parallax & Scroll-Surging Forward Animation Container */}
+          {/* Multi-axis 3D Parallax Prism Container */}
           <div
             className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
             style={{
-              transform: `translate3d(${50 + Math.min(scrollY * 0.14, 80) + mousePos.x * 12}px, ${Math.min(scrollY * -0.06, -40) + mousePos.y * 10}px, 0) scale(${1 + Math.min(scrollY * 0.00065, 0.24)}) perspective(1000px) rotateY(${Math.min(scrollY * -0.012, 5) + mousePos.x * 2}deg) rotateX(${-mousePos.y * 2}deg)`,
+              transform: `translate3d(${50 + Math.min(scrollY * 0.18, 120) + mousePos.x * 20}px, ${Math.min(scrollY * -0.08, -60) + mousePos.y * 14}px, 0) scale(${1 + Math.min(scrollY * 0.0008, 0.28)}) perspective(1000px) rotateY(${Math.min(scrollY * -0.016, 6) + mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
               transformOrigin: "78% 50%",
             }}
           >
@@ -366,6 +366,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               className="w-full h-full object-cover object-[80%_center] lg:object-[78%_center] opacity-95 transition-opacity duration-700 animate-hero-float scale-105"
             />
           </div>
+
+          {/* Floating Atmospheric Sparkle Orbs with Counter-Parallax */}
+          <div
+            className="absolute top-1/4 right-1/3 w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-400/30 to-violet-400/40 blur-xl will-change-transform transition-transform duration-300"
+            style={{
+              transform: `translate3d(${mousePos.x * -28}px, ${scrollY * -0.2 + mousePos.y * -20}px, 0)`,
+            }}
+          />
+          <div
+            className="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-pink-400/25 to-purple-400/35 blur-2xl will-change-transform transition-transform duration-300"
+            style={{
+              transform: `translate3d(${mousePos.x * 22}px, ${scrollY * -0.15 + mousePos.y * 18}px, 0)`,
+            }}
+          />
 
           {/* Seamless luminous ambient gradient overlay on the left to perfectly integrate text */}
           <div
@@ -377,11 +391,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
 
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 my-auto">
-          <div className="max-w-2xl text-left">
+          {/* Left Text Column with Layered Parallax Offsets */}
+          <div
+            className="max-w-2xl text-left will-change-transform transition-transform duration-200"
+            style={{
+              transform: `translate3d(${mousePos.x * -6}px, ${scrollY * -0.06 + mousePos.y * -4}px, 0)`,
+            }}
+          >
             {/* Eyebrow Badge */}
             <div className="mb-4">
-              <div className="adopt-hero-badge">
-                <span className="text-[12px] leading-none">✦</span>
+              <div className="adopt-hero-badge hover:scale-105 transition-transform cursor-default">
+                <span className="text-[12px] leading-none text-[#6366f1] animate-pulse">✦</span>
                 <span>THE ADOPT PLAYBOOK</span>
               </div>
             </div>
@@ -422,19 +442,24 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   setPasswordError("");
                   setShowPasswordModal(true);
                 }}
-                className="adopt-hero-btn-secondary cursor-pointer"
+                className="adopt-hero-btn-secondary cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm"
               >
                 <span>See the Case Study</span>
               </button>
             </div>
           </div>
 
-          {/* Credibility Metric Bar (Bottom of Hero) */}
-          <div className="pt-4 relative z-10">
+          {/* Credibility Metric Bar with Differential Layer Parallax */}
+          <div
+            className="pt-4 relative z-10 will-change-transform transition-transform duration-200"
+            style={{
+              transform: `translate3d(0, ${scrollY * -0.1}px, 0)`,
+            }}
+          >
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl">
               {/* Stat 1: 1M WAU */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#f3f0fe]/90 backdrop-blur-md flex items-center justify-center text-[#6d28d9] shrink-0 shadow-2xs border border-purple-100/50">
+              <div className="flex items-center gap-3 group cursor-default">
+                <div className="w-10 h-10 rounded-full bg-[#f3f0fe]/90 backdrop-blur-md flex items-center justify-center text-[#6d28d9] shrink-0 shadow-2xs border border-purple-100/50 group-hover:scale-110 transition-transform">
                   <Users className="w-4 h-4" />
                 </div>
                 <div>
@@ -444,8 +469,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </div>
 
               {/* Stat 2: 5-stage framework */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#e8f1ff]/90 backdrop-blur-md flex items-center justify-center text-[#2563eb] shrink-0 shadow-2xs border border-sky-100/50">
+              <div className="flex items-center gap-3 group cursor-default">
+                <div className="w-10 h-10 rounded-full bg-[#e8f1ff]/90 backdrop-blur-md flex items-center justify-center text-[#2563eb] shrink-0 shadow-2xs border border-sky-100/50 group-hover:scale-110 transition-transform">
                   <Layers className="w-4 h-4" />
                 </div>
                 <div>
@@ -455,8 +480,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </div>
 
               {/* Stat 3: 300K -> 1M growth */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#fef2f2]/90 backdrop-blur-md flex items-center justify-center text-[#e11d48] shrink-0 shadow-2xs border border-rose-100/50">
+              <div className="flex items-center gap-3 group cursor-default">
+                <div className="w-10 h-10 rounded-full bg-[#fef2f2]/90 backdrop-blur-md flex items-center justify-center text-[#e11d48] shrink-0 shadow-2xs border border-rose-100/50 group-hover:scale-110 transition-transform">
                   <TrendingUp className="w-4 h-4" />
                 </div>
                 <div>
@@ -466,8 +491,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </div>
 
               {/* Stat 4: Behavior-first */}
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#ecfdf5]/90 backdrop-blur-md flex items-center justify-center text-[#059669] shrink-0 shadow-2xs border border-emerald-100/50">
+              <div className="flex items-center gap-3 group cursor-default">
+                <div className="w-10 h-10 rounded-full bg-[#ecfdf5]/90 backdrop-blur-md flex items-center justify-center text-[#059669] shrink-0 shadow-2xs border border-emerald-100/50 group-hover:scale-110 transition-transform">
                   <Sparkles className="w-4 h-4" />
                 </div>
                 <div>
