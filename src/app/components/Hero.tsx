@@ -370,7 +370,16 @@ export function Hero() {
         <div className="hide-in-light fade-with-theme"><ShootingStars /></div>
 
         <div className="hero-title-block">
-          <h1 style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: 'clamp(2.5rem, 4.72vw, 4.25rem)', lineHeight: 1.2, color: '#C5DC4B', margin: 0 }}>
+          <h1
+            className="hero-main-heading"
+            style={{
+              fontFamily: "'Lato', sans-serif",
+              fontWeight: 300,
+              fontSize: 'clamp(2.5rem, 4.72vw, 4.25rem)',
+              lineHeight: 1.2,
+              margin: 0,
+            }}
+          >
             <span style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
               {displayed}
               <span style={{ display: "inline-block", width: "3px", height: "0.85em",
