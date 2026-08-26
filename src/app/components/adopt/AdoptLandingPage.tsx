@@ -382,19 +382,19 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         id="hero"
         className="relative z-10 min-h-[92vh] lg:min-h-[98vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent"
       >
-        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism */}
+        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism with Soft Bottom Fade */}
         <div
           className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
           style={{
-            maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+            maskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
           }}
         >
           {/* Multi-axis 3D Parallax Prism Container */}
           <div
             className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
             style={{
-              transform: `translate3d(${50 + mousePos.x * 20}px, ${mousePos.y * 14}px, 0) scale(1.05) perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
+              transform: `translate3d(${50 + Math.min(scrollY * 0.18, 120) + mousePos.x * 20}px, ${Math.min(scrollY * -0.08, -60) + mousePos.y * 14}px, 0) scale(${1 + Math.min(scrollY * 0.0008, 0.28)}) perspective(1000px) rotateY(${Math.min(scrollY * -0.016, 6) + mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
               transformOrigin: "78% 50%",
             }}
           >
@@ -405,17 +405,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             />
           </div>
 
-          {/* Floating Atmospheric Sparkle Orbs with Mouse Gyroscope */}
+          {/* Floating Atmospheric Sparkle Orbs with Counter-Parallax */}
           <div
             className="absolute top-1/4 right-1/3 w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-400/30 to-violet-400/40 blur-xl will-change-transform transition-transform duration-300"
             style={{
-              transform: `translate3d(${mousePos.x * -28}px, ${mousePos.y * -20}px, 0)`,
+              transform: `translate3d(${mousePos.x * -28}px, ${scrollY * -0.2 + mousePos.y * -20}px, 0)`,
             }}
           />
           <div
             className="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-pink-400/25 to-purple-400/35 blur-2xl will-change-transform transition-transform duration-300"
             style={{
-              transform: `translate3d(${mousePos.x * 22}px, ${mousePos.y * 18}px, 0)`,
+              transform: `translate3d(${mousePos.x * 22}px, ${scrollY * -0.15 + mousePos.y * 18}px, 0)`,
             }}
           />
 
@@ -428,18 +428,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           />
         </div>
 
-        <div
-          className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 my-auto will-change-transform transition-transform duration-100 ease-out"
-          style={{
-            transform: `translate3d(0, ${scrollY * -0.45}px, 0)`,
-            opacity: Math.max(0, 1 - scrollY / 700),
-          }}
-        >
-          {/* Left Text Column */}
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 my-auto">
+          {/* Left Text Column with Layered Parallax Offsets */}
           <div
             className="max-w-2xl text-left will-change-transform transition-transform duration-200"
             style={{
-              transform: `translate3d(${mousePos.x * -6}px, ${mousePos.y * -4}px, 0)`,
+              transform: `translate3d(${mousePos.x * -6}px, ${scrollY * -0.06 + mousePos.y * -4}px, 0)`,
             }}
           >
             {/* Eyebrow Badge */}
@@ -565,7 +559,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div
             className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(${mousePos.x * 8}px, ${mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
             }}
           >
             <img
