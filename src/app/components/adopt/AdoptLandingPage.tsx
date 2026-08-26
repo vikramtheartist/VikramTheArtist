@@ -534,14 +534,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-20 lg:pt-24 lg:pb-36 overflow-hidden flex items-center justify-center bg-transparent"
+        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent"
       >
-        {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Top & Bottom Fade Masks */}
+        {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Multiply Blending */}
         <div
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
           style={{
-            maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+            maskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
           }}
         >
           <div
@@ -553,18 +553,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <img
               src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
-              className="w-full h-full object-contain sm:object-cover object-center transition-transform duration-700"
+              className="w-full h-full object-contain sm:object-cover object-center mix-blend-multiply transition-transform duration-700 opacity-95"
             />
           </div>
-
-          {/* Light ambient scrim gradients for perfect text readability edge-to-edge */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(to right, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.65) 28%, rgba(255,255,255,0.12) 52%, transparent 70%)",
-            }}
-          />
         </div>
 
         {/* Full-Width Centered Content Container */}
