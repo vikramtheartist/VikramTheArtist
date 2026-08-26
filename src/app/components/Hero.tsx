@@ -249,8 +249,6 @@ const cards = [
     tagBorder: "rgba(192, 132, 252, 0.45)",
     tagGlow: "0 4px 14px rgba(168, 85, 247, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.50)",
     iconColor: "#d8b4fe",
-    lineGradient: "linear-gradient(90deg, #ec4899 0%, #a855f7 40%, #06b6d4 100%)",
-    lineGlow: "0 0 14px rgba(236, 72, 153, 0.85), 0 0 20px rgba(6, 182, 212, 0.80), 0 0 6px rgba(255, 255, 255, 0.6)",
     waveStart: "#ec4899",
     waveMid: "#a855f7",
     waveEnd: "#06b6d4",
@@ -264,8 +262,6 @@ const cards = [
     tagBorder: "rgba(56, 189, 248, 0.45)",
     tagGlow: "0 4px 14px rgba(6, 182, 212, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.50)",
     iconColor: "#7dd3fc",
-    lineGradient: "linear-gradient(90deg, #06b6d4 0%, #3b82f6 45%, #a855f7 100%)",
-    lineGlow: "0 0 14px rgba(6, 182, 212, 0.85), 0 0 20px rgba(168, 85, 247, 0.80), 0 0 6px rgba(255, 255, 255, 0.6)",
     waveStart: "#06b6d4",
     waveMid: "#3b82f6",
     waveEnd: "#a855f7",
@@ -279,8 +275,6 @@ const cards = [
     tagBorder: "rgba(244, 114, 182, 0.45)",
     tagGlow: "0 4px 14px rgba(236, 72, 153, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.50)",
     iconColor: "#f472b6",
-    lineGradient: "linear-gradient(90deg, #a855f7 0%, #ec4899 45%, #38bdf8 100%)",
-    lineGlow: "0 0 14px rgba(168, 85, 247, 0.85), 0 0 20px rgba(236, 72, 153, 0.80), 0 0 6px rgba(255, 255, 255, 0.6)",
     waveStart: "#a855f7",
     waveMid: "#ec4899",
     waveEnd: "#38bdf8",
@@ -413,7 +407,7 @@ export function Hero() {
           ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}
         >
-          {cards.map(({ title, tag, icon: Icon, tagGradient, tagBorder, tagGlow, iconColor, lineGradient, lineGlow, waveStart, waveMid, waveEnd, body }) => (
+          {cards.map(({ title, tag, icon: Icon, tagGradient, tagBorder, tagGlow, iconColor, waveStart, waveMid, waveEnd, body }) => (
             <div
               key={title}
               className="group relative flex flex-col hero-philosophy-card"
@@ -477,17 +471,6 @@ export function Hero() {
               >
                 {title}
               </h3>
-
-              {/* Glowing Neon Gradient Divider Beam */}
-              <div
-                className="relative z-10 my-0.5 rounded-full transition-all duration-300 group-hover:scale-x-105 origin-left"
-                style={{
-                  height: "3.5px",
-                  width: "100%",
-                  background: lineGradient,
-                  boxShadow: lineGlow,
-                }}
-              />
 
               {/* Body Text */}
               <p
