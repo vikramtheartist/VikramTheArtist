@@ -216,6 +216,23 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
           }}
         />
       )}
+      {/* Cosmic Planet Horizon & Orbital Path (Dark mode) */}
+      {!isLight && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            backgroundImage: `url(${import.meta.env.BASE_URL}IMG/cosmic_horizon_bg.jpg)`,
+            backgroundPosition: "center 42%",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            zIndex: 0,
+            pointerEvents: "none",
+            opacity: 0.90,
+            transition: "opacity 0.7s ease",
+          }}
+        />
+      )}
       {/* Earth — primary orb; defines parallax positioning. Visible in dark, fades out in light. */}
       <img
         ref={imgRef}
@@ -232,7 +249,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
           height: "auto",
           zIndex: 0,
           pointerEvents: "none",
-          opacity: isLight ? 0 : 0.95,
+          opacity: 0, // smoothly dissolved into cinematic cosmic horizon
           willChange: "transform",
           transform: "translate3d(50vw, 78vh, 0) translate(-50%, -50%)",
           transition: "opacity 0.7s ease",

@@ -13,27 +13,32 @@ const PLAYBOOK_LINK = "https://www.figma.com/deck/vGd7lTFMt1PeMQTr7dcz7l/ADOPT?n
 type CTA = { label: string; href?: string; internal?: boolean; disabled?: boolean };
 
 const projects: {
+  eyebrow?: string;
   title: string;
-  description: string;
+  description: ReactNode;
   ctas: CTA[];
   thumb: ReactNode;
 }[] = [
   {
+    eyebrow: "FEATURED PROJECT",
     title: "Driving Copilot Adoption",
-    description:
-      "Built ADOPT playbook, applied it to scale Copilot adoption, and evolved it into AdoptIQ.ai. an AI-powered adoption engine.",
+    description: (
+      <>
+        Built <span className="text-[#60a5fa] font-medium">ADOPT</span> playbook, applied it to scale Copilot adoption, and evolved it into <span className="text-[#c084fc] font-medium">AdoptIQ.ai</span> an AI-powered adoption engine.
+      </>
+    ),
     ctas: [
-      { label: "Playbook", href: "/adopt", internal: true },
-      { label: "View Copilot Use Case", href: PLAYBOOK_LINK, internal: true },
-      { label: "AdoptIQ.ai", href: "https://adoptiqai.vercel.app/" },
+      { label: "View case study", href: "/adopt", internal: true },
     ],
     thumb: (
-      <div className="w-full h-full overflow-hidden rounded-xl">
+      <div className="w-full h-full overflow-hidden rounded-2xl relative group min-h-[220px]">
         <img
-          src={adoptThumb}
+          src={`${import.meta.env.BASE_URL}IMG/copilot_astronaut_thumb.jpg`}
           alt="Driving Copilot Adoption"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", opacity: 0.9 }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+          className="transition-transform duration-700 group-hover:scale-105"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0b1022]/40 via-transparent to-transparent pointer-events-none" />
       </div>
     ),
   },
@@ -280,69 +285,73 @@ const projects: {
 /* ── Card component ────────────────────────────────────────────────── */
 
 function ProjectCard({
+  eyebrow,
   title,
   description,
   ctas,
   thumb,
   onInternalCta,
 }: {
+  eyebrow?: string;
   title: string;
-  description: string;
+  description: ReactNode;
   ctas: CTA[];
   thumb: ReactNode;
   onInternalCta?: (cta: CTA) => void;
 }) {
   return (
     <div
-      className="project-card flex rounded-[40px] overflow-hidden transition-all duration-300"
+      className="project-card flex flex-col md:flex-row rounded-[32px] overflow-hidden transition-all duration-300 border border-[#38bdf8]/20 hover:border-[#818cf8]/45"
       style={{
-        background: "rgba(0,0,0,0.45)",
-        backdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
-        WebkitBackdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
-        boxShadow: [
-          "inset 0 0 0 1px rgba(255,255,255,0.16)",
-          "0 8px 32px rgba(0,0,0,0.40)",
-          "inset 0 1.5px 1px rgba(255,255,255,0.52)",
-          "inset 0 -2px 5px rgba(0,0,0,0.28)",
-        ].join(", "),
-        minHeight: "300px",
+        background: "rgba(11, 16, 34, 0.78)",
+        backdropFilter: "blur(18px) saturate(1.8) brightness(1.05)",
+        WebkitBackdropFilter: "blur(18px) saturate(1.8) brightness(1.05)",
+        boxShadow: "0 0 50px -10px rgba(56,189,248,0.18), 0 20px 40px rgba(0,0,0,0.5)",
+        minHeight: "310px",
       }}
     >
       {/* Left: text content */}
       <div
         className="project-card-text flex flex-col justify-between"
-        style={{ flex: "0 0 54%", padding: "40px 48px" }}
+        style={{ flex: "0 0 52%", padding: "36px 40px" }}
       >
         <div>
+          {eyebrow && (
+            <div className="text-[11px] font-bold tracking-[0.2em] text-[#38bdf8] uppercase mb-2.5">
+              {eyebrow}
+            </div>
+          )}
           <h3
             className="project-card-title"
             style={{
-              fontFamily: "'Poppins', sans-serif",
-              fontWeight: 400,
+              fontFamily: "'Inter', sans-serif",
+              fontWeight: 700,
               fontSize: "28px",
-              lineHeight: 1.25,
+              lineHeight: 1.2,
               color: "white",
-              marginBottom: "16px",
+              marginBottom: "14px",
+              letterSpacing: "-0.02em",
             }}
           >
             {title}
           </h3>
-          <p
+          <div
             style={{
-              color: "rgba(255,255,255,0.8)",
-              fontSize: "16px",
-              lineHeight: 1.75,
+              color: "#94a3b8",
+              fontSize: "14.5px",
+              lineHeight: 1.7,
               margin: 0,
             }}
           >
             {description}
-          </p>
+          </div>
         </div>
-        <div className="project-card-ctas flex flex-col items-start gap-3" style={{ marginTop: "28px" }}>
+        <div className="project-card-ctas flex flex-wrap items-center gap-3" style={{ marginTop: "24px" }}>
           {ctas.map((cta) => {
             const arrow = (
               <span
                 aria-hidden
+                className="transition-transform group-hover:translate-x-1"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -356,7 +365,7 @@ function ProjectCard({
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="1.6"
+                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
@@ -364,66 +373,55 @@ function ProjectCard({
                 </svg>
               </span>
             );
-            const innerStyle: React.CSSProperties = { padding: "11px 28px" };
-            const innerClass = "shine-inner text-white/75 hover:text-white text-sm";
 
             if (cta.disabled) {
               return (
-                <span key={cta.label} className="shine-wrap opacity-70 pointer-events-none">
-                  <button
-                    type="button"
-                    disabled
-                    aria-disabled="true"
-                    className="shine-inner text-white/60 text-sm"
-                    style={{ ...innerStyle, border: "none", cursor: "not-allowed", fontFamily: "inherit" }}
-                  >
-                    <span>{cta.label}</span>
-                  </button>
+                <span key={cta.label} className="opacity-60 cursor-not-allowed">
+                  <span className="text-[#64748b] text-[14px] font-medium">
+                    {cta.label}
+                  </span>
                 </span>
               );
             }
 
             if (cta.internal) {
               return (
-                <span key={cta.label} className="shine-wrap">
-                  <button
-                    type="button"
-                    onClick={() => onInternalCta?.(cta)}
-                    className={innerClass}
-                    style={{ ...innerStyle, border: "none", cursor: "pointer", fontFamily: "inherit" }}
-                  >
-                    <span>{cta.label}</span>
-                    {arrow}
-                  </button>
-                </span>
+                <button
+                  key={cta.label}
+                  type="button"
+                  onClick={() => onInternalCta?.(cta)}
+                  className="inline-flex items-center gap-2 text-[#c084fc] hover:text-white text-[14px] font-semibold transition-colors group cursor-pointer"
+                  style={{ border: "none", background: "transparent", padding: 0 }}
+                >
+                  <span>{cta.label}</span>
+                  {arrow}
+                </button>
               );
             }
 
             return (
-              <span key={cta.label} className="shine-wrap">
-                <a
-                  href={cta.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={innerClass}
-                  style={innerStyle}
-                >
-                  <span>{cta.label}</span>
-                  {arrow}
-                </a>
-              </span>
+              <a
+                key={cta.label}
+                href={cta.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[#c084fc] hover:text-white text-[14px] font-semibold transition-colors group"
+              >
+                <span>{cta.label}</span>
+                {arrow}
+              </a>
             );
           })}
         </div>
       </div>
 
-      {/* Right: thumbnail — inset with rounded corners */}
+      {/* Right: thumbnail */}
       <div
         className="project-card-thumb"
         style={{
           flex: 1,
-          margin: "20px 20px 20px 0",
-          borderRadius: "24px",
+          margin: "18px",
+          borderRadius: "20px",
           overflow: "hidden",
         }}
       >
@@ -542,21 +540,19 @@ export function WorkSection({
       className="relative px-8"
       style={{ paddingTop: "90px", maxWidth: "900px", margin: "0 auto" }}
     >
-      {/* Heading */}
-      <h2
-        className="text-center mb-12 h-grad-bright"
-        style={{
-          fontFamily: "'Poppins', sans-serif",
-          fontSize: "2.5rem",
-          lineHeight: 1.2,
-          fontWeight: 300,
-          position: "relative",
-          zIndex: 5,
-          paddingBottom: "0.1em",
-        }}
-      >
-        <span>My </span><span>work</span>
-      </h2>
+      {/* Heading with ✦ Sparkles matching design */}
+      <div className="flex items-center justify-center gap-3 mb-10 relative z-10">
+        <span className="text-[#c084fc] text-[15px] animate-pulse">✦</span>
+        <h2
+          className="text-center text-white tracking-tight font-medium text-[30px] sm:text-[34px] m-0"
+          style={{
+            fontFamily: "'Inter', sans-serif",
+          }}
+        >
+          My work
+        </h2>
+        <span className="text-[#c084fc] text-[15px] animate-pulse">✦</span>
+      </div>
 
       {/* Sticky card stack */}
       <div className="flex flex-col">

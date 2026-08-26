@@ -91,10 +91,18 @@ body {
 
 /* ── Themed surfaces ──────────────────────────────────────────── */
 .hero-philosophy-card {
-  background: rgba(8,10,20,0.72);
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 4px 32px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.10);
-  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  background: rgba(11, 16, 34, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.20);
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.06), 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-philosophy-card:hover {
+  border-color: rgba(129, 140, 248, 0.50);
+  box-shadow: 0 0 35px rgba(129, 140, 248, 0.20), 0 15px 35px rgba(0, 0, 0, 0.45);
+  transform: translateY(-2px);
 }
 [data-theme="light"] .hero-philosophy-card {
   background: rgba(255,255,255,0.85);
