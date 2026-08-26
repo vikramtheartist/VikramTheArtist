@@ -29,6 +29,11 @@ import {
 import "../../../styles/adopt-landing.css";
 import adoptIqImg from "../../../assets/img/AdoptIQ.png";
 import copilotPlaybookImg from "../../../assets/img/Scale Copilot.png";
+import awareCardImg from "../../../assets/img/Aware.png";
+import desireCardImg from "../../../assets/img/Desire.png";
+import openCardImg from "../../../assets/img/Open.png";
+import proficientCardImg from "../../../assets/img/Proficient.png";
+import transformCardImg from "../../../assets/img/Transform.png";
 
 interface AdoptLandingPageProps {
   onBack?: () => void;
@@ -47,6 +52,7 @@ const STAGES_DATA = [
     badgeBg: "bg-[#f0f9ff]/90",
     badgeBorder: "border-[#e0f2fe]/60",
     image: "Aware.png",
+    cardImg: awareCardImg,
     pillar: "Signal",
     tagline: "Create awareness and promote about the existence of your product or feature.",
     body: "Awareness is the essential first step in adoption. If users are unaware of a feature or product, all other efforts to engage or convert them are ineffective.",
@@ -83,6 +89,7 @@ const STAGES_DATA = [
     badgeBg: "bg-[#fff1f2]/90",
     badgeBorder: "border-[#ffe4e6]/60",
     image: "Desire.png",
+    cardImg: desireCardImg,
     pillar: "Emotional Pull",
     tagline: "Spark emotional connection and demonstrate tangible personal value.",
     body: "Curiosity alone does not drive behavior change. Users must see 'What’s in it for me?' to overcome inertia and the friction of changing their established workflow routines.",
@@ -119,6 +126,7 @@ const STAGES_DATA = [
     badgeBg: "bg-[#f5f3ff]/90",
     badgeBorder: "border-[#ede9fe]/60",
     image: "Open.png",
+    cardImg: openCardImg,
     pillar: "First Action",
     tagline: "Lower activation barriers and guide users to their first successful interaction.",
     body: "The gap between intention and first action is where most users drop off. Minimizing cognitive friction and guaranteeing early success creates positive momentum.",
@@ -155,6 +163,7 @@ const STAGES_DATA = [
     badgeBg: "bg-[#fffbeb]/90",
     badgeBorder: "border-[#fef3c7]/60",
     image: "Proficient.png",
+    cardImg: proficientCardImg,
     pillar: "Reinforcement",
     tagline: "Deepen skills, build recurring workflow habits, and achieve mastery.",
     body: "Initial trial must mature into consistent daily habits. By reinforcing best practices and uncovering advanced capabilities, users transition from occasional experimenters to power users.",
@@ -191,6 +200,7 @@ const STAGES_DATA = [
     badgeBg: "bg-[#ecfdf5]/90",
     badgeBorder: "border-[#d1fae5]/60",
     image: "Transform.png",
+    cardImg: transformCardImg,
     pillar: "Identity Shift",
     tagline: "Empower champions to scale knowledge, build community, and lead enterprise change.",
     body: "Sustainable enterprise adoption is self-propagating. When proficient users become vocal internal advocates and mentors, adoption reaches exponential network effects.",
@@ -787,54 +797,21 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
 
-          {/* ── THE 5 FLAT CONNECTED STAGE CARDS (UNIFORM HEIGHT GRID) ─ */}
-          <div className="relative pt-4 pb-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 relative z-10 items-stretch">
+          {/* ── THE 5 STAGES OF THE ADOPT PLAYBOOK (5 GLASS CARDS GRID) ─ */}
+          <div className="relative pt-4 pb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 lg:gap-5 relative z-10 items-stretch">
               {STAGES_DATA.map((stage, idx) => (
                 <div
                   key={stage.id}
                   onClick={() => setActiveStageDetail(idx)}
-                  className="flex flex-col h-full cursor-pointer group"
+                  className="flex flex-col h-full cursor-pointer group transition-all duration-300 hover:-translate-y-2.5"
                 >
-                  <div className="w-full h-full rounded-[32px] sm:rounded-[36px] bg-white/92 backdrop-blur-xl border border-slate-200/75 p-5 sm:p-6 flex flex-col justify-between shadow-[0_10px_30px_-5px_rgba(0,0,0,0.04)] relative min-h-[490px] lg:min-h-[510px] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_22px_45px_-8px_rgba(67,68,250,0.16)] hover:border-[#c7d2fe]">
-                    {/* Top Half: Number & Character */}
-                    <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span
-                          className="text-[14px] font-black tracking-tight"
-                          style={{ color: stage.color }}
-                        >
-                          {stage.num}
-                        </span>
-                        <span className="text-[11px] font-bold text-slate-400 group-hover:text-[#4344fa] transition-colors flex items-center gap-1">
-                          <span>Details</span>
-                          <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
-                        </span>
-                      </div>
-
-                      {/* Character Illustration */}
-                      <div className="w-full h-64 sm:h-70 lg:h-74 flex items-center justify-center my-1 relative z-10 overflow-visible">
-                        <img
-                          src={`${import.meta.env.BASE_URL}IMG/${stage.image}`}
-                          alt={`${stage.title} Character`}
-                          className="w-auto h-full max-h-full object-contain drop-shadow-md scale-110 sm:scale-115 transition-transform duration-300 group-hover:scale-120"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Bottom Half: Title & Question Quote Pill */}
-                    <div className="mt-auto pt-2 flex flex-col items-center text-center">
-                      <h3 className="text-[22px] font-black text-[#0a0e1a] leading-tight mb-2.5 text-center">
-                        {stage.title}
-                      </h3>
-
-                      <div
-                        className={`w-full py-2.5 px-3 rounded-2xl ${stage.badgeBg} border ${stage.badgeBorder} text-[12px] font-bold text-center tracking-tight shadow-2xs transition-all group-hover:shadow-xs`}
-                        style={{ color: stage.color }}
-                      >
-                        {stage.question}
-                      </div>
-                    </div>
+                  <div className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden drop-shadow-[0_16px_35px_rgba(0,0,0,0.06)] group-hover:drop-shadow-[0_24px_50px_rgba(67,68,250,0.22)] transition-all duration-300 flex items-center justify-center">
+                    <img
+                      src={stage.cardImg}
+                      alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
+                      className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
                   </div>
                 </div>
               ))}
