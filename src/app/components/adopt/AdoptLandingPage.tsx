@@ -1201,18 +1201,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* ── SLIDE 1: APPLIED PLAYBOOK (Microsoft Copilot Case Study) ── */}
             <div className="w-full min-w-full shrink-0 flex items-center justify-center">
               <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                  {/* Left: 3D Copilot Playbook Visual (Pure Image, No Glow, No Shadow) */}
-                  <div className="lg:col-span-7 relative flex items-center justify-center pointer-events-auto select-none">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                  {/* Left: Free-Floating 3D Copilot Playbook Visual (Shifted Left) */}
+                  <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                     <img
                       src={copilotPlaybookImg}
-                      alt="Microsoft Copilot AI Adoption Playbook 3D Visual"
-                      className="w-full h-auto max-w-[660px] object-contain"
+                      alt="Microsoft Copilot AI Adoption Playbook 3D Dashboard"
+                      className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
                     />
                   </div>
 
-                  {/* Right: Narrative, Headlines, Metrics & Case Study CTA */}
-                  <div className="lg:col-span-5 flex flex-col items-start text-left pl-0 lg:pl-4">
+                  {/* Right: Narrative, Headlines, Metrics & Case Study CTA (Shifted Left) */}
+                  <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
                     {/* Eyebrow Badge */}
                     <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
                       <span className="text-[12px]">✦</span>
@@ -1311,9 +1311,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* ── SLIDE 2: AI ADOPTION ENGINE (AdoptIQ.ai) ──────────────── */}
             <div className="w-full min-w-full shrink-0 flex items-center justify-center">
               <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                  {/* Left: Free-Floating 3D SaaS Dashboard Visual */}
-                  <div className="lg:col-span-7 relative flex items-center justify-center pointer-events-auto select-none">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                  {/* Left: Free-Floating 3D SaaS Dashboard Visual (Shifted Left) */}
+                  <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                     <img
                       src={adoptIqImg}
                       alt="AdoptIQ.ai 3D Dashboard Engine at Work"
@@ -1321,8 +1321,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     />
                   </div>
 
-                  {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA */}
-                  <div className="lg:col-span-5 flex flex-col items-start text-left pl-0 lg:pl-4">
+                  {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA (Shifted Left) */}
+                  <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
                     {/* Eyebrow Badge */}
                     <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
                       <span className="text-[12px]">✦</span>
