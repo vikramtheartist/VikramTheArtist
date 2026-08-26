@@ -1099,7 +1099,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* (APPLIED PLAYBOOK, AI ADOPTION ENGINE, CLOSING CTA & FOOTER) */}
       <section
         id="case-study"
-        className="py-14 sm:py-20 lg:py-24 relative overflow-hidden bg-transparent"
+        className="pt-14 sm:pt-20 lg:pt-24 pb-0 relative overflow-hidden bg-transparent"
       >
         {/* Anchors for navigation links */}
         <div id="adoptiq" className="absolute -top-24 left-0 pointer-events-none" />
@@ -1393,10 +1393,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
         </div>
 
-        {/* ── CLOSING CTA FOOTER CARD (Enlarged with Integrated Attribution) ── */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full mt-auto mb-6">
+        {/* ── CLOSING CTA FOOTER CARD (Flush with Bottom Edge of UI) ── */}
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 w-full mt-auto mb-0">
           <div
-            className="relative rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 lg:px-16 lg:py-12 border border-white/60 shadow-[0_24px_60px_-12px_rgba(168,85,247,0.35)] overflow-hidden text-left"
+            className="relative rounded-t-[36px] sm:rounded-t-[48px] rounded-b-none p-8 sm:p-12 lg:px-16 lg:pt-14 lg:pb-10 border-t border-x border-white/60 shadow-[0_-16px_50px_-10px_rgba(168,85,247,0.3)] overflow-hidden text-left"
             style={{
               background:
                 "linear-gradient(105deg, #7888f8 0%, #9ca7fc 24%, #b79dfb 48%, #d896ea 74%, #f794ca 100%)",
