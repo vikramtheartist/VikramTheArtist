@@ -94,15 +94,16 @@ body {
   position: relative;
   overflow: hidden;
   border-radius: 20px;
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background: rgba(0, 0, 0, 0.10) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
   padding: 24px 22px 22px 22px;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
 }
 
 .hero-philosophy-card:hover {
   transform: translateY(-3px);
+  background: rgba(0, 0, 0, 0.15) !important;
   filter: brightness(1.15);
 }
 

@@ -250,16 +250,16 @@ const cards = [
   },
   {
     title: "Create",
-    accentColor: "#38bdf8",
-    borderColor: "rgba(56, 189, 248, 0.38)",
-    borderGlow: "0 0 8px 0px rgba(56, 189, 248, 0.28), inset 0 0 4px 0px rgba(56, 189, 248, 0.12)",
+    accentColor: "#c084fc",
+    borderColor: "rgba(192, 132, 252, 0.38)",
+    borderGlow: "0 0 8px 0px rgba(168, 85, 247, 0.28), inset 0 0 4px 0px rgba(168, 85, 247, 0.12)",
     body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
   },
   {
     title: "Evolve",
-    accentColor: "#f472b6",
-    borderColor: "rgba(244, 114, 182, 0.38)",
-    borderGlow: "0 0 8px 0px rgba(244, 114, 182, 0.28), inset 0 0 4px 0px rgba(244, 114, 182, 0.12)",
+    accentColor: "#c084fc",
+    borderColor: "rgba(192, 132, 252, 0.38)",
+    borderGlow: "0 0 8px 0px rgba(168, 85, 247, 0.28), inset 0 0 4px 0px rgba(168, 85, 247, 0.12)",
     body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
   },
 ];
