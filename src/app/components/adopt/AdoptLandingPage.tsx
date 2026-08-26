@@ -997,10 +997,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         })}
                       </div>
                     </div>
-
-                    <div className="mt-4 text-center text-xs text-slate-500 font-semibold">
-                      Click characters or arrows to revolve 3D stage ring
-                    </div>
                   </div>
 
                   {/* Center & Right Section: Rich Stage Details in Frosted Glass UI */}
