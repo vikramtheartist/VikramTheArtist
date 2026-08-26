@@ -64,8 +64,8 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
     if (!el) return;
 
     const Y_OFFSET = 0;         // Atmospheric halo
-    const Y_OFFSET_EARTH = -15; // Earth (moved 10px down to clear 'My work' title)
-    const X_OFFSET_EARTH = -25; // Earth (nudged left)
+    const Y_OFFSET_EARTH = 70;  // Earth moved down to match reference layout
+    const X_OFFSET_EARTH = 0;   // Earth centered horizontally
     const Y_OFFSET_SUN = isLight ? 5 : 20; // Sun (aligned with earth displacement)
     const setPos = (top: number, left: number) => {
       const tAtm = top + Y_OFFSET;
@@ -78,7 +78,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
     if (document.documentElement.dataset.perf === "lite") {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      setPos(vh * 0.78, vw / 2);
+      setPos(vh * 0.84, vw / 2);
       return;
     }
 
@@ -116,7 +116,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       const vw      = window.innerWidth;
       const vh      = window.innerHeight;
 
-      const phase1Y = vh * 0.78 + cachedEarthH / 2 - scrollY * 0.7 - 240;
+      const phase1Y = vh * 0.84 + cachedEarthH / 2 - scrollY * 0.7 - 240;
 
       if (!hasCards && cachedCardsCount < 3) {
         measureCards();
@@ -190,8 +190,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
 
   return (
     <>
-      {/* Atmospheric halo — warm glow behind the Sun in light mode only.
-          (Earth has no halo behind it in dark mode.) */}
+      {/* Sun glow halo — visible in light mode only */}
       {isLight && (
         <div
           ref={atmRef}
@@ -199,8 +198,8 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
             position: "fixed",
             top: 0,
             left: 0,
-            width: "calc(94vw + 140px)",
-            maxWidth: "1395px",
+            width: "calc(110vw + 140px)",
+            maxWidth: "1650px",
             aspectRatio: "1 / 1",
             borderRadius: "50%",
             background: [
@@ -211,25 +210,8 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
             pointerEvents: "none",
             zIndex: 0,
             willChange: "transform",
-            transform: "translate3d(50vw, 78vh, 0) translate(-50%, -50%)",
+            transform: "translate3d(50vw, 84vh, 0) translate(-50%, -50%)",
             transition: "background 0.6s ease",
-          }}
-        />
-      )}
-      {/* Cosmic Planet Horizon & Orbital Path (Dark mode) */}
-      {!isLight && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            backgroundImage: `url(${import.meta.env.BASE_URL}IMG/cosmic_horizon_bg.jpg)`,
-            backgroundPosition: "center 42%",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
-            zIndex: 0,
-            pointerEvents: "none",
-            opacity: 0.90,
-            transition: "opacity 0.7s ease",
           }}
         />
       )}
@@ -244,14 +226,14 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
           position: "fixed",
           top: 0,
           left: 0,
-          width: "100.09vw",
-          maxWidth: "1336.32px",
+          width: "128vw",
+          maxWidth: "1720px",
           height: "auto",
           zIndex: 0,
           pointerEvents: "none",
-          opacity: 0, // smoothly dissolved into cinematic cosmic horizon
+          opacity: isLight ? 0 : 0.95,
           willChange: "transform",
-          transform: "translate3d(50vw, 78vh, 0) translate(-50%, -50%)",
+          transform: "translate3d(50vw, 84vh, 0) translate(-50%, -50%)",
           transition: "opacity 0.7s ease",
         }}
         className="earth-orb"

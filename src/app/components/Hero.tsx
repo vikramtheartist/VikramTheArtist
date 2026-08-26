@@ -1,5 +1,4 @@
 import { useMemo, useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
-import { Eye, Sparkles, TrendingUp } from "lucide-react";
 
 /* ── Star Canvas (replaces 740 individual DOM nodes) ────────────
  * All 4 star layers drawn on one <canvas>. Each layer has a parallax
@@ -238,37 +237,19 @@ function SpaceSmoke() {
   );
 }
 
-/* ── Philosophy cards matching design ───────────────────────── */
+/* ── Philosophy cards ───────────────────────────────────────── */
 const cards = [
-  {
-    title: "Observe",
-    body: "I understand the system—users, data, AI, and context to frame the right problem.",
-    icon: <Eye className="w-5 h-5 text-[#c084fc]" />,
-    iconBg: "bg-[#1f1035]/80 border-[#a855f7]/40 shadow-[0_0_15px_rgba(168,85,247,0.35)]",
-    lineGradient: "from-[#a855f7] to-[#ec4899]",
-  },
-  {
-    title: "Create",
-    body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
-    icon: <Sparkles className="w-5 h-5 text-[#38bdf8]" />,
-    iconBg: "bg-[#0b1f35]/80 border-[#38bdf8]/40 shadow-[0_0_15px_rgba(56,189,248,0.35)]",
-    lineGradient: "from-[#38bdf8] to-[#6366f1]",
-  },
-  {
-    title: "Evolve",
-    body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
-    icon: <TrendingUp className="w-5 h-5 text-[#a5b4fc]" />,
-    iconBg: "bg-[#18153d]/80 border-[#818cf8]/40 shadow-[0_0_15px_rgba(129,140,248,0.35)]",
-    lineGradient: "from-[#818cf8] to-[#c084fc]",
-  },
+  { title: "Observe", body: "I understand the system—users, data, AI, and context to frame the right problem." },
+  { title: "Create",  body: "I design end-to-end experiences that turn complexity into clear, usable decisions." },
+  { title: "Evolve",  body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust." },
 ];
 
 /* ── Hero ───────────────────────────────────────────────────── */
-const GREETINGS = ["Hoi", "Hi", "வணக்கம்", "Hej", "नमस्ते", "Ahoj", "Cześć"];
+const GREETINGS = ["Hi", "Hoi", "வணக்கம்", "Hej", "नमस्ते", "Ahoj", "Cześć"];
 const GRAPHEMES  = GREETINGS.map(w => [...new Intl.Segmenter().segment(w)].map(s => s.segment));
 
 export function Hero() {
-  const [displayed, setDisplayed] = useState("Hoi");
+  const [displayed, setDisplayed] = useState("Hi");
   const [showCursor, setShowCursor] = useState(true);
   const cardsRef = useRef<HTMLDivElement>(null);
 
@@ -351,24 +332,24 @@ export function Hero() {
       <div className="hide-in-light fade-with-theme"><StarCanvas /></div>
       <div className="hide-in-light fade-with-theme"><Nebula /></div>
 
-      <section className="relative flex flex-col pt-24 sm:pt-28" style={{ zIndex: 4 }}>
+      <section className="relative flex flex-col" style={{ zIndex: 4 }}>
         <div className="hide-in-light fade-with-theme"><ShootingStars /></div>
 
-        <div className="hero-title-block max-w-4xl mx-auto text-center px-4">
-          <h1 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400, fontSize: 'clamp(2.5rem, 5.2vw, 4.4rem)', lineHeight: 1.15, color: '#C5DC4B', margin: 0, letterSpacing: '-0.02em' }}>
-            <span>
+        <div className="hero-title-block">
+          <h1 style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: 'clamp(2.5rem, 4.72vw, 4.25rem)', lineHeight: 1.2, color: '#C5DC4B', margin: 0 }}>
+            <span style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
               {displayed}
               <span style={{ display: "inline-block", width: "3px", height: "0.85em",
-                background: "#C5DC4B", marginLeft: "3px", verticalAlign: "middle",
+                background: "var(--text-3)", marginLeft: "3px", verticalAlign: "middle",
                 borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
             </span>
             {", I am Vikram ✌🏻"}
           </h1>
-          <div style={{ marginTop: '24px', marginBottom: 0 }}>
-            <p className="hero-subtitle" style={{ fontFamily: "'Merriweather', serif", fontWeight: 300, fontSize: 'clamp(1.35rem, 2.3vw, 2.1rem)', lineHeight: 1.3, color: '#F1F5F9', margin: 0 }}>
-              Product Designer at Microsoft. Designing <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#93c5fd] via-[#c084fc] to-[#f472b6] font-medium">AI-first</span> products.
+          <div style={{ marginTop: '28px', marginBottom: 0 }}>
+            <p className="hero-subtitle" style={{ fontFamily: "'Merriweather', serif", fontWeight: 300, fontSize: 'clamp(calc(1.5rem - 2px), 2.2vw, calc(2rem - 2px))', lineHeight: 1.25, color: '#E6E6E6', margin: 0, maxWidth: '720px', marginLeft: 'auto' }}>
+              Product Designer at Microsoft. Designing AI-first products.
             </p>
-            <p style={{ fontFamily: "'Segoe UI', sans-serif", fontWeight: 300, fontSize: 'clamp(14px, 1.25vw, 17.5px)', lineHeight: 1.4, color: '#94a3b8', margin: '8px 0 0 0' }}>
+            <p style={{ fontFamily: "'Segoe UI', sans-serif", fontWeight: 300, fontSize: 'clamp(15px, 1.3vw, 20px)', lineHeight: 1.4, color: 'var(--text-2)', margin: '4px 0 0 0' }}>
               Previously at Google and McKinsey.
             </p>
           </div>
@@ -383,29 +364,20 @@ export function Hero() {
             animation: hero-cards-in 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s both;
           }
         `}</style>
-        <div className="hero-cards-grid grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-5xl mx-auto px-6 mt-16 sm:mt-20 w-full" ref={cardsRef}
+        <div className="hero-cards-grid" ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}>
-          {cards.map(({ title, body, icon, iconBg, lineGradient }) => (
-            <div
-              key={title}
-              className="flex flex-col items-start text-left transition-all duration-300 hero-philosophy-card group hover:-translate-y-1"
+          {cards.map(({ title, body }) => (
+            <div key={title} className="flex flex-col transition-colors duration-300 hero-philosophy-card"
               style={{
-                padding: '24px 22px',
-                borderRadius: '22px',
-              }}
-            >
-              <div className="flex items-center gap-3.5 mb-3.5">
-                <div className={`w-10 h-10 rounded-full border flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 ${iconBg}`}>
-                  {icon}
-                </div>
-                <h3 className="text-white text-[19px] font-semibold tracking-tight m-0">
-                  {title}
-                </h3>
-              </div>
-              <p className="text-[#94a3b8] text-[13.5px] sm:text-[14px] font-normal leading-[1.65] m-0 flex-1">
+                padding: '26px 24px', gap: '8px',
+                borderRadius: '20px',
+              }}>
+              <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 300, fontSize: '20px', lineHeight: 1.2, color: 'var(--text-1)', margin: 0 }}>
+                {title}
+              </h3>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, fontSize: '17px', lineHeight: 1.7, color: 'var(--text-2)', margin: 0 }}>
                 {body}
               </p>
-              <div className={`w-7 h-[3px] rounded-full bg-gradient-to-r ${lineGradient} mt-5 opacity-80`} />
             </div>
           ))}
         </div>
