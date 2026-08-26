@@ -244,22 +244,22 @@ const cards = [
   {
     title: "Observe",
     accentColor: "#c084fc",
-    borderColor: "rgba(192, 132, 252, 0.45)",
-    borderGlow: "0 0 18px -2px rgba(168, 85, 247, 0.42), inset 0 0 12px -3px rgba(168, 85, 247, 0.20)",
+    borderColor: "rgba(192, 132, 252, 0.38)",
+    borderGlow: "0 0 8px 0px rgba(168, 85, 247, 0.28), inset 0 0 4px 0px rgba(168, 85, 247, 0.12)",
     body: "I understand the system—users, data, AI, and context to frame the right problem.",
   },
   {
     title: "Create",
     accentColor: "#38bdf8",
-    borderColor: "rgba(56, 189, 248, 0.45)",
-    borderGlow: "0 0 18px -2px rgba(56, 189, 248, 0.42), inset 0 0 12px -3px rgba(56, 189, 248, 0.20)",
+    borderColor: "rgba(56, 189, 248, 0.38)",
+    borderGlow: "0 0 8px 0px rgba(56, 189, 248, 0.28), inset 0 0 4px 0px rgba(56, 189, 248, 0.12)",
     body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
   },
   {
     title: "Evolve",
     accentColor: "#f472b6",
-    borderColor: "rgba(244, 114, 182, 0.45)",
-    borderGlow: "0 0 18px -2px rgba(244, 114, 182, 0.42), inset 0 0 12px -3px rgba(244, 114, 182, 0.20)",
+    borderColor: "rgba(244, 114, 182, 0.38)",
+    borderGlow: "0 0 8px 0px rgba(244, 114, 182, 0.28), inset 0 0 4px 0px rgba(244, 114, 182, 0.12)",
     body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
   },
 ];
