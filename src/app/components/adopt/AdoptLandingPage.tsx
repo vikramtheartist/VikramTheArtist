@@ -865,35 +865,22 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           {/* ── AUTHENTIC FROSTED GLASS STAGE DEEP-DIVE MODAL ──────── */}
           {activeStageDetail !== null && (
             <div
-              className="fixed inset-0 z-50 bg-slate-950/30 backdrop-blur-[3px] flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in"
+              className="fixed inset-0 z-50 bg-blue-950/10 backdrop-blur-[4px] flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in"
               onClick={() => setActiveStageDetail(null)}
             >
-              {/* Colorful Ambient Glow Orbs behind the Glass Card for Refraction & Diffusion */}
+              {/* Vibrant Radiant Blue Light Aura directly behind the Glass Card (Bright, Non-Dark) */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center -z-0">
-                <div
-                  className="absolute w-[450px] h-[450px] rounded-full blur-[90px] opacity-75 animate-pulse"
-                  style={{
-                    backgroundColor: STAGES_DATA[activeStageDetail].color,
-                    top: "15%",
-                    left: "20%",
-                  }}
-                />
-                <div
-                  className="absolute w-[500px] h-[500px] rounded-full blur-[100px] opacity-60"
-                  style={{
-                    backgroundColor: "#f43f5e",
-                    bottom: "10%",
-                    right: "22%",
-                  }}
-                />
-                <div
-                  className="absolute w-[400px] h-[400px] rounded-full blur-[90px] opacity-50"
-                  style={{
-                    backgroundColor: "#38bdf8",
-                    top: "40%",
-                    right: "35%",
-                  }}
-                />
+                {/* Large Radiant Cobalt & Cyan Azure Glow Cloud */}
+                <div className="absolute w-[1050px] h-[800px] rounded-full bg-gradient-to-tr from-[#2563eb]/70 via-[#38bdf8]/65 to-[#60a5fa]/55 blur-[120px]" />
+
+                {/* Top-Left Sky Blue Ambient Highlight */}
+                <div className="absolute top-[10%] left-[16%] w-[650px] h-[520px] rounded-full bg-gradient-to-br from-[#0284c7]/60 via-[#38bdf8]/70 to-transparent blur-[100px]" />
+
+                {/* Bottom-Right Royal Indigo / Deep Azure Bloom */}
+                <div className="absolute bottom-[8%] right-[15%] w-[750px] h-[580px] rounded-full bg-gradient-to-tl from-[#1d4ed8]/65 via-[#4f46e5]/50 to-transparent blur-[110px]" />
+
+                {/* Center Soft Cyan Caustic Refraction Glow */}
+                <div className="absolute w-[750px] h-[480px] rounded-full bg-[#38bdf8]/40 blur-[85px]" />
               </div>
 
               {/* Frosted Glass Floating Card Container */}
