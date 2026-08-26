@@ -1,0 +1,1367 @@
+import React, { useState } from "react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  CheckCircle2,
+  Users,
+  Layers,
+  Sparkles,
+  TrendingUp,
+  ChevronRight,
+  Zap,
+  Bot,
+  Activity,
+  Award,
+  Compass,
+  Heart,
+  Send,
+  Volume2,
+  Database,
+  BarChart3,
+  Download,
+  ShieldCheck,
+  X
+} from "lucide-react";
+import "../../../styles/adopt-landing.css";
+
+interface AdoptLandingPageProps {
+  onBack?: () => void;
+  onExplorePlaybook?: () => void;
+  onViewCaseStudy?: () => void;
+}
+
+const STAGES_DATA = [
+  {
+    id: "aware",
+    num: "01",
+    title: "Aware",
+    question: '"What is this?"',
+    color: "#0284c7",
+    colorBg: "bg-[#0284c7]",
+    badgeBg: "bg-[#f0f9ff]/90",
+    badgeBorder: "border-[#e0f2fe]/60",
+    image: "Aware.png",
+    pillar: "Signal",
+    tagline: "Create awareness and promote about the existence of your product or feature.",
+    body: "Awareness is the essential first step in adoption. If users are unaware of a feature or product, all other efforts to engage or convert them are ineffective.",
+    quote: "You can’t sell a secret.",
+    author: "Seth Godin",
+    through: [
+      {
+        title: "In-Product Banners",
+        desc: "Non-intrusive banners within relevant applications.",
+      },
+      {
+        title: "Email Marketing",
+        desc: "Segmented campaigns with personalized subject lines, highlighting benefits and new features.",
+      },
+      {
+        title: "Leadership Communications",
+        desc: "Top-down announcements from organizational leaders.",
+      },
+      {
+        title: "Micro-Content/Short-Form Video",
+        desc: "15-30 second clips demonstrating quick wins on internal platforms.",
+      },
+    ],
+    keyPrinciples: "Cut through the noise with targeted, compelling messaging. Leverage multiple touchpoints where your users already are.",
+    icon: "📣",
+  },
+  {
+    id: "desire",
+    num: "02",
+    title: "Desire",
+    question: '"Why should I care?"',
+    color: "#f43f5e",
+    colorBg: "bg-[#f43f5e]",
+    badgeBg: "bg-[#fff1f2]/90",
+    badgeBorder: "border-[#ffe4e6]/60",
+    image: "Desire.png",
+    pillar: "Emotional Pull",
+    tagline: "Spark emotional connection and demonstrate tangible personal value.",
+    body: "Curiosity alone does not drive behavior change. Users must see 'What’s in it for me?' to overcome inertia and the friction of changing their established workflow routines.",
+    quote: "People don’t buy what you do; they buy why you do it.",
+    author: "Simon Sinek",
+    through: [
+      {
+        title: "Peer Success Stories",
+        desc: "Relatable workflow wins shared by direct colleagues.",
+      },
+      {
+        title: "Role-Specific ROI Demos",
+        desc: "Quantified time-saved metrics tailored to specific job functions.",
+      },
+      {
+        title: "Before & After Contrasts",
+        desc: "Side-by-side workflow comparisons showcasing dramatic effort reduction.",
+      },
+      {
+        title: "Executive Sponsorship",
+        desc: "Leadership highlighting strategic priority and team empowerment.",
+      },
+    ],
+    keyPrinciples: "Anchor value in human relief—saving time, eliminating cognitive drudgery, and elevating work quality.",
+    icon: "❤️",
+  },
+  {
+    id: "open",
+    num: "03",
+    title: "Open",
+    question: '"How do I start?"',
+    color: "#8b5cf6",
+    colorBg: "bg-[#8b5cf6]",
+    badgeBg: "bg-[#f5f3ff]/90",
+    badgeBorder: "border-[#ede9fe]/60",
+    image: "Open.png",
+    pillar: "First Action",
+    tagline: "Lower activation barriers and guide users to their first successful interaction.",
+    body: "The gap between intention and first action is where most users drop off. Minimizing cognitive friction and guaranteeing early success creates positive momentum.",
+    quote: "Make it easy, make it obvious, make it rewarding.",
+    author: "James Clear",
+    through: [
+      {
+        title: "1-Click Starter Prompts",
+        desc: "Pre-configured templates embedded in everyday applications.",
+      },
+      {
+        title: "Interactive Onboarding Wizards",
+        desc: "60-second guided micro-tutorials with real-time feedback.",
+      },
+      {
+        title: "Safe Sandbox Environments",
+        desc: "Zero-risk practice spaces to experiment without consequences.",
+      },
+      {
+        title: "Contextual Copilot Prompts",
+        desc: "Timely suggestions triggered during active document creation.",
+      },
+    ],
+    keyPrinciples: "Ensure the very first interaction delivers an undeniable AHA moment within 90 seconds.",
+    icon: "🚀",
+  },
+  {
+    id: "proficient",
+    num: "04",
+    title: "Proficient",
+    question: '"How do I get better?"',
+    color: "#f59e0b",
+    colorBg: "bg-[#f59e0b]",
+    badgeBg: "bg-[#fffbeb]/90",
+    badgeBorder: "border-[#fef3c7]/60",
+    image: "Proficient.png",
+    pillar: "Reinforcement",
+    tagline: "Deepen skills, build recurring workflow habits, and achieve mastery.",
+    body: "Initial trial must mature into consistent daily habits. By reinforcing best practices and uncovering advanced capabilities, users transition from occasional experimenters to power users.",
+    quote: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.",
+    author: "Will Durant",
+    through: [
+      {
+        title: "Weekly Pro-Tip Micro-Drops",
+        desc: "Bite-sized advanced workflow recipes delivered contextually.",
+      },
+      {
+        title: "Prompt Engineering Clinics",
+        desc: "Practical hands-on skill-building sessions for complex tasks.",
+      },
+      {
+        title: "Workflow Chaining Guides",
+        desc: "Connecting multiple AI actions into cohesive automated sequences.",
+      },
+      {
+        title: "Milestones & Active Streaks",
+        desc: "Recognizing consistent active days and productivity velocity.",
+      },
+    ],
+    keyPrinciples: "Transform tool capability into automatic muscle memory through continuous positive reinforcement.",
+    icon: "👑",
+  },
+  {
+    id: "transform",
+    num: "05",
+    title: "Transform",
+    question: '"How can I lead others?"',
+    color: "#10b981",
+    colorBg: "bg-[#10b981]",
+    badgeBg: "bg-[#ecfdf5]/90",
+    badgeBorder: "border-[#d1fae5]/60",
+    image: "Transform.png",
+    pillar: "Identity Shift",
+    tagline: "Empower champions to scale knowledge, build community, and lead enterprise change.",
+    body: "Sustainable enterprise adoption is self-propagating. When proficient users become vocal internal advocates and mentors, adoption reaches exponential network effects.",
+    quote: "A leader is one who knows the way, goes the way, and shows the way.",
+    author: "John C. Maxwell",
+    through: [
+      {
+        title: "Champion Networks & Badges",
+        desc: "Formal recognition and leadership circles for top enterprise power users.",
+      },
+      {
+        title: "Internal Prompt Libraries",
+        desc: "Company-wide sharing of customized high-performing prompt templates.",
+      },
+      {
+        title: "Lunch & Learn Showcases",
+        desc: "Peer-to-peer demo sessions and creative internal hackathons.",
+      },
+      {
+        title: "Cross-Team Playbooks",
+        desc: "Codifying success stories into standard operating procedures.",
+      },
+    ],
+    keyPrinciples: "Elevate individual mastery into collective organizational capability and community pride.",
+    icon: "🌟",
+  },
+];
+
+const PLAYBOOK_PASSWORD = "designtoimproveworld";
+const PLAYBOOK_LINK = "https://www.figma.com/deck/vGd7lTFMt1PeMQTr7dcz7l/ADOPT?node-id=1-125042&t=0hOVNm0DbUaw8jaK-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1";
+
+export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
+  onBack,
+  onExplorePlaybook,
+  onViewCaseStudy,
+}) => {
+  const [activeCategory, setActiveCategory] = useState<"psychology" | "signals" | "interventions" | "outcomes">("psychology");
+  const [activeTab, setActiveTab] = useState<"copilot" | "engine">("copilot");
+  const [scrollY, setScrollY] = useState(0);
+  const [activeStageDetail, setActiveStageDetail] = useState<number | null>(null);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const handlePasswordSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (passwordInput === PLAYBOOK_PASSWORD) {
+      setShowPasswordModal(false);
+      setPasswordError("");
+      window.open(PLAYBOOK_LINK, "_blank", "noopener,noreferrer");
+      return;
+    }
+    setPasswordError("Incorrect password. Please try again.");
+  };
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  React.useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <div className="adopt-page-wrapper selection:bg-indigo-500 selection:text-white relative">
+      {/* ── CONTINUOUS FLOWING MOODBOARD GRADIENT ATMOSPHERE (FULL PAGE) ─ */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
+        {/* Top Hero Glows: Pastel Mint/Cyan + Iris Violet/Lilac + Strawberry Pink */}
+        <div className="absolute -top-24 -left-20 w-[900px] h-[900px] bg-gradient-to-br from-cyan-200/40 via-sky-100/25 to-transparent rounded-full blur-[140px]" />
+        <div className="absolute -top-10 right-0 w-[850px] h-[850px] bg-gradient-to-bl from-pink-200/35 via-purple-200/25 to-transparent rounded-full blur-[140px]" />
+        <div className="absolute top-[450px] left-[25%] w-[700px] h-[550px] bg-gradient-to-tr from-violet-200/25 via-fuchsia-100/20 to-transparent rounded-full blur-[130px]" />
+
+        {/* Section 2 (Core Problem) Flow */}
+        <div className="absolute top-[1000px] -left-10 w-[850px] h-[800px] bg-gradient-to-r from-blue-200/30 via-indigo-100/20 to-transparent rounded-full blur-[140px]" />
+        <div className="absolute top-[1350px] -right-10 w-[900px] h-[850px] bg-gradient-to-l from-pink-200/35 via-rose-100/20 to-transparent rounded-full blur-[150px]" />
+
+        {/* Section 3 (5 Stages) Flow */}
+        <div className="absolute top-[1900px] left-[5%] w-[950px] h-[800px] bg-gradient-to-br from-cyan-200/35 via-sky-100/25 to-transparent rounded-full blur-[140px]" />
+        <div className="absolute top-[2300px] right-[5%] w-[900px] h-[800px] bg-gradient-to-bl from-purple-200/35 via-pink-200/25 to-transparent rounded-full blur-[140px]" />
+
+        {/* Section 4 & 5 (Case Study & AdoptIQ) Flow */}
+        <div className="absolute top-[2900px] -left-20 w-[950px] h-[900px] bg-gradient-to-tr from-violet-200/30 via-sky-100/25 to-transparent rounded-full blur-[150px]" />
+        <div className="absolute top-[3500px] right-0 w-[950px] h-[850px] bg-gradient-to-l from-pink-200/35 via-purple-100/25 to-transparent rounded-full blur-[140px]" />
+        <div className="absolute top-[4100px] left-[10%] w-[900px] h-[750px] bg-gradient-to-r from-cyan-200/30 via-indigo-100/20 to-transparent rounded-full blur-[140px]" />
+      </div>
+
+      {/* ── TOP STICKY NAVIGATION BAR ─────────────────────────────────── */}
+      <header className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-xl border-b border-slate-200/40 transition-all">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 h-20 flex items-center justify-between">
+          {/* Left: Back to Portfolio */}
+          <div className="flex items-center gap-3">
+            {onBack && (
+              <button
+                onClick={onBack}
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-slate-700 bg-white/90 hover:bg-white border border-slate-200/90 rounded-full transition-all shadow-xs cursor-pointer hover:border-slate-300"
+              >
+                ← Portfolio
+              </button>
+            )}
+          </div>
+
+          {/* Center Nav Links */}
+          <nav className="hidden md:flex items-center gap-8 text-[14px] font-medium text-[#475569]">
+            <a href="#problem" className="hover:text-[#4344fa] transition-colors py-1 cursor-pointer">The Problem</a>
+            <a href="#playbook-stages" className="hover:text-[#4344fa] transition-colors py-1 cursor-pointer">5 Stages</a>
+            <a href="#case-study" className="hover:text-[#4344fa] transition-colors py-1 cursor-pointer">Copilot Case Study</a>
+            <a href="#adoptiq" className="hover:text-[#4344fa] transition-colors py-1 cursor-pointer">AdoptIQ Engine</a>
+          </nav>
+
+          {/* Right Spacer for balanced centering */}
+          <div className="w-24 hidden sm:block" />
+        </div>
+      </header>
+
+      {/* ── SECTION 1: HERO (REDUCED HEIGHT BY 20%) ─────────────────── */}
+      <section className="relative min-h-[72vh] flex flex-col justify-between pt-24 pb-8 lg:pt-28 lg:pb-8 overflow-hidden bg-transparent">
+        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism */}
+        <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end">
+          {/* Parallax & Scroll-Surging Forward Animation Container */}
+          <div
+            className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
+            style={{
+              transform: `translate3d(${50 + Math.min(scrollY * 0.14, 80)}px, ${Math.min(scrollY * -0.06, -40)}px, 0) scale(${1 + Math.min(scrollY * 0.00065, 0.24)}) perspective(1000px) rotateY(${Math.min(scrollY * -0.012, 5)}deg)`,
+              transformOrigin: "78% 50%",
+            }}
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/adopt_hero_glass_bg.jpg`}
+              alt="ADOPT 8K 3D Glass Artwork"
+              className="w-full h-full object-cover object-[80%_center] lg:object-[78%_center] opacity-95 transition-opacity duration-700 animate-hero-float scale-105"
+            />
+          </div>
+
+          {/* Seamless luminous ambient gradient overlay on the left to perfectly integrate text */}
+          <div
+            className="absolute inset-0 pointer-events-none z-10"
+            style={{
+              background: "linear-gradient(to right, rgba(243, 248, 254, 0.98) 0%, rgba(243, 248, 254, 0.85) 32%, rgba(243, 248, 254, 0.45) 52%, transparent 78%)"
+            }}
+          />
+        </div>
+
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 my-auto">
+          <div className="max-w-2xl text-left">
+            {/* Eyebrow Badge */}
+            <div className="mb-4">
+              <div className="adopt-hero-badge">
+                <span className="text-[12px] leading-none">✦</span>
+                <span>THE ADOPT PLAYBOOK</span>
+              </div>
+            </div>
+
+            {/* Main Headline */}
+            <h1 className="text-[68px] sm:text-[84px] lg:text-[96px] font-black tracking-[-0.04em] text-[#0a0e1a] leading-[0.92] mb-4">
+              ADOPT
+            </h1>
+
+            {/* Sub-headline */}
+            <h2 className="text-[24px] sm:text-[28px] lg:text-[32px] font-bold tracking-tight text-[#1e293b] leading-[1.25] mb-4">
+              A Behavioral Operating System
+              <span className="block font-bold text-[#1e293b]">
+                for Enterprise AI Adoption
+              </span>
+            </h2>
+
+            {/* Description */}
+            <p className="text-[14px] sm:text-[16px] text-[#64748b] leading-[1.6] max-w-[480px] mb-7 font-normal">
+              ADOPT helps teams move users from awareness to advocacy by designing for human behavior, not just feature launches.
+            </p>
+
+            {/* Call to Action Buttons */}
+            <div className="flex flex-wrap items-center gap-4 mb-10">
+              <button
+                onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
+                className="adopt-hero-btn-primary group"
+              >
+                <span>Explore the Playbook</span>
+                <span className="adopt-btn-circle-arrow">
+                  <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
+                </span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setPasswordInput("");
+                  setPasswordError("");
+                  setShowPasswordModal(true);
+                }}
+                className="adopt-hero-btn-secondary cursor-pointer"
+              >
+                <span>See the Case Study</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Credibility Metric Bar (Bottom of Hero) */}
+          <div className="pt-4 relative z-10">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl">
+              {/* Stat 1: 1M WAU */}
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#f3f0fe]/90 backdrop-blur-md flex items-center justify-center text-[#6d28d9] shrink-0 shadow-2xs border border-purple-100/50">
+                  <Users className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[20px] font-black text-[#0f172a] leading-tight">1M</div>
+                  <div className="text-[12px] font-medium text-[#64748b]">WAU</div>
+                </div>
+              </div>
+
+              {/* Stat 2: 5-stage framework */}
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#e8f1ff]/90 backdrop-blur-md flex items-center justify-center text-[#2563eb] shrink-0 shadow-2xs border border-sky-100/50">
+                  <Layers className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[20px] font-black text-[#0f172a] leading-tight">5-stage</div>
+                  <div className="text-[12px] font-medium text-[#64748b]">framework</div>
+                </div>
+              </div>
+
+              {/* Stat 3: 300K -> 1M growth */}
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#fef2f2]/90 backdrop-blur-md flex items-center justify-center text-[#e11d48] shrink-0 shadow-2xs border border-rose-100/50">
+                  <TrendingUp className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[20px] font-black text-[#0f172a] leading-tight">300K → 1M</div>
+                  <div className="text-[12px] font-medium text-[#64748b]">Growth in WAU</div>
+                </div>
+              </div>
+
+              {/* Stat 4: Behavior-first */}
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[#ecfdf5]/90 backdrop-blur-md flex items-center justify-center text-[#059669] shrink-0 shadow-2xs border border-emerald-100/50">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[20px] font-black text-[#0f172a] leading-tight">Behavior-first</div>
+                  <div className="text-[12px] font-medium text-[#64748b]">by design</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PIXEL PERFECT) ──── */}
+      <section id="problem" className="py-14 lg:py-20 relative overflow-hidden bg-transparent">
+        <div className="w-full max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-10">
+          {/* Main Enclosed Card with Glassmorphism */}
+          <div className="relative rounded-[36px] sm:rounded-[44px] bg-white/92 backdrop-blur-xl border border-slate-200/75 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.05)] p-8 sm:p-12 lg:p-16 overflow-hidden">
+            {/* Background Texture Artwork with Floating Iridescent Ribbons */}
+            <div className="absolute inset-0 pointer-events-none select-none z-0 overflow-hidden opacity-95">
+              <img
+                src={`${import.meta.env.BASE_URL}IMG/core_problem_ribbon_bg.jpg`}
+                alt="Flowing Iridescent Ribbons Artwork"
+                className="w-full h-full object-cover object-center"
+              />
+            </div>
+
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+              {/* Left Column: Problem Statement */}
+              <div className="lg:col-span-5 flex flex-col items-start text-left">
+                <div className="inline-flex items-center gap-2 mb-4">
+                  <div className="w-6 h-6 rounded-full bg-[#f0f3ff] text-[#4f46e5] flex items-center justify-center shadow-2xs">
+                    <Sparkles className="w-3.5 h-3.5 text-[#4344fa]" />
+                  </div>
+                  <span className="text-[12px] font-bold text-[#4344fa] tracking-wider uppercase">
+                    THE CORE PROBLEM
+                  </span>
+                </div>
+
+                <h2 className="text-[36px] sm:text-[44px] lg:text-[50px] font-black text-[#0a0e1a] tracking-tight leading-[1.08] mb-4">
+                  AI adoption is not<br />
+                  a feature problem.<br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3d4dfc] via-[#633bfa] to-[#4344fa]">
+                    It's a behavior problem.
+                  </span>
+                </h2>
+
+                <p className="text-[15px] sm:text-[16px] text-[#64748b] leading-[1.6] mb-8 font-normal max-w-[460px]">
+                  Even the most powerful tools fail when they collide with human habits, uncertainty, and inertia.
+                </p>
+
+                {/* Bullets */}
+                <div className="space-y-4 w-full">
+                  {[
+                    "Users don't resist the product.",
+                    "They resist changing their routine.",
+                    "Better tech does not automatically create behavior change.",
+                    "Sustainable adoption happens when we design for the human, not just the feature."
+                  ].map((text, idx) => (
+                    <div key={idx} className="flex items-start gap-3.5">
+                      <div className="w-6 h-6 rounded-full bg-[#edf2fe] text-[#4344fa] flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                        <Check className="w-4 h-4 text-[#4344fa]" />
+                      </div>
+                      <span className="text-[14px] sm:text-[15px] text-[#334155] font-medium leading-snug pt-0.5">
+                        {text}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column: Comparison Cards */}
+              <div className="lg:col-span-7 relative">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-white border border-slate-200 shadow-lg flex items-center justify-center">
+                  <span className="text-[12px] font-black text-[#0f172a] tracking-tight">VS.</span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                  <div className="rounded-[32px] bg-white/92 backdrop-blur-md border border-[#e0e7ff] p-7 sm:p-8 flex flex-col justify-between shadow-[0_15px_35px_-10px_rgba(61,77,252,0.08)] min-h-[390px] text-left transition-all duration-300 hover:shadow-[0_20px_45px_-10px_rgba(61,77,252,0.12)]">
+                    <div>
+                      <div className="flex items-center gap-3.5 mb-6">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#4f7cf8] via-[#4344fa] to-[#3730a3] flex items-center justify-center text-white shadow-md shadow-indigo-500/25 shrink-0">
+                          <Layers className="w-6 h-6 text-white stroke-[2.2]" />
+                        </div>
+                        <h3 className="text-[20px] font-extrabold text-[#0f172a] tracking-tight leading-tight">
+                          Powerful Product
+                        </h3>
+                      </div>
+                      <div className="space-y-4 mb-8">
+                        {["Advanced capabilities", "Continuous innovation", "Feature-rich roadmap", "Enterprise-grade security"].map((feat, idx) => (
+                          <div key={idx} className="flex items-center gap-3 text-[14px] text-[#334155] font-medium">
+                            <div className="w-3 h-3 rounded-full bg-[#eff4ff] border border-[#bfdbfe] flex items-center justify-center shrink-0">
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6]" />
+                            </div>
+                            <span>{feat}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="w-full py-2.5 px-5 rounded-full bg-gradient-to-r from-[#eef2ff] to-[#f5f3ff] border border-[#c7d2fe] text-[#4344fa] text-[13px] font-bold flex items-center justify-between shadow-2xs select-none pointer-events-none">
+                      <span>What we build</span>
+                      <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-2xs">
+                        <ArrowRight className="w-3.5 h-3.5 text-[#4344fa] stroke-[2.5]" />
+                      </span>
+                    </div>
+                  </div>
+                  <div className="rounded-[32px] bg-white/92 backdrop-blur-md border border-[#ffe4e6] p-7 sm:p-8 flex flex-col justify-between shadow-[0_15px_35px_-10px_rgba(244,63,94,0.08)] min-h-[390px] text-left transition-all duration-300 hover:shadow-[0_20px_45px_-10px_rgba(244,63,94,0.12)]">
+                    <div>
+                      <div className="flex items-center gap-3.5 mb-6">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#fb7185] via-[#f43f5e] to-[#e11d48] flex items-center justify-center text-white shadow-md shadow-rose-500/25 shrink-0">
+                          <Users className="w-6 h-6 text-white stroke-[2.2]" />
+                        </div>
+                        <h3 className="text-[20px] font-extrabold text-[#0f172a] tracking-tight leading-tight">
+                          Familiar Habits
+                        </h3>
+                      </div>
+                      <div className="space-y-4 mb-8">
+                        {["Comfort with the old way", "Fear of change", "Unclear personal value", "No motivation to adopt"].map((habit, idx) => (
+                          <div key={idx} className="flex items-center gap-3 text-[14px] text-[#475569] font-medium">
+                            <div className="w-3 h-3 rounded-full bg-[#fff1f2] border border-[#fecdd3] flex items-center justify-center shrink-0">
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#f43f5e]" />
+                            </div>
+                            <span>{habit}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="w-full py-2.5 px-5 rounded-full bg-gradient-to-r from-[#fff1f2] to-[#fdf2f8] border border-[#fecdd3] text-[#f43f5e] text-[13px] font-bold flex items-center justify-between shadow-2xs select-none pointer-events-none">
+                      <span>What holds users back</span>
+                      <span className="w-6 h-6 rounded-full bg-white flex items-center justify-center shadow-2xs">
+                        <ArrowRight className="w-3.5 h-3.5 text-[#f43f5e] stroke-[2.5]" />
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 3: THE 5 STAGES OF THE ADOPT PLAYBOOK ─────────────────── */}
+      <section
+        id="playbook-stages"
+        className="py-14 lg:py-22 relative overflow-hidden bg-transparent"
+      >
+        {/* Subtle Ambient Micro-Sparkles floating in continuous atmosphere */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+          <span className="absolute top-10 left-[16%] text-cyan-400/45 text-sm select-none animate-pulse">✦</span>
+          <span className="absolute top-24 left-[28%] text-sky-400/35 text-xs select-none">⋆</span>
+          <span className="absolute top-14 right-[24%] text-pink-400/45 text-sm select-none animate-pulse" style={{ animationDelay: "1s" }}>✦</span>
+          <span className="absolute top-8 right-[10%] text-purple-400/45 text-base select-none animate-pulse" style={{ animationDelay: "1.5s" }}>✧</span>
+          <span className="absolute bottom-16 left-[22%] text-teal-400/35 text-xs select-none">⋆</span>
+          <span className="absolute bottom-20 right-[32%] text-fuchsia-400/40 text-xs select-none animate-pulse" style={{ animationDelay: "0.5s" }}>✦</span>
+        </div>
+
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-10 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-6">
+            {/* Left Header */}
+            <div className="lg:col-span-7">
+              {/* Category Pills */}
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 text-[10px] font-extrabold text-slate-700 tracking-wider uppercase shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7]" />
+                  Psychology
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 text-[10px] font-extrabold text-slate-700 tracking-wider uppercase shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#f43f5e]" />
+                  Signals
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 text-[10px] font-extrabold text-slate-700 tracking-wider uppercase shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#8b5cf6]" />
+                  Interventions
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 text-[10px] font-extrabold text-slate-700 tracking-wider uppercase shadow-2xs">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#f59e0b]" />
+                  Outcomes
+                </span>
+              </div>
+
+              <h2 className="text-[46px] sm:text-[54px] lg:text-[62px] font-black text-[#0a0e1a] tracking-tight leading-[1.05] mb-3">
+                The 5 Stages of the<br />
+                ADOPT Playbook
+              </h2>
+              <p className="text-[16px] sm:text-[17px] text-[#64748b] font-normal leading-relaxed mb-6">
+                A behavioral journey that moves users from discovery to advocacy. Click any card below to launch the circular 3D exploration view.
+              </p>
+
+              {/* Exploration Hint Pill */}
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 text-xs font-semibold text-slate-700 shadow-2xs">
+                  <span className="text-[#6d28d9] font-bold">✦</span>
+                  <span>Click any card to explore full behavioral framework & tactics</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Journey Insight Card */}
+            <div className="lg:col-span-5 flex justify-end">
+              <div className="rounded-[28px] bg-white/92 backdrop-blur-xl border border-slate-200/70 p-6 shadow-[0_15px_35px_-8px_rgba(15,23,42,0.05)] flex items-center justify-between gap-6 max-w-[420px] w-full">
+                <div>
+                  <div className="flex items-center gap-1.5 text-[#7c3aed] text-[11px] font-bold tracking-wider uppercase mb-1.5">
+                    <span>📈</span>
+                    <span>JOURNEY INSIGHT</span>
+                  </div>
+                  <p className="text-[14px] font-medium text-[#334155] leading-snug">
+                    People adopt in stages.<br />
+                    Design for where they are,<br />
+                    not where you want them to be.
+                  </p>
+                </div>
+
+                {/* Upward Curve Mini Graph */}
+                <div className="w-[80px] h-[80px] rounded-[20px] bg-gradient-to-tr from-[#f5f3ff] via-[#fdf4ff] to-[#fff1f2] border border-[#f3e8ff] flex items-center justify-center p-2 shrink-0 shadow-2xs">
+                  <svg className="w-full h-full" viewBox="0 0 60 60" fill="none">
+                    <path
+                      d="M6 48C18 48 24 38 34 26C42 16 48 10 54 8"
+                      stroke="url(#insight_grad_full)"
+                      strokeWidth="3.5"
+                      strokeLinecap="round"
+                    />
+                    <defs>
+                      <linearGradient id="insight_grad_full" x1="6" y1="48" x2="54" y2="8" gradientUnits="userSpaceOnUse">
+                        <stop stopColor="#8b5cf6" />
+                        <stop offset="1" stopColor="#f43f5e" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ── THE 5 FLAT CONNECTED STAGE CARDS (UNIFORM HEIGHT GRID) ─ */}
+          <div className="relative pt-4 pb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 relative z-10 items-stretch">
+              {STAGES_DATA.map((stage, idx) => (
+                <div
+                  key={stage.id}
+                  onClick={() => setActiveStageDetail(idx)}
+                  className="flex flex-col h-full cursor-pointer group"
+                >
+                  <div className="w-full h-full rounded-[32px] sm:rounded-[36px] bg-white/92 backdrop-blur-xl border border-slate-200/75 p-5 sm:p-6 flex flex-col justify-between shadow-[0_10px_30px_-5px_rgba(0,0,0,0.04)] relative min-h-[490px] lg:min-h-[510px] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_22px_45px_-8px_rgba(67,68,250,0.16)] hover:border-[#c7d2fe]">
+                    {/* Top Half: Number & Character */}
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span
+                          className="text-[14px] font-black tracking-tight"
+                          style={{ color: stage.color }}
+                        >
+                          {stage.num}
+                        </span>
+                        <span className="text-[11px] font-bold text-slate-400 group-hover:text-[#4344fa] transition-colors flex items-center gap-1">
+                          <span>Details</span>
+                          <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+                        </span>
+                      </div>
+
+                      {/* Character Illustration */}
+                      <div className="w-full h-64 sm:h-70 lg:h-74 flex items-center justify-center my-1 relative z-10 overflow-visible">
+                        <img
+                          src={`${import.meta.env.BASE_URL}IMG/${stage.image}`}
+                          alt={`${stage.title} Character`}
+                          className="w-auto h-full max-h-full object-contain drop-shadow-md scale-110 sm:scale-115 transition-transform duration-300 group-hover:scale-120"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Bottom Half: Title & Question Quote Pill */}
+                    <div className="mt-auto pt-2 flex flex-col items-center text-center">
+                      <h3 className="text-[22px] font-black text-[#0a0e1a] leading-tight mb-2.5 text-center">
+                        {stage.title}
+                      </h3>
+
+                      <div
+                        className={`w-full py-2.5 px-3 rounded-2xl ${stage.badgeBg} border ${stage.badgeBorder} text-[12px] font-bold text-center tracking-tight shadow-2xs transition-all group-hover:shadow-xs`}
+                        style={{ color: stage.color }}
+                      >
+                        {stage.question}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── INTERACTIVE CIRCULAR STAGE DEEP-DIVE MODAL / VIEW ──────── */}
+          {activeStageDetail !== null && (
+            <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in">
+              <div
+                className="relative w-full max-w-[1400px] max-h-[92vh] overflow-y-auto adopt-custom-scrollbar rounded-[36px] bg-white/95 backdrop-blur-2xl border border-white shadow-[0_30px_90px_-20px_rgba(15,23,42,0.35)] p-6 sm:p-10 lg:p-12 text-left"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Modal Top Bar: Minimalist Close Button */}
+                <div className="flex items-center justify-end pb-3 mb-4">
+                  <button
+                    onClick={() => setActiveStageDetail(null)}
+                    className="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 hover:text-slate-900 flex items-center justify-center transition-colors cursor-pointer"
+                    aria-label="Close details"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* ── Main Split Content: Left Circular 3D Ring + Center/Right Rich Details ── */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                  {/* Left Column: Pure 3D Revolving Character Carousel */}
+                  <div className="lg:col-span-5 flex flex-col items-center justify-center relative p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#f8fafc] to-[#f1f5f9] border border-slate-200/80">
+                    {/* Compact 3D Viewport */}
+                    <div className="adopt-3d-compact-viewport">
+                      <div className="adopt-3d-compact-ground-shadow" />
+
+                      {/* Left / Right Arrow Controls */}
+                      <button
+                        onClick={() =>
+                          setActiveStageDetail((prev) =>
+                            prev === null || prev === 0
+                              ? STAGES_DATA.length - 1
+                              : prev - 1
+                          )
+                        }
+                        className="absolute left-1 sm:left-2 z-40 w-10 h-10 rounded-full bg-white/95 border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-[#4344fa] hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                        aria-label="Previous Stage"
+                      >
+                        <ArrowRight className="w-4 h-4 rotate-180" />
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          setActiveStageDetail((prev) =>
+                            prev === null || prev === STAGES_DATA.length - 1
+                              ? 0
+                              : prev + 1
+                          )
+                        }
+                        className="absolute right-1 sm:right-2 z-40 w-10 h-10 rounded-full bg-white/95 border border-slate-200 shadow-md flex items-center justify-center text-slate-700 hover:text-[#4344fa] hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                        aria-label="Next Stage"
+                      >
+                        <ArrowRight className="w-4 h-4" />
+                      </button>
+
+                      {/* Rotating 3D Character Ring */}
+                      <div
+                        className="adopt-3d-compact-ring"
+                        style={{
+                          transform: `rotateX(-9deg) rotateY(${-activeStageDetail * 72}deg)`,
+                        }}
+                      >
+                        {STAGES_DATA.map((stage, idx) => {
+                          const diff = (idx - activeStageDetail + 5) % 5;
+                          const normalizedDiff = diff > 2 ? diff - 5 : diff;
+                          const isActive = normalizedDiff === 0;
+                          const isNeighbor = Math.abs(normalizedDiff) === 1;
+
+                          return (
+                            <div
+                              key={stage.id}
+                              onClick={() => setActiveStageDetail(idx)}
+                              className={`adopt-3d-compact-card-wrapper cursor-pointer flex flex-col items-center justify-center ${
+                                isActive ? "z-30" : isNeighbor ? "z-20" : "z-10"
+                              }`}
+                              style={{
+                                transform: `rotateY(${idx * 72}deg) translateZ(210px) scale(${
+                                  isActive ? 1.22 : isNeighbor ? 0.88 : 0.68
+                                })`,
+                                opacity: isActive ? 1 : isNeighbor ? 0.75 : 0.28,
+                                filter: isActive
+                                  ? "drop-shadow(0 18px 30px rgba(0,0,0,0.2))"
+                                  : isNeighbor
+                                  ? "drop-shadow(0 8px 16px rgba(0,0,0,0.1)) blur(0.5px)"
+                                  : "blur(2px)",
+                              }}
+                            >
+                              {/* Pure 3D Character Illustration Floating in Space */}
+                              <div className="w-full h-full flex flex-col items-center justify-center relative select-none">
+                                {/* Floor Contact Shadow */}
+                                {isActive && (
+                                  <div className="absolute bottom-3 w-28 h-6 bg-slate-900/18 rounded-full blur-md -z-10" />
+                                )}
+                                <img
+                                  src={`${import.meta.env.BASE_URL}IMG/${stage.image}`}
+                                  alt={`${stage.title} Character`}
+                                  className={`w-auto h-full max-h-full object-contain transition-transform duration-500 ${
+                                    isActive
+                                      ? "scale-105 drop-shadow-xl"
+                                      : "scale-90 hover:scale-95"
+                                  }`}
+                                />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Active Stage Indicator Pill cleanly below the character with adequate vertical clearance */}
+                    <div className="mt-6 inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/95 border border-slate-200/90 shadow-xs text-sm font-extrabold text-[#0f172a] relative z-30">
+                      <span
+                        className="w-2.5 h-2.5 rounded-full"
+                        style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }}
+                      />
+                      <span>
+                        {STAGES_DATA[activeStageDetail].num} {STAGES_DATA[activeStageDetail].title}
+                      </span>
+                    </div>
+
+                    <div className="mt-2 text-center text-xs text-slate-400 font-medium">
+                      Click characters or arrows to revolve 3D stage ring
+                    </div>
+                  </div>
+
+                  {/* Center & Right Section: Rich Stage Details (Clean layout without duplicate static character) */}
+                  <div className="lg:col-span-7 flex flex-col items-start justify-between">
+                    {/* Header: Figma-styled Red Selection Bounding Box Title & Tagline */}
+                    <div className="w-full mb-6">
+                      {/* Figma-style Selection Bounding Box around Title */}
+                      <div className="relative inline-block border-2 border-dashed border-[#f43f5e] px-4 py-2 rounded-xl mb-4 bg-rose-50/20">
+                        {/* 4 Corner Handles */}
+                        <div className="absolute -top-1.5 -left-1.5 w-3 h-3 bg-[#f43f5e] border border-white shadow-2xs" />
+                        <div className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-[#f43f5e] border border-white shadow-2xs" />
+                        <div className="absolute -bottom-1.5 -left-1.5 w-3 h-3 bg-[#f43f5e] border border-white shadow-2xs" />
+                        <div className="absolute -bottom-1.5 -right-1.5 w-3 h-3 bg-[#f43f5e] border border-white shadow-2xs" />
+
+                        <h2
+                          className="text-[44px] sm:text-[56px] font-black tracking-tight leading-none"
+                          style={{ color: STAGES_DATA[activeStageDetail].color }}
+                        >
+                          {STAGES_DATA[activeStageDetail].title}
+                        </h2>
+                      </div>
+
+                      {/* Bold Tagline */}
+                      <h3 className="text-[20px] sm:text-[24px] font-black text-[#0f172a] tracking-tight leading-tight max-w-xl">
+                        {STAGES_DATA[activeStageDetail].tagline}
+                      </h3>
+                    </div>
+
+                    {/* Explanatory Body Concept */}
+                    <p className="text-[15px] sm:text-[16px] text-[#334155] leading-relaxed mb-6 font-normal max-w-3xl">
+                      {STAGES_DATA[activeStageDetail].body}
+                    </p>
+
+                    {/* Quote Box with Seth Godin / Author Attribution */}
+                    <div className="w-full p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#f8fafc] via-[#fdf4ff] to-[#f8fafc] border border-slate-200/80 mb-8 shadow-2xs">
+                      <div className="text-[17px] sm:text-[19px] font-serif italic text-[#0f172a] leading-snug">
+                        “{STAGES_DATA[activeStageDetail].quote}”
+                        <span className="not-italic text-sm font-sans font-semibold text-[#64748b] ml-3">
+                          — {STAGES_DATA[activeStageDetail].author}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* ── "THROUGH" Tactics & Channels Grid ── */}
+                    <div className="w-full mb-8">
+                      <div className="text-[12px] font-black tracking-widest text-[#64748b] uppercase mb-4">
+                        T H R O U G H
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {STAGES_DATA[activeStageDetail].through.map((item, i) => (
+                          <div
+                            key={i}
+                            className="p-4 rounded-2xl bg-white/90 border border-slate-200/80 shadow-2xs flex flex-col items-start text-left hover:border-slate-300 transition-colors"
+                          >
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <div
+                                className="w-2 h-2 rounded-full shrink-0"
+                                style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }}
+                              />
+                              <h4 className="text-[14px] font-bold text-[#0f172a]">
+                                {item.title}
+                              </h4>
+                            </div>
+                            <p className="text-[13px] text-[#64748b] leading-relaxed">
+                              {item.desc}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Key Principles Footer Bar */}
+                    <div className="w-full p-4 rounded-2xl bg-[#f0f9ff]/80 border border-[#bae6fd]/80 text-[#0369a1] text-[13px] sm:text-[14px] leading-relaxed shadow-2xs">
+                      <strong className="font-extrabold text-[#0284c7] mr-1.5">
+                        Key Principles:
+                      </strong>
+                      <span>{STAGES_DATA[activeStageDetail].keyPrinciples}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ── Bottom Summary Ribbon (Concentric Radar + 5 Timeline Steps) ─ */}
+          <div className="mt-8 rounded-[26px] bg-white/92 backdrop-blur-xl border border-slate-200/70 p-6 sm:p-7 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            {/* Left Radar and Text */}
+            <div className="lg:col-span-5 flex items-center gap-4 border-b lg:border-b-0 lg:border-r border-slate-100 pb-5 lg:pb-0 lg:pr-6">
+              {/* Concentric Color Ring Icon */}
+              <div className="w-14 h-14 rounded-full p-1 bg-gradient-to-tr from-sky-400 via-indigo-500 to-pink-400 shrink-0 flex items-center justify-center shadow-xs">
+                <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full border-2 border-indigo-200 border-dashed animate-spin-slow flex items-center justify-center">
+                    <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500" />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-[16px] font-extrabold text-[#0f172a] leading-snug">
+                  Behavior changes in<br />
+                  stages, not all at once.
+                </h4>
+                <p className="text-[13px] text-[#64748b] mt-0.5 font-normal">
+                  Design the right experience for the right mindset.
+                </p>
+              </div>
+            </div>
+
+            {/* Right 5 Steps Connected by Dotted Path */}
+            <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-5 gap-3 relative">
+              {[
+                { icon: "📣", title: "Signal", desc: "Something gets their attention", color: "text-[#0284c7]" },
+                { icon: "❤️", title: "Emotional Pull", desc: "They see personal relevance", color: "text-[#f43f5e]" },
+                { icon: "🚀", title: "First Action", desc: "They try and experience value", color: "text-[#8b5cf6]" },
+                { icon: "👑", title: "Reinforcement", desc: "They build skill and confidence", color: "text-[#f59e0b]" },
+                { icon: "🌟", title: "Identity Shift", desc: "They become an advocate", color: "text-[#10b981]" }
+              ].map((step, idx) => (
+                <div key={idx} className="flex flex-col items-start p-1.5 relative">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="text-[14px]">{step.icon}</span>
+                    <span className="text-[12px] font-bold text-[#0f172a]">{step.title}</span>
+                  </div>
+                  <span className="text-[11px] text-[#64748b] leading-tight">{step.desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 4: APPLIED PLAYBOOK • ENTERPRISE SCALE ────────────── */}
+      <section id="case-study" className="py-16 lg:py-24 relative overflow-hidden bg-transparent">
+        <div className="max-w-[1280px] mx-auto px-6 sm:px-10 lg:px-12">
+          {/* Main White Enclosed Card with Overlapping 3D Artwork */}
+          <div className="relative rounded-[40px] sm:rounded-[48px] bg-white border border-white/90 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.08)] p-6 sm:p-10 lg:p-14 lg:pl-10">
+            {/* Right Edge Slider Pagination Pill Indicator */}
+            <div className="absolute right-5 sm:right-6 top-1/2 -translate-y-1/2 hidden sm:flex flex-col items-center gap-2 pointer-events-none z-20">
+              <div className="w-2.5 h-6 bg-[#f43f5e] rounded-full shadow-xs" />
+              <div className="w-2.5 h-2.5 bg-slate-300 rounded-full" />
+              <div className="w-2.5 h-2.5 bg-slate-300 rounded-full" />
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+              {/* Left Column: Overlapping 3D Copilot Artwork Card */}
+              <div className="lg:col-span-6 relative flex items-center justify-center">
+                <div className="w-full rounded-[32px] sm:rounded-[36px] overflow-hidden shadow-[0_25px_60px_-15px_rgba(0,0,0,0.16)] border border-slate-100/80 bg-white relative group">
+                  <img
+                    src={`${import.meta.env.BASE_URL}IMG/copilot_applied_playbook_bg.jpg`}
+                    alt="Copilot Applied Playbook 3D Dashboard"
+                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              </div>
+
+              {/* Right Column: Case Study Narrative & Metrics */}
+              <div className="lg:col-span-6 flex flex-col items-start text-left pr-0 sm:pr-8">
+                {/* Badge: APPLIED PLAYBOOK */}
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#f3f0ff] text-[#6d28d9] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
+                  <span className="text-[12px]">✦</span>
+                  <span>APPLIED PLAYBOOK</span>
+                </div>
+
+                {/* Sub-tag */}
+                <div className="text-[13px] font-medium text-[#64748b] mb-2 tracking-wide">
+                  Enterprise scale case study
+                </div>
+
+                {/* Main Heading with Colorful Gradient */}
+                <h2 className="text-[34px] sm:text-[42px] lg:text-[46px] font-black text-[#0a0e1a] tracking-tight leading-[1.08] mb-4">
+                  ADOPT in action:<br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f43f5e] via-[#c084fc] to-[#6366f1]">
+                    Scaling Microsoft
+                  </span><br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#4344fa]">
+                    Copilot adoption
+                  </span>
+                </h2>
+
+                {/* Supporting Paragraph */}
+                <p className="text-[14px] sm:text-[15px] text-[#64748b] leading-relaxed mb-8 max-w-lg font-normal">
+                  How behavioral design transformed awareness into repeat usage and advocacy across enterprise organizations.
+                </p>
+
+                {/* 3 Metric Columns with Category Color Dots */}
+                <div className="flex flex-wrap items-center gap-6 sm:gap-9 mb-9 w-full">
+                  {/* Metric 1 */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#f97316]" />
+                    </div>
+                    <div className="text-[20px] sm:text-[22px] font-black text-[#0f172a] leading-tight">
+                      936K → 3.4M
+                    </div>
+                    <div className="text-[12px] text-[#64748b] font-medium mt-0.5">
+                      Copilot WAU
+                    </div>
+                  </div>
+
+                  {/* Metric 2 */}
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#3b82f6]" />
+                    </div>
+                    <div className="text-[20px] sm:text-[22px] font-black text-[#0f172a] leading-tight">
+                      336 → 859
+                    </div>
+                    <div className="text-[12px] text-[#64748b] font-medium mt-0.5">
+                      CAC-enabled tenants
+                    </div>
+                  </div>
+
+                  {/* Metric 3 (with left divider) */}
+                  <div className="pl-6 border-l border-slate-200">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-[#ec4899]" />
+                    </div>
+                    <div className="text-[20px] sm:text-[22px] font-black text-[#0f172a] leading-tight">
+                      509K → 1.5M
+                    </div>
+                    <div className="text-[12px] text-[#64748b] font-medium mt-0.5">
+                      Community WAU
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA Button: Coral/Pink Gradient Pill */}
+                <button
+                  onClick={() => {
+                    setPasswordInput("");
+                    setPasswordError("");
+                    setShowPasswordModal(true);
+                  }}
+                  className="px-7 py-3 rounded-full bg-gradient-to-r from-[#f97316] via-[#f43f5e] to-[#ec4899] text-white font-bold text-[14px] shadow-[0_12px_28px_-6px_rgba(244,63,94,0.45)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer group"
+                >
+                  <span>View case study</span>
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 5: AI ADOPTION ENGINE (AdoptIQ.ai) ───────────────── */}
+      <section id="adoptiq" className="py-16 lg:py-24 relative overflow-hidden bg-transparent">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            {/* Left: 3D SaaS Dashboard Visual Graphic Artwork */}
+            <div className="lg:col-span-7 relative flex items-center justify-center">
+              <div className="relative w-full rounded-[32px] overflow-hidden">
+                <img
+                  src={`${import.meta.env.BASE_URL}IMG/adoptiq_dashboard_graphic.png`}
+                  alt="AdoptIQ.ai 3D Dashboard Engine at Work"
+                  className="w-full h-auto object-contain rounded-[28px] transition-transform duration-500 hover:scale-[1.01]"
+                />
+              </div>
+            </div>
+
+            {/* Right: Brand Title, Headline, 4-Step Workflow Pill & CTA */}
+            <div className="lg:col-span-5 flex flex-col items-start text-left pl-0 lg:pl-4">
+              {/* Eyebrow Badge */}
+              <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed] text-[11px] font-extrabold tracking-wider uppercase mb-4 shadow-2xs">
+                AI ADOPTION ENGINE
+              </div>
+
+              {/* Brand Title with Gradient */}
+              <h2 className="text-[56px] sm:text-[68px] lg:text-[76px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#4f46e5] via-[#6366f1] to-[#3b82f6] tracking-tight leading-[0.95] mb-3">
+                AdoptIQ.ai
+              </h2>
+
+              {/* Decorative Gradient Line with Star Accent */}
+              <div className="flex items-center gap-2 w-full max-w-sm mb-5">
+                <div className="h-[2px] flex-1 bg-gradient-to-r from-[#4f46e5]/40 via-[#7c3aed]/40 to-transparent rounded-full" />
+                <span className="text-[#7c3aed] text-xs font-black">✦</span>
+                <div className="h-[2px] flex-1 bg-gradient-to-l from-[#3b82f6]/40 via-[#7c3aed]/40 to-transparent rounded-full" />
+              </div>
+
+              {/* Headline */}
+              <h3 className="text-[30px] sm:text-[36px] lg:text-[40px] font-black text-[#0a0e1a] tracking-tight leading-[1.12] mb-4 max-w-lg">
+                Turn adoption signals into the next best action.
+              </h3>
+
+              {/* Supporting Paragraph */}
+              <p className="text-[15px] sm:text-[16px] text-[#64748b] leading-relaxed mb-8 max-w-lg font-normal">
+                Powered by the ADOPT Playbook, AdoptIQ diagnoses where adoption is breaking and recommends the highest-leverage intervention.
+              </p>
+
+              {/* 4-Step Workflow Flow Card (Pill Container) */}
+              <div className="w-full max-w-lg rounded-[28px] bg-white/92 backdrop-blur-xl border border-slate-200/80 shadow-[0_10px_30px_-8px_rgba(0,0,0,0.05)] p-4 sm:p-5 flex items-center justify-between gap-2 mb-8">
+                {/* 1. Ask */}
+                <div className="flex flex-col items-center gap-1.5 flex-1">
+                  <div className="w-10 h-10 rounded-full bg-[#eff6ff] text-[#3b82f6] border border-[#dbeafe] flex items-center justify-center text-base shadow-2xs">
+                    💬
+                  </div>
+                  <span className="text-xs font-bold text-[#0f172a]">Ask</span>
+                </div>
+
+                {/* Dotted Track */}
+                <div className="w-8 border-b-2 border-dotted border-slate-300 -mt-4 hidden sm:block" />
+
+                {/* 2. Diagnose */}
+                <div className="flex flex-col items-center gap-1.5 flex-1">
+                  <div className="w-10 h-10 rounded-full bg-[#fff1f2] text-[#f43f5e] border border-[#ffe4e6] flex items-center justify-center text-base shadow-2xs">
+                    🧠
+                  </div>
+                  <span className="text-xs font-bold text-[#0f172a]">Diagnose</span>
+                </div>
+
+                {/* Dotted Track */}
+                <div className="w-8 border-b-2 border-dotted border-slate-300 -mt-4 hidden sm:block" />
+
+                {/* 3. Prioritize */}
+                <div className="flex flex-col items-center gap-1.5 flex-1">
+                  <div className="w-10 h-10 rounded-full bg-[#fffbeb] text-[#f59e0b] border border-[#fef3c7] flex items-center justify-center text-base shadow-2xs">
+                    📋
+                  </div>
+                  <span className="text-xs font-bold text-[#0f172a]">Prioritize</span>
+                </div>
+
+                {/* Dotted Track */}
+                <div className="w-8 border-b-2 border-dotted border-slate-300 -mt-4 hidden sm:block" />
+
+                {/* 4. Generate */}
+                <div className="flex flex-col items-center gap-1.5 flex-1">
+                  <div className="w-10 h-10 rounded-full bg-[#f5f3ff] text-[#8b5cf6] border border-[#ede9fe] flex items-center justify-center text-base shadow-2xs">
+                    ✨
+                  </div>
+                  <span className="text-xs font-bold text-[#0f172a]">Generate</span>
+                </div>
+              </div>
+
+              {/* CTA Button: Cobalt/Indigo Gradient Pill */}
+              <a
+                href="https://adoptiqai.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#2563eb] via-[#4344fa] to-[#4f46e5] text-white font-bold text-[15px] shadow-[0_12px_28px_-6px_rgba(37,99,235,0.48)] hover:scale-105 active:scale-95 transition-all inline-flex items-center gap-2.5 cursor-pointer text-decoration-none group"
+              >
+                <span>Launch AdoptIQ.ai</span>
+                <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                  <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 6: CLOSING CTA FOOTER BANNER ──────────────────────── */}
+      <section id="impact" className="py-14 lg:py-20 relative overflow-hidden">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
+          <div
+            className="relative rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 lg:px-16 lg:py-14 border border-white/50 shadow-[0_20px_55px_-12px_rgba(168,85,247,0.22)] overflow-hidden text-left"
+            style={{
+              background:
+                "linear-gradient(105deg, #7888f8 0%, #9ca7fc 24%, #b79dfb 48%, #d896ea 74%, #f794ca 100%)",
+            }}
+          >
+            {/* Elegant Soft Curved Wave Lines in Background */}
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-none opacity-45 select-none"
+              viewBox="0 0 1200 240"
+              fill="none"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M-50 130 C 280 210, 680 30, 1250 150"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeOpacity="0.65"
+                fill="none"
+              />
+              <path
+                d="M-50 180 C 380 50, 780 230, 1250 70"
+                stroke="white"
+                strokeWidth="1.2"
+                strokeOpacity="0.45"
+                fill="none"
+              />
+              <path
+                d="M-50 40 C 480 170, 880 10, 1250 190"
+                stroke="white"
+                strokeWidth="0.8"
+                strokeOpacity="0.35"
+                fill="none"
+              />
+            </svg>
+
+            {/* Glowing Atmosphere Nodes */}
+            <div className="absolute top-0 right-1/4 w-80 h-80 bg-white/15 rounded-full blur-2xl pointer-events-none" />
+            <div className="absolute bottom-0 left-1/3 w-80 h-80 bg-pink-300/20 rounded-full blur-2xl pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+              {/* Left Copy */}
+              <div className="max-w-xl">
+                <h2 className="text-[34px] sm:text-[40px] lg:text-[46px] font-bold text-white tracking-tight leading-[1.12] mb-3">
+                  Design for behavior.<br />
+                  Build what lasts.
+                </h2>
+                <p className="text-white/95 text-[14px] sm:text-[15px] leading-relaxed font-normal max-w-lg">
+                  ADOPT is the blueprint for turning AI potential into human progress—at scale.
+                </p>
+              </div>
+
+              {/* Right CTA Buttons (Matching Attached Visual Exactly) */}
+              <div className="flex flex-wrap items-center gap-4 shrink-0">
+                {/* 1. Launch the Playbook (Purple Gradient Pill + Circular Arrow) */}
+                <button
+                  onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
+                  className="pl-6 pr-2 py-2 rounded-full bg-gradient-to-r from-[#6366f1] via-[#7c3aed] to-[#8b5cf6] text-white font-bold text-[14px] shadow-[0_10px_25px_-5px_rgba(99,102,241,0.5)] border border-white/20 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 cursor-pointer group"
+                >
+                  <span>Launch the Playbook</span>
+                  <span className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white transition-transform group-hover:translate-x-0.5">
+                    <ArrowRight className="w-4 h-4" />
+                  </span>
+                </button>
+
+                {/* 2. Launch AdoptIQ.ai (Glossy White Pill + Purple Icon) */}
+                <a
+                  href="https://adoptiqai.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-6 py-3 rounded-full bg-white text-[#1e293b] font-bold text-[14px] shadow-sm hover:shadow-md hover:bg-slate-50 transition-all flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95 text-decoration-none group"
+                >
+                  <span>Launch AdoptIQ.ai</span>
+                  <ArrowUpRight className="w-4 h-4 text-[#8b5cf6] stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER COPYRIGHT & ATTRIBUTION ───────────────────────────── */}
+      <footer className="py-8 border-t border-slate-200/80 text-center text-xs text-slate-500">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <span className="font-extrabold text-slate-800">ADOPT</span>
+            <span>— A Behavioral Operating System for Enterprise AI Adoption</span>
+          </div>
+          <div>
+            <span>Crafted with pixel-precision by Vikram &bull; All rights reserved</span>
+          </div>
+        </div>
+      </footer>
+      {/* Protected Case Study Password Modal */}
+      {showPasswordModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="playbook-password-title"
+          className="fixed inset-0 z-[120] flex items-center justify-center px-6"
+          style={{ background: "rgba(6, 9, 16, 0.72)", backdropFilter: "blur(6px)" }}
+        >
+          <form
+            onSubmit={handlePasswordSubmit}
+            className="w-full max-w-[420px] rounded-2xl border p-6 text-left"
+            style={{
+              background: "rgba(11, 14, 24, 0.94)",
+              borderColor: "rgba(255,255,255,0.18)",
+              boxShadow: "0 24px 60px rgba(0,0,0,0.45)",
+            }}
+          >
+            <h3
+              id="playbook-password-title"
+              style={{ color: "white", fontSize: "22px", fontWeight: 700, lineHeight: 1.2 }}
+            >
+              Enter password to open Case Study
+            </h3>
+            <p style={{ color: "rgba(255,255,255,0.68)", marginTop: "8px", fontSize: "14px", lineHeight: 1.6 }}>
+              Access to this case study deck is protected.
+            </p>
+
+            <input
+              type="password"
+              value={passwordInput}
+              onChange={(e) => {
+                setPasswordInput(e.target.value);
+                if (passwordError) setPasswordError("");
+              }}
+              placeholder="Enter password"
+              autoFocus
+              className="mt-4 w-full rounded-xl px-4 py-3 text-sm text-white outline-none"
+              style={{
+                background: "rgba(255,255,255,0.08)",
+                border: "1px solid rgba(255,255,255,0.22)",
+              }}
+            />
+
+            {passwordError && (
+              <p className="mt-2 text-xs font-semibold text-rose-400">{passwordError}</p>
+            )}
+
+            <div className="mt-5 flex items-center justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowPasswordModal(false);
+                  setPasswordError("");
+                }}
+                className="px-4 py-2 text-xs font-semibold text-white/70 hover:text-white transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-5 py-2.5 rounded-full bg-gradient-to-r from-[#4f46e5] to-[#7c3aed] text-white text-xs font-bold shadow-md hover:scale-105 active:scale-95 transition-all cursor-pointer"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+    </div>
+  );
+};

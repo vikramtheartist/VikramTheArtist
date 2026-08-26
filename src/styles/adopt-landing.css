@@ -1,0 +1,515 @@
+/* ═══════════════════════════════════════════════════════════════════
+   ADOPT LANDING PAGE — WORLD-CLASS DESIGN SYSTEM & STYLES
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --adopt-bg: #ffffff;
+  --adopt-text-head: #0b0f19;
+  --adopt-text-sub: #1e293b;
+  --adopt-text-body: #64748b;
+  --adopt-primary: #4344fa;
+  --adopt-primary-grad: linear-gradient(135deg, #3d4dfc 0%, #633bfa 100%);
+  --adopt-primary-shadow: 0 12px 28px -4px rgba(61, 77, 252, 0.45);
+}
+
+.adopt-page-wrapper {
+  background: linear-gradient(
+    180deg,
+    #f3f8fe 0%,
+    #f8f5ff 16%,
+    #fdf3f8 32%,
+    #f2f7ff 48%,
+    #fbf4fc 64%,
+    #f3f8ff 80%,
+    #f8f5fe 100%
+  );
+  color: var(--adopt-text-head);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* ── Hero Eyebrow Pill ─────────────────────────────────────────── */
+.adopt-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #f3f0fe;
+  color: #6d28d9;
+  border: 1px solid #dcd1fc;
+  box-shadow: 0 2px 4px rgba(109, 40, 217, 0.04);
+}
+
+/* ── Hero Buttons ──────────────────────────────────────────────── */
+.adopt-hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: linear-gradient(180deg, #5b54fa 0%, #433cf7 55%, #352fed 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 8px 8px 24px;
+  border-radius: 9999px;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.45), 0 10px 25px -4px rgba(67, 60, 247, 0.45), 0 4px 10px rgba(67, 60, 247, 0.2);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  cursor: pointer;
+}
+
+.adopt-hero-btn-primary:hover {
+  transform: translateY(-1.5px);
+  background: linear-gradient(180deg, #6861fa 0%, #4e47f7 55%, #3e38f0 100%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.55), 0 14px 30px -3px rgba(67, 60, 247, 0.55), 0 6px 14px rgba(67, 60, 247, 0.3);
+}
+
+.adopt-btn-circle-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.adopt-hero-btn-primary:hover .adopt-btn-circle-arrow {
+  transform: translateX(2px);
+}
+
+.adopt-hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.95);
+  color: #1e293b;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 26px;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.adopt-hero-btn-secondary:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Pill Badges ────────────────────────────────────────────────── */
+.adopt-pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(238, 242, 255, 0.85);
+  color: #4f46e5;
+  border: 1px solid rgba(199, 210, 254, 0.7);
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.04);
+}
+
+/* ── Buttons ────────────────────────────────────────────────────── */
+.adopt-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 24px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+  transition: all 0.25s ease;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.adopt-btn-primary:hover {
+  background: linear-gradient(135deg, #4338ca 0%, #2563eb 100%);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+  transform: translateY(-1px);
+}
+
+.adopt-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 22px;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.adopt-btn-secondary:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transform: translateY(-1px);
+}
+
+/* ── Hero Ribbon Floating ───────────────────────────────────────── */
+@keyframes adopt-float {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(1.5deg);
+  }
+}
+
+.adopt-hero-ribbon-anim {
+  animation: adopt-float 7s ease-in-out infinite;
+}
+
+/* ── Stage Cards Stagger & Styling ──────────────────────────────── */
+.adopt-stage-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(241, 245, 249, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.adopt-stage-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px -4px rgba(79, 70, 229, 0.12);
+  border-color: rgba(199, 210, 254, 0.8);
+}
+
+.adopt-stage-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: transparent;
+  transition: background 0.3s ease;
+}
+
+.adopt-stage-card.stage-01::before { background: var(--adopt-aware); }
+.adopt-stage-card.stage-02::before { background: var(--adopt-desire); }
+.adopt-stage-card.stage-03::before { background: var(--adopt-open); }
+.adopt-stage-card.stage-04::before { background: var(--adopt-proficient); }
+.adopt-stage-card.stage-05::before { background: var(--adopt-transform); }
+
+/* ── Glowing Journey Milestone Line ────────────────────────────── */
+.adopt-journey-line {
+  stroke-dasharray: 6 6;
+  animation: adopt-dash 30s linear infinite;
+}
+
+@keyframes adopt-dash {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+/* ── VS Badge ──────────────────────────────────────────────────── */
+.adopt-vs-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.05em;
+  z-index: 10;
+}
+
+/* ── AdoptIQ Dashboard Mockup Inner Components ─────────────────── */
+.adoptiq-ui-window {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  box-shadow: 
+    0 10px 30px -5px rgba(15, 23, 42, 0.07),
+    0 25px 50px -12px rgba(79, 70, 229, 0.08);
+  overflow: hidden;
+}
+
+.adoptiq-pill-tab {
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.adoptiq-pill-tab.active {
+  background: #4f46e5;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(79, 70, 229, 0.3);
+}
+
+.adoptiq-pill-tab.inactive {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.adoptiq-pill-tab.inactive:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+/* ── Pulse Indicator ───────────────────────────────────────────── */
+.adopt-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: adopt-pulse 2s infinite;
+}
+
+@keyframes adopt-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+/* ── Hero 3D Forward Motion & Surge Animations ─────────────────── */
+@keyframes hero-subtle-float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(8px, -10px, 0) scale(1.025);
+  }
+}
+
+@keyframes hero-warp-pulse {
+  0%, 100% {
+    opacity: 0.92;
+    filter: drop-shadow(0 0 25px rgba(67, 68, 250, 0.15));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 45px rgba(244, 63, 94, 0.25));
+  }
+}
+
+.animate-hero-float {
+  animation: hero-subtle-float 6s ease-in-out infinite;
+}
+
+.animate-hero-warp {
+  animation: hero-warp-pulse 4s ease-in-out infinite;
+}
+
+/* ── 3D Cylindrical Stage Ring Carousel ──────────────────────────── */
+.adopt-3d-stage-viewport {
+  perspective: 1400px;
+  perspective-origin: 50% 42%;
+  position: relative;
+  width: 100%;
+  height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.adopt-3d-stage-ring {
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.adopt-3d-stage-card-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  height: 490px;
+  margin-top: -245px;
+  margin-left: -140px;
+  transform-style: preserve-3d;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  backface-visibility: visible;
+}
+
+@media (min-width: 640px) {
+  .adopt-3d-stage-viewport {
+    height: 590px;
+  }
+  .adopt-3d-stage-card-wrapper {
+    width: 300px;
+    height: 510px;
+    margin-top: -255px;
+    margin-left: -150px;
+  }
+}
+
+.adopt-3d-card-inner {
+  border-radius: 36px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(226, 232, 240, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.adopt-3d-card-active .adopt-3d-card-inner {
+  box-shadow: 0 30px 65px -12px rgba(67, 68, 250, 0.22), 0 0 0 2px rgba(67, 68, 250, 0.3), 0 0 40px rgba(244, 63, 94, 0.15);
+  border-color: rgba(255, 255, 255, 1);
+}
+
+/* Ground shadow ellipse */
+.adopt-3d-ground-shadow {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(75deg);
+  width: 650px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(67, 68, 250, 0.18) 0%, rgba(147, 51, 234, 0.1) 40%, transparent 70%);
+  filter: blur(25px);
+  pointer-events: none;
+}
+
+/* ── Compact 3D Stage Ring (for Left Corner in Detailed View) ── */
+.adopt-3d-compact-viewport {
+  perspective: 1100px;
+  perspective-origin: 50% 48%;
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.adopt-3d-compact-ring {
+  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.adopt-3d-compact-card-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 210px;
+  height: 350px;
+  margin-top: -175px;
+  margin-left: -105px;
+  transform-style: preserve-3d;
+  transition: opacity 0.5s ease, filter 0.5s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  backface-visibility: visible;
+}
+
+.adopt-3d-compact-ground-shadow {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%) rotateX(75deg);
+  width: 320px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(67, 68, 250, 0.22) 0%, rgba(147, 51, 234, 0.12) 40%, transparent 70%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+/* ── Sleek Custom Scrollbar for Modal ── */
+.adopt-custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
+}
+
+.adopt-custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.adopt-custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 18px 0;
+}
+
+.adopt-custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+.adopt-custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.6);
+}
+
+/* ── Responsive adjustments ────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .adopt-5stages-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .adopt-5stages-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+

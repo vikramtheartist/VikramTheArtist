@@ -1,0 +1,606 @@
+@custom-variant dark (&:is(.dark *));
+
+/* ── Performance budget ───────────────────────────────────────
+ * Sites that are CPU/GPU constrained set data-perf="lite" on
+ * <html> from JS. These rules strip the most expensive effects
+ * (backdrop blur, drop-shadow filters, infinite animations,
+ * cloud blurs) without restructuring the layout.
+ * ─────────────────────────────────────────────────────────── */
+.earth-orb {
+  filter: brightness(1.05) contrast(1.18) saturate(1.25);
+  -webkit-filter: brightness(1.05) contrast(1.18) saturate(1.25);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+.sun-orb {
+  filter: drop-shadow(0 0 35px rgba(255,180,90,0.40));
+  -webkit-filter: drop-shadow(0 0 35px rgba(255,180,90,0.40));
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+}
+[data-perf="lite"] .earth-orb,
+[data-perf="lite"] .sun-orb {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+[data-perf="lite"] .lc-layer { display: none !important; }
+[data-perf="lite"] .pb-float,
+[data-perf="lite"] .shine-always::before { animation: none !important; }
+[data-perf="lite"] *,
+[data-perf="lite"] *::before,
+[data-perf="lite"] *::after {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+[data-perf="lite"] .pb-card {
+  background: rgba(20, 24, 36, 0.78) !important;
+}
+[data-perf="lite"] .pb-adopt-card {
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4) !important;
+}
+[data-perf="lite"] html,
+[data-perf="lite"] body { scroll-behavior: auto !important; }
+
+
+/* ── Theme tokens ─────────────────────────────────────────────── */
+:root {
+  --bg-page:        #070a16;
+  --bg-page-bloom:  rgba(60,120,255,0.10);
+  --text-1:         #ffffff;
+  --text-2:         rgba(255,255,255,0.78);
+  --text-3:         rgba(255,255,255,0.55);
+  --text-4:         rgba(255,255,255,0.32);
+  --surface-card:   rgba(0,0,0,0.45);
+  --surface-soft:   rgba(255,255,255,0.04);
+  --border-soft:    rgba(255,255,255,0.08);
+  --border-strong:  rgba(255,255,255,0.16);
+  --accent:         #c5dc4b;
+  --shadow-card:    0 8px 32px rgba(0,0,0,0.40);
+}
+[data-theme="light"] {
+  --bg-page:        #fafbfd;
+  --bg-page-bloom:  rgba(255,200,120,0.20);
+  --text-1:         #0a1018;
+  --text-2:         rgba(10,16,24,0.82);
+  --text-3:         rgba(10,16,24,0.62);
+  --text-4:         rgba(10,16,24,0.44);
+  --surface-card:   rgba(255,255,255,0.85);
+  --surface-soft:   rgba(15,20,30,0.035);
+  --border-soft:    rgba(15,20,30,0.10);
+  --border-strong:  rgba(15,20,30,0.16);
+  --accent:         #4a5615;
+  --shadow-card:    0 8px 28px rgba(15,20,30,0.08), 0 2px 6px rgba(15,20,30,0.04);
+}
+
+html, body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+body {
+  background-color: var(--bg-page);
+  color: var(--text-1);
+}
+
+/* Smooth-fade visual class — hide cosmic visuals in light mode */
+[data-theme="light"] .hide-in-light { opacity: 0; pointer-events: none; }
+.fade-with-theme { transition: opacity 0.5s ease; }
+
+/* Hero subtitle — explicit dark color in light mode for readability */
+[data-theme="light"] .hero-subtitle { color: #464646 !important; }
+
+/* ── Themed surfaces ──────────────────────────────────────────── */
+.hero-philosophy-card {
+  background: rgba(8,10,20,0.72);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 4px 32px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.10);
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+[data-theme="light"] .hero-philosophy-card {
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(15,20,30,0.08);
+  box-shadow: 0 6px 24px rgba(15,20,30,0.06), inset 0 1px 0 rgba(255,255,255,0.95);
+}
+
+/* Project cards (.project-card has inline styles — override in light) */
+[data-theme="light"] .project-card {
+  background: rgba(255,255,255,0.85) !important;
+  backdrop-filter: blur(14px) saturate(1.2) brightness(1.02) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.2) brightness(1.02) !important;
+  box-shadow:
+    inset 0 0 0 1px rgba(15,20,30,0.08),
+    0 12px 32px rgba(15,20,30,0.08),
+    inset 0 1.5px 1px rgba(255,255,255,0.85),
+    inset 0 -2px 5px rgba(15,20,30,0.04) !important;
+}
+[data-theme="light"] .project-card .project-card-title,
+[data-theme="light"] .project-card h3 {
+  color: var(--text-1) !important;
+}
+[data-theme="light"] .project-card p {
+  color: var(--text-2) !important;
+}
+
+/* Nav links — adapt color in light mode */
+[data-theme="light"] nav a.text-white\/70 {
+  color: var(--text-2) !important;
+}
+[data-theme="light"] nav a.hover\:text-white:hover,
+[data-theme="light"] nav a:hover {
+  color: var(--text-1) !important;
+}
+
+/* Timeline spine */
+[data-theme="light"] .tl-spine {
+  background: linear-gradient(to bottom, rgba(15,20,30,0.02) 0%, rgba(15,20,30,0.14) 12%, rgba(15,20,30,0.14) 88%, rgba(15,20,30,0.02) 100%) !important;
+}
+
+/* About-section badges — glass pills with theme-aware appearance */
+.about-badge {
+  background: rgba(255,255,255,0.07);
+  backdrop-filter: blur(14px) saturate(1.8) brightness(1.06);
+  -webkit-backdrop-filter: blur(14px) saturate(1.8) brightness(1.06);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.16),
+    0 4px 20px rgba(0,0,0,0.40),
+    inset 0 1.5px 1px rgba(255,255,255,0.52),
+    inset 0 -2px 5px rgba(0,0,0,0.28);
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255,255,255,0.45);
+  transition: background 0.4s ease, box-shadow 0.4s ease, color 0.4s ease;
+}
+[data-theme="light"] .about-badge {
+  background: rgba(15,20,30,0.04);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow:
+    inset 0 0 0 1px rgba(15,20,30,0.10),
+    0 4px 18px rgba(15,20,30,0.06),
+    inset 0 1px 0 rgba(255,255,255,0.85),
+    inset 0 -2px 5px rgba(15,20,30,0.04);
+  color: var(--text-1);
+  text-shadow: none;
+}
+
+/* Themed heading gradients used by My Work / My Experience headings */
+.h-grad-bright {
+  background: linear-gradient(180deg, #ffffff 0%, #c8cce0 50%, #8890b0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.h-grad-muted {
+  background: linear-gradient(180deg, #a8a8b8 0%, #727282 50%, #3a3a48 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-theme="light"] .h-grad-bright {
+  background: linear-gradient(180deg, #1a2030 0%, #404858 50%, #6b7488 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-theme="light"] .h-grad-muted {
+  background: linear-gradient(180deg, #1a2030 0%, #4a5260 50%, #7a8290 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Generic helper for sections that read .text-white/* tailwind classes */
+[data-theme="light"] .text-white { color: var(--text-1) !important; }
+[data-theme="light"] .text-white\/70 { color: var(--text-2) !important; }
+[data-theme="light"] .text-white\/75 { color: var(--text-2) !important; }
+[data-theme="light"] .text-white\/65 { color: var(--text-2) !important; }
+[data-theme="light"] .text-white\/60 { color: var(--text-3) !important; }
+[data-theme="light"] .text-white\/50 { color: var(--text-3) !important; }
+[data-theme="light"] .text-white\/45 { color: var(--text-3) !important; }
+[data-theme="light"] .text-white\/40 { color: var(--text-3) !important; }
+[data-theme="light"] .text-white\/30 { color: var(--text-4) !important; }
+[data-theme="light"] .text-white\/20 { color: var(--text-4) !important; }
+[data-theme="light"] .hover\:text-white:hover { color: var(--text-1) !important; }
+
+/* ── Liquid glass pill button ──────────────────────────────────── */
+.shine-wrap {
+  position: relative;
+  border-radius: 9999px;
+  padding: 0;
+  background: transparent;
+  display: inline-flex;
+  cursor: pointer;
+  overflow: visible;
+  transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
+}
+.shine-wrap::before { content: none; }
+.shine-wrap:hover { transform: translateY(-3px); }
+.shine-wrap:hover::before { content: none; }
+
+.shine-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 9999px;
+  overflow: hidden;
+  /* Minimal dark pill at rest — matches the skill-tag look */
+  background: rgba(10,12,22,0.70);
+  border: 1px solid rgba(255,255,255,0.13);
+  color: rgba(255,255,255,0.72);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  box-shadow: none;
+  transition:
+    background 0.32s ease,
+    box-shadow 0.32s ease,
+    border-color 0.32s ease,
+    color 0.32s ease,
+    backdrop-filter 0.32s ease;
+}
+.shine-wrap:hover .shine-inner,
+.shine-wrap:focus-within .shine-inner {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,
+      rgba(255,255,255,0.34) 0%,
+      rgba(255,255,255,0.14) 30%,
+      transparent 62%
+    ),
+    radial-gradient(ellipse 78% 42% at 50% 112%,
+      rgba(180,200,230,0.20) 0%,
+      transparent 58%
+    ),
+    linear-gradient(180deg,
+      rgba(68,78,96,0.96)   0%,
+      rgba(34,40,54,0.98)  38%,
+      rgba(16,20,30,1)     72%,
+      rgba(26,32,46,1)    100%
+    );
+  backdrop-filter: blur(24px) saturate(1.7);
+  -webkit-backdrop-filter: blur(24px) saturate(1.7);
+  border-color: rgba(255,255,255,0.16);
+  color: rgba(255,255,255,1);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.52),
+    inset 0 4px 10px -4px rgba(255,255,255,0.24),
+    inset 0 -6px 14px -8px rgba(190,210,235,0.28),
+    inset 0 -2px 10px rgba(0,0,0,0.36),
+    0 5px 14px rgba(0,0,0,0.35),
+    0 2px 4px rgba(0,0,0,0.30);
+}
+
+/* ── Project card CTAs: button stays, arrow slides in on rollover ─ */
+.project-card-ctas .shine-wrap,
+.project-card-ctas .shine-inner {
+  border-radius: 14px;
+}
+.project-card-ctas .shine-wrap:hover,
+.project-card-ctas .shine-wrap:focus-within {
+  transform: none;
+}
+.project-card-ctas .shine-inner {
+  gap: 0;
+  transition:
+    background 0.4s ease,
+    box-shadow 0.4s ease,
+    backdrop-filter 0.4s ease,
+    padding 0.45s cubic-bezier(0.34, 1.4, 0.64, 1),
+    gap 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.project-card-ctas .shine-inner > span[aria-hidden] {
+  width: 0;
+  min-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateX(-8px) scale(0.7);
+  transition:
+    width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.28s ease 0.06s,
+    transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.project-card-ctas .shine-wrap:hover .shine-inner,
+.project-card-ctas .shine-wrap:focus-within .shine-inner {
+  gap: 25px;
+  padding-right: 10px;
+}
+.project-card-ctas .shine-wrap:hover .shine-inner > span[aria-hidden],
+.project-card-ctas .shine-wrap:focus-within .shine-inner > span[aria-hidden] {
+  width: 14px;
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* ── Light theme overrides for glass buttons ──────────────────── */
+[data-theme="light"] .shine-inner {
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(15,20,30,0.14);
+  color: rgba(15,20,30,0.72) !important;
+  box-shadow: none;
+}
+[data-theme="light"] .shine-wrap:hover .shine-inner,
+[data-theme="light"] .shine-wrap:focus-within .shine-inner {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,
+      rgba(255,255,255,1) 0%,
+      rgba(255,255,255,0.7) 30%,
+      transparent 62%
+    ),
+    radial-gradient(ellipse 78% 42% at 50% 112%,
+      rgba(120,140,180,0.22) 0%,
+      transparent 58%
+    ),
+    linear-gradient(180deg,
+      rgba(255,255,255,0.96) 0%,
+      rgba(248,250,255,0.98) 38%,
+      rgba(232,236,246,1) 72%,
+      rgba(240,244,252,1) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 4px 10px -4px rgba(255,255,255,0.75),
+    inset 0 -6px 14px -8px rgba(120,140,180,0.26),
+    inset 0 -2px 10px rgba(15,20,30,0.06),
+    0 5px 14px rgba(15,20,30,0.12),
+    0 2px 4px rgba(15,20,30,0.08);
+}
+/* Tailwind text-white/* utilities override the light text color — fix it */
+[data-theme="light"] .shine-inner.text-white\/70,
+[data-theme="light"] .shine-inner.text-white\/75,
+[data-theme="light"] .shine-inner.text-white\/65,
+[data-theme="light"] .shine-inner:hover {
+  color: #1a2030 !important;
+}
+
+/* ── Skill pills — same base as buttons, glass shine on hover ──── */
+.skill-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  border-radius: 9999px;
+  border: 1px solid rgba(255,255,255,0.13);
+  background: rgba(10,12,22,0.70);
+  color: rgba(255,255,255,0.62);
+  transition:
+    background 0.32s ease,
+    box-shadow 0.32s ease,
+    border-color 0.32s ease,
+    color 0.32s ease,
+    backdrop-filter 0.32s ease;
+}
+.skill-tag:hover {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,
+      rgba(255,255,255,0.32) 0%,
+      rgba(255,255,255,0.12) 30%,
+      transparent 62%
+    ),
+    radial-gradient(ellipse 78% 42% at 50% 112%,
+      rgba(180,200,230,0.18) 0%,
+      transparent 58%
+    ),
+    linear-gradient(180deg,
+      rgba(68,78,96,0.96)   0%,
+      rgba(34,40,54,0.98)  38%,
+      rgba(16,20,30,1)     72%,
+      rgba(26,32,46,1)    100%
+    );
+  backdrop-filter: blur(20px) saturate(1.6);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  border-color: rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.98);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.45),
+    inset 0 -2px 10px rgba(0,0,0,0.32),
+    0 4px 12px rgba(0,0,0,0.30);
+}
+[data-theme="light"] .skill-tag {
+  border-color: rgba(15,20,30,0.14);
+  background: rgba(255,255,255,0.85);
+  color: rgba(15,20,30,0.62);
+}
+[data-theme="light"] .skill-tag:hover {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%,
+      rgba(255,255,255,1) 0%,
+      rgba(255,255,255,0.7) 30%,
+      transparent 62%
+    ),
+    linear-gradient(180deg,
+      rgba(255,255,255,0.96) 0%,
+      rgba(248,250,255,0.98) 38%,
+      rgba(232,236,246,1) 72%,
+      rgba(240,244,252,1) 100%
+    );
+  border-color: rgba(15,20,30,0.18);
+  color: rgba(15,20,30,0.96);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,1),
+    inset 0 -2px 10px rgba(15,20,30,0.04),
+    0 4px 12px rgba(15,20,30,0.10);
+}
+
+/* Always-on shine variant — used for about-section badges */
+.shine-always::before {
+  animation-play-state: running;
+  opacity: 0.55;
+}
+
+:root {
+  --font-size: 16px;
+  --background: #ffffff;
+  --foreground: oklch(0.145 0 0);
+  --card: #ffffff;
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: #030213;
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.0058 264.53);
+  --secondary-foreground: #030213;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #e9ebef;
+  --accent-foreground: #030213;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: transparent;
+  --input-background: #f3f3f5;
+  --switch-background: #cbced4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: #030213;
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.985 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: oklch(0.269 0 0);
+  --input: oklch(0.269 0 0);
+  --ring: oklch(0.439 0 0);
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.269 0 0);
+  --sidebar-ring: oklch(0.439 0 0);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /**
+  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
+  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
+  */
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+}
