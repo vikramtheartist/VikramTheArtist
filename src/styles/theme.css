@@ -89,44 +89,116 @@ body {
 /* Hero subtitle — explicit dark color in light mode for readability */
 [data-theme="light"] .hero-subtitle { color: #464646 !important; }
 
-/* ── Themed surfaces ──────────────────────────────────────────── */
+/* ── Aaron Iker Specular Glow Border & Glow Cards ──────────── */
 .hero-philosophy-card {
+  --card-background: linear-gradient(155deg, rgba(28, 20, 68, 0.35) 0%, rgba(13, 18, 44, 0.45) 45%, rgba(7, 10, 30, 0.55) 100%);
+  --card-shadow: rgba(33, 4, 104, 0.35);
+  --card-shine-left: rgba(120, 0, 245, 0.5);
+  --card-shine-right: rgba(200, 148, 255, 0.85);
+  --card-glow-start: #B000E8;
+  --card-glow-end: #009FFD;
+  --pointer-x: 50%;
+  --pointer-y: 50%;
+  --card-glow-opacity: 0;
+  --card-glow-duration: 0.5s;
+
   position: relative;
-  overflow: hidden;
-  border-radius: 28px;
-  background: 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 50%, rgba(255, 255, 255, 0.0) 100%),
-    linear-gradient(180deg, rgba(6, 18, 38, 0.65) 0%, rgba(6, 18, 38, 0.40) 45%, rgba(6, 18, 38, 0.08) 80%, rgba(6, 18, 38, 0.0) 100%) !important;
-  backdrop-filter: blur(36px) saturate(180%) brightness(1.06);
-  -webkit-backdrop-filter: blur(36px) saturate(180%) brightness(1.06);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 
-    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.35),
-    0 20px 45px -10px rgba(0, 0, 0, 0.45);
-  padding: 28px 24px 24px 24px;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px var(--card-shadow), 0 0 35px -4px rgba(147, 51, 234, 0.25);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 
 .hero-philosophy-card:hover {
-  transform: translateY(-4px);
-  background: 
-    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.0) 100%),
-    linear-gradient(180deg, rgba(8, 22, 46, 0.75) 0%, rgba(8, 22, 46, 0.50) 45%, rgba(8, 22, 46, 0.12) 80%, rgba(8, 22, 46, 0.0) 100%) !important;
-  border-color: rgba(255, 255, 255, 0.28);
-  box-shadow: 
-    inset 0 1.5px 1.5px rgba(255, 255, 255, 0.50),
-    0 28px 56px -10px rgba(0, 0, 0, 0.55);
+  transform: translateY(-5px);
+  --card-glow-opacity: 1;
+  --card-glow-duration: 0.25s;
+  box-shadow: 0 16px 45px rgba(33, 4, 104, 0.5), 0 0 50px -2px rgba(168, 85, 247, 0.45);
+}
+
+/* Rotating glowing border layer */
+.hero-philosophy-card .card-gradient-border {
+  position: absolute;
+  inset: -1.5px;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  transform: scaleY(1.008) scaleX(1.004);
+}
+
+.hero-philosophy-card .card-gradient-border::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  right: -60%;
+  bottom: -60%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    transparent 60%,
+    var(--card-shine-left) 75%,
+    var(--card-shine-right) 90%,
+    transparent 100%
+  );
+  animation: glow-card-rotate 3.5s linear infinite;
+  will-change: transform;
+}
+
+@keyframes glow-card-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Inner card body with backdrop-filter and pointer tracking glow */
+.hero-philosophy-card .card-inner {
+  z-index: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 22px 24px 22px;
+  gap: 12px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--card-background);
+  backdrop-filter: blur(36px) saturate(190%);
+  -webkit-backdrop-filter: blur(36px) saturate(190%);
+  overflow: hidden;
+}
+
+/* Mouse pointer tracking spotlight glow */
+.hero-philosophy-card .card-inner::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(var(--pointer-x, 50%), var(--pointer-y, 50%)) translate(-50%, -50%) translateZ(0);
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--card-glow, rgba(176, 0, 232, 0.45)) 0%, transparent 70%);
+  opacity: var(--card-glow-opacity, 0);
+  transition: opacity var(--card-glow-duration, 0.5s) ease;
+  filter: blur(24px);
+  pointer-events: none;
+  z-index: 1;
 }
 
 [data-theme="light"] .hero-philosophy-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(14px) saturate(1.2) brightness(1.02);
-  -webkit-backdrop-filter: blur(14px) saturate(1.2) brightness(1.02);
-  box-shadow:
-    inset 0 0 0 1px rgba(15, 20, 30, 0.08),
-    0 12px 32px rgba(15, 20, 30, 0.08),
-    inset 0 1.5px 1px rgba(255, 255, 255, 0.85),
-    inset 0 -2px 5px rgba(15, 20, 30, 0.04);
+  --card-background: rgba(255, 255, 255, 0.90);
+  --card-shadow: rgba(15, 20, 30, 0.08);
+  --card-shine-left: rgba(168, 85, 247, 0.3);
+  --card-shine-right: rgba(99, 102, 241, 0.5);
+  --card-glow-start: #a855f7;
+  --card-glow-end: #3b82f6;
+  box-shadow: 
+    0 10px 30px rgba(124, 58, 237, 0.08),
+    0 4px 12px rgba(15, 20, 30, 0.05);
 }
 
 [data-theme="light"] .hero-philosophy-card h3 {
