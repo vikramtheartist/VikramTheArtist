@@ -202,25 +202,41 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
     <>
       {/* Space Background — cosmic stars and distant ringed planets behind Earth in dark mode */}
       {!isLight && (
-        <img
-          src={`${import.meta.env.BASE_URL}IMG/Space.png`}
-          alt=""
-          decoding="async"
-          fetchPriority="high"
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100vw",
-            height: "100vh",
-            objectFit: "cover",
-            objectPosition: "center",
-            zIndex: 0,
-            pointerEvents: "none",
-            opacity: 1,
-            transition: "opacity 0.7s ease",
-          }}
-        />
+        <>
+          <img
+            src={`${import.meta.env.BASE_URL}IMG/Space.png`}
+            alt=""
+            decoding="async"
+            fetchPriority="high"
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              objectFit: "cover",
+              objectPosition: "center",
+              zIndex: 0,
+              pointerEvents: "none",
+              opacity: 1,
+              transition: "opacity 0.7s ease",
+            }}
+          />
+          {/* 20% Opacity Dark Blue Fade Overlay above Space background */}
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              backgroundColor: "rgba(6, 11, 32, 0.20)",
+              zIndex: 0,
+              pointerEvents: "none",
+              transition: "opacity 0.7s ease",
+            }}
+          />
+        </>
       )}
 
       {/* Sun glow halo — visible in light mode only */}
