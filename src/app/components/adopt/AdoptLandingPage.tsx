@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -27,8 +27,6 @@ import {
   X
 } from "lucide-react";
 import "../../../styles/adopt-landing.css";
-import { usePrefersReducedMotion, useScrollTriggerInit, gsap, ScrollTrigger } from "./motion/ScrollStoryEngine";
-import { MOTION_TOKENS } from "./motion/motionTokens";
 import adoptIqImg from "../../../assets/img/AdoptIQ.png";
 import copilotPlaybookImg from "../../../assets/img/Scale Copilot.png";
 import awareCardImg from "../../../assets/img/Aware.png";
@@ -248,21 +246,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  useScrollTriggerInit();
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  const heroRef = useRef<HTMLElement>(null);
-  const problemRef = useRef<HTMLElement>(null);
-  const stagesRef = useRef<HTMLElement>(null);
-  const caseStudyRef = useRef<HTMLElement>(null);
-  const footerRef = useRef<HTMLElement>(null);
-
-  const [activeScrollStage, setActiveScrollStage] = useState<number>(0);
-  const [icebergRevealProgress, setIcebergRevealProgress] = useState<number>(0);
-  const [metricsAnimated, setMetricsAnimated] = useState(false);
-
   // Auto-slide between "APPLIED PLAYBOOK" and "AI ADOPTION ENGINE" every 5 seconds
-  useEffect(() => {
+  React.useEffect(() => {
     if (isSlidePaused || showPasswordModal) return;
 
     const timer = setInterval(() => {
@@ -283,12 +268,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     setPasswordError("Incorrect password. Please try again.");
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   // Prevent background page scrolling when modal window is open/active
-  useEffect(() => {
+  React.useEffect(() => {
     if (activeStageDetail !== null || showPasswordModal) {
       document.body.style.overflow = "hidden";
     } else {
@@ -301,19 +286,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  // Pointer Gyroscope Response (smoothed with lerp & disabled on touch)
-  useEffect(() => {
-    if (prefersReducedMotion) return;
+  React.useEffect(() => {
     let ticking = false;
     const handleMouseMove = (e: MouseEvent) => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          // Cap pointer offset to MOTION_TOKENS.depth.pointerParallaxMax
-          const rawX = (e.clientX / window.innerWidth - 0.5) * 2;
-          const rawY = (e.clientY / window.innerHeight - 0.5) * 2;
           setMousePos({
-            x: Math.max(-1, Math.min(1, rawX)),
-            y: Math.max(-1, Math.min(1, rawY)),
+            x: (e.clientX / window.innerWidth - 0.5) * 2,
+            y: (e.clientY / window.innerHeight - 0.5) * 2,
           });
           ticking = false;
         });
@@ -322,43 +302,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     };
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [prefersReducedMotion]);
+  }, []);
 
-  // Coordinated Scroll Progress Tracker
-  useEffect(() => {
+  React.useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const currentScroll = window.scrollY;
-          setScrollY(currentScroll);
-
-          // Calculate Iceberg Section Scroll Progress (0 to 1)
-          if (problemRef.current) {
-            const rect = problemRef.current.getBoundingClientRect();
-            const sectionHeight = rect.height;
-            const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (sectionHeight + window.innerHeight * 0.5)));
-            setIcebergRevealProgress(progress);
-          }
-
-          // Calculate Stages Section Active Stage
-          if (stagesRef.current) {
-            const rect = stagesRef.current.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 0.65 && rect.bottom > window.innerHeight * 0.2) {
-              const stageProgress = Math.max(0, Math.min(0.99, (window.innerHeight * 0.65 - rect.top) / (rect.height * 0.85)));
-              const activeIndex = Math.floor(stageProgress * STAGES_DATA.length);
-              setActiveScrollStage(Math.min(STAGES_DATA.length - 1, Math.max(0, activeIndex)));
-            }
-          }
-
-          // Trigger Case Study Metrics Reveal
-          if (caseStudyRef.current && !metricsAnimated) {
-            const rect = caseStudyRef.current.getBoundingClientRect();
-            if (rect.top < window.innerHeight * 0.75) {
-              setMetricsAnimated(true);
-            }
-          }
-
+          setScrollY(window.scrollY);
           ticking = false;
         });
         ticking = true;
@@ -366,7 +317,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [metricsAnimated]);
+  }, []);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -429,10 +380,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 1: HERO (SEAMLESS ATMOSPHERE) ────────────────────── */}
       <section
         id="hero"
-        ref={heroRef}
-        className="relative z-10 min-h-[92vh] lg:min-h-[98vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent adopt-gpu-layer"
+        className="relative z-10 min-h-[92vh] lg:min-h-[98vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent"
       >
-        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism with Soft Bottom Fade */}
+        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism (Sticks to UI, zero scroll movement) */}
         <div
           className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
           style={{
@@ -440,11 +390,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)",
           }}
         >
-          {/* Multi-axis 3D Parallax Prism Container */}
+          {/* Multi-axis 3D Prism Container (Zero scroll translation, subtle interactive mouse gyro only) */}
           <div
             className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
             style={{
-              transform: `translate3d(${50 + (prefersReducedMotion ? 0 : Math.min(scrollY * 0.14, 75)) + (prefersReducedMotion ? 0 : mousePos.x * 12)}px, ${(prefersReducedMotion ? 0 : Math.min(scrollY * -0.06, -35)) + (prefersReducedMotion ? 0 : mousePos.y * 10)}px, 0) scale(${1 + (prefersReducedMotion ? 0 : Math.min(scrollY * 0.0006, 0.06))}) perspective(1000px) rotateY(${prefersReducedMotion ? 0 : mousePos.x * 2}deg) rotateX(${prefersReducedMotion ? 0 : -mousePos.y * 1.8}deg)`,
+              transform: `translate3d(${50 + mousePos.x * 18}px, ${mousePos.y * 12}px, 0) scale(1.05) perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
               transformOrigin: "78% 50%",
             }}
           >
@@ -455,17 +405,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             />
           </div>
 
-          {/* Floating Atmospheric Sparkle Orbs with Counter-Parallax & Calm Ambient Drift */}
+          {/* Floating Atmospheric Sparkle Orbs */}
           <div
-            className="absolute top-1/4 right-1/3 w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-400/30 to-violet-400/40 blur-xl will-change-transform transition-transform duration-300 animate-calm-float-a"
+            className="absolute top-1/4 right-1/3 w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-400/30 to-violet-400/40 blur-xl will-change-transform transition-transform duration-300"
             style={{
-              transform: `translate3d(${prefersReducedMotion ? 0 : mousePos.x * -16}px, ${prefersReducedMotion ? 0 : scrollY * -0.16 + mousePos.y * -14}px, 0)`,
+              transform: `translate3d(${mousePos.x * -24}px, ${mousePos.y * -16}px, 0)`,
             }}
           />
           <div
-            className="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-pink-400/25 to-purple-400/35 blur-2xl will-change-transform transition-transform duration-300 animate-calm-float-b"
+            className="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-pink-400/25 to-purple-400/35 blur-2xl will-change-transform transition-transform duration-300"
             style={{
-              transform: `translate3d(${prefersReducedMotion ? 0 : mousePos.x * 14}px, ${prefersReducedMotion ? 0 : scrollY * -0.12 + mousePos.y * 12}px, 0)`,
+              transform: `translate3d(${mousePos.x * 18}px, ${mousePos.y * 14}px, 0)`,
             }}
           />
 
@@ -478,12 +428,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           />
         </div>
 
+        {/* Hero Content (Scrolls naturally upwards over the anchored background) */}
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 my-auto">
-          {/* Left Text Column with Restrained Parallax Offsets */}
+          {/* Left Text Column */}
           <div
             className="max-w-2xl text-left will-change-transform transition-transform duration-200"
             style={{
-              transform: `translate3d(0, ${prefersReducedMotion ? 0 : scrollY * -0.035}px, 0)`,
+              transform: `translate3d(${mousePos.x * -6}px, ${mousePos.y * -4}px, 0)`,
             }}
           >
             {/* Eyebrow Badge */}
@@ -537,13 +488,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
 
-          {/* Credibility Metric Bar with Restrained Layer Parallax */}
-          <div
-            className="pt-4 relative z-10 will-change-transform transition-transform duration-200"
-            style={{
-              transform: `translate3d(0, ${prefersReducedMotion ? 0 : scrollY * -0.06}px, 0)`,
-            }}
-          >
+          {/* Credibility Metric Bar */}
+          <div className="pt-4 relative z-10">
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl">
               {/* Stat 1: 1M WAU */}
               <div className="flex items-center gap-3 group cursor-default">
@@ -593,13 +539,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 2: THE CORE PROBLEM (SIGNATURE ICEBERG STORYTELLING) ──── */}
+      {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        ref={problemRef}
-        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent adopt-pinned-scene"
+        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent"
       >
-        {/* Full-Bleed Parallax Iceberg Artwork Background with Multiply Blending & Subsurface Caustics */}
+        {/* Full-Bleed Parallax Iceberg Artwork Background with Depth Parallax */}
         <div
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
           style={{
@@ -608,31 +553,30 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           }}
         >
           <div
-            className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
+            className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-200 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(${prefersReducedMotion ? 0 : mousePos.x * 6}px, ${prefersReducedMotion ? 0 : (scrollY - 600) * -0.025 + mousePos.y * 5}px, 0) perspective(1200px) rotateY(${prefersReducedMotion ? 0 : mousePos.x * 1.5}deg) rotateX(${prefersReducedMotion ? 0 : -mousePos.y * 1.2}deg)`,
+              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 600) * 0.12 + mousePos.y * 6}px, 0) scale(1.04) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
             }}
           >
             <img
               src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
-              className="w-full h-full object-contain sm:object-cover object-center mix-blend-multiply transition-opacity duration-500"
-              style={{
-                opacity: Math.min(1, 0.75 + icebergRevealProgress * 0.25),
-              }}
+              className="w-full h-full object-contain sm:object-cover object-center mix-blend-multiply transition-transform duration-700 opacity-95"
             />
           </div>
-
-          {/* Continuous Waterline Shimmer Line */}
-          <div className="absolute top-[48%] left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent pointer-events-none animate-waterline-shimmer" />
         </div>
 
-        {/* Full-Width Centered Content Container */}
+        {/* Full-Width Centered Content Container with Distinct Multi-Object Parallax Layers */}
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px]">
           {/* Top Row (Above Water / Upper Content Area) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Top Left: Badge, Headline & Context */}
-            <div className="lg:col-span-6 flex flex-col items-start text-left">
+            {/* Top Left: Badge, Headline & Context (Parallax Layer 1: Float Speed A) */}
+            <div
+              className="lg:col-span-6 flex flex-col items-start text-left will-change-transform transition-transform duration-200"
+              style={{
+                transform: `translate3d(0, ${(scrollY - 600) * -0.08}px, 0)`,
+              }}
+            >
               <div className="mb-4">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
                   <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
@@ -654,12 +598,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </p>
             </div>
 
-            {/* Top Right: ABOVE THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
-            <div className="lg:col-span-6 flex justify-start lg:justify-end">
+            {/* Top Right: ABOVE THE SURFACE Callout Card (Parallax Layer 2: Fast Foreground Float Speed B) */}
+            <div
+              className="lg:col-span-6 flex justify-start lg:justify-end will-change-transform transition-transform duration-200"
+              style={{
+                transform: `translate3d(0, ${(scrollY - 600) * -0.16}px, 0)`,
+              }}
+            >
               <div
                 className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                 style={{
-                  transform: `perspective(1000px) rotateY(${prefersReducedMotion ? 0 : mousePos.x * 2.5}deg) rotateX(${prefersReducedMotion ? 0 : -mousePos.y * 2.5}deg)`,
+                  transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
                 }}
               >
                 {/* Connecting Line to Mountain Peak with Pulsing Sonar Beacon */}
@@ -708,8 +657,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
           {/* Bottom Row (Below Water / Lower Content Area) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
-            {/* Bottom Left: 4 Checkmark Bullet Items with Interactive Micro-Slide */}
-            <div className="lg:col-span-6 space-y-4 max-w-[440px] text-left">
+            {/* Bottom Left: 4 Checkmark Bullet Items (Parallax Layer 3: Steady Mid-Range Float Speed C) */}
+            <div
+              className="lg:col-span-6 space-y-4 max-w-[440px] text-left will-change-transform transition-transform duration-200"
+              style={{
+                transform: `translate3d(0, ${(scrollY - 750) * -0.06}px, 0)`,
+              }}
+            >
               {[
                 "Users don't resist products.",
                 "They resist changing routines.",
@@ -730,8 +684,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ))}
             </div>
 
-            {/* Bottom Right: BELOW THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
-            <div className="lg:col-span-6 flex justify-start lg:justify-end">
+            {/* Bottom Right: BELOW THE SURFACE Callout Card (Parallax Layer 4: Deep Refractive Float Speed D) */}
+            <div
+              className="lg:col-span-6 flex justify-start lg:justify-end will-change-transform transition-transform duration-200"
+              style={{
+                transform: `translate3d(0, ${(scrollY - 750) * -0.14}px, 0)`,
+              }}
+            >
               <div
                 className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                 style={{
@@ -787,8 +746,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 3: THE 5 STAGES OF THE ADOPT PLAYBOOK ─────────────────── */}
       <section
         id="playbook-stages"
-        ref={stagesRef}
-        className="py-14 lg:py-22 relative overflow-hidden bg-transparent adopt-gpu-layer"
+        className="py-14 lg:py-22 relative overflow-hidden bg-transparent"
       >
         {/* Subtle Ambient Micro-Sparkles floating in continuous atmosphere */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
@@ -879,14 +837,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
 
-          {/* ── Continuous Luminous Energy Rail Connecting All 5 Stages ── */}
-          <div className="hidden lg:block w-full h-[3px] rounded-full adopt-energy-path mb-6 animate-stage-pulse" />
-
           {/* ── THE 5 STAGES OF THE ADOPT PLAYBOOK (5 GLASS CARDS GRID ON TRANSPARENT BG) ─ */}
-          <div className="relative pt-2 pb-8">
+          <div className="relative pt-4 pb-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 lg:gap-5 relative z-10 items-stretch">
               {STAGES_DATA.map((stage, idx) => {
-                const isCurrent = activeScrollStage === idx;
                 const glowColors: Record<string, { light: string; core: string }> = {
                   aware: { light: "rgba(56, 189, 248, 0.65)", core: "rgba(2, 132, 199, 0.85)" },
                   desire: { light: "rgba(251, 113, 133, 0.65)", core: "rgba(244, 63, 94, 0.85)" },
@@ -900,9 +854,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   <div
                     key={stage.id}
                     onClick={() => setActiveStageDetail(idx)}
-                    className={`flex flex-col h-full cursor-pointer group transition-all duration-300 hover:-translate-y-2.5 relative ${
-                      isCurrent ? "scale-[1.02] -translate-y-1.5" : ""
-                    }`}
+                    className="flex flex-col h-full cursor-pointer group transition-all duration-300 hover:-translate-y-2.5 relative"
                   >
                     {/* Glass Card */}
                     <div className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.18)] transition-all duration-300 flex items-center justify-center z-10">
@@ -1192,8 +1144,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* (APPLIED PLAYBOOK, AI ADOPTION ENGINE, CLOSING CTA & FOOTER) */}
       <section
         id="case-study"
-        ref={caseStudyRef}
-        className="pt-14 sm:pt-20 lg:pt-24 pb-0 relative overflow-hidden bg-transparent adopt-gpu-layer"
+        className="pt-14 sm:pt-20 lg:pt-24 pb-0 relative overflow-hidden bg-transparent"
       >
         {/* Anchors for navigation links */}
         <div id="adoptiq" className="absolute -top-24 left-0 pointer-events-none" />
@@ -1282,16 +1233,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div className="w-full min-w-full shrink-0 flex items-center justify-center">
               <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                  {/* Left: Free-Floating 3D Copilot Playbook Visual with Scroll Lift */}
+                  {/* Left: Free-Floating 3D Copilot Playbook Visual (Shifted Left) */}
                   <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                     <img
                       src={copilotPlaybookImg}
                       alt="Microsoft Copilot AI Adoption Playbook 3D Dashboard"
-                      className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] hover:scale-[1.02]"
-                      style={{
-                        transform: `translate3d(0, ${prefersReducedMotion ? 0 : (metricsAnimated ? 0 : 32)}px, 0) scale(${metricsAnimated ? 1 : 0.98})`,
-                        transition: "transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)",
-                      }}
+                      className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
                     />
                   </div>
 
@@ -1496,7 +1443,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
 
         {/* ── CLOSING CTA FOOTER CARD (Flush with Bottom Edge of UI) ── */}
-        <div ref={footerRef} className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 w-full mt-auto mb-0 adopt-gpu-layer">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 w-full mt-auto mb-0">
           <div
             className="relative rounded-t-[28px] sm:rounded-t-[36px] rounded-b-none px-6 py-5 sm:px-10 sm:py-6 lg:px-12 lg:pt-6 lg:pb-3.5 border-t border-x border-white/60 shadow-[0_-12px_40px_-8px_rgba(168,85,247,0.28)] overflow-hidden text-left"
             style={{
