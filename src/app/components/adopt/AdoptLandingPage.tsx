@@ -744,7 +744,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </span>
               </div>
 
-              <h2 className="text-[46px] sm:text-[54px] lg:text-[62px] font-black text-[#0a0e1a] tracking-tight leading-[1.05] mb-3">
+              <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
                 The 5 Stages of the<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
                   ADOPT Playbook
