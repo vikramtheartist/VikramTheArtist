@@ -1553,13 +1553,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
         </div>
 
-        {/* ── CLOSING CTA BANNER (Ultra-Compact & Subtext Below Buttons) ── */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full mb-3">
+        {/* ── CLOSING CTA BANNER (Sticky Pinned to Bottom of Screen) ── */}
+        <div className="sticky bottom-3 z-30 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full mt-auto mb-1">
           <div
-            className="relative rounded-[22px] sm:rounded-[26px] px-6 py-3.5 sm:px-8 sm:py-3.5 lg:px-10 lg:py-3.5 border border-white/50 shadow-[0_12px_36px_-8px_rgba(168,85,247,0.2)] overflow-hidden text-left"
+            className="relative rounded-[22px] sm:rounded-[26px] px-6 py-3 sm:px-8 sm:py-3 lg:px-10 lg:py-3 border border-white/60 shadow-[0_16px_40px_-8px_rgba(168,85,247,0.35)] backdrop-blur-md overflow-hidden text-left"
             style={{
               background:
-                "linear-gradient(105deg, #7888f8 0%, #9ca7fc 24%, #b79dfb 48%, #d896ea 74%, #f794ca 100%)",
+                "linear-gradient(105deg, rgba(120, 136, 248, 0.96) 0%, rgba(156, 167, 252, 0.96) 24%, rgba(183, 157, 251, 0.96) 48%, rgba(216, 150, 234, 0.96) 74%, rgba(247, 148, 202, 0.96) 100%)",
             }}
           >
             {/* Elegant Soft Curved Wave Lines in Background */}
