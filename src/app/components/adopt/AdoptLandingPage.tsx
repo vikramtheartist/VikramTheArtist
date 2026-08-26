@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
+  ArrowUp,
+  ArrowDown,
   Check,
   CheckCircle2,
   Users,
@@ -27,6 +29,7 @@ import {
   X
 } from "lucide-react";
 import "../../../styles/adopt-landing.css";
+import adoptThumb from "../../../assets/img/Adopt_Thumb.png";
 import adoptIqImg from "../../../assets/img/AdoptIQ.png";
 import copilotPlaybookImg from "../../../assets/img/Scale Copilot.png";
 import awareCardImg from "../../../assets/img/Aware.png";
@@ -238,6 +241,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   onViewCaseStudy,
 }) => {
   const [activeCategory, setActiveCategory] = useState<"psychology" | "signals" | "interventions" | "outcomes">("psychology");
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [scrollY, setScrollY] = useState(0);
   const [activeStageDetail, setActiveStageDetail] = useState<number | null>(null);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -272,8 +276,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   }, [activeStageDetail, showPasswordModal]);
 
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const showcaseRef = React.useRef<HTMLDivElement>(null);
-  const [showcaseProgress, setShowcaseProgress] = useState(0);
 
   React.useEffect(() => {
     let ticking = false;
@@ -295,34 +297,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
   React.useEffect(() => {
     let ticking = false;
-    const updateScrollAndProgress = () => {
-      setScrollY(window.scrollY);
-      if (showcaseRef.current) {
-        const rect = showcaseRef.current.getBoundingClientRect();
-        const scrollableDist = rect.height - window.innerHeight;
-        if (scrollableDist > 0) {
-          const current = -rect.top;
-          const progress = Math.max(0, Math.min(1, current / scrollableDist));
-          setShowcaseProgress(progress);
-        }
-      }
-      ticking = false;
-    };
-
-    const onScroll = () => {
+    const handleScroll = () => {
       if (!ticking) {
-        window.requestAnimationFrame(updateScrollAndProgress);
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
         ticking = true;
       }
     };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    updateScrollAndProgress();
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollTo = (id: string) => {
@@ -1150,299 +1135,259 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       </section>
 
       {/* ── FINAL SECTION: CONNECTED SHOWCASE, CTA BANNER & FOOTER ── */}
-      {/* (APPLIED PLAYBOOK & AI ADOPTION ENGINE PINNED VERTICAL SLIDER) */}
+      {/* (APPLIED PLAYBOOK, AI ADOPTION ENGINE, CLOSING CTA & FOOTER) */}
       <section
         id="case-study"
-        className="relative bg-transparent"
+        className="pt-14 sm:pt-20 lg:pt-24 pb-0 relative overflow-hidden bg-transparent"
       >
         {/* Anchors for navigation links */}
         <div id="adoptiq" className="absolute -top-24 left-0 pointer-events-none" />
         <div id="impact" className="absolute -top-24 left-0 pointer-events-none" />
 
-        {/* ── Pinned Vertical Slider Container (220vh scroll track) ── */}
-        <div ref={showcaseRef} className="relative w-full h-[220vh]">
-          <div className="sticky top-0 h-screen w-full flex flex-col justify-center overflow-hidden">
+        {/* Outer Grid / Flex Container with Left Vertical Navigation Arrows */}
+        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 lg:px-12 mb-16 sm:mb-20 lg:mb-24">
+          <div className="relative flex flex-col lg:flex-row items-center gap-6 lg:gap-8">
             
-            {/* Ambient Lighting Atmosphere */}
-            <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-blue-200/20 rounded-full blur-3xl pointer-events-none" />
+            {/* Left Vertical Arrow Controls */}
+            <div className="flex lg:flex-col items-center justify-center gap-3 shrink-0 lg:self-center z-20">
+              {/* Up Arrow */}
+              <button
+                onClick={() => setActiveSlideIndex((prev) => (prev > 0 ? prev - 1 : 1))}
+                className={`w-12 h-12 rounded-full bg-white border border-slate-200/90 shadow-[0_4px_14px_rgba(0,0,0,0.08)] flex items-center justify-center transition-all cursor-pointer hover:bg-slate-50 hover:shadow-md hover:scale-105 active:scale-95 ${
+                  activeSlideIndex === 0 ? "opacity-60 hover:opacity-100" : "opacity-100"
+                }`}
+                aria-label="Previous Slide"
+              >
+                <ArrowUp className="w-5 h-5 text-slate-800 stroke-[2.5]" />
+              </button>
 
-            {/* Top Indicator Switcher */}
-            <div className="absolute top-6 sm:top-10 left-0 right-0 z-20 flex items-center justify-between max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full pointer-events-auto">
-              <div className="inline-flex p-1.5 rounded-full bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-[0_10px_30px_-6px_rgba(0,0,0,0.08)]">
-                <button
-                  onClick={() => {
-                    if (showcaseRef.current) {
-                      const top = showcaseRef.current.offsetTop;
-                      window.scrollTo({ top: top, behavior: "smooth" });
-                    }
-                  }}
-                  className={`flex items-center gap-2.5 px-5 sm:px-6 py-2 rounded-full text-[12px] sm:text-[13px] font-extrabold tracking-wide uppercase transition-all duration-300 cursor-pointer ${
-                    showcaseProgress < 0.45
-                      ? "bg-gradient-to-r from-[#f43f5e] via-[#c084fc] to-[#6366f1] text-white shadow-[0_4px_16px_rgba(244,63,94,0.4)] scale-100"
-                      : "text-[#64748b] hover:text-[#0f172a] hover:bg-slate-50/80"
-                  }`}
-                >
-                  <span className="text-[11px] opacity-75">01</span>
-                  <span>APPLIED PLAYBOOK</span>
-                </button>
-
-                <button
-                  onClick={() => {
-                    if (showcaseRef.current) {
-                      const top = showcaseRef.current.offsetTop;
-                      const scrollableDist = showcaseRef.current.offsetHeight - window.innerHeight;
-                      window.scrollTo({ top: top + scrollableDist * 0.75, behavior: "smooth" });
-                    }
-                  }}
-                  className={`flex items-center gap-2.5 px-5 sm:px-6 py-2 rounded-full text-[12px] sm:text-[13px] font-extrabold tracking-wide uppercase transition-all duration-300 cursor-pointer ${
-                    showcaseProgress >= 0.45
-                      ? "bg-gradient-to-r from-[#2563eb] via-[#4344fa] to-[#4f46e5] text-white shadow-[0_4px_16px_rgba(37,99,235,0.4)] scale-100"
-                      : "text-[#64748b] hover:text-[#0f172a] hover:bg-slate-50/80"
-                  }`}
-                >
-                  <span className="text-[11px] opacity-75">02</span>
-                  <span>AI ADOPTION ENGINE</span>
-                </button>
-              </div>
-
-              {/* Step counter pill */}
-              <div className="hidden sm:flex items-center gap-2 bg-white/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-slate-200/70 shadow-2xs">
-                <span className="text-xs font-black tracking-widest text-[#0f172a] uppercase">
-                  {showcaseProgress < 0.45 ? "01" : "02"}
-                </span>
-                <span className="text-xs text-slate-400 font-medium">/ 02</span>
-              </div>
+              {/* Down Arrow */}
+              <button
+                onClick={() => setActiveSlideIndex((prev) => (prev < 1 ? prev + 1 : 0))}
+                className={`w-12 h-12 rounded-full bg-white border border-slate-200/90 shadow-[0_4px_14px_rgba(0,0,0,0.08)] flex items-center justify-center transition-all cursor-pointer hover:bg-slate-50 hover:shadow-md hover:scale-105 active:scale-95 ${
+                  activeSlideIndex === 1 ? "opacity-60 hover:opacity-100" : "opacity-100"
+                }`}
+                aria-label="Next Slide"
+              >
+                <ArrowDown className="w-5 h-5 text-slate-800 stroke-[2.5]" />
+              </button>
             </div>
 
-            {/* Content Display Area (Slides stack in viewport and vertically slide with scroll) */}
-            <div className="relative w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 pt-14 sm:pt-16">
-              
-              {/* ── SLIDE 1: APPLIED PLAYBOOK ── */}
+            {/* Vertical Slider Display Area */}
+            <div className="relative w-full overflow-hidden flex-1 pt-2 pb-6">
               <div
-                className="transition-all duration-500 ease-out"
+                className="transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col will-change-transform"
                 style={{
-                  opacity: showcaseProgress < 0.35 ? 1 : Math.max(0, 1 - (showcaseProgress - 0.35) * 4),
-                  transform: `translate3d(0, ${showcaseProgress < 0.35 ? 0 : (showcaseProgress - 0.35) * -120}px, 0)`,
-                  pointerEvents: showcaseProgress < 0.45 ? "auto" : "none",
-                  display: showcaseProgress > 0.65 ? "none" : "block",
+                  transform: `translateY(-${activeSlideIndex * 100}%)`,
                 }}
               >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                  {/* Left: Free-Floating 3D Copilot Playbook Visual (Shifted Left) */}
-                  <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
-                    <img
-                      src={copilotPlaybookImg}
-                      alt="Scale Copilot Adoption AI Adoption Playbook 3D Dashboard"
-                      className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
-                    />
-                  </div>
-
-                  {/* Right: Narrative, Headlines, Metrics & Case Study CTA (Shifted Left) */}
-                  <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
-                    {/* Eyebrow Badge */}
-                    <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
-                      <span className="text-[12px]">✦</span>
-                      <span>APPLIED PLAYBOOK</span>
+                {/* ── SLIDE 1: APPLIED PLAYBOOK ── */}
+                <div className="w-full shrink-0 pt-2 pb-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                    {/* Left: Free-Floating 3D Rocket / Astronaut Visual */}
+                    <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start pointer-events-auto select-none">
+                      <img
+                        src={adoptThumb}
+                        alt="Scale Copilot Adoption AI Adoption Playbook 3D Rocket"
+                        className="w-full h-auto max-w-[620px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
+                      />
                     </div>
 
-                    {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
-                    <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
-                      Scale Copilot Adoption
-                    </h2>
-
-                    {/* Sub-tagline */}
-                    <p className="text-[15px] sm:text-[16px] font-semibold text-[#64748b] mb-4 tracking-tight">
-                      Enterprise scale AI adoption case study
-                    </p>
-
-                    {/* Headline */}
-                    <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
-                      How the Adopt Playbook drove awareness into repeat usage and advocacy
-                    </h3>
-
-                    {/* 3 Metric Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#fbcfe8] transition-colors">
-                        <div className="w-2 h-2 rounded-full bg-[#f97316]" />
-                        <div className="text-[19px] font-black text-[#0f172a] leading-tight">
-                          936K → 3.4M
-                        </div>
-                        <div className="text-[11px] text-[#64748b] font-medium">
-                          Copilot WAU
-                        </div>
+                    {/* Right: Narrative, Headlines, Metrics & CTA */}
+                    <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-2">
+                      {/* Eyebrow Badge */}
+                      <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
+                        <span className="text-[12px]">✦</span>
+                        <span>APPLIED PLAYBOOK</span>
                       </div>
 
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#bfdbfe] transition-colors">
-                        <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
-                        <div className="text-[19px] font-black text-[#0f172a] leading-tight">
-                          336 → 859
-                        </div>
-                        <div className="text-[11px] text-[#64748b] font-medium">
-                          CAC-enabled tenants
-                        </div>
-                      </div>
+                      {/* Brand Title with Gradient */}
+                      <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
+                        Scale Copilot Adoption
+                      </h2>
 
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#fbcfe8] transition-colors">
-                        <div className="w-2 h-2 rounded-full bg-[#ec4899]" />
-                        <div className="text-[19px] font-black text-[#0f172a] leading-tight">
-                          509K → 1.5M
-                        </div>
-                        <div className="text-[11px] text-[#64748b] font-medium">
-                          Community WAU
-                        </div>
-                      </div>
-                    </div>
+                      {/* Sub-tagline */}
+                      <p className="text-[15px] sm:text-[16px] font-semibold text-[#64748b] mb-4 tracking-tight">
+                        Enterprise scale AI adoption case study
+                      </p>
 
-                    {/* Featured Key Outcome Card (24% more Active Copilot days) */}
-                    <div className="w-full max-w-lg p-3.5 sm:p-4 rounded-[22px] bg-white border border-[#e2e8f0] shadow-xs flex items-center gap-3.5 sm:gap-4 mb-7 hover:border-[#ddd6fe] transition-colors">
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#ede9fe] to-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 shadow-2xs">
-                        <TrendingUp className="w-6 h-6 stroke-[2.5]" />
-                      </div>
-                      <div className="flex flex-col text-left">
-                        <span className="text-[20px] sm:text-[22px] font-black text-[#0f172a] tracking-tight leading-tight">
-                          24% more
-                        </span>
-                        <span className="text-[12.5px] sm:text-[13px] font-medium text-[#475569] leading-snug">
-                          Active Copilot days / week among CAC members
-                        </span>
-                      </div>
-                    </div>
+                      {/* Headline */}
+                      <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
+                        How the Adopt Playbook drove awareness into repeat usage and advocacy
+                      </h3>
 
-                    {/* CTA Button: Protected Figma Case Study */}
-                    <div className="pt-1 pb-3">
-                      <button
-                        onClick={() => {
-                          setPasswordInput("");
-                          setPasswordError("");
-                          setShowPasswordModal(true);
-                        }}
-                        className="adopt-hero-btn-primary group"
-                      >
-                        <span>View Copilot Case Study</span>
-                        <span className="adopt-btn-circle-arrow">
-                          <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* ── SLIDE 2: AI ADOPTION ENGINE ── */}
-              <div
-                className="transition-all duration-500 ease-out"
-                style={{
-                  opacity: showcaseProgress < 0.35 ? 0 : Math.min(1, (showcaseProgress - 0.35) * 4),
-                  transform: `translate3d(0, ${Math.max(0, (0.6 - showcaseProgress) * 300)}px, 0)`,
-                  pointerEvents: showcaseProgress >= 0.45 ? "auto" : "none",
-                  display: showcaseProgress < 0.25 ? "none" : "block",
-                  position: showcaseProgress < 0.65 ? "absolute" : "relative",
-                  top: showcaseProgress < 0.65 ? "64px" : "auto",
-                  left: showcaseProgress < 0.65 ? "0" : "auto",
-                  right: showcaseProgress < 0.65 ? "0" : "auto",
-                }}
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                  {/* Left: Free-Floating 3D SaaS Dashboard Visual (Shifted Left) */}
-                  <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
-                    <img
-                      src={adoptIqImg}
-                      alt="AdoptIQ.ai 3D Dashboard Engine at Work"
-                      className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(99,102,241,0.18)] transition-transform duration-500 hover:scale-[1.02]"
-                    />
-                  </div>
-
-                  {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA (Shifted Left) */}
-                  <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
-                    {/* Eyebrow Badge */}
-                    <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
-                      <span className="text-[12px]">✦</span>
-                      <span>AI ADOPTION ENGINE</span>
-                    </div>
-
-                    {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
-                    <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
-                      AdoptIQ.ai
-                    </h2>
-
-                    {/* Sub-tagline */}
-                    <p className="text-[15px] sm:text-[16px] font-semibold text-[#64748b] mb-4 tracking-tight">
-                      The AI engine powered by the ADOPT playbook
-                    </p>
-
-                    {/* Headline */}
-                    <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
-                      Turn messy adoption signals into a prioritized behavioral action plan.
-                    </h3>
-
-                    {/* 4 Pipeline Flow Steps in Pill */}
-                    <div className="w-full max-w-lg p-2.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-xs flex items-center justify-between mb-5">
-                      {[
-                        { icon: "💬", label: "Ask" },
-                        { icon: "🧠", label: "Diagnose" },
-                        { icon: "📋", label: "Prioritize" },
-                        { icon: "🪄", label: "Generate" }
-                      ].map((step, idx, arr) => (
-                        <React.Fragment key={idx}>
-                          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[12px] font-bold text-[#334155]">
-                            <span className="text-[14px]">{step.icon}</span>
-                            <span>{step.label}</span>
+                      {/* 3 Metric Cards */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
+                        <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#fbcfe8] transition-colors">
+                          <div className="w-2 h-2 rounded-full bg-[#f97316]" />
+                          <div className="text-[19px] font-black text-[#0f172a] leading-tight">
+                            936K → 3.4M
                           </div>
-                          {idx < arr.length - 1 && <span className="text-slate-300 text-xs">→</span>}
-                        </React.Fragment>
-                      ))}
-                    </div>
+                          <div className="text-[11px] text-[#64748b] font-medium">
+                            Copilot WAU
+                          </div>
+                        </div>
 
-                    {/* 3 Core Value Pillars */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
-                        <span className="text-xl">🧠</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                          Systematize Behavioral Diagnosis
-                        </span>
+                        <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#bfdbfe] transition-colors">
+                          <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
+                          <div className="text-[19px] font-black text-[#0f172a] leading-tight">
+                            336 → 859
+                          </div>
+                          <div className="text-[11px] text-[#64748b] font-medium">
+                            CAC-enabled tenants
+                          </div>
+                        </div>
+
+                        <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#fbcfe8] transition-colors">
+                          <div className="w-2 h-2 rounded-full bg-[#ec4899]" />
+                          <div className="text-[19px] font-black text-[#0f172a] leading-tight">
+                            509K → 1.5M
+                          </div>
+                          <div className="text-[11px] text-[#64748b] font-medium">
+                            Community WAU
+                          </div>
+                        </div>
                       </div>
 
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
-                        <span className="text-xl">🪄</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                          Prescribe Contextual UX Interventions
-                        </span>
+                      {/* Featured Key Outcome Card (24% more Active Copilot days) */}
+                      <div className="w-full max-w-lg p-3.5 sm:p-4 rounded-[22px] bg-white border border-[#e2e8f0] shadow-xs flex items-center gap-3.5 sm:gap-4 mb-7 hover:border-[#ddd6fe] transition-colors">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#ede9fe] to-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 shadow-2xs">
+                          <TrendingUp className="w-6 h-6 stroke-[2.5]" />
+                        </div>
+                        <div className="flex flex-col text-left">
+                          <span className="text-[20px] sm:text-[22px] font-black text-[#0f172a] tracking-tight leading-tight">
+                            24% more
+                          </span>
+                          <span className="text-[12.5px] sm:text-[13px] font-medium text-[#475569] leading-snug">
+                            Active Copilot days / week among CAC members
+                          </span>
+                        </div>
                       </div>
 
-                      <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
-                        <span className="text-xl">👥</span>
-                        <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                          Unify Cross-Functional Alignment
-                        </span>
+                      {/* CTA Button: Protected Figma Case Study */}
+                      <div className="pt-1 pb-3">
+                        <button
+                          onClick={() => {
+                            setPasswordInput("");
+                            setPasswordError("");
+                            setShowPasswordModal(true);
+                          }}
+                          className="adopt-hero-btn-primary group"
+                        >
+                          <span>View Copilot Case Study</span>
+                          <span className="adopt-btn-circle-arrow">
+                            <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
+                          </span>
+                        </button>
                       </div>
-                    </div>
-
-                    {/* Generate Actionable Plans Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#f0fdf4] border border-[#bbf7d0] text-[#16a34a] text-[12px] font-bold mb-7 shadow-2xs">
-                      <span>⚡</span>
-                      <span>Generate actionable remediation plans</span>
-                    </div>
-
-                    {/* CTA Button: Cobalt/Indigo Gradient Pill */}
-                    <div className="pt-1 pb-3">
-                      <a
-                        href="https://adoptiqai.vercel.app/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="adopt-hero-btn-primary group text-decoration-none"
-                      >
-                        <span>Launch AdoptIQ.ai</span>
-                        <span className="adopt-btn-circle-arrow">
-                          <ArrowUpRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
-                        </span>
-                      </a>
                     </div>
                   </div>
                 </div>
-              </div>
 
+                {/* ── SLIDE 2: AI ADOPTION ENGINE ── */}
+                <div className="w-full shrink-0 pt-2 pb-6">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                    {/* Left: Free-Floating 3D SaaS Dashboard Visual */}
+                    <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start pointer-events-auto select-none">
+                      <img
+                        src={adoptIqImg}
+                        alt="AdoptIQ.ai 3D Dashboard Engine at Work"
+                        className="w-full h-auto max-w-[620px] object-contain drop-shadow-[0_25px_60px_rgba(99,102,241,0.18)] transition-transform duration-500 hover:scale-[1.02]"
+                      />
+                    </div>
+
+                    {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA */}
+                    <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-2">
+                      {/* Eyebrow Badge */}
+                      <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
+                        <span className="text-[12px]">✦</span>
+                        <span>AI ADOPTION ENGINE</span>
+                      </div>
+
+                      {/* Brand Title with Gradient */}
+                      <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
+                        AdoptIQ.ai
+                      </h2>
+
+                      {/* Sub-tagline */}
+                      <p className="text-[15px] sm:text-[16px] font-semibold text-[#64748b] mb-4 tracking-tight">
+                        The AI engine powered by the ADOPT playbook
+                      </p>
+
+                      {/* Headline */}
+                      <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
+                        Turn messy adoption signals into a prioritized behavioral action plan.
+                      </h3>
+
+                      {/* 4 Pipeline Flow Steps in Pill */}
+                      <div className="w-full max-w-lg p-2.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-xs flex items-center justify-between mb-5">
+                        {[
+                          { icon: "💬", label: "Ask" },
+                          { icon: "🧠", label: "Diagnose" },
+                          { icon: "📋", label: "Prioritize" },
+                          { icon: "🪄", label: "Generate" }
+                        ].map((step, idx, arr) => (
+                          <React.Fragment key={idx}>
+                            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[12px] font-bold text-[#334155]">
+                              <span className="text-[14px]">{step.icon}</span>
+                              <span>{step.label}</span>
+                            </div>
+                            {idx < arr.length - 1 && <span className="text-slate-300 text-xs">→</span>}
+                          </React.Fragment>
+                        ))}
+                      </div>
+
+                      {/* 3 Core Value Pillars */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
+                        <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
+                          <span className="text-xl">🧠</span>
+                          <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
+                            Systematize Behavioral Diagnosis
+                          </span>
+                        </div>
+
+                        <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
+                          <span className="text-xl">🪄</span>
+                          <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
+                            Prescribe Contextual UX Interventions
+                          </span>
+                        </div>
+
+                        <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
+                          <span className="text-xl">👥</span>
+                          <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
+                            Unify Cross-Functional Alignment
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Generate Actionable Plans Badge */}
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#f0fdf4] border border-[#bbf7d0] text-[#16a34a] text-[12px] font-bold mb-7 shadow-2xs">
+                        <span>⚡</span>
+                        <span>Generate actionable remediation plans</span>
+                      </div>
+
+                      {/* CTA Button: Cobalt/Indigo Gradient Pill */}
+                      <div className="pt-1 pb-3">
+                        <a
+                          href="https://adoptiqai.vercel.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="adopt-hero-btn-primary group text-decoration-none"
+                        >
+                          <span>Launch AdoptIQ.ai</span>
+                          <span className="adopt-btn-circle-arrow">
+                            <ArrowUpRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
+
           </div>
         </div>
 
