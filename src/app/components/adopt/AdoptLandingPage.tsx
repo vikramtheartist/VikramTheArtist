@@ -547,26 +547,35 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 -mt-20 sm:-mt-28 lg:-mt-36 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent"
+        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 -mt-24 sm:-mt-32 lg:-mt-44 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent"
       >
-        {/* Seamless Floating Iceberg Rising Upwards from Below on Scroll */}
+        {/* 1. Separate Soft Blue Ambient Background Glow (Fades in independently on scroll) */}
+        <div
+          className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden transition-opacity duration-500"
+          style={{
+            opacity: Math.min(1, Math.max(0, (scrollY - 280) / 320)),
+            background: "radial-gradient(ellipse 85% 65% at 50% 60%, rgba(186, 230, 253, 0.4) 0%, rgba(224, 242, 254, 0.2) 50%, transparent 80%)",
+          }}
+        />
+
+        {/* 2. Pure Transparent Iceberg (Moves Upward FIRST on scroll into Hero) */}
         <div
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden flex items-center justify-center"
           style={{
-            maskImage: "linear-gradient(to bottom, black 0%, black 80%, transparent 98%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 80%, transparent 98%)",
+            maskImage: "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
           }}
         >
           <div
-            className="w-full h-[120%] absolute -top-[10%] inset-x-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
+            className="w-full h-[125%] absolute -top-[12%] inset-x-0 will-change-transform transition-transform duration-200 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(${mousePos.x * 8}px, ${Math.max(-120, (scrollY - 300) * -0.12) + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              transform: `translate3d(${mousePos.x * 8}px, ${Math.max(-200, (scrollY - 180) * -0.25) + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
             }}
           >
             <img
-              src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
+              src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_transparent.png`}
               alt="AI Adoption Iceberg Analogy"
-              className="w-full h-full object-contain sm:object-cover object-center mix-blend-multiply transition-transform duration-700 opacity-95"
+              className="w-full h-full object-contain sm:object-cover object-center transition-transform duration-700 opacity-95"
             />
           </div>
         </div>
@@ -575,8 +584,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px]">
           {/* Top Row (Above Water / Upper Content Area) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Top Left: Badge, Headline & Context */}
-            <div className="lg:col-span-6 flex flex-col items-start text-left">
+            {/* Top Left: Badge, Headline & Context (Enters Second, after Iceberg) */}
+            <div
+              className="lg:col-span-6 flex flex-col items-start text-left will-change-transform transition-transform duration-200"
+              style={{
+                transform: `translate3d(0, ${Math.max(-70, (scrollY - 340) * -0.12)}px, 0)`,
+                opacity: Math.min(1, Math.max(0.1, (scrollY - 160) / 220)),
+              }}
+            >
               <div className="mb-4">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
                   <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
@@ -598,8 +613,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </p>
             </div>
 
-            {/* Top Right: ABOVE THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
-            <div className="lg:col-span-6 flex justify-start lg:justify-end">
+            {/* Top Right: ABOVE THE SURFACE Callout Card (Enters Third) */}
+            <div
+              className="lg:col-span-6 flex justify-start lg:justify-end will-change-transform transition-transform duration-200"
+              style={{
+                transform: `translate3d(0, ${Math.max(-50, (scrollY - 400) * -0.09)}px, 0)`,
+                opacity: Math.min(1, Math.max(0.1, (scrollY - 220) / 240)),
+              }}
+            >
               <div
                 className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                 style={{
