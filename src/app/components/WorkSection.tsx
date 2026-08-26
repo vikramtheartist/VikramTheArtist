@@ -38,21 +38,6 @@ const projects: {
     ),
   },
   {
-    title: "The ADOPT Playbook",
-    description:
-      "A behavioral operating system for moving users from discovery to habit, advocacy, and scale.",
-    ctas: [{ label: "Explore Framework", href: "/adopt", internal: true }],
-    thumb: (
-      <div className="w-full h-full overflow-hidden rounded-xl">
-        <img
-          src={`${import.meta.env.BASE_URL}IMG/Adopt_Card.png`}
-          alt="The ADOPT Playbook"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
-        />
-      </div>
-    ),
-  },
-  {
     title: "Data Security",
     description:
       "Led groundbreaking UX design projects for Cloud Security and Anthos, driving innovation and improving user experiences.",
