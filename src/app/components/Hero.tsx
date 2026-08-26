@@ -244,16 +244,22 @@ const cards = [
   {
     title: "Observe",
     accentColor: "#c084fc",
+    borderColor: "rgba(192, 132, 252, 0.45)",
+    borderGlow: "0 0 18px -2px rgba(168, 85, 247, 0.42), inset 0 0 12px -3px rgba(168, 85, 247, 0.20)",
     body: "I understand the system—users, data, AI, and context to frame the right problem.",
   },
   {
     title: "Create",
     accentColor: "#38bdf8",
+    borderColor: "rgba(56, 189, 248, 0.45)",
+    borderGlow: "0 0 18px -2px rgba(56, 189, 248, 0.42), inset 0 0 12px -3px rgba(56, 189, 248, 0.20)",
     body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
   },
   {
     title: "Evolve",
     accentColor: "#f472b6",
+    borderColor: "rgba(244, 114, 182, 0.45)",
+    borderGlow: "0 0 18px -2px rgba(244, 114, 182, 0.42), inset 0 0 12px -3px rgba(244, 114, 182, 0.20)",
     body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
   },
 ];
@@ -383,10 +389,14 @@ export function Hero() {
           ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}
         >
-          {cards.map(({ title, accentColor, body }) => (
+          {cards.map(({ title, accentColor, borderColor, borderGlow, body }) => (
             <div
               key={title}
               className="hero-philosophy-card flex flex-col justify-between"
+              style={{
+                border: `1px solid ${borderColor}`,
+                boxShadow: borderGlow,
+              }}
             >
               <div>
                 {/* Title */}
@@ -417,7 +427,7 @@ export function Hero() {
                   {body}
                 </p>
 
-                {/* Bottom Accent Bar matching screenshot */}
+                {/* Bottom Accent Bar */}
                 <div
                   className="rounded-full"
                   style={{
