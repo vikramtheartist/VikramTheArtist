@@ -243,29 +243,17 @@ import { Eye, Sparkles, TrendingUp } from "lucide-react";
 const cards = [
   {
     title: "Observe",
-    icon: Eye,
     accentColor: "#c084fc",
-    orbGradient: "radial-gradient(circle at 35% 35%, rgba(168, 85, 247, 0.35) 0%, rgba(99, 102, 241, 0.20) 55%, rgba(15, 23, 42, 0.75) 100%)",
-    orbBorder: "rgba(192, 132, 252, 0.40)",
-    orbGlow: "0 0 10px rgba(168, 85, 247, 0.30), inset 0 1px 2px rgba(255, 255, 255, 0.4)",
     body: "I understand the system—users, data, AI, and context to frame the right problem.",
   },
   {
     title: "Create",
-    icon: Sparkles,
     accentColor: "#38bdf8",
-    orbGradient: "radial-gradient(circle at 35% 35%, rgba(6, 182, 212, 0.35) 0%, rgba(59, 130, 246, 0.20) 55%, rgba(15, 23, 42, 0.75) 100%)",
-    orbBorder: "rgba(56, 189, 248, 0.40)",
-    orbGlow: "0 0 10px rgba(6, 182, 212, 0.30), inset 0 1px 2px rgba(255, 255, 255, 0.4)",
     body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
   },
   {
     title: "Evolve",
-    icon: TrendingUp,
     accentColor: "#f472b6",
-    orbGradient: "radial-gradient(circle at 35% 35%, rgba(244, 114, 182, 0.35) 0%, rgba(168, 85, 247, 0.20) 55%, rgba(15, 23, 42, 0.75) 100%)",
-    orbBorder: "rgba(244, 114, 182, 0.40)",
-    orbGlow: "0 0 10px rgba(244, 114, 182, 0.30), inset 0 1px 2px rgba(255, 255, 255, 0.4)",
     body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
   },
 ];
@@ -395,37 +383,25 @@ export function Hero() {
           ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}
         >
-          {cards.map(({ title, icon: Icon, accentColor, orbGradient, orbBorder, orbGlow, body }) => (
+          {cards.map(({ title, accentColor, body }) => (
             <div
               key={title}
               className="hero-philosophy-card flex flex-col justify-between"
             >
               <div>
-                {/* Header: Spherical Orb Icon + Title */}
-                <div className="flex items-center gap-3.5 mb-3.5">
-                  <div
-                    className="w-11 h-11 rounded-full flex items-center justify-center flex-shrink-0"
-                    style={{
-                      background: orbGradient,
-                      border: `1px solid ${orbBorder}`,
-                      boxShadow: orbGlow,
-                    }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: accentColor }} strokeWidth={1.8} />
-                  </div>
-                  <h3
-                    style={{
-                      fontFamily: "'Poppins', sans-serif",
-                      fontWeight: 400,
-                      fontSize: "22px",
-                      lineHeight: 1.25,
-                      color: "white",
-                      margin: 0,
-                    }}
-                  >
-                    {title}
-                  </h3>
-                </div>
+                {/* Title */}
+                <h3
+                  style={{
+                    fontFamily: "'Poppins', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "22px",
+                    lineHeight: 1.25,
+                    color: "white",
+                    margin: "0 0 12px 0",
+                  }}
+                >
+                  {title}
+                </h3>
 
                 {/* Body Text */}
                 <p
