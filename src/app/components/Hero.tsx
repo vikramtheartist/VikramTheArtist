@@ -357,7 +357,7 @@ export function Hero() {
     const r = Math.round(176 * (1 - ratio) + 0 * ratio);
     const g = Math.round(0 * (1 - ratio) + 159 * ratio);
     const b = Math.round(232 * (1 - ratio) + 253 * ratio);
-    card.style.setProperty("--card-glow", `rgba(${r}, ${g}, ${b}, 0.5)`);
+    card.style.setProperty("--card-glow", `rgba(${r}, ${g}, ${b}, 0.35)`);
   };
 
   return (
@@ -424,9 +424,9 @@ export function Hero() {
 
                 {/* Corner Ambient Radial Violet Glow */}
                 <div
-                  className="absolute -top-10 -right-10 w-36 h-36 rounded-full pointer-events-none z-0 transition-opacity duration-500 opacity-60 group-hover:opacity-100"
+                  className="absolute -top-10 -right-10 w-36 h-36 rounded-full pointer-events-none z-0 transition-opacity duration-500 opacity-40 group-hover:opacity-75"
                   style={{
-                    background: "radial-gradient(circle, rgba(168,85,247,0.32) 0%, rgba(99,102,241,0.15) 45%, transparent 70%)",
+                    background: "radial-gradient(circle, rgba(168,85,247,0.22) 0%, rgba(99,102,241,0.10) 45%, transparent 70%)",
                     filter: "blur(18px)",
                   }}
                 />
