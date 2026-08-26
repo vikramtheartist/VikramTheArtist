@@ -452,68 +452,69 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 2: THE CORE PROBLEM (ICEBERG 100% PIXEL PERFECT) ──── */}
+      {/* ── SECTION 2: THE CORE PROBLEM (100% EXACT PIXEL-TO-PIXEL MATCH) ──── */}
       <section id="problem" className="py-14 lg:py-20 relative overflow-hidden bg-transparent">
         <div className="w-full max-w-[1480px] mx-auto px-4 sm:px-6 lg:px-10">
-          {/* Main Enclosed Card with Iceberg Visual Background */}
-          <div className="relative rounded-[36px] sm:rounded-[44px] overflow-hidden border border-slate-200/80 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.18)] min-h-[640px] text-left">
-            {/* Background Iceberg Artwork */}
+          {/* Main Enclosed Card with Light Luminous Iceberg Visual Background */}
+          <div className="relative rounded-[36px] sm:rounded-[48px] bg-gradient-to-b from-[#fbfcff] via-[#f7f9ff] to-[#f4f7fe] border border-[#e2e8f5] shadow-[0_25px_70px_-15px_rgba(147,197,253,0.22)] min-h-[640px] text-left overflow-hidden">
+            {/* Background Light Luminous Iceberg Artwork */}
             <div className="absolute inset-0 select-none pointer-events-none z-0">
               <img
-                src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_bg.jpg`}
+                src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
                 alt="AI Adoption Iceberg Analogy"
                 className="w-full h-full object-cover object-center"
               />
-              {/* Subtle ambient gradients for optimal text contrast */}
+              {/* Subtle ambient light gradient for razor-sharp typography contrast */}
               <div
                 className="absolute inset-0 pointer-events-none"
                 style={{
                   background:
-                    "linear-gradient(to right, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.62) 28%, rgba(255,255,255,0) 55%), linear-gradient(to top, rgba(2, 22, 54, 0.92) 0%, rgba(2, 22, 54, 0.65) 36%, transparent 65%)",
+                    "linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.75) 30%, rgba(255,255,255,0.15) 54%, transparent 70%), linear-gradient(to top, rgba(244,247,254,0.7) 0%, transparent 35%)",
                 }}
               />
             </div>
 
             {/* Content Container */}
             <div className="relative z-10 p-8 sm:p-12 lg:p-16 flex flex-col justify-between min-h-[640px]">
-              {/* Top Row (Above Water) */}
+              {/* Top Row (Above Water / Upper Content Area) */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                {/* Top Left: Headline & Context */}
+                {/* Top Left: Badge, Headline & Context */}
                 <div className="lg:col-span-6 flex flex-col items-start">
                   <div className="mb-4">
-                    <span className="text-[12px] font-extrabold tracking-[0.14em] text-[#334155] uppercase block mb-1.5">
-                      THE CORE PROBLEM
-                    </span>
-                    <div className="w-10 h-[2.5px] bg-[#334155]/60 rounded-full" />
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
+                      <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
+                      <span>THE CORE PROBLEM</span>
+                    </div>
+                    <div className="w-8 h-[2.5px] bg-[#38bdf8] rounded-full mt-2.5" />
                   </div>
 
-                  <h2 className="text-[38px] sm:text-[48px] lg:text-[54px] font-extrabold text-[#0b1a30] tracking-[-0.03em] leading-[1.08] mb-3">
+                  <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
                     AI adoption is not<br />
                     a feature problem.<br />
-                    <span className="text-[#1d63ff] font-extrabold">
-                      It’s a behavior problem.
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
+                      It’s a behavior<br className="hidden sm:inline" /> problem.
                     </span>
                   </h2>
 
-                  <p className="text-[14px] sm:text-[16px] text-[#475569] leading-relaxed max-w-[460px] font-medium">
+                  <p className="text-[14px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-8">
                     Even powerful products fail when they collide with familiar habits, uncertainty, and inertia.
                   </p>
                 </div>
 
-                {/* Top Right: ABOVE THE SURFACE Callout */}
+                {/* Top Right: ABOVE THE SURFACE Callout Card */}
                 <div className="lg:col-span-6 flex justify-start lg:justify-end">
-                  <div className="relative flex flex-col items-start bg-white/75 backdrop-blur-md border border-white/60 p-5 rounded-2xl shadow-sm max-w-xs lg:mr-8 mt-2 lg:mt-4">
+                  <div className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.12)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2">
                     {/* Connecting Line to Mountain Peak */}
-                    <div className="hidden lg:block absolute -left-16 top-5 w-16 h-8 pointer-events-none">
+                    <div className="hidden lg:block absolute -left-16 top-6 w-16 h-8 pointer-events-none">
                       <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
-                        <path d="M64 12 L 20 12 L 0 30" stroke="#94a3b8" strokeWidth="1.2" strokeDasharray="3 3" />
-                        <circle cx="0" cy="30" r="3" fill="#3b82f6" />
+                        <path d="M64 10 L 22 10 L 0 28" stroke="#a5b4fc" strokeWidth="1.2" />
+                        <circle cx="0" cy="28" r="3.5" fill="#6366f1" />
                       </svg>
                     </div>
 
                     <div className="flex items-center gap-3.5 mb-3.5">
-                      <div className="w-10 h-10 rounded-full bg-white border border-slate-200 shadow-2xs flex items-center justify-center text-[#1e293b] shrink-0">
-                        <Mountain className="w-5 h-5 text-[#334155] stroke-[2]" />
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs">
+                        <Mountain className="w-5 h-5 text-[#6366f1] stroke-[2]" />
                       </div>
                       <div>
                         <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
@@ -525,15 +526,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
                     </div>
 
-                    <div className="space-y-2 pl-2 w-full">
+                    <div className="space-y-2 pl-2">
                       {[
                         "Advanced capabilities",
                         "Continuous innovation",
                         "Feature-rich roadmap",
                         "Enterprise-grade security",
                       ].map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-2.5 text-[13px] font-semibold text-[#1e293b]">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_8px_rgba(59,130,246,0.8)] shrink-0" />
+                        <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155]">
+                          <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0">
+                            <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
+                          </div>
                           <span>{item}</span>
                         </div>
                       ))}
@@ -542,10 +545,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </div>
               </div>
 
-              {/* Bottom Row (Below Water / Submerged Ocean) */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-12 sm:pt-16">
-                {/* Bottom Left: 4 Checkmark Points */}
-                <div className="lg:col-span-6 space-y-3.5 max-w-md">
+              {/* Bottom Row (Below Water / Lower Content Area) */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
+                {/* Bottom Left: 4 Checkmark Bullet Items */}
+                <div className="lg:col-span-6 space-y-4 max-w-[440px]">
                   {[
                     "Users don't resist products.",
                     "They resist changing routines.",
@@ -553,50 +556,52 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     "Sustainable adoption starts with human behavior.",
                   ].map((text, idx) => (
                     <div key={idx} className="flex items-start gap-3.5 group">
-                      <div className="w-6 h-6 rounded-full bg-white/10 border border-white/30 backdrop-blur-md flex items-center justify-center text-[#93c5fd] shrink-0 mt-0.5 shadow-[0_0_12px_rgba(147,197,253,0.3)]">
-                        <Check className="w-3.5 h-3.5 text-[#93c5fd] stroke-[2.5]" />
+                      <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs">
+                        <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
                       </div>
-                      <span className="text-[14px] sm:text-[15px] text-white/95 font-medium leading-snug">
+                      <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-snug">
                         {text}
                       </span>
                     </div>
                   ))}
                 </div>
 
-                {/* Bottom Right: BELOW THE SURFACE Callout */}
+                {/* Bottom Right: BELOW THE SURFACE Callout Card */}
                 <div className="lg:col-span-6 flex justify-start lg:justify-end">
-                  <div className="relative flex flex-col items-start bg-[#031c44]/80 backdrop-blur-md border border-white/20 p-5 rounded-2xl shadow-xl max-w-xs lg:mr-8 mb-2">
+                  <div className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.12)] w-full max-w-[320px] text-left lg:mr-4 mb-2">
                     {/* Connecting Line to Submerged Iceberg */}
-                    <div className="hidden lg:block absolute -left-16 top-6 w-16 h-2 pointer-events-none">
-                      <svg className="w-full h-full" viewBox="0 0 64 8" fill="none">
-                        <path d="M64 4 L 0 4" stroke="#38bdf8" strokeWidth="1.2" strokeDasharray="3 3" />
-                        <circle cx="0" cy="4" r="3" fill="#38bdf8" />
+                    <div className="hidden lg:block absolute -left-16 top-6 w-16 h-4 pointer-events-none">
+                      <svg className="w-full h-full" viewBox="0 0 64 16" fill="none">
+                        <path d="M64 8 L 0 8" stroke="#a5b4fc" strokeWidth="1.2" />
+                        <circle cx="0" cy="8" r="3.5" fill="#6366f1" />
                       </svg>
                     </div>
 
                     <div className="flex items-center gap-3.5 mb-3.5">
-                      <div className="w-10 h-10 rounded-full bg-white/10 border border-white/25 shadow-inner flex items-center justify-center text-white shrink-0">
-                        <Lock className="w-5 h-5 text-white stroke-[2]" />
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs">
+                        <Lock className="w-5 h-5 text-[#6366f1] stroke-[2]" />
                       </div>
                       <div>
-                        <div className="text-[13px] font-black text-white tracking-wider uppercase">
+                        <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
                           BELOW THE SURFACE
                         </div>
-                        <div className="text-[12px] text-slate-300 font-medium">
+                        <div className="text-[12px] text-[#64748b] font-medium">
                           What holds adoption back
                         </div>
                       </div>
                     </div>
 
-                    <div className="space-y-2 pl-2 w-full">
+                    <div className="space-y-2 pl-2">
                       {[
                         "Familiar habits",
                         "Fear of change",
                         "Unclear personal value",
                         "Low motivation to switch",
                       ].map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-white/95">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_rgba(56,189,248,0.9)] shrink-0" />
+                        <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155]">
+                          <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0">
+                            <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
+                          </div>
                           <span>{item}</span>
                         </div>
                       ))}
