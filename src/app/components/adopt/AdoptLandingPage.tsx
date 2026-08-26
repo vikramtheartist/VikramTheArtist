@@ -28,7 +28,7 @@ import {
 } from "lucide-react";
 import "../../../styles/adopt-landing.css";
 import adoptIqImg from "../../../assets/img/AdoptIQ.png";
-import copilotPlaybookImg from "../../../assets/img/CopilotPlaybook.png";
+import copilotPlaybookImg from "../../../assets/img/Scale Copilot.png";
 
 interface AdoptLandingPageProps {
   onBack?: () => void;
@@ -45,10 +45,7 @@ const STAGES_DATA = [
     color: "#0284c7",
     colorBg: "bg-[#0284c7]",
     badgeBg: "bg-[#f0f9ff]/90",
-    badgeBorder: "border-[#bae6fd]",
-    rimGradient: "linear-gradient(145deg, rgba(56, 189, 248, 0.75) 0%, rgba(255, 255, 255, 0.95) 25%, rgba(56, 189, 248, 0.3) 60%, rgba(14, 165, 233, 0.8) 100%)",
-    glowColor: "rgba(56, 189, 248, 0.35)",
-    floorGlow: "#38bdf8",
+    badgeBorder: "border-[#e0f2fe]/60",
     image: "Aware.png",
     pillar: "Signal",
     tagline: "Create awareness and promote about the existence of your product or feature.",
@@ -81,13 +78,10 @@ const STAGES_DATA = [
     num: "02",
     title: "Desire",
     question: '"Why should I care?"',
-    color: "#e11d48",
-    colorBg: "bg-[#e11d48]",
+    color: "#f43f5e",
+    colorBg: "bg-[#f43f5e]",
     badgeBg: "bg-[#fff1f2]/90",
-    badgeBorder: "border-[#fecdd3]",
-    rimGradient: "linear-gradient(145deg, rgba(244, 63, 94, 0.75) 0%, rgba(255, 255, 255, 0.95) 25%, rgba(244, 63, 94, 0.3) 60%, rgba(225, 29, 72, 0.8) 100%)",
-    glowColor: "rgba(244, 63, 94, 0.35)",
-    floorGlow: "#fb7185",
+    badgeBorder: "border-[#ffe4e6]/60",
     image: "Desire.png",
     pillar: "Emotional Pull",
     tagline: "Spark emotional connection and demonstrate tangible personal value.",
@@ -120,13 +114,10 @@ const STAGES_DATA = [
     num: "03",
     title: "Open",
     question: '"How do I start?"',
-    color: "#7c3aed",
-    colorBg: "bg-[#7c3aed]",
-    badgeBg: "bg-[#faf5ff]/90",
-    badgeBorder: "border-[#e9d5ff]",
-    rimGradient: "linear-gradient(145deg, rgba(168, 85, 247, 0.75) 0%, rgba(255, 255, 255, 0.95) 25%, rgba(168, 85, 247, 0.3) 60%, rgba(124, 58, 237, 0.8) 100%)",
-    glowColor: "rgba(168, 85, 247, 0.35)",
-    floorGlow: "#c084fc",
+    color: "#8b5cf6",
+    colorBg: "bg-[#8b5cf6]",
+    badgeBg: "bg-[#f5f3ff]/90",
+    badgeBorder: "border-[#ede9fe]/60",
     image: "Open.png",
     pillar: "First Action",
     tagline: "Lower activation barriers and guide users to their first successful interaction.",
@@ -159,13 +150,10 @@ const STAGES_DATA = [
     num: "04",
     title: "Proficient",
     question: '"How do I get better?"',
-    color: "#d97706",
-    colorBg: "bg-[#d97706]",
+    color: "#f59e0b",
+    colorBg: "bg-[#f59e0b]",
     badgeBg: "bg-[#fffbeb]/90",
-    badgeBorder: "border-[#fde68a]",
-    rimGradient: "linear-gradient(145deg, rgba(245, 158, 11, 0.75) 0%, rgba(255, 255, 255, 0.95) 25%, rgba(245, 158, 11, 0.3) 60%, rgba(217, 119, 6, 0.8) 100%)",
-    glowColor: "rgba(245, 158, 11, 0.35)",
-    floorGlow: "#fcd34d",
+    badgeBorder: "border-[#fef3c7]/60",
     image: "Proficient.png",
     pillar: "Reinforcement",
     tagline: "Deepen skills, build recurring workflow habits, and achieve mastery.",
@@ -198,13 +186,10 @@ const STAGES_DATA = [
     num: "05",
     title: "Transform",
     question: '"How can I lead others?"',
-    color: "#16a34a",
-    colorBg: "bg-[#16a34a]",
-    badgeBg: "bg-[#f0fdf4]/90",
-    badgeBorder: "border-[#bbf7d0]",
-    rimGradient: "linear-gradient(145deg, rgba(16, 185, 129, 0.75) 0%, rgba(255, 255, 255, 0.95) 25%, rgba(16, 185, 129, 0.3) 60%, rgba(22, 163, 74, 0.8) 100%)",
-    glowColor: "rgba(16, 185, 129, 0.35)",
-    floorGlow: "#4ade80",
+    color: "#10b981",
+    colorBg: "bg-[#10b981]",
+    badgeBg: "bg-[#ecfdf5]/90",
+    badgeBorder: "border-[#d1fae5]/60",
     image: "Transform.png",
     pillar: "Identity Shift",
     tagline: "Empower champions to scale knowledge, build community, and lead enterprise change.",
@@ -802,76 +787,55 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
 
-          {/* ── THE 5 GLASSMORPHIC STAGE CARDS (100% PURE CRYSTAL CLEAR GLASS) ─ */}
-          <div className="relative pt-6 pb-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-6 lg:gap-7 relative z-10 items-stretch">
+          {/* ── THE 5 FLAT CONNECTED STAGE CARDS (UNIFORM HEIGHT GRID) ─ */}
+          <div className="relative pt-4 pb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5 relative z-10 items-stretch">
               {STAGES_DATA.map((stage, idx) => (
                 <div
                   key={stage.id}
                   onClick={() => setActiveStageDetail(idx)}
-                  className="group relative flex flex-col h-full cursor-pointer transition-transform duration-500 hover:-translate-y-3"
+                  className="flex flex-col h-full cursor-pointer group"
                 >
-                  {/* Outer 3D Crystal Glass Phone Chassis with Luminous Edge Lighting */}
-                  <div
-                    className="w-full h-full p-2 sm:p-2.5 rounded-[36px] sm:rounded-[40px] border-[2px] border-white/80 transition-all duration-500 relative"
-                    style={{
-                      boxShadow: `0 0 24px ${stage.glowColor}, inset 0 0 16px ${stage.glowColor}, 0 20px 45px -10px rgba(15, 23, 42, 0.08)`,
-                      background: "transparent",
-                    }}
-                  >
-                    {/* Corner Specular Flare */}
-                    <div className="absolute top-2 left-4 w-12 h-1 bg-gradient-to-r from-white via-white/80 to-transparent rounded-full blur-[0.5px] pointer-events-none" />
-                    <div className="absolute top-4 left-2 w-1 h-12 bg-gradient-to-b from-white via-white/80 to-transparent rounded-full blur-[0.5px] pointer-events-none" />
-
-                    {/* Inner 100% Crystal-Clear Glass Card (No White Fills Behind Character) */}
-                    <div className="w-full h-full rounded-[28px] sm:rounded-[32px] bg-transparent p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden min-h-[520px] lg:min-h-[550px] border border-white/50">
-                      {/* Top Specular Arc Highlight */}
-                      <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-white/40 to-transparent pointer-events-none rounded-t-[28px]" />
-
-                      {/* Top Header: Big Bold Number */}
-                      <div className="relative z-20 flex items-center justify-between">
+                  <div className="w-full h-full rounded-[32px] sm:rounded-[36px] bg-white/92 backdrop-blur-xl border border-slate-200/75 p-5 sm:p-6 flex flex-col justify-between shadow-[0_10px_30px_-5px_rgba(0,0,0,0.04)] relative min-h-[490px] lg:min-h-[510px] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_22px_45px_-8px_rgba(67,68,250,0.16)] hover:border-[#c7d2fe]">
+                    {/* Top Half: Number & Character */}
+                    <div>
+                      <div className="flex items-center justify-between mb-1.5">
                         <span
-                          className="text-[22px] sm:text-[24px] font-black tracking-tight leading-none"
+                          className="text-[14px] font-black tracking-tight"
                           style={{ color: stage.color }}
                         >
                           {stage.num}
                         </span>
+                        <span className="text-[11px] font-bold text-slate-400 group-hover:text-[#4344fa] transition-colors flex items-center gap-1">
+                          <span>Details</span>
+                          <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
+                        </span>
                       </div>
 
-                      {/* Center Character Graphic (Crisp & Pure Crystal Clear Glass Behind) */}
-                      <div className="w-full h-68 sm:h-76 lg:h-80 flex items-center justify-center my-auto relative z-10 overflow-visible select-none pointer-events-none">
+                      {/* Character Illustration */}
+                      <div className="w-full h-64 sm:h-70 lg:h-74 flex items-center justify-center my-1 relative z-10 overflow-visible">
                         <img
                           src={`${import.meta.env.BASE_URL}IMG/${stage.image}`}
                           alt={`${stage.title} Character`}
-                          className="w-auto h-full max-h-full object-contain drop-shadow-[0_16px_26px_rgba(0,0,0,0.14)] scale-110 sm:scale-115 transition-transform duration-500 group-hover:scale-120"
+                          className="w-auto h-full max-h-full object-contain drop-shadow-md scale-110 sm:scale-115 transition-transform duration-300 group-hover:scale-120"
                         />
                       </div>
+                    </div>
 
-                      {/* Bottom Half: Stage Title & Question Quote Pill */}
-                      <div className="mt-auto pt-2 flex flex-col items-center text-center relative z-20">
-                        <h3 className="text-[24px] sm:text-[26px] lg:text-[28px] font-black text-[#0a0e1a] leading-tight mb-3 text-center tracking-tight">
-                          {stage.title}
-                        </h3>
+                    {/* Bottom Half: Title & Question Quote Pill */}
+                    <div className="mt-auto pt-2 flex flex-col items-center text-center">
+                      <h3 className="text-[22px] font-black text-[#0a0e1a] leading-tight mb-2.5 text-center">
+                        {stage.title}
+                      </h3>
 
-                        <div
-                          className={`w-full py-3.5 px-4 rounded-[20px] ${stage.badgeBg} border ${stage.badgeBorder} text-[13px] sm:text-[13.5px] font-extrabold text-center tracking-tight shadow-xs transition-all group-hover:shadow-sm`}
-                          style={{ color: stage.color }}
-                        >
-                          {stage.question}
-                        </div>
+                      <div
+                        className={`w-full py-2.5 px-3 rounded-2xl ${stage.badgeBg} border ${stage.badgeBorder} text-[12px] font-bold text-center tracking-tight shadow-2xs transition-all group-hover:shadow-xs`}
+                        style={{ color: stage.color }}
+                      >
+                        {stage.question}
                       </div>
                     </div>
                   </div>
-
-                  {/* Glossy Floor Reflection & Ground Glow */}
-                  <div
-                    className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-4/5 h-10 rounded-full blur-xl pointer-events-none opacity-65 transition-all duration-500 group-hover:opacity-95 group-hover:scale-110"
-                    style={{ backgroundColor: stage.floorGlow }}
-                  />
-                  <div
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2/3 h-2.5 rounded-full blur-xs pointer-events-none opacity-45"
-                    style={{ backgroundColor: stage.floorGlow }}
-                  />
                 </div>
               ))}
             </div>
