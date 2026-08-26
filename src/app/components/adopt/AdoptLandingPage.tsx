@@ -576,9 +576,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           }}
         >
           <div
-            className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-200 ease-out flex items-center justify-center"
+            className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 750) * -0.04 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
             }}
           >
             <img
@@ -593,13 +593,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[640px]">
           {/* Top Row (Above Water / Upper Content Area) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Top Left: Badge, Headline & Context (Parallax Speed: -0.12) */}
-            <div
-              className="lg:col-span-6 flex flex-col items-start text-left will-change-transform transition-transform duration-150 ease-out"
-              style={{
-                transform: `translate3d(0, ${(scrollY - 750) * -0.12}px, 0)`,
-              }}
-            >
+            {/* Top Left: Badge, Headline & Context */}
+            <div className="lg:col-span-6 flex flex-col items-start text-left">
               <div className="mb-4">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
                   <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
@@ -621,20 +616,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </p>
             </div>
 
-            {/* Top Right: ABOVE THE SURFACE Callout Card (Parallax Speed: -0.18, Buoyant Surface Drift) */}
+            {/* Top Right: ABOVE THE SURFACE Callout Card with Fade & Slide In (Shifted Leftward by 40px) */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className="w-full max-w-[320px] will-change-transform transition-all duration-700 ease-out"
+                className="w-full max-w-[320px] lg:-translate-x-10 transition-all duration-700 ease-out"
                 style={{
                   opacity: coreProblemInView ? 1 : 0,
                   transform: coreProblemInView
-                    ? `translate3d(0, ${(scrollY - 750) * -0.18}px, 0)`
+                    ? "translate3d(0, 0, 0)"
                     : "translate3d(50px, 0, 0)",
                   transitionDelay: "150ms",
                 }}
               >
                 <div
-                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
+                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full text-left mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                   style={{
                     transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
                   }}
@@ -686,13 +681,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
           {/* Bottom Row (Below Water / Lower Content Area) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
-            {/* Bottom Left: 4 Checkmark Bullet Items (Parallax Speed: -0.09) */}
-            <div
-              className="lg:col-span-6 space-y-4 max-w-[440px] text-left will-change-transform transition-transform duration-150 ease-out"
-              style={{
-                transform: `translate3d(0, ${(scrollY - 1000) * -0.09}px, 0)`,
-              }}
-            >
+            {/* Bottom Left: 4 Checkmark Bullet Items with Staggered Fade-in & Slide-in */}
+            <div className="lg:col-span-6 space-y-4 max-w-[440px] text-left">
               {[
                 "Users don't resist products.",
                 "They resist changing routines.",
@@ -701,7 +691,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ].map((text, idx) => (
                 <div
                   key={idx}
-                  className="flex items-start gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
+                  className="flex items-start gap-3.5 group cursor-default transition-all duration-700 ease-out hover:translate-x-1.5"
+                  style={{
+                    opacity: coreProblemInView ? 1 : 0,
+                    transform: coreProblemInView
+                      ? "translate3d(0, 0, 0)"
+                      : "translate3d(-40px, 0, 0)",
+                    transitionDelay: `${200 + idx * 120}ms`,
+                  }}
                 >
                   <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)] transition-all">
                     <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
@@ -713,20 +710,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ))}
             </div>
 
-            {/* Bottom Right: BELOW THE SURFACE Callout Card (Parallax Speed: -0.05, Submerged Drag) */}
+            {/* Bottom Right: BELOW THE SURFACE Callout Card with Staggered Fade & Slide In (Shifted Leftward by 40px) */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className="w-full max-w-[320px] will-change-transform transition-all duration-700 ease-out"
+                className="w-full max-w-[320px] lg:-translate-x-10 transition-all duration-700 ease-out"
                 style={{
                   opacity: coreProblemInView ? 1 : 0,
                   transform: coreProblemInView
-                    ? `translate3d(0, ${(scrollY - 1000) * -0.05}px, 0)`
+                    ? "translate3d(0, 0, 0)"
                     : "translate3d(50px, 0, 0)",
                   transitionDelay: "380ms",
                 }}
               >
                 <div
-                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
+                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full text-left mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                   style={{
                     transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
                   }}
