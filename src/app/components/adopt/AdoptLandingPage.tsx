@@ -802,31 +802,36 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
 
-          {/* ── THE 5 GLASSMORPHIC STAGE CARDS (EXACT MATCH REFERENCE DESIGN) ─ */}
-          <div className="relative pt-6 pb-10">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 sm:gap-6 relative z-10 items-stretch">
+          {/* ── THE 5 GLASSMORPHIC STAGE CARDS (EXACT 1000% MATCH REFERENCE DESIGN) ─ */}
+          <div className="relative pt-6 pb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-6 lg:gap-7 relative z-10 items-stretch">
               {STAGES_DATA.map((stage, idx) => (
                 <div
                   key={stage.id}
                   onClick={() => setActiveStageDetail(idx)}
-                  className="group relative flex flex-col h-full cursor-pointer transition-transform duration-500 hover:-translate-y-2.5"
+                  className="group relative flex flex-col h-full cursor-pointer transition-transform duration-500 hover:-translate-y-3"
                 >
-                  {/* Chromatic Glass Rim Outer Container */}
+                  {/* Outer 3D Glass Phone Chassis with Luminous Edge Lighting */}
                   <div
-                    className="w-full h-full p-[1.5px] rounded-[32px] sm:rounded-[36px] transition-all duration-500 shadow-[0_12px_36px_-6px_rgba(0,0,0,0.06)] group-hover:shadow-[0_24px_50px_-10px_rgba(0,0,0,0.14)]"
+                    className="w-full h-full p-2 sm:p-2.5 rounded-[36px] sm:rounded-[40px] border-[2px] border-white/90 backdrop-blur-2xl transition-all duration-500 relative"
                     style={{
-                      background: stage.rimGradient,
+                      boxShadow: `0 0 24px ${stage.glowColor}, inset 0 0 16px ${stage.glowColor}, 0 20px 45px -10px rgba(15, 23, 42, 0.12)`,
+                      background: "rgba(255, 255, 255, 0.45)",
                     }}
                   >
-                    {/* Inner Translucent Frosted Glass Body */}
-                    <div className="w-full h-full rounded-[30.5px] sm:rounded-[34.5px] bg-gradient-to-b from-white/85 via-white/60 to-white/90 backdrop-blur-2xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden min-h-[500px] lg:min-h-[520px]">
-                      {/* Top Gloss Arc Highlight */}
-                      <div className="absolute top-0 inset-x-0 h-36 bg-gradient-to-b from-white/70 via-white/20 to-transparent pointer-events-none rounded-t-[30px]" />
+                    {/* Corner Specular Flare */}
+                    <div className="absolute top-2 left-4 w-12 h-1 bg-gradient-to-r from-white via-white/80 to-transparent rounded-full blur-[0.5px] pointer-events-none" />
+                    <div className="absolute top-4 left-2 w-1 h-12 bg-gradient-to-b from-white via-white/80 to-transparent rounded-full blur-[0.5px] pointer-events-none" />
 
-                      {/* Top Header: Number Badge */}
+                    {/* Inner Frosted Glass Card Body */}
+                    <div className="w-full h-full rounded-[28px] sm:rounded-[32px] bg-gradient-to-b from-white/95 via-white/80 to-white/95 backdrop-blur-2xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden min-h-[520px] lg:min-h-[550px] border border-white/60 shadow-inner">
+                      {/* Top Specular Arc Highlight */}
+                      <div className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-white/90 via-white/30 to-transparent pointer-events-none rounded-t-[28px]" />
+
+                      {/* Top Header: Big Bold Number */}
                       <div className="relative z-20 flex items-center justify-between">
                         <span
-                          className="text-[14px] sm:text-[15px] font-black tracking-tight"
+                          className="text-[20px] sm:text-[22px] font-black tracking-tight leading-none"
                           style={{ color: stage.color }}
                         >
                           {stage.num}
@@ -834,22 +839,22 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
 
                       {/* Center Character Graphic */}
-                      <div className="w-full h-64 sm:h-72 lg:h-76 flex items-center justify-center my-auto relative z-10 overflow-visible select-none pointer-events-none">
+                      <div className="w-full h-68 sm:h-76 lg:h-80 flex items-center justify-center my-auto relative z-10 overflow-visible select-none pointer-events-none">
                         <img
                           src={`${import.meta.env.BASE_URL}IMG/${stage.image}`}
                           alt={`${stage.title} Character`}
-                          className="w-auto h-full max-h-full object-contain drop-shadow-[0_14px_28px_rgba(0,0,0,0.12)] scale-110 sm:scale-115 transition-transform duration-500 group-hover:scale-120"
+                          className="w-auto h-full max-h-full object-contain drop-shadow-[0_16px_26px_rgba(0,0,0,0.15)] scale-110 sm:scale-115 transition-transform duration-500 group-hover:scale-120"
                         />
                       </div>
 
                       {/* Bottom Half: Stage Title & Question Quote Pill */}
                       <div className="mt-auto pt-2 flex flex-col items-center text-center relative z-20">
-                        <h3 className="text-[22px] sm:text-[24px] font-black text-[#0f172a] leading-tight mb-2.5 text-center">
+                        <h3 className="text-[24px] sm:text-[26px] lg:text-[28px] font-black text-[#0a0e1a] leading-tight mb-3 text-center tracking-tight">
                           {stage.title}
                         </h3>
 
                         <div
-                          className={`w-full py-2.5 px-3 rounded-2xl ${stage.badgeBg} border ${stage.badgeBorder} text-[12px] sm:text-[12.5px] font-bold text-center tracking-tight shadow-xs transition-all`}
+                          className={`w-full py-3.5 px-4 rounded-[20px] ${stage.badgeBg} border ${stage.badgeBorder} text-[13px] sm:text-[13.5px] font-extrabold text-center tracking-tight shadow-sm transition-all group-hover:shadow-md`}
                           style={{ color: stage.color }}
                         >
                           {stage.question}
@@ -860,11 +865,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                   {/* Glossy Floor Reflection & Ground Glow */}
                   <div
-                    className="absolute -bottom-5 left-1/2 -translate-x-1/2 w-4/5 h-8 rounded-full blur-xl pointer-events-none opacity-60 transition-all duration-500 group-hover:opacity-95 group-hover:scale-110"
+                    className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-4/5 h-10 rounded-full blur-xl pointer-events-none opacity-65 transition-all duration-500 group-hover:opacity-95 group-hover:scale-110"
                     style={{ backgroundColor: stage.floorGlow }}
                   />
                   <div
-                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2/3 h-2 rounded-full blur-xs pointer-events-none opacity-40"
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2/3 h-2.5 rounded-full blur-xs pointer-events-none opacity-45"
                     style={{ backgroundColor: stage.floorGlow }}
                   />
                 </div>
