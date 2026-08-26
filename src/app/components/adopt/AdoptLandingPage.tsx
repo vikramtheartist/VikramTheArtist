@@ -272,6 +272,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     window.scrollTo(0, 0);
   }, []);
 
+  // Prevent background page scrolling when modal window is open/active
+  React.useEffect(() => {
+    if (activeStageDetail !== null || showPasswordModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeStageDetail, showPasswordModal]);
+
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   React.useEffect(() => {
