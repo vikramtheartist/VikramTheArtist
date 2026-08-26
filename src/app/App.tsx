@@ -64,7 +64,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
     if (!el) return;
 
     const Y_OFFSET = 0;         // Atmospheric halo
-    const Y_OFFSET_EARTH = 70;  // Earth moved down to match reference layout
+    const Y_OFFSET_EARTH = 0;   // Earth precisely aligned
     const X_OFFSET_EARTH = 0;   // Earth centered horizontally
     const Y_OFFSET_SUN = isLight ? 5 : 20; // Sun (aligned with earth displacement)
     const setPos = (top: number, left: number) => {
@@ -78,12 +78,13 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
     if (document.documentElement.dataset.perf === "lite") {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      setPos(vh * 0.84, vw / 2);
+      const h = el.offsetHeight || 1200;
+      setPos(vh * 0.75 + h / 2, vw / 2);
       return;
     }
 
     let ticking = false;
-    let cachedEarthH = el.offsetHeight || 800;
+    let cachedEarthH = el.offsetHeight || 1200;
     let cachedCard3Top = 0;
     let cachedCard3Height = 0;
     let cachedLastCardTop = 0;
@@ -91,7 +92,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
     let cachedCardsCount = 0;
 
     const measureCards = () => {
-      cachedEarthH = el.offsetHeight || 800;
+      cachedEarthH = el.offsetHeight || 1200;
       const cards = Array.from(document.querySelectorAll<HTMLElement>(".ws-card"));
       cachedCardsCount = cards.length;
       if (cards.length >= 3) {
@@ -116,7 +117,8 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       const vw      = window.innerWidth;
       const vh      = window.innerHeight;
 
-      const phase1Y = vh * 0.84 + cachedEarthH / 2 - scrollY * 0.7 - 240;
+      // Top of Earth aligns right below 'My work' title (~75% of viewport height at scroll=0)
+      const phase1Y = vh * 0.75 + cachedEarthH / 2 - scrollY * 0.7;
 
       if (!hasCards && cachedCardsCount < 3) {
         measureCards();
@@ -198,8 +200,8 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
             position: "fixed",
             top: 0,
             left: 0,
-            width: "calc(110vw + 140px)",
-            maxWidth: "1650px",
+            width: "calc(130vw + 140px)",
+            maxWidth: "2000px",
             aspectRatio: "1 / 1",
             borderRadius: "50%",
             background: [
@@ -210,7 +212,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
             pointerEvents: "none",
             zIndex: 0,
             willChange: "transform",
-            transform: "translate3d(50vw, 84vh, 0) translate(-50%, -50%)",
+            transform: "translate3d(50vw, calc(75vh + 600px), 0) translate(-50%, -50%)",
             transition: "background 0.6s ease",
           }}
         />
@@ -226,14 +228,15 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
           position: "fixed",
           top: 0,
           left: 0,
-          width: "128vw",
-          maxWidth: "1720px",
+          width: "160vw",
+          maxWidth: "2400px",
+          minWidth: "1500px",
           height: "auto",
           zIndex: 0,
           pointerEvents: "none",
           opacity: isLight ? 0 : 0.95,
           willChange: "transform",
-          transform: "translate3d(50vw, 84vh, 0) translate(-50%, -50%)",
+          transform: "translate3d(50vw, calc(75vh + 600px), 0) translate(-50%, -50%)",
           transition: "opacity 0.7s ease",
         }}
         className="earth-orb"
@@ -251,14 +254,14 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
           position: "fixed",
           top: 0,
           left: 0,
-          width: "81.26vw",
-          maxWidth: "1084.95px",
+          width: "130vw",
+          maxWidth: "1950px",
           height: "auto",
           zIndex: 0,
           pointerEvents: "none",
           opacity: isLight ? 0.95 : 0,
           willChange: "transform",
-          transform: "translate3d(50vw, 78vh, 0) translate(-50%, -50%)",
+          transform: "translate3d(50vw, calc(75vh + 600px), 0) translate(-50%, -50%)",
           transition: "opacity 0.7s ease",
         }}
         className="sun-orb"
