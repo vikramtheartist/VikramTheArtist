@@ -802,7 +802,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
 
-          {/* ── THE 5 GLASSMORPHIC STAGE CARDS (EXACT 1000% MATCH REFERENCE DESIGN) ─ */}
+          {/* ── THE 5 GLASSMORPHIC STAGE CARDS (CRYSTAL CLEAR GLASS) ─────────── */}
           <div className="relative pt-6 pb-12">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-6 lg:gap-7 relative z-10 items-stretch">
               {STAGES_DATA.map((stage, idx) => (
@@ -811,22 +811,22 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   onClick={() => setActiveStageDetail(idx)}
                   className="group relative flex flex-col h-full cursor-pointer transition-transform duration-500 hover:-translate-y-3"
                 >
-                  {/* Outer 3D Glass Phone Chassis with Luminous Edge Lighting */}
+                  {/* Outer 3D Glass Chassis with Luminous Edge Lighting */}
                   <div
-                    className="w-full h-full p-2 sm:p-2.5 rounded-[36px] sm:rounded-[40px] border-[2px] border-white/90 backdrop-blur-2xl transition-all duration-500 relative"
+                    className="w-full h-full p-2 sm:p-2.5 rounded-[36px] sm:rounded-[40px] border-[2px] border-white/80 backdrop-blur-md transition-all duration-500 relative"
                     style={{
-                      boxShadow: `0 0 24px ${stage.glowColor}, inset 0 0 16px ${stage.glowColor}, 0 20px 45px -10px rgba(15, 23, 42, 0.12)`,
-                      background: "rgba(255, 255, 255, 0.45)",
+                      boxShadow: `0 0 24px ${stage.glowColor}, inset 0 0 16px ${stage.glowColor}, 0 20px 45px -10px rgba(15, 23, 42, 0.08)`,
+                      background: "rgba(255, 255, 255, 0.08)",
                     }}
                   >
                     {/* Corner Specular Flare */}
                     <div className="absolute top-2 left-4 w-12 h-1 bg-gradient-to-r from-white via-white/80 to-transparent rounded-full blur-[0.5px] pointer-events-none" />
                     <div className="absolute top-4 left-2 w-1 h-12 bg-gradient-to-b from-white via-white/80 to-transparent rounded-full blur-[0.5px] pointer-events-none" />
 
-                    {/* Inner Frosted Glass Card Body */}
-                    <div className="w-full h-full rounded-[28px] sm:rounded-[32px] bg-gradient-to-b from-white/95 via-white/80 to-white/95 backdrop-blur-2xl p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden min-h-[520px] lg:min-h-[550px] border border-white/60 shadow-inner">
+                    {/* Inner Transparent Glass Body (No Opaque White Fills) */}
+                    <div className="w-full h-full rounded-[28px] sm:rounded-[32px] bg-gradient-to-b from-white/[0.22] via-white/[0.08] to-white/[0.68] backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between relative overflow-hidden min-h-[520px] lg:min-h-[550px] border border-white/60">
                       {/* Top Specular Arc Highlight */}
-                      <div className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b from-white/90 via-white/30 to-transparent pointer-events-none rounded-t-[28px]" />
+                      <div className="absolute top-0 inset-x-0 h-36 bg-gradient-to-b from-white/70 via-white/10 to-transparent pointer-events-none rounded-t-[28px]" />
 
                       {/* Top Header: Big Bold Number */}
                       <div className="relative z-20 flex items-center justify-between">
@@ -838,7 +838,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         </span>
                       </div>
 
-                      {/* Center Character Graphic */}
+                      {/* Center Character Graphic (Clean Floating on Glass) */}
                       <div className="w-full h-68 sm:h-76 lg:h-80 flex items-center justify-center my-auto relative z-10 overflow-visible select-none pointer-events-none">
                         <img
                           src={`${import.meta.env.BASE_URL}IMG/${stage.image}`}
@@ -854,7 +854,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         </h3>
 
                         <div
-                          className={`w-full py-3.5 px-4 rounded-[20px] ${stage.badgeBg} border ${stage.badgeBorder} text-[13px] sm:text-[13.5px] font-extrabold text-center tracking-tight shadow-sm transition-all group-hover:shadow-md`}
+                          className={`w-full py-3 px-4 rounded-[20px] bg-white/80 backdrop-blur-md border ${stage.badgeBorder} text-[13px] sm:text-[13.5px] font-extrabold text-center tracking-tight shadow-xs transition-all group-hover:shadow-sm`}
                           style={{ color: stage.color }}
                         >
                           {stage.question}
