@@ -1246,18 +1246,19 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 4 & 5: CONNECTED HORIZONTAL SLIDING INTERACTIVE EXPERIENCE ── */}
-      {/* (APPLIED PLAYBOOK & AI ADOPTION ENGINE) */}
+      {/* ── FINAL SECTION: CONNECTED SHOWCASE, CTA BANNER & FOOTER ── */}
+      {/* (APPLIED PLAYBOOK, AI ADOPTION ENGINE, CLOSING CTA & FOOTER) */}
       <section
         ref={sectionRef}
         id="case-study"
-        className="py-16 sm:py-20 lg:py-28 relative overflow-hidden bg-transparent"
+        className="pt-10 sm:pt-14 pb-8 relative overflow-hidden bg-transparent"
       >
-        {/* Anchor for Section 5 navigation link */}
+        {/* Anchors for navigation links */}
         <div id="adoptiq" className="absolute -top-24 left-0 pointer-events-none" />
+        <div id="impact" className="absolute -top-24 left-0 pointer-events-none" />
 
         {/* Top Interactive Switcher & Navigation Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-10 lg:mb-12 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 mb-8 lg:mb-10 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full">
           {/* Left: Dual Interactive Switcher Pill */}
           <div className="inline-flex p-1.5 rounded-full bg-white/90 backdrop-blur-xl border border-slate-200/80 shadow-[0_10px_30px_-6px_rgba(0,0,0,0.08)]">
             <button
@@ -1324,7 +1325,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
 
         {/* Horizontal Sliding Track with Smooth Cubic Animation */}
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full overflow-hidden mb-10 lg:mb-14">
           <div
             className="flex transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
             style={{
@@ -1551,13 +1552,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
         </div>
-      </section>
 
-      {/* ── SECTION 6: CLOSING CTA FOOTER BANNER ──────────────────────── */}
-      <section id="impact" className="py-14 lg:py-20 relative overflow-hidden">
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
+        {/* ── CLOSING CTA BANNER (Matching Attached Reference Image) ── */}
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full mb-8">
           <div
-            className="relative rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 lg:px-16 lg:py-14 border border-white/50 shadow-[0_20px_55px_-12px_rgba(168,85,247,0.22)] overflow-hidden text-left"
+            className="relative rounded-[28px] sm:rounded-[36px] p-6 sm:p-10 lg:px-14 lg:py-10 border border-white/50 shadow-[0_20px_55px_-12px_rgba(168,85,247,0.22)] overflow-hidden text-left"
             style={{
               background:
                 "linear-gradient(105deg, #7888f8 0%, #9ca7fc 24%, #b79dfb 48%, #d896ea 74%, #f794ca 100%)",
@@ -1600,7 +1599,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
               {/* Left Copy */}
               <div className="max-w-xl">
-                <h2 className="text-[34px] sm:text-[40px] lg:text-[46px] font-bold text-white tracking-tight leading-[1.12] mb-3">
+                <h2 className="text-[32px] sm:text-[38px] lg:text-[42px] font-bold text-white tracking-tight leading-[1.12] mb-2">
                   Design for behavior.<br />
                   Build what lasts.
                 </h2>
@@ -1636,20 +1635,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
         </div>
-      </section>
 
-      {/* ── FOOTER COPYRIGHT & ATTRIBUTION ───────────────────────────── */}
-      <footer className="py-8 border-t border-slate-200/80 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-extrabold text-slate-800">ADOPT</span>
-            <span>— A Behavioral Operating System for Enterprise AI Adoption</span>
-          </div>
-          <div>
-            <span>Crafted with pixel-precision by Vikram &bull; All rights reserved</span>
+        {/* ── FOOTER ATTRIBUTION LINE ─────────────────────────────────── */}
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full pt-4 border-t border-slate-200/60 text-xs text-slate-500">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <span className="font-extrabold text-slate-800">ADOPT</span>
+              <span>— A Behavioral Operating System for Enterprise AI Adoption</span>
+            </div>
+            <div>
+              <span>Crafted with pixel-precision by Vikram &bull; All rights reserved</span>
+            </div>
           </div>
         </div>
-      </footer>
+      </section>
       {/* Protected Case Study Password Modal */}
       {showPasswordModal && (
         <div
