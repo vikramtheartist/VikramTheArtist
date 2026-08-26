@@ -877,7 +877,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           {/* ── AUTHENTIC FROSTED GLASS STAGE DEEP-DIVE MODAL ──────── */}
           {activeStageDetail !== null && (
             <div
-              className="fixed inset-0 z-50 bg-white/10 flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in"
+              className="fixed inset-0 z-50 bg-white/20 flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in"
               onClick={() => setActiveStageDetail(null)}
             >
               {/* Frosted Glass Floating Card Container (Only Card Area is Blurred) */}
