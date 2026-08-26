@@ -618,4 +618,107 @@
     inset 0 1px 1.5px rgba(255, 255, 255, 0.95);
 }
 
+/* ── World-Class Parallax & Motion System Styles ─────────────── */
+
+/* Hardware Accelerated Transforms */
+.adopt-gpu-layer {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/* Atmospheric Floating Objects (Calm, Expansive 8s-12s loops) */
+@keyframes adopt-calm-float-a {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0) rotate(1.5deg);
+  }
+}
+
+@keyframes adopt-calm-float-b {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, 12px, 0) rotate(-1.5deg);
+  }
+}
+
+.animate-calm-float-a {
+  animation: adopt-calm-float-a 9s ease-in-out infinite;
+}
+
+.animate-calm-float-b {
+  animation: adopt-calm-float-b 11s ease-in-out infinite;
+}
+
+/* Continuous Luminous Energy Rail */
+.adopt-energy-path {
+  background: linear-gradient(
+    90deg,
+    rgba(56, 189, 248, 0.15) 0%,
+    rgba(99, 102, 241, 0.85) 50%,
+    rgba(236, 72, 153, 0.2) 100%
+  );
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Stage Connecting Pulse */
+@keyframes adopt-stage-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scaleX(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.animate-stage-pulse {
+  animation: adopt-stage-pulse 4s ease-in-out infinite;
+}
+
+/* Waterline Shimmer */
+@keyframes adopt-waterline-shimmer {
+  0%, 100% {
+    opacity: 0.7;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.3);
+  }
+}
+
+.animate-waterline-shimmer {
+  animation: adopt-waterline-shimmer 5s ease-in-out infinite;
+}
+
+/* Pinned Storytelling Scene Containment */
+.adopt-pinned-scene {
+  position: relative;
+  overflow: clip;
+}
+
+/* Prefers Reduced Motion Fallbacks */
+@media (prefers-reduced-motion: reduce) {
+  .adopt-gpu-layer,
+  .animate-calm-float-a,
+  .animate-calm-float-b,
+  .animate-stage-pulse,
+  .animate-waterline-shimmer,
+  .animate-adopt-float-1,
+  .animate-adopt-float-2,
+  .animate-adopt-dash {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+
 
