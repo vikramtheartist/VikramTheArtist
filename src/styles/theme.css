@@ -115,7 +115,7 @@ body {
   box-shadow: 0 16px 45px rgba(33, 4, 104, 0.5), 0 0 50px -2px rgba(168, 85, 247, 0.45);
 }
 
-/* Rotating glowing border layer */
+/* Rotating glowing border layer — hidden by default, appears on rollover */
 .hero-philosophy-card .card-gradient-border {
   position: absolute;
   inset: -1.5px;
@@ -125,6 +125,12 @@ body {
   z-index: 0;
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   transform: scaleY(1.008) scaleX(1.004);
+  opacity: 0;
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-philosophy-card:hover .card-gradient-border {
+  opacity: 1;
 }
 
 .hero-philosophy-card .card-gradient-border::before {
@@ -168,7 +174,13 @@ body {
   background: var(--card-background);
   backdrop-filter: blur(36px) saturate(190%);
   -webkit-backdrop-filter: blur(36px) saturate(190%);
+  border: 1px solid rgba(192, 132, 252, 0.25);
   overflow: hidden;
+  transition: border-color 0.4s ease;
+}
+
+.hero-philosophy-card:hover .card-inner {
+  border-color: rgba(192, 132, 252, 0.10);
 }
 
 /* Mouse pointer tracking spotlight glow */
