@@ -237,18 +237,10 @@ function SpaceSmoke() {
   );
 }
 
-import { Eye, Sparkles, TrendingUp } from "lucide-react";
-
 /* ── Philosophy cards ───────────────────────────────────────── */
 const cards = [
   {
     title: "Observe",
-    tag: "DISCOVER & FRAME",
-    icon: Eye,
-    tagGradient: "linear-gradient(135deg, rgba(168, 85, 247, 0.35) 0%, rgba(99, 102, 241, 0.25) 100%)",
-    tagBorder: "rgba(192, 132, 252, 0.45)",
-    tagGlow: "0 4px 14px rgba(168, 85, 247, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.50)",
-    iconColor: "#d8b4fe",
     waveStart: "#ec4899",
     waveMid: "#a855f7",
     waveEnd: "#06b6d4",
@@ -256,12 +248,6 @@ const cards = [
   },
   {
     title: "Create",
-    tag: "DESIGN & DECIDE",
-    icon: Sparkles,
-    tagGradient: "linear-gradient(135deg, rgba(6, 182, 212, 0.35) 0%, rgba(59, 130, 246, 0.25) 100%)",
-    tagBorder: "rgba(56, 189, 248, 0.45)",
-    tagGlow: "0 4px 14px rgba(6, 182, 212, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.50)",
-    iconColor: "#7dd3fc",
     waveStart: "#06b6d4",
     waveMid: "#3b82f6",
     waveEnd: "#a855f7",
@@ -269,12 +255,6 @@ const cards = [
   },
   {
     title: "Evolve",
-    tag: "SCALE & REFINE",
-    icon: TrendingUp,
-    tagGradient: "linear-gradient(135deg, rgba(168, 85, 247, 0.35) 0%, rgba(236, 72, 153, 0.25) 100%)",
-    tagBorder: "rgba(244, 114, 182, 0.45)",
-    tagGlow: "0 4px 14px rgba(236, 72, 153, 0.30), inset 0 1px 1px rgba(255, 255, 255, 0.50)",
-    iconColor: "#f472b6",
     waveStart: "#a855f7",
     waveMid: "#ec4899",
     waveEnd: "#38bdf8",
@@ -423,7 +403,7 @@ export function Hero() {
           ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}
         >
-          {cards.map(({ title, tag, icon: Icon, tagGradient, tagBorder, tagGlow, iconColor, waveStart, waveMid, waveEnd, body }) => (
+          {cards.map(({ title, waveStart, waveMid, waveEnd, body }) => (
             <div
               key={title}
               className="group hero-philosophy-card cursor-default"
@@ -451,32 +431,6 @@ export function Hero() {
                   }}
                 />
 
-                {/* Header: Glossy Pill Badge with Icon */}
-                <div className="relative z-10 flex items-center mb-1">
-                  <div
-                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-md transition-all duration-300"
-                    style={{
-                      background: tagGradient,
-                      border: `1px solid ${tagBorder}`,
-                      boxShadow: tagGlow,
-                    }}
-                  >
-                    <Icon className="w-3.5 h-3.5" style={{ color: iconColor }} strokeWidth={2.2} />
-                    <span
-                      style={{
-                        fontFamily: "'Inter', sans-serif",
-                        fontSize: "10.5px",
-                        fontWeight: 700,
-                        letterSpacing: "0.08em",
-                        color: "#ffffff",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  </div>
-                </div>
-
                 {/* Title: Bold Crisp Specular Typography */}
                 <h3
                   className="relative z-10 tracking-tight"
@@ -487,7 +441,7 @@ export function Hero() {
                     lineHeight: 1.15,
                     letterSpacing: "-0.02em",
                     color: "#ffffff",
-                    margin: 0,
+                    margin: "4px 0 2px 0",
                     textShadow: "0 2px 10px rgba(0,0,0,0.4)",
                   }}
                 >
