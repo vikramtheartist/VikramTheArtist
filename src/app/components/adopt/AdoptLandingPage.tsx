@@ -881,13 +881,26 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     onClick={() => setActiveStageDetail(idx)}
                     className="flex flex-col h-full cursor-pointer group transition-all duration-300 hover:-translate-y-2.5 relative"
                   >
-                    {/* Glass Card */}
-                    <div className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.18)] transition-all duration-300 flex items-center justify-center z-10">
-                      <img
-                        src={stage.cardImg}
-                        alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
-                        className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
-                      />
+                    {/* AI Gradient Rotating Glowing Border & Spill Container on Roll Over */}
+                    <div className="relative p-[2px] rounded-[30px] sm:rounded-[34px] transition-all duration-300 group-hover:drop-shadow-[0_20px_45px_rgba(192,132,252,0.22)]">
+                      {/* Rotating Outer Conic Border Glow */}
+                      <div className="absolute inset-0 rounded-[inherit] overflow-hidden opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        <div className="ai-gradient-rotating-bg" />
+                      </div>
+
+                      {/* Glass Card Body */}
+                      <div className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden transition-all duration-300 flex items-center justify-center z-10">
+                        <img
+                          src={stage.cardImg}
+                          alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
+                          className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                        />
+
+                        {/* Inner AI Glow Spill with Radial Mask */}
+                        <div className="ai-glow-spill-mask opacity-0 group-hover:opacity-75 blur-xl pointer-events-none absolute inset-[-40%] z-20 overflow-hidden transition-opacity duration-300">
+                          <div className="ai-gradient-rotating-bg" />
+                        </div>
+                      </div>
                     </div>
 
                     {/* ── GLASSY BASE CAUSTIC LIGHT GLOW (TRANSPARENT BACKGROUND) ── */}
