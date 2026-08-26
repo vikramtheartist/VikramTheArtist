@@ -1212,8 +1212,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       <span>APPLIED PLAYBOOK</span>
                     </div>
 
-                    {/* Brand Title with Gradient */}
-                    <h2 className="text-[54px] sm:text-[64px] lg:text-[70px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#f43f5e] via-[#c084fc] to-[#6366f1] tracking-tight leading-[0.95] mb-2">
+                    {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
+                    <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
                       Microsoft Copilot
                     </h2>
 
@@ -1322,8 +1322,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       <span>AI ADOPTION ENGINE</span>
                     </div>
 
-                    {/* Brand Title with Gradient */}
-                    <h2 className="text-[54px] sm:text-[66px] lg:text-[74px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#4f46e5] via-[#6366f1] to-[#3b82f6] tracking-tight leading-[0.95] mb-2">
+                    {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
+                    <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
                       AdoptIQ.ai
                     </h2>
 
