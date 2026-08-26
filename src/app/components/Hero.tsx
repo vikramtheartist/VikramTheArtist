@@ -1,4 +1,5 @@
 import { useMemo, useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+import { Eye, Sparkles, TrendingUp } from "lucide-react";
 
 /* ── Star Canvas (replaces 740 individual DOM nodes) ────────────
  * All 4 star layers drawn on one <canvas>. Each layer has a parallax
@@ -239,9 +240,45 @@ function SpaceSmoke() {
 
 /* ── Philosophy cards ───────────────────────────────────────── */
 const cards = [
-  { title: "Observe", body: "I understand the system—users, data, AI, and context to frame the right problem." },
-  { title: "Create",  body: "I design end-to-end experiences that turn complexity into clear, usable decisions." },
-  { title: "Evolve",  body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust." },
+  {
+    title: "Observe",
+    body: "I understand the system—users, data, AI, and context to frame the right problem.",
+    icon: Eye,
+    theme: {
+      border: "rgba(99, 102, 241, 0.35)",
+      glow: "rgba(99, 102, 241, 0.16)",
+      iconBg: "radial-gradient(circle at 35% 35%, #4f46e5, #1e1b4b)",
+      iconBorder: "rgba(129, 140, 248, 0.5)",
+      lineBg: "#818cf8",
+      accentGlow: "rgba(99, 102, 241, 0.6)"
+    }
+  },
+  {
+    title: "Create",
+    body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
+    icon: Sparkles,
+    theme: {
+      border: "rgba(56, 189, 248, 0.35)",
+      glow: "rgba(56, 189, 248, 0.16)",
+      iconBg: "radial-gradient(circle at 35% 35%, #0284c7, #082f49)",
+      iconBorder: "rgba(56, 189, 248, 0.5)",
+      lineBg: "#38bdf8",
+      accentGlow: "rgba(56, 189, 248, 0.6)"
+    }
+  },
+  {
+    title: "Evolve",
+    body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
+    icon: TrendingUp,
+    theme: {
+      border: "rgba(168, 85, 247, 0.35)",
+      glow: "rgba(168, 85, 247, 0.16)",
+      iconBg: "radial-gradient(circle at 35% 35%, #7e22ce, #3b0764)",
+      iconBorder: "rgba(192, 132, 252, 0.5)",
+      lineBg: "#c084fc",
+      accentGlow: "rgba(168, 85, 247, 0.6)"
+    }
+  },
 ];
 
 /* ── Hero ───────────────────────────────────────────────────── */
@@ -366,18 +403,51 @@ export function Hero() {
         `}</style>
         <div className="hero-cards-grid" ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}>
-          {cards.map(({ title, body }) => (
-            <div key={title} className="flex flex-col transition-colors duration-300 hero-philosophy-card"
+          {cards.map(({ title, body, icon: Icon, theme }) => (
+            <div key={title} className="flex flex-col justify-between transition-all duration-300 hero-philosophy-card group hover:scale-[1.02]"
               style={{
-                padding: '26px 24px', gap: '8px',
-                borderRadius: '20px',
+                padding: '28px 26px',
+                borderRadius: '24px',
+                background: 'rgba(10, 15, 30, 0.48)',
+                backdropFilter: 'blur(24px) saturate(1.8)',
+                WebkitBackdropFilter: 'blur(24px) saturate(1.8)',
+                border: `1px solid ${theme.border}`,
+                borderTop: '1px solid rgba(255, 255, 255, 0.25)',
+                boxShadow: `0 16px 36px -6px rgba(0,0,0,0.5), 0 0 24px -2px ${theme.glow}, inset 0 1px 1px rgba(255, 255, 255, 0.15)`,
+                minHeight: '220px',
               }}>
-              <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 300, fontSize: '20px', lineHeight: 1.2, color: 'var(--text-1)', margin: 0 }}>
-                {title}
-              </h3>
-              <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, fontSize: '17px', lineHeight: 1.7, color: 'var(--text-2)', margin: 0 }}>
-                {body}
-              </p>
+              <div>
+                <div className="flex items-center gap-3.5 mb-4">
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-md transition-transform group-hover:scale-110"
+                    style={{
+                      background: theme.iconBg,
+                      border: `1px solid ${theme.iconBorder}`,
+                      boxShadow: `0 0 16px ${theme.accentGlow}`,
+                    }}
+                  >
+                    <Icon className="w-4 h-4 text-white stroke-[2.2]" />
+                  </div>
+                  <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500, fontSize: '21px', lineHeight: 1.2, color: '#ffffff', margin: 0 }}>
+                    {title}
+                  </h3>
+                </div>
+                <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400, fontSize: '14px', lineHeight: 1.65, color: 'rgba(226, 232, 240, 0.85)', margin: 0 }}>
+                  {body}
+                </p>
+              </div>
+
+              {/* Bottom accent pill line */}
+              <div className="mt-5 pt-1">
+                <div
+                  className="h-[3px] rounded-full transition-all duration-300 group-hover:w-12"
+                  style={{
+                    width: '28px',
+                    background: theme.lineBg,
+                    boxShadow: `0 0 10px ${theme.accentGlow}`,
+                  }}
+                />
+              </div>
             </div>
           ))}
         </div>

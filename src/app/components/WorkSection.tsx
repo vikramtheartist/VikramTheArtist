@@ -10,29 +10,34 @@ const PLAYBOOK_LINK = "https://www.figma.com/deck/vGd7lTFMt1PeMQTr7dcz7l/ADOPT?n
 
 /* ── Project data ──────────────────────────────────────────────────── */
 
-type CTA = { label: string; href?: string; internal?: boolean; disabled?: boolean };
+type CTA = { label: string; href?: string; internal?: boolean; disabled?: boolean; isPrimary?: boolean };
 
 const projects: {
   title: string;
-  description: string;
+  isFeatured?: boolean;
+  description: ReactNode;
   ctas: CTA[];
   thumb: ReactNode;
 }[] = [
   {
     title: "Driving Copilot Adoption",
-    description:
-      "Built ADOPT playbook, applied it to scale Copilot adoption, and evolved it into AdoptIQ.ai. an AI-powered adoption engine.",
+    isFeatured: true,
+    description: (
+      <>
+        Built <span className="text-[#a5b4fc] font-semibold">ADOPT</span> playbook, applied it to scale Copilot adoption, and evolved it into <span className="text-[#c084fc] font-semibold">AdoptIQ.ai</span> an AI-powered adoption engine.
+      </>
+    ),
     ctas: [
+      { label: "View case study", href: "/adopt", internal: true, isPrimary: true },
       { label: "Playbook", href: "/adopt", internal: true },
-      { label: "View Copilot Use Case", href: PLAYBOOK_LINK, internal: true },
       { label: "AdoptIQ.ai", href: "https://adoptiqai.vercel.app/" },
     ],
     thumb: (
-      <div className="w-full h-full overflow-hidden rounded-xl">
+      <div className="w-full h-full overflow-hidden rounded-[22px]">
         <img
           src={adoptThumb}
           alt="Driving Copilot Adoption"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", opacity: 0.9 }}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", opacity: 0.95 }}
         />
       </div>
     ),
@@ -43,7 +48,7 @@ const projects: {
       "Led groundbreaking UX design projects for Cloud Security and Anthos, driving innovation and improving user experiences.",
     ctas: [{ label: "Data Security Posture Mgmt", href: "https://datasecurity-vikram.framer.website/" }],
     thumb: (
-      <div className="w-full h-full overflow-hidden rounded-xl">
+      <div className="w-full h-full overflow-hidden rounded-[22px]">
         <img
           src={`${import.meta.env.BASE_URL}IMG/Data Security_Card.png`}
           alt="Data Security"
@@ -281,64 +286,78 @@ const projects: {
 
 function ProjectCard({
   title,
+  isFeatured,
   description,
   ctas,
   thumb,
   onInternalCta,
 }: {
   title: string;
-  description: string;
+  isFeatured?: boolean;
+  description: ReactNode;
   ctas: CTA[];
   thumb: ReactNode;
   onInternalCta?: (cta: CTA) => void;
 }) {
   return (
     <div
-      className="project-card flex rounded-[40px] overflow-hidden transition-all duration-300"
+      className="project-card flex rounded-[36px] overflow-hidden transition-all duration-300 group hover:border-white/25"
       style={{
-        background: "rgba(0,0,0,0.45)",
-        backdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
-        WebkitBackdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
+        background: "linear-gradient(135deg, rgba(12, 18, 42, 0.60) 0%, rgba(18, 14, 46, 0.72) 100%)",
+        backdropFilter: "blur(28px) saturate(1.8)",
+        WebkitBackdropFilter: "blur(28px) saturate(1.8)",
+        border: "1px solid rgba(255, 255, 255, 0.16)",
+        borderTop: "1.5px solid rgba(255, 255, 255, 0.50)",
         boxShadow: [
-          "inset 0 0 0 1px rgba(255,255,255,0.16)",
-          "0 8px 32px rgba(0,0,0,0.40)",
-          "inset 0 1.5px 1px rgba(255,255,255,0.52)",
-          "inset 0 -2px 5px rgba(0,0,0,0.28)",
+          "0 24px 64px -12px rgba(0,0,0,0.65)",
+          "0 0 40px -8px rgba(99,102,241,0.22)",
+          "inset 0 1px 1px rgba(255,255,255,0.35)",
         ].join(", "),
-        minHeight: "300px",
+        minHeight: "320px",
       }}
     >
       {/* Left: text content */}
       <div
         className="project-card-text flex flex-col justify-between"
-        style={{ flex: "0 0 54%", padding: "40px 48px" }}
+        style={{ flex: "0 0 54%", padding: "38px 44px" }}
       >
         <div>
+          {isFeatured && (
+            <div
+              className="text-[11px] font-bold tracking-[0.22em] uppercase mb-2.5"
+              style={{ color: "#a5b4fc", fontFamily: "'Inter', sans-serif" }}
+            >
+              FEATURED PROJECT
+            </div>
+          )}
           <h3
             className="project-card-title"
             style={{
               fontFamily: "'Poppins', sans-serif",
-              fontWeight: 400,
-              fontSize: "28px",
+              fontWeight: 500,
+              fontSize: "27px",
               lineHeight: 1.25,
-              color: "white",
-              marginBottom: "16px",
+              color: "#ffffff",
+              marginBottom: "14px",
+              letterSpacing: "-0.01em",
             }}
           >
             {title}
           </h3>
-          <p
+          <div
             style={{
-              color: "rgba(255,255,255,0.8)",
-              fontSize: "16px",
-              lineHeight: 1.75,
+              color: "rgba(226, 232, 240, 0.88)",
+              fontSize: "14.5px",
+              lineHeight: 1.65,
               margin: 0,
+              fontFamily: "'Inter', sans-serif",
             }}
           >
             {description}
-          </p>
+          </div>
         </div>
-        <div className="project-card-ctas flex flex-col items-start gap-3" style={{ marginTop: "28px" }}>
+
+        <div className="project-card-ctas flex flex-wrap items-center gap-3.5" style={{ marginTop: "26px" }}>
           {ctas.map((cta) => {
             const arrow = (
               <span
@@ -356,16 +375,33 @@ function ProjectCard({
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="1.6"
+                  strokeWidth="2.2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
+                  className="transition-transform group-hover:translate-x-1"
                 >
                   <path d="M5 12h14M13 6l6 6-6 6" />
                 </svg>
               </span>
             );
-            const innerStyle: React.CSSProperties = { padding: "11px 28px" };
-            const innerClass = "shine-inner text-white/75 hover:text-white text-sm";
+
+            if (cta.isPrimary) {
+              return (
+                <button
+                  key={cta.label}
+                  type="button"
+                  onClick={() => onInternalCta?.(cta)}
+                  className="inline-flex items-center gap-2 text-[14.5px] font-semibold text-[#c084fc] hover:text-[#e879f9] transition-colors group cursor-pointer bg-transparent border-0 p-0"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                >
+                  <span>{cta.label}</span>
+                  {arrow}
+                </button>
+              );
+            }
+
+            const innerStyle: React.CSSProperties = { padding: "9px 22px" };
+            const innerClass = "shine-inner text-white/75 hover:text-white text-xs";
 
             if (cta.disabled) {
               return (
@@ -374,7 +410,7 @@ function ProjectCard({
                     type="button"
                     disabled
                     aria-disabled="true"
-                    className="shine-inner text-white/60 text-sm"
+                    className="shine-inner text-white/60 text-xs"
                     style={{ ...innerStyle, border: "none", cursor: "not-allowed", fontFamily: "inherit" }}
                   >
                     <span>{cta.label}</span>
@@ -422,8 +458,8 @@ function ProjectCard({
         className="project-card-thumb"
         style={{
           flex: 1,
-          margin: "20px 20px 20px 0",
-          borderRadius: "24px",
+          margin: "18px 18px 18px 0",
+          borderRadius: "26px",
           overflow: "hidden",
         }}
       >
@@ -540,22 +576,25 @@ export function WorkSection({
       ref={sectionRef}
       id="work"
       className="relative px-8"
-      style={{ paddingTop: "90px", maxWidth: "900px", margin: "0 auto" }}
+      style={{ paddingTop: "90px", maxWidth: "920px", margin: "0 auto" }}
     >
-      {/* Heading */}
+      {/* Heading matching reference ✦ My work ✦ */}
       <h2
-        className="text-center mb-12 h-grad-bright"
+        className="text-center mb-12 flex items-center justify-center gap-3.5"
         style={{
           fontFamily: "'Poppins', sans-serif",
-          fontSize: "2.5rem",
+          fontSize: "2.3rem",
           lineHeight: 1.2,
-          fontWeight: 300,
+          fontWeight: 400,
+          color: "#ffffff",
           position: "relative",
           zIndex: 5,
-          paddingBottom: "0.1em",
+          letterSpacing: "-0.01em",
         }}
       >
-        <span>My </span><span>work</span>
+        <span className="text-[#a855f7] text-base opacity-75 select-none" aria-hidden>✦</span>
+        <span>My work</span>
+        <span className="text-[#a855f7] text-base opacity-75 select-none" aria-hidden>✦</span>
       </h2>
 
       {/* Sticky card stack */}
