@@ -272,23 +272,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     window.scrollTo(0, 0);
   }, []);
 
-  const [coreProblemInView, setCoreProblemInView] = useState(false);
-  const coreProblemRef = React.useRef<HTMLElement | null>(null);
-
-  React.useEffect(() => {
-    if (!coreProblemRef.current) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setCoreProblemInView(true);
-        }
-      },
-      { threshold: 0.12 }
-    );
-    observer.observe(coreProblemRef.current);
-    return () => observer.disconnect();
-  }, []);
-
   // Prevent background page scrolling when modal window is open/active
   React.useEffect(() => {
     if (activeStageDetail !== null || showPasswordModal) {
@@ -301,19 +284,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     };
   }, [activeStageDetail, showPasswordModal]);
 
-  const pageRef = React.useRef<HTMLDivElement | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   React.useEffect(() => {
     let ticking = false;
     const handleMouseMove = (e: MouseEvent) => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const mx = (e.clientX / window.innerWidth - 0.5) * 2;
-          const my = (e.clientY / window.innerHeight - 0.5) * 2;
-          if (pageRef.current) {
-            pageRef.current.style.setProperty("--mx", mx.toFixed(3));
-            pageRef.current.style.setProperty("--my", my.toFixed(3));
-          }
+          setMousePos({
+            x: (e.clientX / window.innerWidth - 0.5) * 2,
+            y: (e.clientY / window.innerHeight - 0.5) * 2,
+          });
           ticking = false;
         });
         ticking = true;
@@ -328,13 +309,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const sy = window.scrollY;
-          if (pageRef.current) {
-            pageRef.current.style.setProperty("--sy", sy.toFixed(1));
-          }
-          if (sy < 1200) {
-            setScrollY(sy);
-          }
+          setScrollY(window.scrollY);
           ticking = false;
         });
         ticking = true;
@@ -352,7 +327,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   };
 
   return (
-    <div ref={pageRef} className="adopt-page-wrapper selection:bg-indigo-500 selection:text-white relative">
+    <div className="adopt-page-wrapper selection:bg-indigo-500 selection:text-white relative">
       {/* ── CONTINUOUS FLOWING MOODBOARD GRADIENT ATMOSPHERE (FULL PAGE) ─ */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
         {/* Top Hero Glows: Pastel Mint/Cyan + Iris Violet/Lilac + Strawberry Pink */}
@@ -420,15 +395,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div
             className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
             style={{
-              transform: "translate3d(calc(50px + var(--mx, 0) * 20px), calc(var(--my, 0) * 14px), 0) scale(1.05) perspective(1000px) rotateY(calc(var(--mx, 0) * 3.5deg)) rotateX(calc(var(--my, 0) * -3deg))",
+              transform: `translate3d(${50 + mousePos.x * 20}px, ${mousePos.y * 14}px, 0) scale(1.05) perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
               transformOrigin: "78% 50%",
             }}
           >
             <img
               src={`${import.meta.env.BASE_URL}IMG/adopt_hero_glass_bg.jpg`}
               alt="ADOPT 8K 3D Glass Artwork"
-              fetchPriority="high"
-              decoding="async"
               className="w-full h-full object-cover object-[80%_center] lg:object-[78%_center] opacity-95 transition-opacity duration-700 animate-hero-float scale-105"
             />
           </div>
@@ -437,13 +410,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div
             className="absolute top-1/4 right-1/3 w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-400/30 to-violet-400/40 blur-xl will-change-transform transition-transform duration-300"
             style={{
-              transform: "translate3d(calc(var(--mx, 0) * -28px), calc(var(--my, 0) * -20px), 0)",
+              transform: `translate3d(${mousePos.x * -28}px, ${mousePos.y * -20}px, 0)`,
             }}
           />
           <div
             className="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-pink-400/25 to-purple-400/35 blur-2xl will-change-transform transition-transform duration-300"
             style={{
-              transform: "translate3d(calc(var(--mx, 0) * 22px), calc(var(--my, 0) * 18px), 0)",
+              transform: `translate3d(${mousePos.x * 22}px, ${mousePos.y * 18}px, 0)`,
             }}
           />
 
@@ -461,7 +434,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div
             className="max-w-2xl text-left will-change-transform transition-transform duration-200"
             style={{
-              transform: "translate3d(calc(var(--mx, 0) * -6px), calc(var(--my, 0) * -4px), 0)",
+              transform: `translate3d(${mousePos.x * -6}px, ${mousePos.y * -4}px, 0)`,
             }}
           >
             {/* Eyebrow Badge */}
@@ -574,7 +547,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        ref={coreProblemRef}
         className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent"
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Multiply Blending */}
@@ -588,14 +560,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div
             className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
-              transform: "translate3d(calc(var(--mx, 0) * 8px), calc((var(--sy, 0) - 500) * -0.035px + var(--my, 0) * 6px), 0) perspective(1200px) rotateY(calc(var(--mx, 0) * 2deg)) rotateX(calc(var(--my, 0) * -1.5deg))",
+              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
             }}
           >
             <img
               src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
-              loading="lazy"
-              decoding="async"
               className="w-full h-full object-contain sm:object-cover object-center mix-blend-multiply transition-transform duration-700 opacity-95"
             />
           </div>
@@ -628,64 +598,53 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </p>
             </div>
 
-            {/* Top Right: ABOVE THE SURFACE Callout Card with Fade & Slide In (Shifted Leftward by 40px) */}
+            {/* Top Right: ABOVE THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className="w-full max-w-[320px] lg:-translate-x-10 transition-all duration-700 ease-out"
+                className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                 style={{
-                  opacity: coreProblemInView ? 1 : 0,
-                  transform: coreProblemInView
-                    ? "translate3d(0, 0, 0)"
-                    : "translate3d(50px, 0, 0)",
-                  transitionDelay: "150ms",
+                  transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
                 }}
               >
-                <div
-                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full text-left mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
-                  style={{
-                    transform: "perspective(1000px) rotateY(calc(var(--mx, 0) * 3.5deg)) rotateX(calc(var(--my, 0) * -3.5deg))",
-                  }}
-                >
-                  {/* Connecting Line to Mountain Peak with Pulsing Sonar Beacon */}
-                  <div className="hidden lg:block absolute -left-16 top-6 w-16 h-8 pointer-events-none">
-                    {/* Glowing Radar Sonar Ping Node */}
-                    <div className="absolute left-0 top-[25px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#6366f1] animate-adopt-sonar" />
-                    <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
-                      <path d="M64 10 L 22 10 L 0 28" stroke="#a5b4fc" strokeWidth="1.4" className="animate-adopt-dash" />
-                      <circle cx="0" cy="28" r="3.5" fill="#6366f1" />
-                      <circle cx="0" cy="28" r="6" stroke="#c7d2fe" strokeWidth="1" opacity="0.6" />
-                    </svg>
-                  </div>
+                {/* Connecting Line to Mountain Peak with Pulsing Sonar Beacon */}
+                <div className="hidden lg:block absolute -left-16 top-6 w-16 h-8 pointer-events-none">
+                  {/* Glowing Radar Sonar Ping Node */}
+                  <div className="absolute left-0 top-[25px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#6366f1] animate-adopt-sonar" />
+                  <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
+                    <path d="M64 10 L 22 10 L 0 28" stroke="#a5b4fc" strokeWidth="1.4" className="animate-adopt-dash" />
+                    <circle cx="0" cy="28" r="3.5" fill="#6366f1" />
+                    <circle cx="0" cy="28" r="6" stroke="#c7d2fe" strokeWidth="1" opacity="0.6" />
+                  </svg>
+                </div>
 
-                  <div className="flex items-center gap-3.5 mb-3.5">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
-                      <Mountain className="w-5 h-5 text-[#6366f1] stroke-[2]" />
+                <div className="flex items-center gap-3.5 mb-3.5">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
+                    <Mountain className="w-5 h-5 text-[#6366f1] stroke-[2]" />
+                  </div>
+                  <div>
+                    <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
+                      ABOVE THE SURFACE
                     </div>
-                    <div>
-                      <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
-                        ABOVE THE SURFACE
-                      </div>
-                      <div className="text-[12px] text-[#64748b] font-medium">
-                        What teams optimize
-                      </div>
+                    <div className="text-[12px] text-[#64748b] font-medium">
+                      What teams optimize
                     </div>
                   </div>
+                </div>
 
-                  <div className="space-y-2 pl-2">
-                    {[
-                      "Advanced capabilities",
-                      "Continuous innovation",
-                      "Feature-rich roadmap",
-                      "Enterprise-grade security",
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155] hover:text-[#0f172a] transition-colors">
-                        <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0 shadow-xs">
-                          <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
-                        </div>
-                        <span>{item}</span>
+                <div className="space-y-2 pl-2">
+                  {[
+                    "Advanced capabilities",
+                    "Continuous innovation",
+                    "Feature-rich roadmap",
+                    "Enterprise-grade security",
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155] hover:text-[#0f172a] transition-colors">
+                      <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0 shadow-xs">
+                        <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
                       </div>
-                    ))}
-                  </div>
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -693,7 +652,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
           {/* Bottom Row (Below Water / Lower Content Area) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 sm:pt-12">
-            {/* Bottom Left: 4 Checkmark Bullet Items with Staggered Fade-in & Slide-in */}
+            {/* Bottom Left: 4 Checkmark Bullet Items with Interactive Micro-Slide */}
             <div className="lg:col-span-6 space-y-4 max-w-[440px] text-left">
               {[
                 "Users don't resist products.",
@@ -703,14 +662,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ].map((text, idx) => (
                 <div
                   key={idx}
-                  className="flex items-start gap-3.5 group cursor-default transition-all duration-700 ease-out hover:translate-x-1.5"
-                  style={{
-                    opacity: coreProblemInView ? 1 : 0,
-                    transform: coreProblemInView
-                      ? "translate3d(0, 0, 0)"
-                      : "translate3d(-40px, 0, 0)",
-                    transitionDelay: `${200 + idx * 120}ms`,
-                  }}
+                  className="flex items-start gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
                 >
                   <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)] transition-all">
                     <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
@@ -722,64 +674,53 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ))}
             </div>
 
-            {/* Bottom Right: BELOW THE SURFACE Callout Card with Staggered Fade & Slide In (Shifted Leftward by 40px) */}
+            {/* Bottom Right: BELOW THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className="w-full max-w-[320px] lg:-translate-x-10 transition-all duration-700 ease-out"
+                className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:mr-4 mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
                 style={{
-                  opacity: coreProblemInView ? 1 : 0,
-                  transform: coreProblemInView
-                    ? "translate3d(0, 0, 0)"
-                    : "translate3d(50px, 0, 0)",
-                  transitionDelay: "380ms",
+                  transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
                 }}
               >
-                <div
-                  className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full text-left mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
-                  style={{
-                    transform: "perspective(1000px) rotateY(calc(var(--mx, 0) * 3.5deg)) rotateX(calc(var(--my, 0) * -3.5deg))",
-                  }}
-                >
-                  {/* Connecting Line to Submerged Iceberg with Pulsing Sonar Beacon */}
-                  <div className="hidden lg:block absolute -left-16 top-6 w-16 h-4 pointer-events-none">
-                    {/* Glowing Radar Sonar Ping Node */}
-                    <div className="absolute left-0 top-[8px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#38bdf8] animate-adopt-sonar" />
-                    <svg className="w-full h-full" viewBox="0 0 64 16" fill="none">
-                      <path d="M64 8 L 0 8" stroke="#38bdf8" strokeWidth="1.4" className="animate-adopt-dash" />
-                      <circle cx="0" cy="8" r="3.5" fill="#38bdf8" />
-                      <circle cx="0" cy="8" r="6" stroke="#7dd3fc" strokeWidth="1" opacity="0.6" />
-                    </svg>
-                  </div>
+                {/* Connecting Line to Submerged Iceberg with Pulsing Sonar Beacon */}
+                <div className="hidden lg:block absolute -left-16 top-6 w-16 h-4 pointer-events-none">
+                  {/* Glowing Radar Sonar Ping Node */}
+                  <div className="absolute left-0 top-[8px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#38bdf8] animate-adopt-sonar" />
+                  <svg className="w-full h-full" viewBox="0 0 64 16" fill="none">
+                    <path d="M64 8 L 0 8" stroke="#38bdf8" strokeWidth="1.4" className="animate-adopt-dash" />
+                    <circle cx="0" cy="8" r="3.5" fill="#38bdf8" />
+                    <circle cx="0" cy="8" r="6" stroke="#7dd3fc" strokeWidth="1" opacity="0.6" />
+                  </svg>
+                </div>
 
-                  <div className="flex items-center gap-3.5 mb-3.5">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
-                      <Lock className="w-5 h-5 text-[#6366f1] stroke-[2]" />
+                <div className="flex items-center gap-3.5 mb-3.5">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
+                    <Lock className="w-5 h-5 text-[#6366f1] stroke-[2]" />
+                  </div>
+                  <div>
+                    <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
+                      BELOW THE SURFACE
                     </div>
-                    <div>
-                      <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
-                        BELOW THE SURFACE
-                      </div>
-                      <div className="text-[12px] text-[#64748b] font-medium">
-                        What holds adoption back
-                      </div>
+                    <div className="text-[12px] text-[#64748b] font-medium">
+                      What holds adoption back
                     </div>
                   </div>
+                </div>
 
-                  <div className="space-y-2 pl-2">
-                    {[
-                      "Familiar habits",
-                      "Fear of change",
-                      "Unclear personal value",
-                      "Low motivation to switch",
-                    ].map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155] hover:text-[#0f172a] transition-colors">
-                        <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0 shadow-xs">
-                          <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
-                        </div>
-                        <span>{item}</span>
+                <div className="space-y-2 pl-2">
+                  {[
+                    "Familiar habits",
+                    "Fear of change",
+                    "Unclear personal value",
+                    "Low motivation to switch",
+                  ].map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155] hover:text-[#0f172a] transition-colors">
+                      <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0 shadow-xs">
+                        <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
                       </div>
-                    ))}
-                  </div>
+                      <span>{item}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -790,7 +731,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 3: THE 5 STAGES OF THE ADOPT PLAYBOOK ─────────────────── */}
       <section
         id="playbook-stages"
-        className="py-14 lg:py-22 relative overflow-hidden bg-transparent adopt-section-lazy"
+        className="py-14 lg:py-22 relative overflow-hidden bg-transparent"
       >
         {/* Subtle Ambient Micro-Sparkles floating in continuous atmosphere */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
@@ -864,7 +805,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 <div className="w-[80px] h-[80px] rounded-[20px] bg-gradient-to-tr from-[#f5f3ff] via-[#fdf4ff] to-[#fff1f2] border border-[#f3e8ff] flex items-center justify-center p-2 shrink-0 shadow-2xs">
                   <svg className="w-full h-full" viewBox="0 0 60 60" fill="none">
                     <path
-                      d="M64 10 L 22 10 L 0 28"
+                      d="M6 48C18 48 24 38 34 26C42 16 48 10 54 8"
                       stroke="url(#insight_grad_full)"
                       strokeWidth="3.5"
                       strokeLinecap="round"
@@ -898,37 +839,53 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   <div
                     key={stage.id}
                     onClick={() => setActiveStageDetail(idx)}
-                    className="flex flex-col h-full cursor-pointer group transition-all duration-300 hover:-translate-y-2.5 relative"
+                    onPointerMove={(e) => {
+                      const card = e.currentTarget;
+                      const rect = card.getBoundingClientRect();
+                      const hw = rect.width / 2;
+                      const hh = rect.height / 2;
+                      const ratioX = (e.clientX - (rect.left + hw)) / hw;
+                      const ratioY = (e.clientY - (rect.top + hh)) / hh;
+                      card.style.setProperty("--ratio-x", `${ratioX}`);
+                      card.style.setProperty("--ratio-y", `${ratioY}`);
+                    }}
+                    onPointerLeave={(e) => {
+                      const card = e.currentTarget;
+                      card.style.setProperty("--ratio-x", "0");
+                      card.style.setProperty("--ratio-y", "0");
+                    }}
+                    className="stage-rollover-card flex flex-col h-full cursor-pointer group transition-all duration-300 relative"
                   >
-                    {/* Glass Card */}
-                    <div className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.18)] transition-all duration-300 flex items-center justify-center z-10">
-                      <img
-                        src={stage.cardImg}
-                        alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.03]"
-                      />
-                    </div>
+                    {/* 3D Rollover Motion Inner Container */}
+                    <div className="stage-rollover-card-inner relative w-full flex flex-col items-center">
+                      {/* Glass Card */}
+                      <div className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.18)] transition-all duration-300 flex items-center justify-center z-10">
+                        <img
+                          src={stage.cardImg}
+                          alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
+                          className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                        />
+                      </div>
 
-                    {/* ── GLASSY BASE CAUSTIC LIGHT GLOW (TRANSPARENT BACKGROUND) ── */}
-                    <div className="relative w-full flex flex-col items-center justify-center -mt-4 sm:-mt-5 pointer-events-none z-0">
-                      {/* 1. Core Intense Colored Glass Light Contact Point */}
-                      <div
-                        className="w-[72%] h-3.5 sm:h-4.5 rounded-[100%] blur-[5px] transition-all duration-500 group-hover:scale-115 group-hover:blur-[7px] opacity-85 group-hover:opacity-100"
-                        style={{
-                          background: `radial-gradient(ellipse at center, ${currentGlow.core} 0%, ${currentGlow.light} 55%, transparent 80%)`,
-                          boxShadow: `0 3px 18px ${currentGlow.light}`,
-                        }}
-                      />
+                      {/* ── GLASSY BASE CAUSTIC LIGHT GLOW (TRANSPARENT BACKGROUND) ── */}
+                      <div className="relative w-full flex flex-col items-center justify-center -mt-4 sm:-mt-5 pointer-events-none z-0">
+                        {/* 1. Core Intense Colored Glass Light Contact Point */}
+                        <div
+                          className="w-[72%] h-3.5 sm:h-4.5 rounded-[100%] blur-[5px] transition-all duration-500 group-hover:scale-115 group-hover:blur-[7px] opacity-85 group-hover:opacity-100"
+                          style={{
+                            background: `radial-gradient(ellipse at center, ${currentGlow.core} 0%, ${currentGlow.light} 55%, transparent 80%)`,
+                            boxShadow: `0 3px 18px ${currentGlow.light}`,
+                          }}
+                        />
 
-                      {/* 2. Soft Ambient Caustic Bloom */}
-                      <div
-                        className="w-[85%] h-5 sm:h-7 rounded-[100%] blur-lg -mt-3 transition-all duration-500 group-hover:scale-120 opacity-50 group-hover:opacity-85"
-                        style={{
-                          background: `radial-gradient(ellipse at center, ${currentGlow.light} 0%, transparent 70%)`,
-                        }}
-                      />
+                        {/* 2. Soft Ambient Caustic Bloom */}
+                        <div
+                          className="w-[85%] h-5 sm:h-7 rounded-[100%] blur-lg -mt-3 transition-all duration-500 group-hover:scale-120 opacity-50 group-hover:opacity-85"
+                          style={{
+                            background: `radial-gradient(ellipse at center, ${currentGlow.light} 0%, transparent 70%)`,
+                          }}
+                        />
+                      </div>
                     </div>
                   </div>
                 );
@@ -1190,7 +1147,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* (APPLIED PLAYBOOK, AI ADOPTION ENGINE, CLOSING CTA & FOOTER) */}
       <section
         id="case-study"
-        className="pt-14 sm:pt-20 lg:pt-24 pb-0 relative overflow-hidden bg-transparent adopt-section-lazy"
+        className="pt-14 sm:pt-20 lg:pt-24 pb-0 relative overflow-hidden bg-transparent"
       >
         {/* Anchors for navigation links */}
         <div id="adoptiq" className="absolute -top-24 left-0 pointer-events-none" />
@@ -1284,8 +1241,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     <img
                       src={copilotPlaybookImg}
                       alt="Microsoft Copilot AI Adoption Playbook 3D Dashboard"
-                      loading="lazy"
-                      decoding="async"
                       className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
                     />
                   </div>
@@ -1396,8 +1351,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     <img
                       src={adoptIqImg}
                       alt="AdoptIQ.ai 3D Dashboard Engine at Work"
-                      loading="lazy"
-                      decoding="async"
                       className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(99,102,241,0.18)] transition-transform duration-500 hover:scale-[1.02]"
                     />
                   </div>

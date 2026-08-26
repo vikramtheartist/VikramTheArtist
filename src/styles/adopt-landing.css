@@ -28,23 +28,7 @@
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
-  --mx: 0;
-  --my: 0;
-  --sy: 0;
 }
-
-/* ── Performance & Rendering Optimizations ────────────────────── */
-.adopt-section-lazy {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 900px;
-}
-
-.adopt-gpu-layer {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  will-change: transform;
-}
-
 
 /* ── Hero Eyebrow Pill ─────────────────────────────────────────── */
 .adopt-hero-badge {
@@ -627,11 +611,45 @@
 .frosted-glass-pill {
   background: rgba(255, 255, 255, 0.55);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
-  backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(160%);
   border: 1px solid rgba(255, 255, 255, 0.8);
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.04),
     inset 0 1px 1.5px rgba(255, 255, 255, 0.95);
 }
 
+/* ── 3D Stage Card Rollover Motion Animation ────────────────── */
+@property --ratio-x {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
 
+@property --ratio-y {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.stage-rollover-card {
+  --ratio-x: 0;
+  --ratio-y: 0;
+  perspective: 900px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.stage-rollover-card-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.18s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.3s ease;
+  transform: perspective(900px)
+    rotateY(calc(-20deg * var(--ratio-x)))
+    rotateX(calc(20deg * var(--ratio-y)));
+}
+
+.stage-rollover-card:hover .stage-rollover-card-inner {
+  transform: perspective(900px)
+    rotateY(calc(-20deg * var(--ratio-x)))
+    rotateX(calc(20deg * var(--ratio-y)))
+    scale3d(1.03, 1.03, 1.03);
+}
