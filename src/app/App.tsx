@@ -281,7 +281,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
           height: "auto",
           zIndex: 0,
           pointerEvents: "none",
-          opacity: isLight ? 0 : 0.95,
+          opacity: isLight ? 0 : 0.75,
           willChange: "transform",
           transform: "translate3d(50vw, calc(75vh + 600px), 0) translate(-50%, -50%)",
           transition: "opacity 0.7s ease",

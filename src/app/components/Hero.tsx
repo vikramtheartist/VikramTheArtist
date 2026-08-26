@@ -237,34 +237,11 @@ function SpaceSmoke() {
   );
 }
 
-import { Eye, Sparkles, TrendingUp } from "lucide-react";
-
 /* ── Philosophy cards ───────────────────────────────────────── */
 const cards = [
-  {
-    title: "Observe",
-    icon: <Eye className="w-5 h-5 text-indigo-400" />,
-    iconBg: "rgba(99, 102, 241, 0.18)",
-    iconBorder: "rgba(168, 85, 247, 0.35)",
-    lineColor: "#a855f7",
-    body: "I understand the system—users, data, AI, and context to frame the right problem.",
-  },
-  {
-    title: "Create",
-    icon: <Sparkles className="w-5 h-5 text-sky-400" />,
-    iconBg: "rgba(14, 165, 233, 0.18)",
-    iconBorder: "rgba(56, 189, 248, 0.35)",
-    lineColor: "#38bdf8",
-    body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
-  },
-  {
-    title: "Evolve",
-    icon: <TrendingUp className="w-5 h-5 text-fuchsia-400" />,
-    iconBg: "rgba(217, 70, 239, 0.18)",
-    iconBorder: "rgba(244, 114, 182, 0.35)",
-    lineColor: "#f472b6",
-    body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
-  },
+  { title: "Observe", body: "I understand the system—users, data, AI, and context to frame the right problem." },
+  { title: "Create",  body: "I design end-to-end experiences that turn complexity into clear, usable decisions." },
+  { title: "Evolve",  body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust." },
 ];
 
 /* ── Hero ───────────────────────────────────────────────────── */
@@ -389,66 +366,18 @@ export function Hero() {
         `}</style>
         <div className="hero-cards-grid" ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}>
-          {cards.map(({ title, icon, iconBg, iconBorder, lineColor, body }) => (
-            <div key={title} className="flex flex-col justify-between transition-all duration-300 hero-philosophy-card group"
+          {cards.map(({ title, body }) => (
+            <div key={title} className="flex flex-col transition-colors duration-300 hero-philosophy-card"
               style={{
-                padding: '24px 22px',
-                borderRadius: '26px',
-                minHeight: '190px',
-                position: 'relative',
-                zIndex: 2,
+                padding: '26px 24px', gap: '8px',
+                borderRadius: '20px',
               }}>
-              
-              <div>
-                {/* Header Row: Icon & Title */}
-                <div className="flex items-center gap-3 mb-3">
-                  <div
-                    className="flex items-center justify-center rounded-xl"
-                    style={{
-                      width: '38px',
-                      height: '38px',
-                      background: iconBg,
-                      border: `1px solid ${iconBorder}`,
-                      boxShadow: `inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 0 16px ${iconBg}`,
-                    }}
-                  >
-                    {icon}
-                  </div>
-                  <h3 style={{
-                    fontFamily: "'Poppins', sans-serif",
-                    fontWeight: 500,
-                    fontSize: '20px',
-                    lineHeight: 1.2,
-                    color: 'var(--text-1)',
-                    margin: 0
-                  }}>
-                    {title}
-                  </h3>
-                </div>
-
-                {/* Body Text */}
-                <p style={{
-                  fontFamily: "'Inter', sans-serif",
-                  fontWeight: 400,
-                  fontSize: '14.5px',
-                  lineHeight: 1.6,
-                  color: 'rgba(255, 255, 255, 0.78)',
-                  margin: '0 0 14px 0'
-                }}>
-                  {body}
-                </p>
-              </div>
-
-              {/* Glowing Accent Underline */}
-              <div
-                style={{
-                  width: '36px',
-                  height: '3px',
-                  borderRadius: '2px',
-                  backgroundColor: lineColor,
-                  boxShadow: `0 0 10px ${lineColor}`,
-                }}
-              />
+              <h3 style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 300, fontSize: '20px', lineHeight: 1.2, color: 'var(--text-1)', margin: 0 }}>
+                {title}
+              </h3>
+              <p style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, fontSize: '17px', lineHeight: 1.7, color: 'var(--text-2)', margin: 0 }}>
+                {body}
+              </p>
             </div>
           ))}
         </div>
