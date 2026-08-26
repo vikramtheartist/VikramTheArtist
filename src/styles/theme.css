@@ -86,23 +86,7 @@ body {
 [data-theme="light"] .hide-in-light { opacity: 0; pointer-events: none; }
 .fade-with-theme { transition: opacity 0.5s ease; }
 
-/* Hero subtitle & Title styling matching cosmic & light themes */
-.hero-main-heading {
-  background: linear-gradient(135deg, #ffffff 35%, #e2e8f0 68%, #d8b4fe 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #ffffff;
-  text-shadow: 0 0 35px rgba(192, 132, 252, 0.20);
-}
-
-[data-theme="light"] .hero-main-heading {
-  background: linear-gradient(135deg, #0f172a 40%, #1e1b4b 80%, #4338ca 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #0f172a;
-  text-shadow: none;
-}
-
+/* Hero subtitle — explicit dark color in light mode for readability */
 [data-theme="light"] .hero-subtitle { color: #464646 !important; }
 
 /* ── Aaron Iker Specular Glow Border & Glow Cards ──────────── */

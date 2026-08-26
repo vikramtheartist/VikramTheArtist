@@ -222,7 +222,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
               transition: "opacity 0.7s ease",
             }}
           />
-          {/* 20% Opacity Dark Blue Fade Overlay above Space background */}
+          {/* 10% Opacity Dark Blue Fade Overlay above Space background */}
           <div
             style={{
               position: "fixed",
@@ -230,7 +230,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
               left: 0,
               width: "100vw",
               height: "100vh",
-              backgroundColor: "rgba(6, 11, 32, 0.20)",
+              backgroundColor: "rgba(6, 11, 32, 0.10)",
               zIndex: 0,
               pointerEvents: "none",
               transition: "opacity 0.7s ease",
