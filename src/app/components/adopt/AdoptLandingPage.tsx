@@ -239,11 +239,23 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 }) => {
   const [activeCategory, setActiveCategory] = useState<"psychology" | "signals" | "interventions" | "outcomes">("psychology");
   const [activeTab, setActiveTab] = useState<"copilot" | "engine">("copilot");
+  const [isSlidePaused, setIsSlidePaused] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [activeStageDetail, setActiveStageDetail] = useState<number | null>(null);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  // Auto-slide between "APPLIED PLAYBOOK" and "AI ADOPTION ENGINE" every 5 seconds
+  React.useEffect(() => {
+    if (isSlidePaused || showPasswordModal) return;
+
+    const timer = setInterval(() => {
+      setActiveTab((prev) => (prev === "copilot" ? "engine" : "copilot"));
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [isSlidePaused, showPasswordModal]);
 
   const handlePasswordSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -1190,8 +1202,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
         </div>
 
-        {/* Horizontal Sliding Track with Smooth Cubic Animation */}
-        <div className="relative w-full overflow-hidden mb-12 lg:mb-16">
+        {/* Horizontal Sliding Track with Smooth Cubic Animation & 5s Auto-Slide */}
+        <div
+          className="relative w-full overflow-hidden mb-12 lg:mb-16"
+          onMouseEnter={() => setIsSlidePaused(true)}
+          onMouseLeave={() => setIsSlidePaused(false)}
+        >
           <div
             className="flex transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform"
             style={{
