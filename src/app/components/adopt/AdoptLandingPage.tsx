@@ -521,7 +521,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-20 lg:pt-24 lg:pb-36 overflow-hidden flex items-center justify-center bg-gradient-to-b from-[#fbfcff]/95 via-[#f6f9fe] to-[#f4f7fe]"
+        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-20 lg:pt-24 lg:pb-36 overflow-hidden flex items-center justify-center bg-transparent"
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background with 3D Depth */}
         <div className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden">
@@ -543,7 +543,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             className="absolute inset-0 pointer-events-none"
             style={{
               background:
-                "linear-gradient(to right, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.76) 28%, rgba(255,255,255,0.18) 52%, transparent 70%), linear-gradient(to top, rgba(244,247,254,0.9) 0%, transparent 12%), linear-gradient(to bottom, rgba(244,247,254,0.9) 0%, transparent 12%)",
+                "linear-gradient(to right, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.65) 28%, rgba(255,255,255,0.12) 52%, transparent 70%)",
             }}
           />
         </div>
@@ -872,8 +872,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                 {/* ── Main Split Content: Left Circular 3D Ring + Center/Right Rich Details ── */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                  {/* Left Column: Pure 3D Revolving Character Carousel */}
-                  <div className="lg:col-span-5 flex flex-col items-center justify-center relative p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#f8fafc] to-[#f1f5f9] border border-slate-200/80">
+                  {/* Left Column: Pure 3D Revolving Character Carousel (Transparent, Floating) */}
+                  <div className="lg:col-span-5 flex flex-col items-center justify-center relative p-0 sm:p-2 bg-transparent border-0">
                     {/* Compact 3D Viewport */}
                     <div className="adopt-3d-compact-viewport">
                       <div className="adopt-3d-compact-ground-shadow" />
