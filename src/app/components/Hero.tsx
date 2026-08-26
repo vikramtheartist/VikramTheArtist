@@ -244,22 +244,16 @@ const cards = [
   {
     title: "Observe",
     accentColor: "#c084fc",
-    borderColor: "rgba(192, 132, 252, 0.38)",
-    borderGlow: "0 0 8px 0px rgba(168, 85, 247, 0.28), inset 0 0 4px 0px rgba(168, 85, 247, 0.12)",
     body: "I understand the system—users, data, AI, and context to frame the right problem.",
   },
   {
     title: "Create",
     accentColor: "#38bdf8",
-    borderColor: "rgba(56, 189, 248, 0.38)",
-    borderGlow: "0 0 8px 0px rgba(56, 189, 248, 0.28), inset 0 0 4px 0px rgba(56, 189, 248, 0.12)",
     body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
   },
   {
     title: "Evolve",
     accentColor: "#f472b6",
-    borderColor: "rgba(244, 114, 182, 0.38)",
-    borderGlow: "0 0 8px 0px rgba(244, 114, 182, 0.28), inset 0 0 4px 0px rgba(244, 114, 182, 0.12)",
     body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
   },
 ];
@@ -389,21 +383,17 @@ export function Hero() {
           ref={cardsRef}
           style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}
         >
-          {cards.map(({ title, accentColor, borderColor, borderGlow, body }) => (
+          {cards.map(({ title, accentColor, body }) => (
             <div
               key={title}
               className="hero-philosophy-card flex flex-col justify-between"
-              style={{
-                border: `1px solid ${borderColor}`,
-                boxShadow: borderGlow,
-              }}
             >
               <div>
                 {/* Title */}
                 <h3
                   style={{
                     fontFamily: "'Poppins', sans-serif",
-                    fontWeight: 400,
+                    fontWeight: 500,
                     fontSize: "22px",
                     lineHeight: 1.25,
                     color: "white",
@@ -420,7 +410,7 @@ export function Hero() {
                     fontWeight: 400,
                     fontSize: "14.5px",
                     lineHeight: 1.65,
-                    color: "rgba(226, 232, 240, 0.78)",
+                    color: "rgba(255, 255, 255, 0.80)",
                     margin: "0 0 18px 0",
                   }}
                 >
