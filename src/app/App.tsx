@@ -246,8 +246,8 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
             style={{
               position: "fixed",
               top: "28vh",
-              left: "max(-10px, 0.8vw)",
-              width: "clamp(90px, 7.5vw, 140px)",
+              left: "calc(max(-10px, 0.8vw) - 50px)",
+              width: "clamp(110px, 9vw, 170px)",
               height: "auto",
               zIndex: 0,
               pointerEvents: "none",
