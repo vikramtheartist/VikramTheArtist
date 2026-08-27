@@ -198,14 +198,17 @@ export function Hero() {
         <div className="hide-in-light fade-with-theme"><ShootingStars /></div>
 
         <div className="hero-title-block">
-          <h1 style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: 'clamp(2.5rem, 4.72vw, 4.25rem)', lineHeight: 1.2, color: '#C5DC4B', margin: 0 }}>
-            <span style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
+          <h1 className="hero-main-heading" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: 'clamp(2.5rem, 4.72vw, 4.25rem)', lineHeight: 1.2, margin: 0 }}>
+            <span className="hero-gradient-text" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
               {displayed}
               <span style={{ display: "inline-block", width: "3px", height: "0.85em",
                 background: "var(--text-3)", marginLeft: "3px", verticalAlign: "middle",
                 borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
             </span>
-            {", I am Vikram ✌🏻"}
+            <span className="hero-gradient-text">
+              {", I am Vikram "}
+            </span>
+            <span style={{ fontStyle: "normal" }}>✌🏻</span>
           </h1>
           <div style={{ marginTop: '28px', marginBottom: 0 }}>
             <p className="hero-subtitle" style={{ fontFamily: "'Merriweather', serif", fontWeight: 300, fontSize: 'clamp(calc(1.5rem - 2px), 2.2vw, calc(2rem - 2px))', lineHeight: 1.25, color: '#E6E6E6', margin: 0, maxWidth: '720px', marginLeft: 'auto' }}>

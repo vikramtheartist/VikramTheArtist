@@ -292,29 +292,6 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
             }}
           />
 
-          {/* Small Left Planet (Planet 1) positioned above Earth horizon */}
-          <img
-            ref={planet1Ref}
-            src={`${import.meta.env.BASE_URL}IMG/Planet%201.png`}
-            alt=""
-            decoding="async"
-            fetchPriority="low"
-            style={{
-              position: "fixed",
-              top: "28vh",
-              left: "calc(max(-10px, 0.8vw) - 50px)",
-              width: "clamp(110px, 9vw, 170px)",
-              height: "auto",
-              zIndex: 0,
-              pointerEvents: "none",
-              opacity: 0.95,
-              transition: "opacity 0.7s ease",
-              filter: "drop-shadow(0 0 20px rgba(139, 92, 246, 0.35))",
-              willChange: "transform",
-              transformOrigin: "center center",
-            }}
-          />
-
           {/* Floating Astronaut in space on right, enters from top with scroll to 50% of screen */}
           <div
             ref={astroRef}
@@ -352,6 +329,31 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
         </>
       )}
 
+      {/* Small Left Planet (Planet 1) positioned above horizon in both Dark & Light modes */}
+      <img
+        ref={planet1Ref}
+        src={`${import.meta.env.BASE_URL}IMG/Planet%201.png`}
+        alt=""
+        decoding="async"
+        fetchPriority="low"
+        style={{
+          position: "fixed",
+          top: "28vh",
+          left: "calc(max(-10px, 0.8vw) - 50px)",
+          width: "clamp(110px, 9vw, 170px)",
+          height: "auto",
+          zIndex: 0,
+          pointerEvents: "none",
+          opacity: isLight ? 0.90 : 0.95,
+          transition: "opacity 0.7s ease, filter 0.7s ease",
+          filter: isLight
+            ? "drop-shadow(0 0 28px rgba(160, 180, 255, 0.60)) saturate(1.1) brightness(1.05)"
+            : "drop-shadow(0 0 20px rgba(139, 92, 246, 0.35))",
+          willChange: "transform",
+          transformOrigin: "center center",
+        }}
+      />
+
       {/* Sun glow halo — visible in light mode only */}
       {isLight && (
         <div
@@ -365,10 +367,10 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
             aspectRatio: "1 / 1",
             borderRadius: "50%",
             background: [
-              "radial-gradient(circle, transparent 38%, rgba(255,180,90,0.16) 46%, rgba(255,200,120,0.22) 52%, rgba(255,170,90,0.12) 60%, transparent 70%)",
-              "radial-gradient(circle, transparent 30%, rgba(255,210,140,0.10) 56%, transparent 76%)",
+              "radial-gradient(circle, transparent 38%, rgba(220,200,255,0.22) 46%, rgba(200,225,255,0.28) 52%, rgba(240,210,255,0.18) 60%, transparent 72%)",
+              "radial-gradient(circle, transparent 30%, rgba(255,230,240,0.20) 56%, transparent 76%)",
             ].join(", "),
-            filter: "blur(10px)",
+            filter: "blur(12px)",
             pointerEvents: "none",
             zIndex: 0,
             willChange: "transform",
@@ -377,13 +379,13 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
           }}
         />
       )}
-      {/* Earth — primary orb; defines parallax positioning. Visible in dark, fades out in light. */}
+      {/* Earth — primary orb; defines parallax positioning */}
       <img
         ref={imgRef}
         src={`${import.meta.env.BASE_URL}IMG/Earth_only_2x.png`}
         alt=""
         decoding="async"
-        fetchPriority={isLight ? "low" : "high"}
+        fetchPriority="high"
         style={{
           position: "fixed",
           top: 0,
@@ -394,10 +396,13 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
           height: "auto",
           zIndex: 0,
           pointerEvents: "none",
-          opacity: isLight ? 0 : 0.85,
+          opacity: isLight ? 0.78 : 0.85,
+          filter: isLight
+            ? "brightness(1.18) saturate(1.15) drop-shadow(0 0 35px rgba(220, 205, 255, 0.55))"
+            : "none",
           willChange: "transform",
           transform: "translate3d(50vw, calc(75vh + 600px), 0) translate(-50%, -50%)",
-          transition: "opacity 0.7s ease",
+          transition: "opacity 0.7s ease, filter 0.7s ease",
         }}
         className="earth-orb"
       />
@@ -419,7 +424,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
           height: "auto",
           zIndex: 0,
           pointerEvents: "none",
-          opacity: isLight ? 0.95 : 0,
+          opacity: isLight ? 0.65 : 0,
           willChange: "transform",
           transform: "translate3d(50vw, calc(75vh + 600px), 0) translate(-50%, -50%)",
           transition: "opacity 0.7s ease",
