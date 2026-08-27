@@ -222,21 +222,6 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
               transition: "opacity 0.7s ease",
             }}
           />
-          {/* 10% Opacity Dark Blue Fade Overlay above Space background */}
-          <div
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100vw",
-              height: "100vh",
-              backgroundColor: "rgba(6, 11, 32, 0.10)",
-              zIndex: 0,
-              pointerEvents: "none",
-              transition: "opacity 0.7s ease",
-            }}
-          />
-
           {/* Small Left Planet (Planet 1) positioned above Earth horizon */}
           <img
             src={`${import.meta.env.BASE_URL}IMG/Planet%201.png`}
