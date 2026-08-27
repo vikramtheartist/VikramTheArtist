@@ -47,20 +47,20 @@ function usePerfMode() {
  * scroll handler throttled with requestAnimationFrame so it runs at most once per frame.
  *   Phase 1 — normal parallax until Feedback 360 card centres in viewport
  *   Phase 2 — Earth locked at viewport centre
- *   Phase 3 — Earth drifts to upper-left resting position as last card stacks
- *
  * In lite-perf mode the parallax is replaced by a single static position.
  */
 function EarthParallax({ mode }: { mode: ThemeMode }) {
   const imgRef = useRef<HTMLImageElement>(null);
   const sunRef = useRef<HTMLImageElement>(null);
   const atmRef = useRef<HTMLDivElement>(null);
+  const planet1Ref = useRef<HTMLImageElement>(null);
   const isLight = mode === "light";
 
   useEffect(() => {
     const el  = imgRef.current;
     const sun = sunRef.current;
     const atm = atmRef.current;
+    const planet1 = planet1Ref.current;
     if (!el) return;
 
     const Y_OFFSET = 0;         // Atmospheric halo
@@ -80,6 +80,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       const vh = window.innerHeight;
       const h = el.offsetHeight || 1200;
       setPos(vh * 0.75 + h / 2, vw / 2, 1);
+      if (planet1) planet1.style.transform = "scale(1)";
       return;
     }
 
@@ -126,6 +127,13 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       const scrollProgress = Math.min(1, Math.max(0, (initialCenterY - phase1Y) / totalTravelToStop));
       // Proportional scale: from 1.0 (full size) down to 0.50 (50% reduced size) at stop spot
       const currentScale = Math.max(0.50, 1 - scrollProgress * 0.50);
+
+      // Planet 1 parallel zoom-out and upward parallax shift
+      if (planet1) {
+        const planet1Scale = Math.max(0.50, 1 - scrollProgress * 0.50);
+        const planet1YShift = -scrollY * 0.35;
+        planet1.style.transform = `translate3d(0, ${planet1YShift}px, 0) scale(${planet1Scale})`;
+      }
 
       if (!hasCards && cachedCardsCount < 3) {
         measureCards();
@@ -222,8 +230,10 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
               transition: "opacity 0.7s ease",
             }}
           />
+
           {/* Small Left Planet (Planet 1) positioned above Earth horizon */}
           <img
+            ref={planet1Ref}
             src={`${import.meta.env.BASE_URL}IMG/Planet%201.png`}
             alt=""
             decoding="async"
@@ -239,6 +249,8 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
               opacity: 0.95,
               transition: "opacity 0.7s ease",
               filter: "drop-shadow(0 0 20px rgba(139, 92, 246, 0.35))",
+              willChange: "transform",
+              transformOrigin: "center center",
             }}
           />
         </>
