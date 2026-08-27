@@ -389,11 +389,15 @@ body {
 
 /* ── Project card CTAs: button stays, arrow slides in on rollover ─ */
 .project-card-ctas .shine-wrap,
-.project-card-ctas .shine-inner {
+.project-card-ctas .shine-inner,
+.ws-more-btn .shine-wrap,
+.ws-more-btn .shine-inner {
   border-radius: 14px;
 }
 .project-card-ctas .shine-wrap:hover,
-.project-card-ctas .shine-wrap:focus-within {
+.project-card-ctas .shine-wrap:focus-within,
+.ws-more-btn .shine-wrap:hover,
+.ws-more-btn .shine-wrap:focus-within {
   transform: none;
 }
 .project-card-ctas .shine-inner {

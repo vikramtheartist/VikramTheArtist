@@ -364,18 +364,23 @@ function ProjectCard({
                 </svg>
               </span>
             );
-            const innerStyle: React.CSSProperties = { padding: "11px 28px" };
-            const innerClass = "shine-inner text-white/75 hover:text-white text-sm";
+            const innerStyle: React.CSSProperties = {
+              padding: "11px 28px",
+              fontSize: "14px",
+              fontWeight: 400,
+              fontFamily: "'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif",
+            };
+            const innerClass = "shine-inner text-white/80 hover:text-white text-sm";
 
             if (cta.disabled) {
               return (
-                <span key={cta.label} className="shine-wrap opacity-70 pointer-events-none">
+                <span key={cta.label} className="shine-wrap opacity-60 pointer-events-none">
                   <button
                     type="button"
                     disabled
                     aria-disabled="true"
                     className="shine-inner text-white/60 text-sm"
-                    style={{ ...innerStyle, border: "none", cursor: "not-allowed", fontFamily: "inherit" }}
+                    style={{ ...innerStyle, border: "1px solid rgba(255,255,255,0.13)", cursor: "not-allowed", fontFamily: "inherit" }}
                   >
                     <span>{cta.label}</span>
                   </button>
@@ -390,7 +395,7 @@ function ProjectCard({
                     type="button"
                     onClick={() => onInternalCta?.(cta)}
                     className={innerClass}
-                    style={{ ...innerStyle, border: "none", cursor: "pointer", fontFamily: "inherit" }}
+                    style={{ ...innerStyle, cursor: "pointer", fontFamily: "inherit" }}
                   >
                     <span>{cta.label}</span>
                     {arrow}
@@ -621,10 +626,15 @@ export function WorkSection({
               href="https://sites.google.com/view/vikramtheartist/my-work?authuser=0"
               target="_blank"
               rel="noopener noreferrer"
-              className="shine-inner text-white/65 hover:text-white"
-              style={{ padding: "10px 32px", fontSize: "13px", letterSpacing: "0.04em" }}
+              className="shine-inner text-white/80 hover:text-white text-sm"
+              style={{
+                padding: "11px 28px",
+                fontSize: "14px",
+                fontWeight: 400,
+                fontFamily: "'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif",
+              }}
             >
-              More projects
+              <span>More projects</span>
             </a>
           </span>
         </div>
