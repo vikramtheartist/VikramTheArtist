@@ -29,11 +29,11 @@ import {
 import "../../../styles/adopt-landing.css";
 import adoptIqImg from "../../../assets/img/AdoptIQ.png";
 import copilotPlaybookImg from "../../../assets/img/Scale Copilot.png";
-import awareCardImg from "../../../assets/img/Aware.png";
-import desireCardImg from "../../../assets/img/Desire.png";
-import openCardImg from "../../../assets/img/Open.png";
-import proficientCardImg from "../../../assets/img/Proficient.png";
-import transformCardImg from "../../../assets/img/Transform.png";
+import awareCardImg from "../../../assets/img/Aware 1.png";
+import desireCardImg from "../../../assets/img/Desire 1.png";
+import openCardImg from "../../../assets/img/Open 1.png";
+import proficientCardImg from "../../../assets/img/Proficient 1.png";
+import transformCardImg from "../../../assets/img/Transform 1.png";
 
 interface AdoptLandingPageProps {
   onBack?: () => void;
@@ -51,7 +51,7 @@ const STAGES_DATA = [
     colorBg: "bg-[#0284c7]",
     badgeBg: "bg-[#f0f9ff]/90",
     badgeBorder: "border-[#e0f2fe]/60",
-    image: "adopt_aware.png",
+    image: "Aware 1.png",
     cardImg: awareCardImg,
     pillar: "Signal",
     tagline: "Create awareness and promote about the existence of your product or feature.",
@@ -88,7 +88,7 @@ const STAGES_DATA = [
     colorBg: "bg-[#f43f5e]",
     badgeBg: "bg-[#fff1f2]/90",
     badgeBorder: "border-[#ffe4e6]/60",
-    image: "adopt_desire.png",
+    image: "Desire 1.png",
     cardImg: desireCardImg,
     pillar: "Emotional Pull",
     tagline: "Spark emotional connection and demonstrate tangible personal value.",
@@ -125,7 +125,7 @@ const STAGES_DATA = [
     colorBg: "bg-[#8b5cf6]",
     badgeBg: "bg-[#f5f3ff]/90",
     badgeBorder: "border-[#ede9fe]/60",
-    image: "adopt_open.png",
+    image: "Open 1.png",
     cardImg: openCardImg,
     pillar: "First Action",
     tagline: "Lower activation barriers and guide users to their first successful interaction.",
@@ -162,7 +162,7 @@ const STAGES_DATA = [
     colorBg: "bg-[#f59e0b]",
     badgeBg: "bg-[#fffbeb]/90",
     badgeBorder: "border-[#fef3c7]/60",
-    image: "adopt_proficient.png",
+    image: "Proficient 1.png",
     cardImg: proficientCardImg,
     pillar: "Reinforcement",
     tagline: "Deepen skills, build recurring workflow habits, and achieve mastery.",
@@ -199,7 +199,7 @@ const STAGES_DATA = [
     colorBg: "bg-[#10b981]",
     badgeBg: "bg-[#ecfdf5]/90",
     badgeBorder: "border-[#d1fae5]/60",
-    image: "adopt_transform.png",
+    image: "Transform 1.png",
     cardImg: transformCardImg,
     pillar: "Identity Shift",
     tagline: "Empower champions to scale knowledge, build community, and lead enterprise change.",
@@ -986,7 +986,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                                   <div className="absolute bottom-3 w-28 h-6 bg-slate-900/18 rounded-full blur-md -z-10" />
                                 )}
                                 <img
-                                  src={`${import.meta.env.BASE_URL}IMG/${stage.image}`}
+                                  src={stage.cardImg}
                                   alt={`${stage.title} Character`}
                                   className={`w-auto h-full max-h-full object-contain transition-transform duration-500 ${
                                     isActive
