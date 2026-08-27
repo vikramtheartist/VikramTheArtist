@@ -220,7 +220,7 @@ const STAGES_DATA = [
         desc: "Peer-to-peer demo sessions and creative internal hackathons.",
       },
       {
-        title: "Cross-Team Playbooks",
+        title: "Cross-Team Frameworks",
         desc: "Codifying success stories into standard operating procedures.",
       },
     ],
@@ -428,7 +428,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div className="mb-4">
               <div className="adopt-hero-badge hover:scale-105 transition-transform cursor-default">
                 <span className="text-[12px] leading-none text-[#6366f1] animate-pulse">✦</span>
-                <span>THE ADOPT PLAYBOOK</span>
+                <span>THE ADOPT FRAMEWORK</span>
               </div>
             </div>
 
@@ -453,7 +453,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
                 className="adopt-hero-btn-primary group"
               >
-                <span>Explore the Playbook</span>
+                <span>Explore the Framework</span>
                 <span className="adopt-btn-circle-arrow">
                   <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
                 </span>
@@ -754,7 +754,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
                 The 5 Stages of the<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
-                  ADOPT Playbook
+                  ADOPT Framework
                 </span>
               </h2>
               <p className="text-[16px] sm:text-[17px] text-[#64748b] font-normal leading-relaxed mb-6">
@@ -1145,7 +1145,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                 <img
                   src={copilotPlaybookImg}
-                  alt="Scale Copilot Adoption AI Adoption Playbook 3D Dashboard"
+                  alt="Scale Copilot Adoption AI Adoption Framework 3D Dashboard"
                   className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
                 />
               </div>
@@ -1155,7 +1155,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 {/* Eyebrow Badge */}
                 <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
                   <span className="text-[12px]">✦</span>
-                  <span>APPLIED PLAYBOOK</span>
+                  <span>APPLIED FRAMEWORK</span>
                 </div>
 
                 {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
@@ -1170,7 +1170,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                 {/* Headline */}
                 <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
-                  How the Adopt Playbook drove awareness into repeat usage and advocacy
+                  How the Adopt Framework drove awareness into repeat usage and advocacy
                 </h3>
 
                 {/* 3 Metric Cards */}
@@ -1270,7 +1270,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                 {/* Sub-tagline */}
                 <p className="text-[15px] sm:text-[16px] font-semibold text-[#64748b] mb-4 tracking-tight">
-                  The AI engine powered by the ADOPT playbook
+                  The AI engine powered by the ADOPT framework
                 </p>
 
                 {/* Headline */}
@@ -1392,12 +1392,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
               {/* Right Side: Center-Aligned Action Buttons */}
               <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3 shrink-0">
-                {/* 1. Launch the Playbook (Signature Blue Pill + Circular Arrow) */}
+                {/* 1. Launch the Framework (Signature Blue Pill + Circular Arrow) */}
                 <button
                   onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
                   className="adopt-hero-btn-primary group"
                 >
-                  <span>Launch the Playbook</span>
+                  <span>Launch the Framework</span>
                   <span className="adopt-btn-circle-arrow">
                     <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
                   </span>
