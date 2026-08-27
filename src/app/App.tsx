@@ -128,11 +128,10 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       // Proportional scale: from 1.0 (full size) down to 0.50 (50% reduced size) at stop spot
       const currentScale = Math.max(0.50, 1 - scrollProgress * 0.50);
 
-      // Planet 1 parallel zoom-out and upward parallax shift
+      // Planet 1 stays in place and scales down / zooms out to 50% on scroll
       if (planet1) {
         const planet1Scale = Math.max(0.50, 1 - scrollProgress * 0.50);
-        const planet1YShift = -scrollY * 0.35;
-        planet1.style.transform = `translate3d(0, ${planet1YShift}px, 0) scale(${planet1Scale})`;
+        planet1.style.transform = `scale(${planet1Scale})`;
       }
 
       if (!hasCards && cachedCardsCount < 3) {
