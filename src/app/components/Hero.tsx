@@ -237,31 +237,6 @@ function SpaceSmoke() {
   );
 }
 
-/* ── Philosophy cards ───────────────────────────────────────── */
-const cards = [
-  {
-    title: "Observe",
-    waveStart: "#ec4899",
-    waveMid: "#a855f7",
-    waveEnd: "#06b6d4",
-    body: "I understand the system—users, data, AI, and context to frame the right problem.",
-  },
-  {
-    title: "Create",
-    waveStart: "#06b6d4",
-    waveMid: "#3b82f6",
-    waveEnd: "#a855f7",
-    body: "I design end-to-end experiences that turn complexity into clear, usable decisions.",
-  },
-  {
-    title: "Evolve",
-    waveStart: "#a855f7",
-    waveMid: "#ec4899",
-    waveEnd: "#38bdf8",
-    body: "I refine through real signals—usage and feedback focusing on adoption, value, and trust.",
-  },
-];
-
 /* ── Hero ───────────────────────────────────────────────────── */
 const GREETINGS = ["Hi", "Hoi", "வணக்கம்", "Hej", "नमस्ते", "Ahoj", "Cześć"];
 const GRAPHEMES  = GREETINGS.map(w => [...new Intl.Segmenter().segment(w)].map(s => s.segment));
@@ -269,62 +244,6 @@ const GRAPHEMES  = GREETINGS.map(w => [...new Intl.Segmenter().segment(w)].map(s
 export function Hero() {
   const [displayed, setDisplayed] = useState("Hi");
   const [showCursor, setShowCursor] = useState(true);
-  const cardsRef = useRef<HTMLDivElement>(null);
-
-  useLayoutEffect(() => {
-    const grid = cardsRef.current;
-    if (!grid) return;
-    grid.classList.add("hero-cards-anim");
-    const onEnd = () => grid.classList.remove("hero-cards-anim");
-    grid.addEventListener("animationend", onEnd);
-    return () => grid.removeEventListener("animationend", onEnd);
-  }, []);
-
-  useEffect(() => {
-    let raf = 0;
-    let cachedWorkTop = 0;
-
-    const measureWork = () => {
-      const work = document.getElementById("work");
-      if (work) {
-        cachedWorkTop = work.getBoundingClientRect().top + window.scrollY;
-      }
-    };
-
-    measureWork();
-
-    const update = () => {
-      const cards = cardsRef.current;
-      if (!cards) return;
-      const triggerY = window.innerHeight * 0.30;
-      const workTopRelative = cachedWorkTop - window.scrollY;
-
-      if (workTopRelative <= triggerY) {
-        cards.style.transform   = "translate3d(0, -100px, 0)";
-        cards.style.opacity     = "0";
-        cards.style.pointerEvents = "none";
-      } else {
-        cards.style.transform   = "translate3d(0, 0, 0)";
-        cards.style.opacity     = "1";
-        cards.style.pointerEvents = "";
-      }
-    };
-    const onScroll = () => {
-      if (raf) return;
-      raf = requestAnimationFrame(() => { raf = 0; update(); });
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", () => {
-      measureWork();
-      onScroll();
-    }, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", measureWork);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
 
   useEffect(() => {
     let wIdx = 0, charIdx = GRAPHEMES[0].length, deleting = false;
@@ -343,22 +262,6 @@ export function Hero() {
     const cursorTimer = setInterval(() => setShowCursor(v => !v), 850);
     return () => { clearTimeout(timer); clearInterval(cursorTimer); };
   }, []);
-
-  const handleCardPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    const card = e.currentTarget;
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    card.style.setProperty("--pointer-x", `${x}px`);
-    card.style.setProperty("--pointer-y", `${y}px`);
-
-    // Interpolate glow color between #B000E8 and #009FFD based on horizontal cursor position
-    const ratio = Math.max(0, Math.min(1, x / rect.width));
-    const r = Math.round(176 * (1 - ratio) + 0 * ratio);
-    const g = Math.round(0 * (1 - ratio) + 159 * ratio);
-    const b = Math.round(232 * (1 - ratio) + 253 * ratio);
-    card.style.setProperty("--card-glow", `rgba(${r}, ${g}, ${b}, 0.35)`);
-  };
 
   return (
     <>
@@ -387,109 +290,6 @@ export function Hero() {
               Previously at Google and McKinsey.
             </p>
           </div>
-        </div>
-
-        <style>{`
-          @keyframes hero-cards-in {
-            from { opacity: 0; transform: translateY(40px); }
-            to   { opacity: 1; transform: translateY(0); }
-          }
-          .hero-cards-anim {
-            animation: hero-cards-in 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s both;
-          }
-        `}</style>
-        <div
-          className="hero-cards-grid"
-          ref={cardsRef}
-          style={{ transition: 'transform 0.9s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.9s ease' }}
-        >
-          {cards.map(({ title, waveStart, waveMid, waveEnd, body }) => (
-            <div
-              key={title}
-              className="group hero-philosophy-card cursor-default"
-              onPointerMove={handleCardPointerMove}
-            >
-              {/* Rotating Specular Glow Border Layer */}
-              <div className="card-gradient-border" />
-
-              {/* Inner Card Content with Frosted Glass & Mouse Spotlight Glow */}
-              <div className="card-inner">
-                {/* Top Specular Inner Edge Light Sheen */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-[1.5px] pointer-events-none z-10"
-                  style={{
-                    background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.7) 25%, rgba(192,132,252,0.9) 60%, transparent 100%)",
-                  }}
-                />
-
-                {/* Corner Ambient Radial Violet Glow */}
-                <div
-                  className="absolute -top-10 -right-10 w-36 h-36 rounded-full pointer-events-none z-0 transition-opacity duration-500 opacity-40 group-hover:opacity-75"
-                  style={{
-                    background: "radial-gradient(circle, rgba(168,85,247,0.22) 0%, rgba(99,102,241,0.10) 45%, transparent 70%)",
-                    filter: "blur(18px)",
-                  }}
-                />
-
-                {/* Title: Unbolded Clean Typography */}
-                <h3
-                  className="relative z-10 tracking-tight"
-                  style={{
-                    fontFamily: "'Poppins', sans-serif",
-                    fontWeight: 300,
-                    fontSize: "24px",
-                    lineHeight: 1.2,
-                    letterSpacing: "-0.01em",
-                    color: "#ffffff",
-                    margin: "2px 0 4px 0",
-                  }}
-                >
-                  {title}
-                </h3>
-
-                {/* Body Text */}
-                <p
-                  className="relative z-10"
-                  style={{
-                    fontFamily: "'Inter', sans-serif",
-                    fontWeight: 400,
-                    fontSize: "14.5px",
-                    lineHeight: 1.65,
-                    color: "rgba(226, 232, 240, 0.88)",
-                    margin: 0,
-                  }}
-                >
-                  {body}
-                </p>
-
-                {/* Cyber Wave Topographic Contour Lines SVG at Bottom */}
-                <svg
-                  className="absolute bottom-0 left-0 right-0 w-full h-[105px] pointer-events-none z-0 transition-opacity duration-500 opacity-45 group-hover:opacity-75"
-                  viewBox="0 0 300 110"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="none"
-                >
-                  <defs>
-                    <linearGradient id={`card-wave-grad-${title}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor={waveStart} stopOpacity="0.85" />
-                      <stop offset="50%" stopColor={waveMid} stopOpacity="0.9" />
-                      <stop offset="100%" stopColor={waveEnd} stopOpacity="0.85" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M-10 100 C 50 60, 110 115, 170 75 C 230 35, 275 85, 310 70" stroke={`url(#card-wave-grad-${title})`} strokeWidth="1.2" strokeOpacity="0.75" />
-                  <path d="M-10 90 C 45 45, 120 105, 180 60 C 240 18, 270 75, 310 55" stroke={`url(#card-wave-grad-${title})`} strokeWidth="1.0" strokeOpacity="0.55" />
-                  <path d="M-10 80 C 60 30, 130 90, 190 45 C 250 8, 265 65, 310 40" stroke={`url(#card-wave-grad-${title})`} strokeWidth="0.8" strokeOpacity="0.38" />
-                  <path d="M-10 110 C 70 75, 140 125, 200 85 C 260 45, 285 95, 310 82" stroke={`url(#card-wave-grad-${title})`} strokeWidth="0.8" strokeOpacity="0.28" />
-                  {/* Glowing starry sparks along contours */}
-                  <circle cx="75" cy="78" r="1.4" fill="#ec4899" fillOpacity="0.85" />
-                  <circle cx="155" cy="65" r="1.2" fill="#c084fc" fillOpacity="0.9" />
-                  <circle cx="220" cy="45" r="1.4" fill="#38bdf8" fillOpacity="0.85" />
-                  <circle cx="270" cy="72" r="1" fill="#ec4899" fillOpacity="0.75" />
-                </svg>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
     </>
