@@ -119,27 +119,6 @@ function StarCanvas() {
   );
 }
 
-/* ── Nebula ─────────────────────────────────────────────────────
- * Static fixed gradients — no JS parallax, no willChange layer.
- */
-function Nebula() {
-  return (
-    <div className="fixed inset-0 pointer-events-none"
-      style={{
-        zIndex: 0,
-        WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
-        maskImage: "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
-      }}>
-      <div style={{ position: "absolute", inset: 0,
-        background: "radial-gradient(ellipse 65% 50% at 52% 30%, rgba(12,18,55,0.55) 0%, transparent 70%)" }} />
-      <div style={{ position: "absolute", inset: 0,
-        background: "radial-gradient(ellipse 100% 45% at 50% 100%, rgba(4,6,18,0.6) 0%, transparent 70%)" }} />
-      <div style={{ position: "absolute", inset: 0,
-        background: "radial-gradient(ellipse 75% 75% at 50% 50%, transparent 45%, rgba(2,3,10,0.75) 100%)" }} />
-    </div>
-  );
-}
-
 /* ── Shooting stars ─────────────────────────────────────────── */
 function ShootingStars() {
   return (
@@ -185,58 +164,6 @@ function ShootingStars() {
   );
 }
 
-/* ── Space smoke — CSS-only, hardware-accelerated ───────────── */
-function SpaceSmoke() {
-  return (
-    <>
-      <style>{`
-        @keyframes sm-a {
-          0%,100% { transform: translate3d(0,0,0) scale(1); }
-          28%  { transform: translate3d(22px,-28px,0) scale(1.07); }
-          58%  { transform: translate3d(-14px,-14px,0) scale(0.96); }
-          80%  { transform: translate3d(10px,-20px,0) scale(1.03); }
-        }
-        @keyframes sm-b {
-          0%,100% { transform: translate3d(0,0,0) scale(1) rotate(0deg); }
-          24%  { transform: translate3d(-24px,-18px,0) scale(1.06) rotate(2deg); }
-          54%  { transform: translate3d(16px,-30px,0) scale(0.95) rotate(-1.5deg); }
-          78%  { transform: translate3d(-10px,-12px,0) scale(1.02) rotate(1deg); }
-        }
-        @keyframes sm-c {
-          0%,100% { transform: translate3d(0,0,0) scale(1) rotate(0deg); }
-          34%  { transform: translate3d(18px,-20px,0) scale(1.09) rotate(-1deg); }
-          68%  { transform: translate3d(-16px,-26px,0) scale(0.97) rotate(2deg); }
-        }
-      `}</style>
-
-      <div className="fixed inset-0 pointer-events-none"
-        style={{
-          zIndex: 0,
-          contain: "strict",
-          WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
-          maskImage: "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)",
-        }}>
-        <div style={{ position:"absolute", top:"28%", left:"18%", width:"62vw", height:"38vh",
-          borderRadius:"58% 42% 65% 35% / 45% 55% 40% 60%",
-          background:"radial-gradient(ellipse 70% 60% at 45% 50%, rgba(55,115,210,0.15) 0%, rgba(25,65,155,0.09) 55%, transparent 80%)",
-          filter:"blur(16px)", animation:"sm-a 18s ease-in-out infinite", mixBlendMode:"screen" as const, willChange:"transform" }} />
-        <div style={{ position:"absolute", top:"20%", left:"30%", width:"42vw", height:"28vh",
-          borderRadius:"45% 55% 38% 62% / 52% 48% 58% 42%",
-          background:"radial-gradient(ellipse 60% 55% at 52% 48%, rgba(90,155,240,0.11) 0%, transparent 68%)",
-          filter:"blur(14px)", animation:"sm-b 22s ease-in-out infinite 3s", mixBlendMode:"screen" as const, willChange:"transform" }} />
-        <div style={{ position:"absolute", top:"10%", left:"54%", width:"30vw", height:"22vh",
-          borderRadius:"62% 38% 55% 45% / 40% 60% 42% 58%",
-          background:"radial-gradient(ellipse, rgba(40,90,180,0.09) 0%, transparent 65%)",
-          filter:"blur(14px)", animation:"sm-c 26s ease-in-out infinite 6s", mixBlendMode:"screen" as const, willChange:"transform" }} />
-        <div style={{ position:"absolute", top:"35%", left:"6%", width:"34vw", height:"24vh",
-          borderRadius:"50% 50% 42% 58% / 55% 45% 60% 40%",
-          background:"radial-gradient(ellipse, rgba(35,85,175,0.10) 0%, transparent 65%)",
-          filter:"blur(14px)", animation:"sm-b 20s ease-in-out infinite 1.5s", mixBlendMode:"screen" as const, willChange:"transform" }} />
-      </div>
-    </>
-  );
-}
-
 /* ── Hero ───────────────────────────────────────────────────── */
 const GREETINGS = ["Hi", "Hoi", "வணக்கம்", "Hej", "नमस्ते", "Ahoj", "Cześć"];
 const GRAPHEMES  = GREETINGS.map(w => [...new Intl.Segmenter().segment(w)].map(s => s.segment));
@@ -265,9 +192,7 @@ export function Hero() {
 
   return (
     <>
-      <div className="hide-in-light fade-with-theme"><SpaceSmoke /></div>
       <div className="hide-in-light fade-with-theme"><StarCanvas /></div>
-      <div className="hide-in-light fade-with-theme"><Nebula /></div>
 
       <section className="relative flex flex-col" style={{ zIndex: 4 }}>
         <div className="hide-in-light fade-with-theme"><ShootingStars /></div>
