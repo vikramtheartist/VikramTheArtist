@@ -439,15 +439,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
             {/* Sub-headline */}
             <h2 className="text-[24px] sm:text-[28px] lg:text-[32px] font-bold tracking-tight text-[#1e293b] leading-[1.25] mb-4">
-              A Behavioral Operating System
-              <span className="block font-bold text-[#1e293b]">
-                for Enterprise AI Adoption
-              </span>
+              The behavioral framework I built to scale AI adoption.
             </h2>
 
             {/* Description */}
-            <p className="text-[14px] sm:text-[16px] text-[#64748b] leading-[1.6] max-w-[480px] mb-7 font-normal">
-              ADOPT helps teams move users from awareness to advocacy by designing for human behavior, not just feature launches.
+            <p className="text-[14px] sm:text-[16px] text-[#64748b] leading-[1.6] max-w-[540px] mb-7 font-normal">
+              I created ADOPT from first principles to help product teams and organizations understand why AI adoption stalls—and design the behavioral path from awareness to sustained use.
             </p>
 
             {/* Call to Action Buttons */}
