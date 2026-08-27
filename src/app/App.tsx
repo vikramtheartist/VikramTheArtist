@@ -236,6 +236,26 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
               transition: "opacity 0.7s ease",
             }}
           />
+
+          {/* Small Left Planet (Planet 1) positioned above Earth horizon */}
+          <img
+            src={`${import.meta.env.BASE_URL}IMG/Planet%201.png`}
+            alt=""
+            decoding="async"
+            fetchPriority="low"
+            style={{
+              position: "fixed",
+              top: "28vh",
+              left: "max(-10px, 0.8vw)",
+              width: "clamp(90px, 7.5vw, 140px)",
+              height: "auto",
+              zIndex: 0,
+              pointerEvents: "none",
+              opacity: 0.95,
+              transition: "opacity 0.7s ease",
+              filter: "drop-shadow(0 0 20px rgba(139, 92, 246, 0.35))",
+            }}
+          />
         </>
       )}
 
