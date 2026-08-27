@@ -1270,18 +1270,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                 {/* Sub-tagline */}
                 <p className="text-[15px] sm:text-[16px] font-semibold text-[#64748b] mb-4 tracking-tight">
-                  The AI engine powered by the ADOPT framework
+                  Independently designed and vibe-coded by Vikram
                 </p>
 
                 {/* Headline */}
-                <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-3 max-w-lg">
+                <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
                   Turn your adoption problem into a clear UX action plan.
                 </h3>
-
-                {/* Sub-copy */}
-                <p className="text-[14px] sm:text-[15px] text-[#64748b] font-normal leading-relaxed mb-6 max-w-lg">
-                  I independently designed and vibe-coded AdoptIQ.ai to turn adoption challenges into behavioral diagnoses and prioritized UX recommendations—for free.
-                </p>
 
                 {/* 4 Pipeline Flow Steps in Pill */}
                 <div className="w-full max-w-lg p-2.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-xs flex items-center justify-between mb-5">
@@ -1302,7 +1297,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </div>
 
                 {/* 3 Core Value Pillars */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-7">
                   <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
                     <span className="text-xl">🧠</span>
                     <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
@@ -1323,12 +1318,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       Unify Cross-Functional Alignment
                     </span>
                   </div>
-                </div>
-
-                {/* Generate Actionable Plans Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#f0fdf4] border border-[#bbf7d0] text-[#16a34a] text-[12px] font-bold mb-7 shadow-2xs">
-                  <span>⚡</span>
-                  <span>Generate actionable remediation plans</span>
                 </div>
 
                 {/* CTA Button: Cobalt/Indigo Gradient Pill */}
