@@ -853,8 +853,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   >
                     {/* 3D Rollover Motion Inner Container */}
                     <div className="stage-rollover-card-inner relative w-full flex flex-col items-center">
-                      {/* Glass Card */}
-                      <div className="relative w-full rounded-[28px] sm:rounded-[32px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.18)] transition-all duration-300 flex items-center justify-center z-10">
+                      {/* Glass Card (Scaled 10% smaller) */}
+                      <div className="relative w-[90%] rounded-[26px] sm:rounded-[30px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.18)] transition-all duration-300 flex items-center justify-center z-10">
                         <img
                           src={stage.cardImg}
                           alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
@@ -863,7 +863,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
 
                       {/* ── GLASSY BASE CAUSTIC LIGHT GLOW (TRANSPARENT BACKGROUND) ── */}
-                      <div className="relative w-full flex flex-col items-center justify-center -mt-4 sm:-mt-5 pointer-events-none z-0">
+                      <div className="relative w-[90%] flex flex-col items-center justify-center -mt-4 sm:-mt-5 pointer-events-none z-0">
                         {/* 1. Core Intense Colored Glass Light Contact Point */}
                         <div
                           className="w-[72%] h-3.5 sm:h-4.5 rounded-[100%] blur-[5px] transition-all duration-500 group-hover:scale-115 group-hover:blur-[7px] opacity-85 group-hover:opacity-100"
