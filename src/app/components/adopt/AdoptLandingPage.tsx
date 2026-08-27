@@ -29,11 +29,17 @@ import {
 import "../../../styles/adopt-landing.css";
 import adoptIqImg from "../../../assets/img/AdoptIQ.png";
 import copilotPlaybookImg from "../../../assets/img/Scale Copilot.png";
-import awareCardImg from "../../../assets/img/Aware 1.png";
-import desireCardImg from "../../../assets/img/Desire 1.png";
-import openCardImg from "../../../assets/img/Open 1.png";
-import proficientCardImg from "../../../assets/img/Proficient 1.png";
-import transformCardImg from "../../../assets/img/Transform 1.png";
+import awareCardImg from "../../../assets/img/Aware.png";
+import desireCardImg from "../../../assets/img/Desire.png";
+import openCardImg from "../../../assets/img/Open.png";
+import proficientCardImg from "../../../assets/img/Proficient.png";
+import transformCardImg from "../../../assets/img/Transform.png";
+
+import awareModalImg from "../../../assets/img/Aware 1.png";
+import desireModalImg from "../../../assets/img/Desire 1.png";
+import openModalImg from "../../../assets/img/Open 1.png";
+import proficientModalImg from "../../../assets/img/Proficient 1.png";
+import transformModalImg from "../../../assets/img/Transform 1.png";
 
 interface AdoptLandingPageProps {
   onBack?: () => void;
@@ -51,8 +57,9 @@ const STAGES_DATA = [
     colorBg: "bg-[#0284c7]",
     badgeBg: "bg-[#f0f9ff]/90",
     badgeBorder: "border-[#e0f2fe]/60",
-    image: "Aware 1.png",
+    image: "Aware.png",
     cardImg: awareCardImg,
+    modalImg: awareModalImg,
     pillar: "Signal",
     tagline: "Create awareness and promote about the existence of your product or feature.",
     body: "Awareness is the essential first step in adoption. If users are unaware of a feature or product, all other efforts to engage or convert them are ineffective.",
@@ -88,8 +95,9 @@ const STAGES_DATA = [
     colorBg: "bg-[#f43f5e]",
     badgeBg: "bg-[#fff1f2]/90",
     badgeBorder: "border-[#ffe4e6]/60",
-    image: "Desire 1.png",
+    image: "Desire.png",
     cardImg: desireCardImg,
+    modalImg: desireModalImg,
     pillar: "Emotional Pull",
     tagline: "Spark emotional connection and demonstrate tangible personal value.",
     body: "Curiosity alone does not drive behavior change. Users must see 'What’s in it for me?' to overcome inertia and the friction of changing their established workflow routines.",
@@ -125,8 +133,9 @@ const STAGES_DATA = [
     colorBg: "bg-[#8b5cf6]",
     badgeBg: "bg-[#f5f3ff]/90",
     badgeBorder: "border-[#ede9fe]/60",
-    image: "Open 1.png",
+    image: "Open.png",
     cardImg: openCardImg,
+    modalImg: openModalImg,
     pillar: "First Action",
     tagline: "Lower activation barriers and guide users to their first successful interaction.",
     body: "The gap between intention and first action is where most users drop off. Minimizing cognitive friction and guaranteeing early success creates positive momentum.",
@@ -162,8 +171,9 @@ const STAGES_DATA = [
     colorBg: "bg-[#f59e0b]",
     badgeBg: "bg-[#fffbeb]/90",
     badgeBorder: "border-[#fef3c7]/60",
-    image: "Proficient 1.png",
+    image: "Proficient.png",
     cardImg: proficientCardImg,
+    modalImg: proficientModalImg,
     pillar: "Reinforcement",
     tagline: "Deepen skills, build recurring workflow habits, and achieve mastery.",
     body: "Initial trial must mature into consistent daily habits. By reinforcing best practices and uncovering advanced capabilities, users transition from occasional experimenters to power users.",
@@ -199,8 +209,9 @@ const STAGES_DATA = [
     colorBg: "bg-[#10b981]",
     badgeBg: "bg-[#ecfdf5]/90",
     badgeBorder: "border-[#d1fae5]/60",
-    image: "Transform 1.png",
+    image: "Transform.png",
     cardImg: transformCardImg,
+    modalImg: transformModalImg,
     pillar: "Identity Shift",
     tagline: "Empower champions to scale knowledge, build community, and lead enterprise change.",
     body: "Sustainable enterprise adoption is self-propagating. When proficient users become vocal internal advocates and mentors, adoption reaches exponential network effects.",
@@ -986,7 +997,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                                   <div className="absolute bottom-3 w-28 h-6 bg-slate-900/18 rounded-full blur-md -z-10" />
                                 )}
                                 <img
-                                  src={stage.cardImg}
+                                  src={stage.modalImg}
                                   alt={`${stage.title} Character`}
                                   className={`w-auto h-full max-h-full object-contain transition-transform duration-500 ${
                                     isActive

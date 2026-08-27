@@ -34,7 +34,7 @@ const STAGES: Stage[] = [
     letter: "A",
     name: "Aware",
     emoji: "📣",
-    image: "IMG/Aware 1.png",
+    image: "IMG/Aware.png",
     state: "Know about the community",
     description:
       "Key Principles: Cut through the noise with targeted, compelling messaging. Leverage multiple touchpoints where your users already are.",
@@ -68,7 +68,7 @@ const STAGES: Stage[] = [
     letter: "D",
     name: "Desire",
     emoji: "❤️",
-    image: "IMG/Desire 1.png",
+    image: "IMG/Desire.png",
     state: "Ignite interest to explore",
     description:
       "Key Principles: Focus on benefits, not just features. Show, don't just tell. Appeal to their immediate needs and aspirations.",
@@ -114,7 +114,7 @@ const STAGES: Stage[] = [
     letter: "O",
     name: "Open",
     emoji: "🔓",
-    image: "IMG/Open 1.png",
+    image: "IMG/Open.png",
     state: "Take the first action",
     description:
       "Key Principles: Simplicity, clarity, and immediate gratification. Reduce cognitive load and provide clear pathways.",
@@ -159,7 +159,7 @@ const STAGES: Stage[] = [
     letter: "P",
     name: "Proficient",
     emoji: "⚙️",
-    image: "IMG/Proficient 1.png",
+    image: "IMG/Proficient.png",
     state: "Use it routinely",
     description:
       "Key Principles: Continuous learning, reinforcement, and addressing pain points. Encourage deeper engagement.",
@@ -214,7 +214,7 @@ const STAGES: Stage[] = [
     letter: "T",
     name: "Transform",
     emoji: "🚀",
-    image: "IMG/Transform 1.png",
+    image: "IMG/Transform.png",
     state: "Become a champion",
     description:
       "Key Principles: Recognize power users, encourage sharing, and facilitate organic growth. Turn users into evangelists.",
