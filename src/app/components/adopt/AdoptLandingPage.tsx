@@ -646,12 +646,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ].map((text, idx) => (
                 <div
                   key={idx}
-                  className="flex items-start gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
+                  className="flex items-center gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
                 >
-                  <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 mt-0.5 shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)] transition-all">
+                  <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)] transition-all">
                     <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
                   </div>
-                  <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-snug group-hover:text-[#0f172a] transition-colors">
+                  <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-normal group-hover:text-[#0f172a] transition-colors flex-1">
                     {text}
                   </span>
                 </div>
