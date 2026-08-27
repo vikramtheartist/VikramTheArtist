@@ -727,3 +727,15 @@ body {
     line-height: 1.5;
   }
 }
+
+@keyframes astronautFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(6px, -14px, 0) rotate(2deg);
+  }
+  66% {
+    transform: translate3d(-4px, -6px, 0) rotate(-1.5deg);
+  }
+}
