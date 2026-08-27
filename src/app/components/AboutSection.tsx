@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 function Badge({ children }: { children: React.ReactNode }) {
   return (
     <span
@@ -33,10 +35,91 @@ const proseStyle: React.CSSProperties = {
 };
 
 export function AboutSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+        } else if (entry.boundingClientRect.top > window.innerHeight) {
+          setIsInView(false);
+        }
+      },
+      { threshold: 0.18, rootMargin: "0px 0px -50px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
-      style={{ maxWidth: "1000px", margin: "0 auto", padding: "80px 0" }}
+      ref={sectionRef}
+      style={{
+        maxWidth: "1000px",
+        margin: "0 auto",
+        padding: "100px 24px",
+        position: "relative",
+        overflow: "visible",
+      }}
     >
+      <style>{`
+        @keyframes astronautFloat {
+          0%, 100% {
+            transform: translate3d(0, 0, 0) rotate(0deg);
+          }
+          33% {
+            transform: translate3d(6px, -14px, 0) rotate(2deg);
+          }
+          66% {
+            transform: translate3d(-4px, -6px, 0) rotate(-1.5deg);
+          }
+        }
+      `}</style>
+
+      {/* Floating Astronaut positioned on the right */}
+      <div
+        className="hide-in-light"
+        style={{
+          position: "absolute",
+          top: "clamp(-20px, 4vw, 40px)",
+          right: "clamp(-160px, -9vw, -30px)",
+          zIndex: 6,
+          pointerEvents: "none",
+          userSelect: "none",
+          transform: isInView
+            ? "translate3d(0, 0, 0) rotate(0deg)"
+            : "translate3d(180px, 40px, 0) rotate(12deg)",
+          opacity: isInView ? 1 : 0,
+          transition: "transform 1.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.1s ease",
+          willChange: "transform, opacity",
+        }}
+      >
+        <div
+          style={{
+            animation: isInView ? "astronautFloat 7s ease-in-out infinite" : "none",
+            willChange: "transform",
+          }}
+        >
+          <img
+            src={`${import.meta.env.BASE_URL}IMG/Astronaut.png`}
+            alt="Floating Astronaut"
+            decoding="async"
+            style={{
+              width: "clamp(160px, 17vw, 260px)",
+              height: "auto",
+              objectFit: "contain",
+              filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 25px rgba(100, 160, 255, 0.20))",
+            }}
+          />
+        </div>
+      </div>
+
       <p style={proseStyle}>
         <Badge>User Experience designer</Badge>{" "}
         at Microsoft, driven to empower tomorrow{" "}
