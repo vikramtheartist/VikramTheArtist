@@ -90,13 +90,20 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       return;
     }
 
-    let ticking = false;
+    let targetScrollY = window.scrollY;
+    let currentScrollY = window.scrollY;
+    let rafId = 0;
+    let isRunning = false;
+
     let cachedEarthH = el.offsetHeight || 1200;
     let cachedCard3Top = 0;
     let cachedCard3Height = 0;
     let cachedLastCardTop = 0;
     let hasCards = false;
     let cachedCardsCount = 0;
+
+    const lerp = (start: number, end: number, factor: number) =>
+      start + (end - start) * factor;
 
     const measureCards = () => {
       cachedEarthH = el.offsetHeight || 1200;
@@ -118,9 +125,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
 
     measureCards();
 
-    const compute = () => {
-      ticking = false;
-      const scrollY = window.scrollY;
+    const compute = (scrollY: number) => {
       const vw      = window.innerWidth;
       const vh      = window.innerHeight;
 
@@ -142,11 +147,6 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
 
       if (!hasCards && cachedCardsCount < 3) {
         measureCards();
-      }
-
-      if (!hasCards) {
-        setPos(phase1Y, vw / 2, currentScale);
-        return;
       }
 
       const card3Top      = cachedCard3Top - scrollY;
@@ -183,6 +183,11 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
         }
       }
 
+      if (!hasCards) {
+        setPos(phase1Y, vw / 2, currentScale);
+        return;
+      }
+
       const BLEND = 180;
 
       if (stickTrigger > BLEND) {
@@ -208,33 +213,57 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
         );
       }
     };
-    const update = () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(compute);
+
+    const renderLoop = () => {
+      const delta = targetScrollY - currentScrollY;
+      if (Math.abs(delta) < 0.05) {
+        currentScrollY = targetScrollY;
+      } else {
+        currentScrollY = lerp(currentScrollY, targetScrollY, 0.095);
+      }
+
+      compute(currentScrollY);
+
+      if (currentScrollY !== targetScrollY) {
+        rafId = requestAnimationFrame(renderLoop);
+      } else {
+        isRunning = false;
+      }
     };
 
-    window.addEventListener("scroll", update, { passive: true });
+    const onScroll = () => {
+      targetScrollY = window.scrollY;
+      if (!isRunning) {
+        isRunning = true;
+        rafId = requestAnimationFrame(renderLoop);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", () => {
       measureCards();
-      update();
+      targetScrollY = window.scrollY;
+      currentScrollY = window.scrollY;
+      compute(window.scrollY);
     }, { passive: true });
     el.addEventListener("load", () => {
       measureCards();
-      update();
+      compute(window.scrollY);
     });
     // Re-measure after initial layout stabilization
     const timer = setTimeout(() => {
       measureCards();
-      compute();
+      targetScrollY = window.scrollY;
+      currentScrollY = window.scrollY;
+      compute(window.scrollY);
     }, 400);
 
-    compute();
+    compute(window.scrollY);
     return () => {
       clearTimeout(timer);
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-      el.removeEventListener("load", update);
+      if (rafId) cancelAnimationFrame(rafId);
+      window.removeEventListener("scroll", onScroll);
+      el.removeEventListener("load", onScroll);
     };
   }, [isLight]);
 
