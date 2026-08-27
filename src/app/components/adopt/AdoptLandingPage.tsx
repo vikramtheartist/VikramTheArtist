@@ -1274,9 +1274,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </p>
 
                 {/* Headline */}
-                <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
-                  Turn messy adoption signals into a prioritized behavioral action plan.
+                <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-3 max-w-lg">
+                  Turn your adoption problem into a clear UX action plan.
                 </h3>
+
+                {/* Sub-copy */}
+                <p className="text-[14px] sm:text-[15px] text-[#64748b] font-normal leading-relaxed mb-6 max-w-lg">
+                  I independently designed and vibe-coded AdoptIQ.ai to turn adoption challenges into behavioral diagnoses and prioritized UX recommendations—for free.
+                </p>
 
                 {/* 4 Pipeline Flow Steps in Pill */}
                 <div className="w-full max-w-lg p-2.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-xs flex items-center justify-between mb-5">
