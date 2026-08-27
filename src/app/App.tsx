@@ -54,6 +54,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
   const sunRef = useRef<HTMLImageElement>(null);
   const atmRef = useRef<HTMLDivElement>(null);
   const planet1Ref = useRef<HTMLImageElement>(null);
+  const astroRef = useRef<HTMLDivElement>(null);
   const isLight = mode === "light";
 
   useEffect(() => {
@@ -61,6 +62,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
     const sun = sunRef.current;
     const atm = atmRef.current;
     const planet1 = planet1Ref.current;
+    const astro = astroRef.current;
     if (!el) return;
 
     const Y_OFFSET = 0;         // Atmospheric halo
@@ -81,6 +83,10 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       const h = el.offsetHeight || 1200;
       setPos(vh * 0.75 + h / 2, vw / 2, 1);
       if (planet1) planet1.style.transform = "scale(1)";
+      if (astro) {
+        astro.style.transform = "translate3d(0, 0, 0) translateY(-50%)";
+        astro.style.opacity = "1";
+      }
       return;
     }
 
@@ -149,6 +155,33 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
 
       const stickTrigger = card3Top + cachedCard3Height / 2 - vh / 2;
       const exitTrigger  = lastTop - lastStickyTop;
+
+      // Astronaut scroll-driven descent when last card exits (reaching 50% of screen vertically)
+      if (astro) {
+        if (exitTrigger > 0) {
+          astro.style.transform = `translate3d(50px, -65vh, 0) translateY(-50%) rotate(8deg)`;
+          astro.style.opacity = "0";
+        } else {
+          const dist = Math.abs(exitTrigger);
+          const entranceDistance = vh * 0.85;
+          const progress = Math.min(1, dist / entranceDistance);
+          const eased = 1 - Math.pow(1 - progress, 3);
+
+          const startY = -vh * 0.65;
+          const startX = 60;
+          const startRot = 8;
+
+          const curY = startY + (0 - startY) * eased;
+          const curX = startX + (0 - startX) * eased;
+          const curRot = startRot + (0 - startRot) * eased;
+
+          const postScroll = Math.max(0, dist - entranceDistance);
+          const driftY = -postScroll * 0.12;
+
+          astro.style.transform = `translate3d(${curX}px, ${curY + driftY}px, 0) translateY(-50%) rotate(${curRot}deg)`;
+          astro.style.opacity = `${Math.min(1, progress * 2.2)}`;
+        }
+      }
 
       if (!hasCards) {
         setPos(phase1Y, vw / 2, currentScale);
@@ -281,6 +314,41 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
               transformOrigin: "center center",
             }}
           />
+
+          {/* Floating Astronaut in space on right, enters from top with scroll to 50% of screen */}
+          <div
+            ref={astroRef}
+            style={{
+              position: "fixed",
+              top: "50vh",
+              right: "clamp(24px, 4.5vw, 90px)",
+              zIndex: 0,
+              pointerEvents: "none",
+              userSelect: "none",
+              transform: "translate3d(50px, -65vh, 0) translateY(-50%) rotate(8deg)",
+              opacity: 0,
+              willChange: "transform, opacity",
+            }}
+          >
+            <div
+              style={{
+                animation: "astronautFloat 7s ease-in-out infinite",
+                willChange: "transform",
+              }}
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}IMG/Astronaut.png`}
+                alt="Floating Astronaut"
+                decoding="async"
+                style={{
+                  width: "clamp(160px, 16.5vw, 255px)",
+                  height: "auto",
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 25px rgba(100, 160, 255, 0.20))",
+                }}
+              />
+            </div>
+          </div>
         </>
       )}
 
