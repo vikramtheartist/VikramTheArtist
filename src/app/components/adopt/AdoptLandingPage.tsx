@@ -457,8 +457,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           className="fixed top-0 left-0 w-full h-screen pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
           style={{
             opacity: Math.max(0, 1 - scrollY / 900),
-            maskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
+            maskImage: isDark
+              ? "linear-gradient(to bottom, black 0%, black 55%, transparent 92%)"
+              : "linear-gradient(to bottom, black 0%, black 75%, transparent 98%)",
+            WebkitMaskImage: isDark
+              ? "linear-gradient(to bottom, black 0%, black 55%, transparent 92%)"
+              : "linear-gradient(to bottom, black 0%, black 75%, transparent 98%)",
           }}
         >
           {/* Multi-axis 3D Gyroscope Prism Container */}
@@ -490,13 +494,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             }}
           />
 
-          {/* Seamless luminous ambient gradient overlay on the left to perfectly integrate text */}
+          {/* Seamless luminous ambient gradient overlay on the left & bottom to perfectly integrate text & next section */}
           <div
             className="absolute inset-0 pointer-events-none z-10 transition-all duration-700"
             style={{
               background: isDark
-                ? "linear-gradient(to right, rgba(3, 7, 18, 0.98) 0%, rgba(3, 7, 18, 0.88) 32%, rgba(3, 7, 18, 0.45) 55%, transparent 80%)"
-                : "linear-gradient(to right, rgba(243, 248, 254, 0.98) 0%, rgba(243, 248, 254, 0.85) 32%, rgba(243, 248, 254, 0.45) 52%, transparent 78%)"
+                ? "linear-gradient(to right, rgba(3, 7, 18, 0.98) 0%, rgba(3, 7, 18, 0.88) 32%, rgba(3, 7, 18, 0.45) 55%, transparent 80%), linear-gradient(to bottom, transparent 65%, rgba(3, 7, 18, 0.95) 100%)"
+                : "linear-gradient(to right, rgba(243, 248, 254, 0.98) 0%, rgba(243, 248, 254, 0.85) 32%, rgba(243, 248, 254, 0.45) 52%, transparent 78%), linear-gradient(to bottom, transparent 75%, rgba(243, 248, 254, 0.9) 100%)"
             }}
           />
         </div>
@@ -642,18 +646,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[100vh] lg:min-h-[105vh] relative z-20 py-16 lg:py-24 overflow-hidden flex items-center justify-center bg-transparent"
+        className="w-full min-h-[100vh] lg:min-h-[105vh] relative z-20 py-16 lg:py-24 overflow-hidden flex items-center justify-center bg-transparent -mt-8 sm:-mt-14"
       >
-        {/* Full-Bleed Parallax Iceberg Artwork Background */}
+        {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Top & Bottom Feather Blends */}
         <div
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
           style={{
             maskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)"
-              : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+              ? "linear-gradient(to bottom, transparent 0%, black 22%, black 82%, transparent 100%)"
+              : "linear-gradient(to bottom, transparent 0%, black 15%, black 75%, transparent 96%)",
             WebkitMaskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)"
-              : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+              ? "linear-gradient(to bottom, transparent 0%, black 22%, black 82%, transparent 100%)"
+              : "linear-gradient(to bottom, transparent 0%, black 15%, black 75%, transparent 96%)",
           }}
         >
           <div
