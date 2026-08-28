@@ -247,8 +247,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   onBack,
   onExplorePlaybook,
   onViewCaseStudy,
+  initialMode = "dark",
 }) => {
-  const [activeCategory, setActiveCategory] = useState<"psychology" | "signals" | "interventions" | "outcomes">("psychology");
+  const [mode, setMode] = useState<"dark" | "light">(initialMode);
+  const isDark = mode === "dark";
   const [scrollY, setScrollY] = useState(0);
   const [activeStageDetail, setActiveStageDetail] = useState<number | null>(null);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -325,37 +327,83 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   };
 
   return (
-    <div className="adopt-page-wrapper selection:bg-indigo-500 selection:text-white relative">
+    <div className={`adopt-page-wrapper selection:bg-indigo-500 selection:text-white relative ${isDark ? "dark" : ""}`}>
       {/* ── CONTINUOUS FLOWING MOODBOARD GRADIENT ATMOSPHERE (FULL PAGE) ─ */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
         {/* Top Hero Glows: Pastel Mint/Cyan + Iris Violet/Lilac + Strawberry Pink */}
-        <div className="absolute -top-24 -left-20 w-[900px] h-[900px] bg-gradient-to-br from-cyan-200/40 via-sky-100/25 to-transparent rounded-full blur-[140px]" />
-        <div className="absolute -top-10 right-0 w-[850px] h-[850px] bg-gradient-to-bl from-pink-200/35 via-purple-200/25 to-transparent rounded-full blur-[140px]" />
-        <div className="absolute top-[450px] left-[25%] w-[700px] h-[550px] bg-gradient-to-tr from-violet-200/25 via-fuchsia-100/20 to-transparent rounded-full blur-[130px]" />
+        <div className={`absolute -top-24 -left-20 w-[900px] h-[900px] rounded-full blur-[140px] transition-all duration-700 ${
+          isDark
+            ? "bg-gradient-to-br from-cyan-500/22 via-sky-600/15 to-transparent"
+            : "bg-gradient-to-br from-cyan-200/40 via-sky-100/25 to-transparent"
+        }`} />
+        <div className={`absolute -top-10 right-0 w-[850px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
+          isDark
+            ? "bg-gradient-to-bl from-pink-500/20 via-purple-600/22 to-transparent"
+            : "bg-gradient-to-bl from-pink-200/35 via-purple-200/25 to-transparent"
+        }`} />
+        <div className={`absolute top-[450px] left-[25%] w-[700px] h-[550px] rounded-full blur-[130px] transition-all duration-700 ${
+          isDark
+            ? "bg-gradient-to-tr from-violet-600/22 via-fuchsia-600/16 to-transparent"
+            : "bg-gradient-to-tr from-violet-200/25 via-fuchsia-100/20 to-transparent"
+        }`} />
 
         {/* Section 2 (Core Problem) Flow */}
-        <div className="absolute top-[1000px] -left-10 w-[850px] h-[800px] bg-gradient-to-r from-blue-200/30 via-indigo-100/20 to-transparent rounded-full blur-[140px]" />
-        <div className="absolute top-[1350px] -right-10 w-[900px] h-[850px] bg-gradient-to-l from-pink-200/35 via-rose-100/20 to-transparent rounded-full blur-[150px]" />
+        <div className={`absolute top-[1000px] -left-10 w-[850px] h-[800px] rounded-full blur-[140px] transition-all duration-700 ${
+          isDark
+            ? "bg-gradient-to-r from-blue-600/25 via-indigo-600/20 to-transparent"
+            : "bg-gradient-to-r from-blue-200/30 via-indigo-100/20 to-transparent"
+        }`} />
+        <div className={`absolute top-[1350px] -right-10 w-[900px] h-[850px] rounded-full blur-[150px] transition-all duration-700 ${
+          isDark
+            ? "bg-gradient-to-l from-pink-600/22 via-rose-600/16 to-transparent"
+            : "bg-gradient-to-l from-pink-200/35 via-rose-100/20 to-transparent"
+        }`} />
 
         {/* Section 3 (5 Stages) Flow */}
-        <div className="absolute top-[1900px] left-[5%] w-[950px] h-[800px] bg-gradient-to-br from-cyan-200/35 via-sky-100/25 to-transparent rounded-full blur-[140px]" />
-        <div className="absolute top-[2300px] right-[5%] w-[900px] h-[800px] bg-gradient-to-bl from-purple-200/35 via-pink-200/25 to-transparent rounded-full blur-[140px]" />
+        <div className={`absolute top-[1900px] left-[5%] w-[950px] h-[800px] rounded-full blur-[140px] transition-all duration-700 ${
+          isDark
+            ? "bg-gradient-to-br from-cyan-500/22 via-sky-600/15 to-transparent"
+            : "bg-gradient-to-br from-cyan-200/35 via-sky-100/25 to-transparent"
+        }`} />
+        <div className={`absolute top-[2300px] right-[5%] w-[900px] h-[800px] rounded-full blur-[140px] transition-all duration-700 ${
+          isDark
+            ? "bg-gradient-to-bl from-purple-600/25 via-pink-600/20 to-transparent"
+            : "bg-gradient-to-bl from-purple-200/35 via-pink-200/25 to-transparent"
+        }`} />
 
         {/* Section 4 & 5 (Case Study & AdoptIQ) Flow */}
-        <div className="absolute top-[2900px] -left-20 w-[950px] h-[900px] bg-gradient-to-tr from-violet-200/30 via-sky-100/25 to-transparent rounded-full blur-[150px]" />
-        <div className="absolute top-[3500px] right-0 w-[950px] h-[850px] bg-gradient-to-l from-pink-200/35 via-purple-100/25 to-transparent rounded-full blur-[140px]" />
-        <div className="absolute top-[4100px] left-[10%] w-[900px] h-[750px] bg-gradient-to-r from-cyan-200/30 via-indigo-100/20 to-transparent rounded-full blur-[140px]" />
+        <div className={`absolute top-[2900px] -left-20 w-[950px] h-[900px] rounded-full blur-[150px] transition-all duration-700 ${
+          isDark
+            ? "bg-gradient-to-tr from-violet-600/24 via-sky-600/15 to-transparent"
+            : "bg-gradient-to-tr from-violet-200/30 via-sky-100/25 to-transparent"
+        }`} />
+        <div className={`absolute top-[3500px] right-0 w-[950px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
+          isDark
+            ? "bg-gradient-to-l from-pink-600/24 via-purple-600/18 to-transparent"
+            : "bg-gradient-to-l from-pink-200/35 via-purple-100/25 to-transparent"
+        }`} />
+        <div className={`absolute top-[4100px] left-[10%] w-[900px] h-[750px] rounded-full blur-[140px] transition-all duration-700 ${
+          isDark
+            ? "bg-gradient-to-r from-cyan-600/22 via-indigo-600/18 to-transparent"
+            : "bg-gradient-to-r from-cyan-200/30 via-indigo-100/20 to-transparent"
+        }`} />
       </div>
 
       {/* ── TOP STICKY NAVIGATION BAR ─────────────────────────────────── */}
-      <header className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-xl border-b border-slate-200/40 transition-all">
+      <header className={`sticky top-0 z-50 w-full backdrop-blur-2xl transition-all duration-300 ${
+        isDark ? "bg-[#030712]/80 border-b border-white/10 shadow-sm" : "bg-white/70 border-b border-slate-200/40"
+      }`}>
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 h-20 flex items-center justify-between">
           {/* Left: Back to Portfolio */}
           <div className="flex items-center gap-3">
             {onBack && (
               <button
                 onClick={onBack}
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-slate-700 bg-white/90 hover:bg-white border border-slate-200/90 rounded-full transition-all shadow-xs cursor-pointer hover:border-slate-300"
+                className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-full transition-all shadow-xs cursor-pointer ${
+                  isDark
+                    ? "text-white bg-white/8 hover:bg-white/15 border border-white/15 hover:border-white/25"
+                    : "text-slate-700 bg-white/90 hover:bg-white border border-slate-200/90 hover:border-slate-300"
+                }`}
               >
                 ← Portfolio
               </button>
@@ -363,15 +411,39 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
 
           {/* Center Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 text-[14px] font-medium text-[#475569]">
-            <a href="#problem" className="hover:text-[#4344fa] transition-colors py-1 cursor-pointer">The Problem</a>
-            <a href="#playbook-stages" className="hover:text-[#4344fa] transition-colors py-1 cursor-pointer">5 Stages</a>
-            <a href="#case-study" className="hover:text-[#4344fa] transition-colors py-1 cursor-pointer">Copilot Case Study</a>
-            <a href="#adoptiq" className="hover:text-[#4344fa] transition-colors py-1 cursor-pointer">AdoptIQ Engine</a>
+          <nav className={`hidden md:flex items-center gap-8 text-[14px] font-medium transition-colors ${
+            isDark ? "text-slate-300" : "text-[#475569]"
+          }`}>
+            <a href="#problem" className={`transition-colors py-1 cursor-pointer ${isDark ? "hover:text-white" : "hover:text-[#4344fa]"}`}>The Problem</a>
+            <a href="#playbook-stages" className={`transition-colors py-1 cursor-pointer ${isDark ? "hover:text-white" : "hover:text-[#4344fa]"}`}>5 Stages</a>
+            <a href="#case-study" className={`transition-colors py-1 cursor-pointer ${isDark ? "hover:text-white" : "hover:text-[#4344fa]"}`}>Copilot Case Study</a>
+            <a href="#adoptiq" className={`transition-colors py-1 cursor-pointer ${isDark ? "hover:text-white" : "hover:text-[#4344fa]"}`}>AdoptIQ Engine</a>
           </nav>
 
-          {/* Right Spacer for balanced centering */}
-          <div className="w-24 hidden sm:block" />
+          {/* Right: Apple-Style Dark/Light Theme Mode Toggle */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setMode((m) => (m === "dark" ? "light" : "dark"))}
+              className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold backdrop-blur-xl border transition-all cursor-pointer shadow-xs hover:scale-105 active:scale-95 ${
+                isDark
+                  ? "bg-white/10 text-white border-white/15 hover:bg-white/18 hover:border-white/25"
+                  : "bg-white/90 text-slate-700 border-slate-200 hover:bg-white hover:border-slate-300"
+              }`}
+              aria-label="Toggle Theme Mode"
+            >
+              {isDark ? (
+                <>
+                  <span className="text-amber-300 text-sm">☀️</span>
+                  <span className="hidden sm:inline">Light Mode</span>
+                </>
+              ) : (
+                <>
+                  <span className="text-indigo-400 text-sm">🌙</span>
+                  <span className="hidden sm:inline">Dark Mode</span>
+                </>
+              )}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -420,9 +492,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
           {/* Seamless luminous ambient gradient overlay on the left to perfectly integrate text */}
           <div
-            className="absolute inset-0 pointer-events-none z-10"
+            className="absolute inset-0 pointer-events-none z-10 transition-all duration-700"
             style={{
-              background: "linear-gradient(to right, rgba(243, 248, 254, 0.98) 0%, rgba(243, 248, 254, 0.85) 32%, rgba(243, 248, 254, 0.45) 52%, transparent 78%)"
+              background: isDark
+                ? "linear-gradient(to right, rgba(3, 7, 18, 0.98) 0%, rgba(3, 7, 18, 0.88) 32%, rgba(3, 7, 18, 0.45) 55%, transparent 80%)"
+                : "linear-gradient(to right, rgba(243, 248, 254, 0.98) 0%, rgba(243, 248, 254, 0.85) 32%, rgba(243, 248, 254, 0.45) 52%, transparent 78%)"
             }}
           />
         </div>
@@ -437,24 +511,30 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           >
             {/* Eyebrow Badge */}
             <div className="mb-4">
-              <div className="adopt-hero-badge hover:scale-105 transition-transform cursor-default">
+              <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase shadow-2xs hover:scale-105 transition-transform cursor-default ${
+                isDark ? "bg-white/8 border border-white/15 text-[#a5b4fc]" : "adopt-hero-badge"
+              }`}>
                 <span className="text-[12px] leading-none text-[#6366f1] animate-pulse">✦</span>
                 <span>THE ADOPT FRAMEWORK</span>
               </div>
             </div>
 
             {/* Main Headline with Signature Cobalt-to-Purple Gradient */}
-            <h1 className="text-[68px] sm:text-[84px] lg:text-[96px] font-black tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea] leading-[0.92] mb-4 font-sans inline-block">
+            <h1 className="text-[68px] sm:text-[84px] lg:text-[96px] font-black tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] leading-[0.92] mb-4 font-sans inline-block">
               ADOPT
             </h1>
 
             {/* Sub-headline */}
-            <h2 className="text-[24px] sm:text-[28px] lg:text-[32px] font-bold tracking-tight text-[#1e293b] leading-[1.25] mb-4">
+            <h2 className={`text-[24px] sm:text-[28px] lg:text-[32px] font-bold tracking-tight leading-[1.25] mb-4 transition-colors ${
+              isDark ? "text-white" : "text-[#1e293b]"
+            }`}>
               The behavioral framework I built to scale AI adoption.
             </h2>
 
             {/* Description */}
-            <p className="text-[14px] sm:text-[16px] text-[#64748b] leading-[1.6] max-w-[540px] mb-7 font-normal">
+            <p className={`text-[14px] sm:text-[16px] leading-[1.6] max-w-[540px] mb-7 font-normal transition-colors ${
+              isDark ? "text-slate-400" : "text-[#64748b]"
+            }`}>
               I created ADOPT from first principles to help product teams and organizations understand why AI adoption stalls—and design the behavioral path from awareness to sustained use.
             </p>
 
@@ -476,7 +556,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   setPasswordError("");
                   setShowPasswordModal(true);
                 }}
-                className="adopt-hero-btn-secondary cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm"
+                className={`rounded-full px-6 py-3 font-semibold text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm ${
+                  isDark
+                    ? "bg-white/8 hover:bg-white/15 text-white border border-white/18"
+                    : "adopt-hero-btn-secondary"
+                }`}
               >
                 <span>See the Case Study</span>
               </button>
@@ -491,47 +575,63 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             }}
           >
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl">
-              {/* Stat 1: 1M WAU */}
-              <div className="flex items-center gap-3 group cursor-default">
-                <div className="w-10 h-10 rounded-full bg-[#f3f0fe]/90 backdrop-blur-md flex items-center justify-center text-[#6d28d9] shrink-0 shadow-2xs border border-purple-100/50 group-hover:scale-110 transition-transform">
+              {/* Stat 1: 1M Users */}
+              <div className={`group cursor-default transition-all ${
+                isDark ? "flex items-center gap-3.5 p-3 rounded-2xl bg-[#0b101e]/85 backdrop-blur-xl border border-white/10 shadow-sm" : "flex items-center gap-3"
+              }`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
+                  isDark ? "bg-purple-950/70 border-purple-500/30 text-purple-400" : "bg-[#f3f0fe]/90 border-purple-100/50 text-[#6d28d9]"
+                }`}>
                   <Users className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-[20px] font-black text-[#0f172a] leading-tight">1M</div>
-                  <div className="text-[12px] font-medium text-[#64748b]">WAU</div>
+                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>1M</div>
+                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Users</div>
                 </div>
               </div>
 
               {/* Stat 2: 5-stage framework */}
-              <div className="flex items-center gap-3 group cursor-default">
-                <div className="w-10 h-10 rounded-full bg-[#e8f1ff]/90 backdrop-blur-md flex items-center justify-center text-[#2563eb] shrink-0 shadow-2xs border border-sky-100/50 group-hover:scale-110 transition-transform">
+              <div className={`group cursor-default transition-all ${
+                isDark ? "flex items-center gap-3.5 p-3 rounded-2xl bg-[#0b101e]/85 backdrop-blur-xl border border-white/10 shadow-sm" : "flex items-center gap-3"
+              }`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
+                  isDark ? "bg-sky-950/70 border-sky-500/30 text-sky-400" : "bg-[#e8f1ff]/90 border-sky-100/50 text-[#2563eb]"
+                }`}>
                   <Layers className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-[20px] font-black text-[#0f172a] leading-tight">5-stage</div>
-                  <div className="text-[12px] font-medium text-[#64748b]">framework</div>
+                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>5-stage</div>
+                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Framework</div>
                 </div>
               </div>
 
               {/* Stat 3: 300K -> 1M growth */}
-              <div className="flex items-center gap-3 group cursor-default">
-                <div className="w-10 h-10 rounded-full bg-[#fef2f2]/90 backdrop-blur-md flex items-center justify-center text-[#e11d48] shrink-0 shadow-2xs border border-rose-100/50 group-hover:scale-110 transition-transform">
+              <div className={`group cursor-default transition-all ${
+                isDark ? "flex items-center gap-3.5 p-3 rounded-2xl bg-[#0b101e]/85 backdrop-blur-xl border border-white/10 shadow-sm" : "flex items-center gap-3"
+              }`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
+                  isDark ? "bg-rose-950/70 border-rose-500/30 text-rose-400" : "bg-[#fef2f2]/90 border-rose-100/50 text-[#e11d48]"
+                }`}>
                   <TrendingUp className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-[20px] font-black text-[#0f172a] leading-tight">300K → 1M</div>
-                  <div className="text-[12px] font-medium text-[#64748b]">Growth in WAU</div>
+                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>300K → 1M</div>
+                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Copilot in W365</div>
                 </div>
               </div>
 
               {/* Stat 4: Behavior-first */}
-              <div className="flex items-center gap-3 group cursor-default">
-                <div className="w-10 h-10 rounded-full bg-[#ecfdf5]/90 backdrop-blur-md flex items-center justify-center text-[#059669] shrink-0 shadow-2xs border border-emerald-100/50 group-hover:scale-110 transition-transform">
+              <div className={`group cursor-default transition-all ${
+                isDark ? "flex items-center gap-3.5 p-3 rounded-2xl bg-[#0b101e]/85 backdrop-blur-xl border border-white/10 shadow-sm" : "flex items-center gap-3"
+              }`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
+                  isDark ? "bg-emerald-950/70 border-emerald-500/30 text-emerald-400" : "bg-[#ecfdf5]/90 border-emerald-100/50 text-[#059669]"
+                }`}>
                   <Sparkles className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-[20px] font-black text-[#0f172a] leading-tight">Behavior-first</div>
-                  <div className="text-[12px] font-medium text-[#64748b]">by design</div>
+                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>Behavior-first</div>
+                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>by design</div>
                 </div>
               </div>
             </div>
@@ -559,9 +659,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             }}
           >
             <img
-              src={`${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
+              src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_bg.jpg` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
-              className="w-full h-full object-contain sm:object-cover object-center mix-blend-multiply transition-transform duration-700 opacity-95"
+              className={`w-full h-full object-contain sm:object-cover object-center transition-transform duration-700 opacity-95 ${
+                isDark ? "" : "mix-blend-multiply"
+              }`}
             />
           </div>
         </div>
@@ -573,30 +675,40 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* Top Left: Badge, Headline & Context */}
             <div className="lg:col-span-6 flex flex-col items-start text-left">
               <div className="mb-4">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1] text-[11px] font-extrabold tracking-wider uppercase shadow-2xs">
+                <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase shadow-2xs ${
+                  isDark ? "bg-white/8 border border-white/15 text-[#a5b4fc]" : "bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1]"
+                }`}>
                   <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
                   <span>THE CORE PROBLEM</span>
                 </div>
                 <div className="w-8 h-[2.5px] bg-[#38bdf8] rounded-full mt-2.5 shadow-[0_0_8px_rgba(56,189,248,0.6)]" />
               </div>
 
-              <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
+              <h2 className={`text-[44px] sm:text-[52px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-4 font-sans ${
+                isDark ? "text-white" : "text-[#0a0e1a]"
+              }`}>
                 AI adoption is not<br />
                 a feature problem.<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#818cf8] to-[#c084fc]">
                   It’s a behavior<br className="hidden sm:inline" /> problem.
                 </span>
               </h2>
 
-              <p className="text-[14px] sm:text-[15px] text-[#64748b] leading-relaxed max-w-[420px] font-normal mb-8">
-                Even powerful products fail when they collide with familiar habits, uncertainty, and inertia.
+              <p className={`text-[14px] sm:text-[15px] leading-relaxed max-w-[420px] font-normal mb-8 ${
+                isDark ? "text-slate-400" : "text-[#64748b]"
+              }`}>
+                Turns powerful products into ghost towns if they collide with familiar habits, uncertainty, and inertia.
               </p>
             </div>
 
             {/* Top Right: ABOVE THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:-translate-x-[60px] mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
+                className={`relative rounded-[24px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[60px] mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
+                  isDark
+                    ? "bg-[#0b101e]/85 backdrop-blur-2xl border border-white/12 shadow-[0_20px_50px_rgba(0,0,0,0.6)] hover:border-sky-500/40"
+                    : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
+                }`}
                 style={{
                   transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
                 }}
@@ -613,15 +725,23 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </div>
 
                 <div className="flex items-center gap-3.5 mb-3.5">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
-                    <Mountain className="w-5 h-5 text-[#6366f1] stroke-[2]" />
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
+                    isDark
+                      ? "bg-sky-950/70 border border-sky-500/30 text-sky-400"
+                      : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
+                  }`}>
+                    <Mountain className="w-5 h-5 stroke-[2]" />
                   </div>
                   <div>
-                    <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
+                    <div className={`text-[13px] font-black tracking-wider uppercase ${
+                      isDark ? "text-white" : "text-[#0f172a]"
+                    }`}>
                       ABOVE THE SURFACE
                     </div>
-                    <div className="text-[12px] text-[#64748b] font-medium">
-                      What teams optimize
+                    <div className={`text-[12px] font-medium ${
+                      isDark ? "text-slate-400" : "text-[#64748b]"
+                    }`}>
+                      What teams prioritize
                     </div>
                   </div>
                 </div>
@@ -633,9 +753,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     "Feature-rich roadmap",
                     "Enterprise-grade security",
                   ].map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155] hover:text-[#0f172a] transition-colors">
-                      <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0 shadow-xs">
-                        <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
+                    <div key={idx} className={`flex items-center gap-2.5 text-[13px] font-medium transition-colors ${
+                      isDark ? "text-slate-300 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
+                    }`}>
+                      <div className={`w-2 h-2 rounded-full flex items-center justify-center shrink-0 shadow-xs ${
+                        isDark ? "bg-sky-900 border border-sky-400" : "bg-indigo-100 border border-[#818cf8]"
+                      }`}>
+                        <div className={`w-1 h-1 rounded-full ${isDark ? "bg-sky-400" : "bg-[#6366f1]"}`} />
                       </div>
                       <span>{item}</span>
                     </div>
@@ -659,10 +783,16 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   key={idx}
                   className="flex items-center gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
                 >
-                  <div className="w-6 h-6 rounded-full bg-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)] transition-all">
-                    <Check className="w-3.5 h-3.5 text-[#7c3aed] stroke-[2.5]" />
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all ${
+                    isDark
+                      ? "bg-[#1e1b4b] border border-[#6366f1]/50 text-[#a5b4fc] shadow-[0_0_12px_rgba(99,102,241,0.3)] group-hover:border-purple-400"
+                      : "bg-[#f5f3ff] border border-[#ddd6fe] text-[#7c3aed] shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd] group-hover:shadow-[0_0_12px_rgba(124,58,237,0.3)]"
+                  }`}>
+                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                   </div>
-                  <span className="text-[14px] sm:text-[15px] text-[#1e293b] font-medium leading-normal group-hover:text-[#0f172a] transition-colors flex-1">
+                  <span className={`text-[14px] sm:text-[15px] font-medium leading-normal transition-colors flex-1 ${
+                    isDark ? "text-slate-200 group-hover:text-white" : "text-[#1e293b] group-hover:text-[#0f172a]"
+                  }`}>
                     {text}
                   </span>
                 </div>
@@ -672,7 +802,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* Bottom Right: BELOW THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className="relative rounded-[24px] bg-white/92 backdrop-blur-xl border border-white/80 p-5 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] w-full max-w-[320px] text-left lg:-translate-x-[50px] mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)] group cursor-default"
+                className={`relative rounded-[24px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[50px] mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
+                  isDark
+                    ? "bg-[#0b101e]/85 backdrop-blur-2xl border border-white/12 shadow-[0_20px_50px_rgba(0,0,0,0.6)] hover:border-purple-500/40"
+                    : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
+                }`}
                 style={{
                   transform: `perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3.5}deg)`,
                 }}
@@ -689,14 +823,22 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </div>
 
                 <div className="flex items-center gap-3.5 mb-3.5">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] flex items-center justify-center text-[#6366f1] shrink-0 shadow-2xs group-hover:scale-110 transition-transform">
-                    <Lock className="w-5 h-5 text-[#6366f1] stroke-[2]" />
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
+                    isDark
+                      ? "bg-purple-950/70 border border-purple-500/30 text-purple-400"
+                      : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
+                  }`}>
+                    <Lock className="w-5 h-5 stroke-[2]" />
                   </div>
                   <div>
-                    <div className="text-[13px] font-black text-[#0f172a] tracking-wider uppercase">
+                    <div className={`text-[13px] font-black tracking-wider uppercase ${
+                      isDark ? "text-white" : "text-[#0f172a]"
+                    }`}>
                       BELOW THE SURFACE
                     </div>
-                    <div className="text-[12px] text-[#64748b] font-medium">
+                    <div className={`text-[12px] font-medium ${
+                      isDark ? "text-slate-400" : "text-[#64748b]"
+                    }`}>
                       What holds adoption back
                     </div>
                   </div>
@@ -709,9 +851,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     "Unclear personal value",
                     "Low motivation to switch",
                   ].map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-[13px] font-medium text-[#334155] hover:text-[#0f172a] transition-colors">
-                      <div className="w-2 h-2 rounded-full bg-indigo-100 border border-[#818cf8] flex items-center justify-center shrink-0 shadow-xs">
-                        <div className="w-1 h-1 rounded-full bg-[#6366f1]" />
+                    <div key={idx} className={`flex items-center gap-2.5 text-[13px] font-medium transition-colors ${
+                      isDark ? "text-slate-300 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
+                    }`}>
+                      <div className={`w-2 h-2 rounded-full flex items-center justify-center shrink-0 shadow-xs ${
+                        isDark ? "bg-purple-900 border border-purple-400" : "bg-indigo-100 border border-[#818cf8]"
+                      }`}>
+                        <div className={`w-1 h-1 rounded-full ${isDark ? "bg-purple-400" : "bg-[#6366f1]"}`} />
                       </div>
                       <span>{item}</span>
                     </div>
@@ -744,38 +890,49 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div className="lg:col-span-7">
               {/* Category Pills */}
               <div className="flex flex-wrap items-center gap-2 mb-4">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 text-[10px] font-extrabold text-slate-700 tracking-wider uppercase shadow-2xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#0284c7]" />
-                  Psychology
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 text-[10px] font-extrabold text-slate-700 tracking-wider uppercase shadow-2xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#f43f5e]" />
-                  Signals
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 text-[10px] font-extrabold text-slate-700 tracking-wider uppercase shadow-2xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#8b5cf6]" />
-                  Interventions
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 text-[10px] font-extrabold text-slate-700 tracking-wider uppercase shadow-2xs">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#f59e0b]" />
-                  Outcomes
-                </span>
+                {[
+                  { label: "THE FRAMEWORK", dot: "bg-[#38bdf8]" },
+                  { label: "BEHAVIORAL", dot: "bg-[#0284c7]" },
+                  { label: "EXPERIMENTAL", dot: "bg-[#f43f5e]" },
+                  { label: "SYSTEMIC", dot: "bg-[#8b5cf6]" },
+                  { label: "SCALABLE", dot: "bg-[#f59e0b]" },
+                ].map((cat, i) => (
+                  <span
+                    key={i}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-extrabold tracking-wider uppercase shadow-2xs ${
+                      isDark
+                        ? "bg-white/8 backdrop-blur-md border border-white/12 text-slate-200"
+                        : "bg-white/90 backdrop-blur-md border border-slate-200/80 text-slate-700"
+                    }`}
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${cat.dot}`} />
+                    {cat.label}
+                  </span>
+                ))}
               </div>
 
-              <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-[#0a0e1a] tracking-[-0.035em] leading-[1.04] mb-4 font-sans">
+              <h2 className={`text-[44px] sm:text-[52px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-4 font-sans ${
+                isDark ? "text-white" : "text-[#0a0e1a]"
+              }`}>
                 The 5 Stages of the<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]">
                   ADOPT Framework
                 </span>
               </h2>
-              <p className="text-[16px] sm:text-[17px] text-[#64748b] font-normal leading-relaxed mb-6">
-                A behavioral journey that moves users from discovery to advocacy. Click any card below to launch the circular 3D exploration view.
+              <p className={`text-[16px] sm:text-[17px] font-normal leading-relaxed mb-6 ${
+                isDark ? "text-slate-400" : "text-[#64748b]"
+              }`}>
+                A behavioral journey that moves users from discovery to advocacy. Click any card below to launch the circular 3D experience view.
               </p>
 
               {/* Exploration Hint Pill */}
               <div className="flex flex-wrap items-center gap-3">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md border border-slate-200/80 text-xs font-semibold text-slate-700 shadow-2xs">
-                  <span className="text-[#6d28d9] font-bold">✦</span>
+                <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold shadow-2xs ${
+                  isDark
+                    ? "bg-white/8 backdrop-blur-md border border-white/12 text-slate-300"
+                    : "bg-white/90 backdrop-blur-md border border-slate-200/80 text-slate-700"
+                }`}>
+                  <span className="text-[#a855f7] font-bold">✦</span>
                   <span>Click any card to explore full behavioral framework & tactics</span>
                 </div>
               </div>
@@ -783,21 +940,31 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
             {/* Right: Journey Insight Card */}
             <div className="lg:col-span-5 flex justify-end">
-              <div className="rounded-[28px] bg-white/92 backdrop-blur-xl border border-slate-200/70 p-6 shadow-[0_15px_35px_-8px_rgba(15,23,42,0.05)] flex items-center justify-between gap-6 max-w-[420px] w-full">
+              <div className={`rounded-[28px] p-6 flex items-center justify-between gap-6 max-w-[420px] w-full ${
+                isDark
+                  ? "bg-[#0b101e]/85 backdrop-blur-xl border border-white/12 shadow-[0_15px_35px_-8px_rgba(0,0,0,0.5)]"
+                  : "bg-white/92 backdrop-blur-xl border border-slate-200/70 shadow-[0_15px_35px_-8px_rgba(15,23,42,0.05)]"
+              }`}>
                 <div>
-                  <div className="flex items-center gap-1.5 text-[#7c3aed] text-[11px] font-bold tracking-wider uppercase mb-1.5">
+                  <div className="flex items-center gap-1.5 text-[#a855f7] text-[11px] font-bold tracking-wider uppercase mb-1.5">
                     <span>📈</span>
                     <span>JOURNEY INSIGHT</span>
                   </div>
-                  <p className="text-[14px] font-medium text-[#334155] leading-snug">
-                    People adopt in stages.<br />
+                  <p className={`text-[14px] font-medium leading-snug ${
+                    isDark ? "text-slate-200" : "text-[#334155]"
+                  }`}>
+                    People rarely change.<br />
                     Design for where they are,<br />
                     not where you want them to be.
                   </p>
                 </div>
 
                 {/* Upward Curve Mini Graph */}
-                <div className="w-[80px] h-[80px] rounded-[20px] bg-gradient-to-tr from-[#f5f3ff] via-[#fdf4ff] to-[#fff1f2] border border-[#f3e8ff] flex items-center justify-center p-2 shrink-0 shadow-2xs">
+                <div className={`w-[80px] h-[80px] rounded-[20px] flex items-center justify-center p-2 shrink-0 shadow-2xs ${
+                  isDark
+                    ? "bg-[#141a2e] border border-purple-500/30"
+                    : "bg-gradient-to-tr from-[#f5f3ff] via-[#fdf4ff] to-[#fff1f2] border border-[#f3e8ff]"
+                }`}>
                   <svg className="w-full h-full" viewBox="0 0 60 60" fill="none">
                     <path
                       d="M6 48C18 48 24 38 34 26C42 16 48 10 54 8"
@@ -854,7 +1021,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     {/* 3D Rollover Motion Inner Container */}
                     <div className="stage-rollover-card-inner relative w-full flex flex-col items-center">
                       {/* Glass Card (Scaled 10% smaller) */}
-                      <div className="relative w-[90%] rounded-[26px] sm:rounded-[30px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.18)] transition-all duration-300 flex items-center justify-center z-10">
+                      <div className="relative w-[90%] rounded-[26px] sm:rounded-[30px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.25)] transition-all duration-300 flex items-center justify-center z-10">
                         <img
                           src={stage.cardImg}
                           alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
@@ -891,24 +1058,32 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           {/* ── AUTHENTIC FROSTED GLASS STAGE DEEP-DIVE MODAL ──────── */}
           {activeStageDetail !== null && (
             <div
-              className="fixed inset-0 z-50 bg-white/20 flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in"
+              className={`fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in ${
+                isDark ? "bg-black/75 backdrop-blur-md" : "bg-white/20"
+              }`}
               onClick={() => setActiveStageDetail(null)}
             >
               {/* Frosted Glass Floating Card Container (Only Card Area is Blurred) */}
               <div
-                className="frosted-glass-modal relative w-full max-w-[1400px] max-h-[92vh] overflow-y-auto adopt-custom-scrollbar p-6 sm:p-10 lg:p-12 text-left z-10"
+                className={`relative w-full max-w-[1400px] max-h-[92vh] overflow-y-auto adopt-custom-scrollbar p-6 sm:p-10 lg:p-12 text-left z-10 ${
+                  isDark ? "bg-[#050814]/92 backdrop-blur-3xl border border-white/15 rounded-[36px] sm:rounded-[44px] shadow-[0_35px_80px_-15px_rgba(0,0,0,0.8)]" : "frosted-glass-modal"
+                }`}
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Modal Top Bar: Minimalist Frosted Glass Close Button */}
                 <div className="flex items-center justify-between pb-3 mb-4 relative z-20">
-                  <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full frosted-glass-pill text-[11px] font-extrabold tracking-wider uppercase" style={{ color: STAGES_DATA[activeStageDetail].color }}>
+                  <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-extrabold tracking-wider uppercase ${
+                    isDark ? "bg-white/10 border border-white/15" : "frosted-glass-pill"
+                  }`} style={{ color: STAGES_DATA[activeStageDetail].color }}>
                     <span className="w-2 h-2 rounded-full" style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }} />
                     <span>STAGE DEEP DIVE • {STAGES_DATA[activeStageDetail].pillar}</span>
                   </div>
 
                   <button
                     onClick={() => setActiveStageDetail(null)}
-                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full frosted-glass-pill text-slate-700 hover:text-slate-950 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer"
+                    className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer ${
+                      isDark ? "bg-white/10 hover:bg-white/20 text-white border border-white/15" : "frosted-glass-pill text-slate-700 hover:text-slate-950"
+                    }`}
                     aria-label="Close details"
                   >
                     <X className="w-5 h-5" />
@@ -938,7 +1113,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                               : prev - 1
                           )
                         }
-                        className="absolute left-1 sm:left-2 z-40 w-10 h-10 rounded-full bg-white/90 backdrop-blur-xl border border-white shadow-md flex items-center justify-center text-slate-700 hover:text-[#4344fa] hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                        className={`absolute left-1 sm:left-2 z-40 w-10 h-10 rounded-full shadow-md flex items-center justify-center transition-all cursor-pointer hover:scale-110 active:scale-95 ${
+                          isDark ? "bg-[#0b101e]/90 text-white border border-white/20 hover:text-sky-400" : "bg-white/90 text-slate-700 border border-white hover:text-[#4344fa]"
+                        }`}
                         aria-label="Previous Stage"
                       >
                         <ArrowRight className="w-4 h-4 rotate-180" />
@@ -952,7 +1129,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                               : prev + 1
                           )
                         }
-                        className="absolute right-1 sm:right-2 z-40 w-10 h-10 rounded-full bg-white/90 backdrop-blur-xl border border-white shadow-md flex items-center justify-center text-slate-700 hover:text-[#4344fa] hover:scale-110 active:scale-95 transition-all cursor-pointer"
+                        className={`absolute right-1 sm:right-2 z-40 w-10 h-10 rounded-full shadow-md flex items-center justify-center transition-all cursor-pointer hover:scale-110 active:scale-95 ${
+                          isDark ? "bg-[#0b101e]/90 text-white border border-white/20 hover:text-sky-400" : "bg-white/90 text-slate-700 border border-white hover:text-[#4344fa]"
+                        }`}
                         aria-label="Next Stage"
                       >
                         <ArrowRight className="w-4 h-4" />
@@ -984,9 +1163,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                                 })`,
                                 opacity: isActive ? 1 : isNeighbor ? 0.75 : 0.28,
                                 filter: isActive
-                                  ? "drop-shadow(0 18px 30px rgba(0,0,0,0.2))"
+                                  ? "drop-shadow(0 18px 30px rgba(0,0,0,0.4))"
                                   : isNeighbor
-                                  ? "drop-shadow(0 8px 16px rgba(0,0,0,0.1)) blur(0.5px)"
+                                  ? "drop-shadow(0 8px 16px rgba(0,0,0,0.2)) blur(0.5px)"
                                   : "blur(2px)",
                               }}
                             >
@@ -994,14 +1173,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                               <div className="w-full h-full flex flex-col items-center justify-center relative select-none">
                                 {/* Floor Contact Shadow */}
                                 {isActive && (
-                                  <div className="absolute bottom-3 w-28 h-6 bg-slate-900/18 rounded-full blur-md -z-10" />
+                                  <div className="absolute bottom-3 w-28 h-6 bg-slate-950/40 rounded-full blur-md -z-10" />
                                 )}
                                 <img
                                   src={stage.modalImg}
                                   alt={`${stage.title} Character`}
                                   className={`w-auto h-full max-h-full object-contain transition-transform duration-500 ${
                                     isActive
-                                      ? "scale-105 drop-shadow-xl"
+                                      ? "scale-105 drop-shadow-2xl"
                                       : "scale-90 hover:scale-95"
                                   }`}
                                 />
@@ -1027,21 +1206,29 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
 
                       {/* Bold Tagline */}
-                      <h3 className="text-[20px] sm:text-[24px] font-black text-[#0f172a] tracking-tight leading-tight max-w-xl">
+                      <h3 className={`text-[20px] sm:text-[24px] font-black tracking-tight leading-tight max-w-xl ${
+                        isDark ? "text-white" : "text-[#0f172a]"
+                      }`}>
                         {STAGES_DATA[activeStageDetail].tagline}
                       </h3>
                     </div>
 
                     {/* Explanatory Body Concept */}
-                    <p className="text-[15px] sm:text-[16px] text-[#1e293b] leading-relaxed mb-6 font-medium max-w-3xl">
+                    <p className={`text-[15px] sm:text-[16px] leading-relaxed mb-6 font-medium max-w-3xl ${
+                      isDark ? "text-slate-200" : "text-[#1e293b]"
+                    }`}>
                       {STAGES_DATA[activeStageDetail].body}
                     </p>
 
                     {/* Quote Box with Frosted Glass Styling */}
-                    <div className="w-full p-5 rounded-[22px] frosted-glass-card mb-7">
-                      <div className="text-[17px] sm:text-[19px] font-serif italic text-[#0f172a] leading-snug">
+                    <div className={`w-full p-5 rounded-[22px] mb-7 ${
+                      isDark ? "bg-white/5 border border-white/10 text-white" : "frosted-glass-card text-[#0f172a]"
+                    }`}>
+                      <div className="text-[17px] sm:text-[19px] font-serif italic leading-snug">
                         “{STAGES_DATA[activeStageDetail].quote}”
-                        <span className="not-italic text-sm font-sans font-semibold text-[#64748b] ml-3">
+                        <span className={`not-italic text-sm font-sans font-semibold ml-3 ${
+                          isDark ? "text-slate-400" : "text-[#64748b]"
+                        }`}>
                           — {STAGES_DATA[activeStageDetail].author}
                         </span>
                       </div>
@@ -1049,7 +1236,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                     {/* ── "THROUGH" Tactics & Channels Grid ── */}
                     <div className="w-full mb-7">
-                      <div className="text-[12px] font-black tracking-widest text-[#475569] uppercase mb-3.5">
+                      <div className={`text-[12px] font-black tracking-widest uppercase mb-3.5 ${
+                        isDark ? "text-slate-400" : "text-[#475569]"
+                      }`}>
                         T H R O U G H
                       </div>
 
@@ -1057,18 +1246,22 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         {STAGES_DATA[activeStageDetail].through.map((item, i) => (
                           <div
                             key={i}
-                            className="p-4.5 rounded-[20px] frosted-glass-card hover:-translate-y-0.5 transition-all flex flex-col items-start text-left"
+                            className={`p-4.5 rounded-[20px] hover:-translate-y-0.5 transition-all flex flex-col items-start text-left ${
+                              isDark ? "bg-white/5 border border-white/10 hover:bg-white/8 text-white" : "frosted-glass-card text-[#0f172a]"
+                            }`}
                           >
                             <div className="flex items-center gap-2 mb-1.5">
                               <div
                                 className="w-2 h-2 rounded-full shrink-0 shadow-2xs"
                                 style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }}
                               />
-                              <h4 className="text-[14px] font-bold text-[#0f172a]">
+                              <h4 className={`text-[14px] font-bold ${isDark ? "text-white" : "text-[#0f172a]"}`}>
                                 {item.title}
                               </h4>
                             </div>
-                            <p className="text-[13px] text-[#475569] leading-relaxed font-normal">
+                            <p className={`text-[13px] leading-relaxed font-normal ${
+                              isDark ? "text-slate-300" : "text-[#475569]"
+                            }`}>
                               {item.desc}
                             </p>
                           </div>
@@ -1077,14 +1270,16 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     </div>
 
                     {/* Key Principles Frosted Glass Footer Bar */}
-                    <div className="w-full p-4.5 rounded-[22px] frosted-glass-card text-[13px] sm:text-[14px] leading-relaxed text-[#0f172a]">
+                    <div className={`w-full p-4.5 rounded-[22px] text-[13px] sm:text-[14px] leading-relaxed ${
+                      isDark ? "bg-white/5 border border-white/10 text-white" : "frosted-glass-card text-[#0f172a]"
+                    }`}>
                       <strong
                         className="font-extrabold mr-1.5"
                         style={{ color: STAGES_DATA[activeStageDetail].color }}
                       >
                         Key Principles:
                       </strong>
-                      <span className="text-[#334155]">{STAGES_DATA[activeStageDetail].keyPrinciples}</span>
+                      <span className={isDark ? "text-slate-200" : "text-[#334155]"}>{STAGES_DATA[activeStageDetail].keyPrinciples}</span>
                     </div>
                   </div>
                 </div>
@@ -1093,25 +1288,33 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           )}
 
           {/* ── Bottom Summary Ribbon (Concentric Radar + 5 Timeline Steps) ─ */}
-          <div className="mt-8 rounded-[26px] bg-white/92 backdrop-blur-xl border border-slate-200/70 p-6 sm:p-7 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div className={`mt-8 rounded-[26px] p-6 sm:p-7 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 items-center ${
+            isDark ? "bg-[#0b101e]/85 backdrop-blur-xl border border-white/12" : "bg-white/92 backdrop-blur-xl border border-slate-200/70"
+          }`}>
             {/* Left Radar and Text */}
-            <div className="lg:col-span-5 flex items-center gap-4 border-b lg:border-b-0 lg:border-r border-slate-100 pb-5 lg:pb-0 lg:pr-6">
+            <div className={`lg:col-span-5 flex items-center gap-4 border-b lg:border-b-0 lg:border-r pb-5 lg:pb-0 lg:pr-6 ${
+              isDark ? "border-white/10" : "border-slate-100"
+            }`}>
               {/* Concentric Color Ring Icon */}
               <div className="w-14 h-14 rounded-full p-1 bg-gradient-to-tr from-sky-400 via-indigo-500 to-pink-400 shrink-0 flex items-center justify-center shadow-xs">
-                <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
-                  <div className="w-8 h-8 rounded-full border-2 border-indigo-200 border-dashed animate-spin-slow flex items-center justify-center">
+                <div className={`w-full h-full rounded-full flex items-center justify-center ${isDark ? "bg-[#0b101e]" : "bg-white"}`}>
+                  <div className="w-8 h-8 rounded-full border-2 border-indigo-400 border-dashed animate-spin-slow flex items-center justify-center">
                     <div className="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500" />
                   </div>
                 </div>
               </div>
 
               <div>
-                <h4 className="text-[16px] font-extrabold text-[#0f172a] leading-snug">
+                <h4 className={`text-[16px] font-extrabold leading-snug ${
+                  isDark ? "text-white" : "text-[#0f172a]"
+                }`}>
                   Behavior changes in<br />
                   stages, not all at once.
                 </h4>
-                <p className="text-[13px] text-[#64748b] mt-0.5 font-normal">
-                  Design the right experience for the right mindset.
+                <p className={`text-[13px] mt-0.5 font-normal ${
+                  isDark ? "text-slate-400" : "text-[#64748b]"
+                }`}>
+                  Swap the right support for the right mindset.
                 </p>
               </div>
             </div>
@@ -1119,18 +1322,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* Right 5 Steps Connected by Dotted Path */}
             <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-5 gap-3 relative">
               {[
-                { icon: "📣", title: "Signal", desc: "Something gets their attention", color: "text-[#0284c7]" },
-                { icon: "❤️", title: "Emotional Pull", desc: "They see personal relevance", color: "text-[#f43f5e]" },
-                { icon: "🚀", title: "First Action", desc: "They try and experience value", color: "text-[#8b5cf6]" },
-                { icon: "👑", title: "Reinforcement", desc: "They build skill and confidence", color: "text-[#f59e0b]" },
-                { icon: "🌟", title: "Identity Shift", desc: "They become an advocate", color: "text-[#10b981]" }
+                { icon: "📣", title: "Signal", desc: "Spot early signals for action.", color: "text-[#38bdf8]" },
+                { icon: "❤️", title: "Emotional Pull", desc: "Tap into emotional motivation.", color: "text-[#f43f5e]" },
+                { icon: "🚀", title: "First Action", desc: "Make the first step easy.", color: "text-[#8b5cf6]" },
+                { icon: "👑", title: "Reinforcement", desc: "Help habits and confidence grow.", color: "text-[#f59e0b]" },
+                { icon: "🌟", title: "Identity Shift", desc: "Turn users into advocates.", color: "text-[#10b981]" }
               ].map((step, idx) => (
                 <div key={idx} className="flex flex-col items-start p-1.5 relative">
                   <div className="flex items-center gap-1.5 mb-1">
                     <span className="text-[14px]">{step.icon}</span>
-                    <span className="text-[12px] font-bold text-[#0f172a]">{step.title}</span>
+                    <span className={`text-[12px] font-bold ${isDark ? "text-white" : "text-[#0f172a]"}`}>{step.title}</span>
                   </div>
-                  <span className="text-[11px] text-[#64748b] leading-tight">{step.desc}</span>
+                  <span className={`text-[11px] leading-tight ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>{step.desc}</span>
                 </div>
               ))}
             </div>
@@ -1148,7 +1351,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         <div id="adoptiq" className="absolute -top-24 left-0 pointer-events-none" />
         <div id="impact" className="absolute -top-24 left-0 pointer-events-none" />
 
-        {/* ── SECTION 4: APPLIED PLAYBOOK (Scale Copilot Adoption Case Study) ── */}
+        {/* ── SECTION 4: APPLIED PLAYBOOK (Scaled Copilot Adoption Case Study) ── */}
         <div id="case-study" className="relative w-full mb-16 sm:mb-20 lg:mb-24 pt-2">
           <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
@@ -1156,78 +1359,98 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                 <img
                   src={copilotPlaybookImg}
-                  alt="Scale Copilot Adoption AI Adoption Framework 3D Dashboard"
-                  className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(244,63,94,0.18)] transition-transform duration-500 hover:scale-[1.02]"
+                  alt="Scaled Copilot Adoption AI Adoption Framework 3D Dashboard"
+                  className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(139,92,246,0.35)] transition-transform duration-500 hover:scale-[1.02]"
                 />
               </div>
 
               {/* Right: Narrative, Headlines, Metrics & Case Study CTA (Shifted Left) */}
               <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
                 {/* Eyebrow Badge */}
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
+                <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs ${
+                  isDark ? "bg-pink-500/15 border border-pink-500/30 text-pink-400" : "bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777]"
+                }`}>
                   <span className="text-[12px]">✦</span>
                   <span>APPLIED FRAMEWORK</span>
                 </div>
 
                 {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
-                <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
-                  Scale Copilot Adoption
+                <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
+                  Scaled Copilot Adoption
                 </h2>
 
                 {/* Sub-tagline */}
-                <p className="text-[15px] sm:text-[16px] font-semibold text-[#64748b] mb-4 tracking-tight">
+                <p className={`text-[15px] sm:text-[16px] font-semibold mb-4 tracking-tight ${
+                  isDark ? "text-slate-400" : "text-[#64748b]"
+                }`}>
                   Enterprise scale AI adoption case study
                 </p>
 
                 {/* Headline */}
-                <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
+                <h3 className={`text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold tracking-tight leading-[1.15] mb-6 max-w-lg ${
+                  isDark ? "text-white" : "text-[#0a0e1a]"
+                }`}>
                   How the Adopt Framework drove awareness into repeat usage and advocacy
                 </h3>
 
                 {/* 3 Metric Cards */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
-                  <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#fbcfe8] transition-colors">
+                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
+                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-pink-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#fbcfe8]"
+                  }`}>
                     <div className="w-2 h-2 rounded-full bg-[#f97316]" />
-                    <div className="text-[19px] font-black text-[#0f172a] leading-tight">
-                      936K → 3.4M
+                    <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                      935K → 3.4M
                     </div>
-                    <div className="text-[11px] text-[#64748b] font-medium">
-                      Copilot WAU
+                    <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
+                      Copilot MAU
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#bfdbfe] transition-colors">
+                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
+                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-sky-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#bfdbfe]"
+                  }`}>
                     <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
-                    <div className="text-[19px] font-black text-[#0f172a] leading-tight">
-                      336 → 859
+                    <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                      33$ → 85$
                     </div>
-                    <div className="text-[11px] text-[#64748b] font-medium">
-                      CAC-enabled tenants
+                    <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
+                      CAC Reduction 71%
                     </div>
                   </div>
 
-                  <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1 hover:border-[#fbcfe8] transition-colors">
+                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
+                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-purple-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#fbcfe8]"
+                  }`}>
                     <div className="w-2 h-2 rounded-full bg-[#ec4899]" />
-                    <div className="text-[19px] font-black text-[#0f172a] leading-tight">
-                      509K → 1.5M
+                    <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                      500K → 1.5M
                     </div>
-                    <div className="text-[11px] text-[#64748b] font-medium">
-                      Community WAU
+                    <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
+                      Telemetry MAU
                     </div>
                   </div>
                 </div>
 
                 {/* Featured Key Outcome Card (24% more Active Copilot days) */}
-                <div className="w-full max-w-lg p-3.5 sm:p-4 rounded-[22px] bg-white border border-[#e2e8f0] shadow-xs flex items-center gap-3.5 sm:gap-4 mb-7 hover:border-[#ddd6fe] transition-colors">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#ede9fe] to-[#f5f3ff] border border-[#ddd6fe] flex items-center justify-center text-[#7c3aed] shrink-0 shadow-2xs">
+                <div className={`w-full max-w-lg p-3.5 sm:p-4 rounded-[22px] shadow-xs flex items-center gap-3.5 sm:gap-4 mb-7 transition-colors ${
+                  isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-purple-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#ddd6fe]"
+                }`}>
+                  <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-2xs ${
+                    isDark ? "bg-purple-950/70 border border-purple-500/30 text-purple-400" : "bg-gradient-to-tr from-[#ede9fe] to-[#f5f3ff] border border-[#ddd6fe] text-[#7c3aed]"
+                  }`}>
                     <TrendingUp className="w-6 h-6 stroke-[2.5]" />
                   </div>
                   <div className="flex flex-col text-left">
-                    <span className="text-[20px] sm:text-[22px] font-black text-[#0f172a] tracking-tight leading-tight">
+                    <span className={`text-[20px] sm:text-[22px] font-black tracking-tight leading-tight ${
+                      isDark ? "text-white" : "text-[#0f172a]"
+                    }`}>
                       24% more
                     </span>
-                    <span className="text-[12.5px] sm:text-[13px] font-medium text-[#475569] leading-snug">
-                      Active Copilot days / week among CAC members
+                    <span className={`text-[12.5px] sm:text-[13px] font-medium leading-snug ${
+                      isDark ? "text-slate-300" : "text-[#475569]"
+                    }`}>
+                      Active Copilot daily & weekly MAU members
                     </span>
                   </div>
                 </div>
@@ -1262,71 +1485,87 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 <img
                   src={adoptIqImg}
                   alt="AdoptIQ.ai 3D Dashboard Engine at Work"
-                  className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(99,102,241,0.18)] transition-transform duration-500 hover:scale-[1.02]"
+                  className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(99,102,241,0.35)] transition-transform duration-500 hover:scale-[1.02]"
                 />
               </div>
 
               {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA (Shifted Left) */}
               <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
                 {/* Eyebrow Badge */}
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed] text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs">
+                <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs ${
+                  isDark ? "bg-purple-500/15 border border-purple-500/30 text-purple-400" : "bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed]"
+                }`}>
                   <span className="text-[12px]">✦</span>
                   <span>AI ADOPTION ENGINE</span>
                 </div>
 
                 {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
-                <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#2563eb] via-[#4f46e5] to-[#9333ea] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
+                <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
                   AdoptIQ.ai
                 </h2>
 
                 {/* Sub-tagline */}
-                <p className="text-[15px] sm:text-[16px] font-semibold text-[#64748b] mb-4 tracking-tight">
+                <p className={`text-[15px] sm:text-[16px] font-semibold mb-4 tracking-tight ${
+                  isDark ? "text-slate-400" : "text-[#64748b]"
+                }`}>
                   Independently designed and vibe-coded by Vikram
                 </p>
 
                 {/* Headline */}
-                <h3 className="text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold text-[#0a0e1a] tracking-tight leading-[1.15] mb-6 max-w-lg">
+                <h3 className={`text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold tracking-tight leading-[1.15] mb-6 max-w-lg ${
+                  isDark ? "text-white" : "text-[#0a0e1a]"
+                }`}>
                   Turn your adoption problem into a clear UX action plan.
                 </h3>
 
                 {/* 4 Pipeline Flow Steps in Pill */}
-                <div className="w-full max-w-lg p-2.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-xs flex items-center justify-between mb-5">
+                <div className={`w-full max-w-lg p-2.5 rounded-2xl shadow-xs flex items-center justify-between mb-5 ${
+                  isDark ? "bg-[#0b101e]/90 border border-white/12 text-slate-300" : "bg-white border border-[#e2e8f0] text-[#334155]"
+                }`}>
                   {[
-                    { icon: "💬", label: "Ask" },
+                    { icon: "📋", label: "Plan" },
                     { icon: "🧠", label: "Diagnose" },
-                    { icon: "📋", label: "Prioritize" },
+                    { icon: "🎯", label: "Prioritize" },
                     { icon: "🪄", label: "Generate" }
                   ].map((step, idx, arr) => (
                     <React.Fragment key={idx}>
-                      <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[12px] font-bold text-[#334155]">
+                      <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[12px] font-bold ${
+                        isDark ? "text-slate-200" : "text-[#334155]"
+                      }`}>
                         <span className="text-[14px]">{step.icon}</span>
                         <span>{step.label}</span>
                       </div>
-                      {idx < arr.length - 1 && <span className="text-slate-300 text-xs">→</span>}
+                      {idx < arr.length - 1 && <span className={isDark ? "text-slate-600 text-xs" : "text-slate-300 text-xs"}>→</span>}
                     </React.Fragment>
                   ))}
                 </div>
 
                 {/* 3 Core Value Pillars */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-7">
-                  <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
+                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
+                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
+                  }`}>
                     <span className="text-xl">🧠</span>
-                    <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                      Systematize Behavioral Diagnosis
+                    <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                      Sentiment-to-Behavior Diagnosis
                     </span>
                   </div>
 
-                  <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
+                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
+                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
+                  }`}>
                     <span className="text-xl">🪄</span>
-                    <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                      Prescribe Contextual UX Interventions
+                    <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                      Predictive Contextual UX Interventions
                     </span>
                   </div>
 
-                  <div className="p-3.5 rounded-2xl bg-white border border-[#e2e8f0] shadow-2xs flex flex-col items-start gap-1.5 hover:border-[#c7d2fe] transition-colors">
+                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
+                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
+                  }`}>
                     <span className="text-xl">👥</span>
-                    <span className="text-[11px] font-bold text-[#0f172a] leading-snug">
-                      Unify Cross-Functional Alignment
+                    <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                      Effort-Free Roadmap Alignment
                     </span>
                   </div>
                 </div>
@@ -1353,10 +1592,15 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         {/* ── CLOSING CTA FOOTER CARD (Flush with Bottom Edge of UI) ── */}
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 w-full mt-auto mb-0">
           <div
-            className="relative rounded-t-[28px] sm:rounded-t-[36px] rounded-b-none px-6 py-5 sm:px-10 sm:py-6 lg:px-12 lg:pt-6 lg:pb-3.5 border-t border-x border-white/60 shadow-[0_-12px_40px_-8px_rgba(168,85,247,0.28)] overflow-hidden text-left"
+            className={`relative rounded-t-[28px] sm:rounded-t-[36px] rounded-b-none px-6 py-5 sm:px-10 sm:py-6 lg:px-12 lg:pt-6 lg:pb-3.5 overflow-hidden text-left ${
+              isDark
+                ? "border-t border-x border-purple-500/30 shadow-[0_-15px_50px_rgba(139,92,246,0.25)]"
+                : "border-t border-x border-white/60 shadow-[0_-12px_40px_-8px_rgba(168,85,247,0.28)]"
+            }`}
             style={{
-              background:
-                "linear-gradient(105deg, #7888f8 0%, #9ca7fc 24%, #b79dfb 48%, #d896ea 74%, #f794ca 100%)",
+              background: isDark
+                ? "linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(30, 27, 75, 0.90) 50%, rgba(59, 7, 100, 0.96) 100%)"
+                : "linear-gradient(105deg, #7888f8 0%, #9ca7fc 24%, #b79dfb 48%, #d896ea 74%, #f794ca 100%)",
             }}
           >
             {/* Elegant Soft Curved Wave Lines in Background */}
@@ -1368,23 +1612,27 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             >
               <path
                 d="M-50 90 C 280 150, 680 20, 1250 110"
-                stroke="white"
+                stroke={isDark ? "#a855f7" : "white"}
                 strokeWidth="1.5"
-                strokeOpacity="0.65"
+                strokeOpacity={isDark ? "0.45" : "0.65"}
                 fill="none"
               />
               <path
                 d="M-50 130 C 380 30, 780 160, 1250 50"
-                stroke="white"
+                stroke={isDark ? "#38bdf8" : "white"}
                 strokeWidth="1.2"
-                strokeOpacity="0.45"
+                strokeOpacity={isDark ? "0.35" : "0.45"}
                 fill="none"
               />
             </svg>
 
             {/* Glowing Atmosphere Nodes */}
-            <div className="absolute top-0 right-1/4 w-64 h-64 bg-white/15 rounded-full blur-2xl pointer-events-none" />
-            <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-pink-300/20 rounded-full blur-2xl pointer-events-none" />
+            <div className={`absolute top-0 right-1/4 w-64 h-64 rounded-full blur-2xl pointer-events-none ${
+              isDark ? "bg-purple-500/20" : "bg-white/15"
+            }`} />
+            <div className={`absolute bottom-0 left-1/3 w-64 h-64 rounded-full blur-2xl pointer-events-none ${
+              isDark ? "bg-pink-500/20" : "bg-pink-300/20"
+            }`} />
 
             {/* Main Action Content Row */}
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6">
@@ -1393,6 +1641,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 <h2 className="text-[24px] sm:text-[30px] lg:text-[34px] font-bold text-white tracking-tight leading-[1.12]">
                   Design for behavior.<br className="hidden sm:inline" /> Build what lasts.
                 </h2>
+                <p className={`text-sm mt-1 font-normal ${isDark ? "text-slate-400" : "text-white/80"}`}>
+                  Let's build adoption experiences that move people—not just ships.
+                </p>
               </div>
 
               {/* Right Side: Center-Aligned Action Buttons */}
@@ -1413,22 +1664,30 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   href="https://adoptiqai.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-5 py-2 rounded-full bg-white text-[#1e293b] font-bold text-[13px] shadow-sm hover:shadow-md hover:bg-slate-50 transition-all flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95 text-decoration-none group"
+                  className={`px-5 py-2 rounded-full font-bold text-[13px] shadow-sm hover:shadow-md transition-all flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95 text-decoration-none group ${
+                    isDark
+                      ? "bg-white/10 hover:bg-white/18 text-white border border-white/20"
+                      : "bg-white text-[#1e293b] hover:bg-slate-50"
+                  }`}
                 >
                   <span>Launch AdoptIQ.ai</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-[#8b5cf6] stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight className={`w-3.5 h-3.5 stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
+                    isDark ? "text-purple-400" : "text-[#8b5cf6]"
+                  }`} />
                 </a>
               </div>
             </div>
 
             {/* Integrated Attribution & Copyright Row Inside The Card */}
-            <div className="relative z-10 pt-3 mt-3.5 sm:mt-4 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-1.5 text-white/90 text-[11px] sm:text-[11.5px]">
+            <div className={`relative z-10 pt-3 mt-3.5 sm:mt-4 border-t flex flex-col sm:flex-row items-center justify-between gap-1.5 text-[11px] sm:text-[11.5px] ${
+              isDark ? "border-white/10 text-slate-400" : "border-white/20 text-white/90"
+            }`}>
               <div className="flex items-center gap-1.5">
                 <span className="font-extrabold text-white tracking-wide">ADOPT</span>
                 <span>is the blueprint for turning AI potential into human progress—at scale.</span>
               </div>
-              <div className="text-white/80">
-                <span>Crafted with pixel-precision by Vikram &bull; All rights reserved</span>
+              <div>
+                <span>Crafted with product passion by Vikram — all rights reserved</span>
               </div>
             </div>
           </div>

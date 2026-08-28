@@ -28,6 +28,12 @@
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
+  transition: background 0.45s ease, color 0.45s ease;
+}
+
+.adopt-page-wrapper.dark {
+  background: #030712;
+  color: #f8fafc;
 }
 
 /* ── Hero Eyebrow Pill ─────────────────────────────────────────── */
@@ -616,6 +622,42 @@
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.04),
     inset 0 1px 1.5px rgba(255, 255, 255, 0.95);
+}
+
+/* ── Dark Mode Frosted Glass ── */
+.adopt-page-wrapper.dark .frosted-glass-modal {
+  background: rgba(8, 12, 24, 0.88);
+  -webkit-backdrop-filter: blur(36px) saturate(190%);
+  backdrop-filter: blur(36px) saturate(190%);
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 35px 80px -15px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.18),
+    inset 0 0 40px 0 rgba(147, 51, 234, 0.08);
+}
+
+.adopt-page-wrapper.dark .frosted-glass-card {
+  background: rgba(15, 23, 42, 0.75);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 10px 30px -8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12);
+}
+
+.adopt-page-wrapper.dark .frosted-glass-card:hover {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 14px 35px -8px rgba(99, 102, 241, 0.25);
+}
+
+.adopt-page-wrapper.dark .frosted-glass-pill {
+  background: rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 /* ── 3D Stage Card Rollover Motion Animation ────────────────── */
