@@ -36,6 +36,17 @@
   color: #f8fafc;
 }
 
+/* ── Dark Mode Custom Offsets ───────────────────────────────────── */
+.adopt-dark-card-above {
+  transform: translateX(-30px) !important;
+}
+.adopt-dark-card-below {
+  transform: translate(-20px, -40px) !important;
+}
+.adopt-dark-checkmarks {
+  transform: translateY(-30px) !important;
+}
+
 /* ── Hero Eyebrow Pill ─────────────────────────────────────────── */
 .adopt-hero-badge {
   display: inline-flex;
