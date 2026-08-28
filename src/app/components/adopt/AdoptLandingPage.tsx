@@ -469,13 +469,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         <div
           className="fixed top-0 left-0 w-full h-screen pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
           style={{
-            opacity: Math.max(0, 1 - scrollY / 900),
+            opacity: Math.max(0, 1 - scrollY / 450),
             maskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 55%, transparent 92%)"
-              : "linear-gradient(to bottom, black 0%, black 75%, transparent 98%)",
+              ? "linear-gradient(to bottom, black 0%, black 50%, transparent 88%)"
+              : "linear-gradient(to bottom, black 0%, black 70%, transparent 95%)",
             WebkitMaskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 55%, transparent 92%)"
-              : "linear-gradient(to bottom, black 0%, black 75%, transparent 98%)",
+              ? "linear-gradient(to bottom, black 0%, black 50%, transparent 88%)"
+              : "linear-gradient(to bottom, black 0%, black 70%, transparent 95%)",
           }}
         >
           {/* Multi-axis 3D Gyroscope Prism Container */}
@@ -659,25 +659,27 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[960px] lg:min-h-[1050px] relative z-20 py-20 lg:py-28 overflow-hidden flex items-center justify-center bg-transparent"
+        className={`w-full min-h-[960px] lg:min-h-[1050px] relative z-20 py-20 lg:py-28 overflow-hidden flex items-center justify-center transition-colors duration-500 ${
+          isDark ? "bg-[#030712]" : "bg-[#f3f8fe]"
+        }`}
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background */}
         <div
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
           style={{
             maskImage: isDark
-              ? "linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)"
+              ? "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)"
               : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
             WebkitMaskImage: isDark
-              ? "linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)"
+              ? "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)"
               : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
           }}
         >
-          {/* Subtle Top & Bottom Seamless Transition Gradients */}
+          {/* Seamless Atmospheric Ambient Top & Bottom Blends */}
           {isDark && (
             <>
-              <div className="absolute top-0 inset-x-0 h-32 z-10 bg-gradient-to-b from-[#030712] via-[#030712]/70 to-transparent pointer-events-none" />
-              <div className="absolute bottom-0 inset-x-0 h-32 z-10 bg-gradient-to-t from-[#030712] via-[#030712]/70 to-transparent pointer-events-none" />
+              <div className="absolute top-0 inset-x-0 h-44 z-10 bg-gradient-to-b from-[#030712] via-[#030712]/90 via-35% to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 inset-x-0 h-44 z-10 bg-gradient-to-t from-[#030712] via-[#030712]/90 via-35% to-transparent pointer-events-none" />
             </>
           )}
 
@@ -825,10 +827,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ))}
             </div>
 
-            {/* Bottom Right: BELOW THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
+            {/* Bottom Right: BELOW THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt (Positioned Closer to Iceberg) */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className={`relative rounded-[22px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[40px] mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
+                className={`relative rounded-[22px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[110px] mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
                   isDark
                     ? "bg-[#0b101e]/85 backdrop-blur-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.7)] hover:border-purple-400/40"
                     : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
@@ -838,11 +840,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 }}
               >
                 {/* Connecting Line to Submerged Iceberg with Pulsing Sonar Beacon */}
-                <div className="hidden lg:block absolute -left-16 top-7 w-16 h-4 pointer-events-none">
+                <div className="hidden lg:block absolute -left-12 top-7 w-12 h-4 pointer-events-none">
                   {/* Glowing Radar Sonar Ping Node */}
                   <div className="absolute left-0 top-[8px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#38bdf8] animate-adopt-sonar" />
-                  <svg className="w-full h-full" viewBox="0 0 64 16" fill="none">
-                    <path d="M64 8 L 0 8" stroke={isDark ? "#38bdf8" : "#38bdf8"} strokeWidth="1.4" className="animate-adopt-dash" />
+                  <svg className="w-full h-full" viewBox="0 0 48 16" fill="none">
+                    <path d="M48 8 L 0 8" stroke={isDark ? "#38bdf8" : "#38bdf8"} strokeWidth="1.4" className="animate-adopt-dash" />
                     <circle cx="0" cy="8" r="3.5" fill="#38bdf8" />
                     <circle cx="0" cy="8" r="6" stroke="#7dd3fc" strokeWidth="1" opacity="0.6" />
                   </svg>
