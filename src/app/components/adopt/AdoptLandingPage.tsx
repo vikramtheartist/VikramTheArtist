@@ -689,7 +689,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             )}
 
             <img
-              src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_dark_transparent.png` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
+              src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_dark.png` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
               className={`w-full h-full object-contain sm:object-cover object-center transition-transform duration-700 ${
                 isDark ? "opacity-100 scale-100 sm:scale-105 drop-shadow-[0_15px_45px_rgba(15,23,42,0.6)]" : "opacity-95 mix-blend-multiply"
