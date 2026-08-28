@@ -26,21 +26,21 @@ import {
   X,
 } from "lucide-react";
 import "../../../styles/adopt-landing.css";
-import adoptIqImg from "../../../assets/img/AdoptIQ.png";
-import adoptIqDarkImg from "../../../assets/img/AdoptIQ_Dark.png";
-import copilotPlaybookImg from "../../../assets/img/Scale Copilot.png";
-import copilotPlaybookDarkImg from "../../../assets/img/Scale Copilot_Dark.png";
-import awareCardImg from "../../../assets/img/Aware.png";
-import desireCardImg from "../../../assets/img/Desire.png";
-import openCardImg from "../../../assets/img/Open.png";
-import proficientCardImg from "../../../assets/img/Proficient.png";
-import transformCardImg from "../../../assets/img/Transform.png";
+import adoptIqImg from "@/assets/img/AdoptIQ.png";
+import adoptIqDarkImg from "@/assets/img/AdoptIQ_Dark.png";
+import copilotPlaybookImg from "@/assets/img/Scale Copilot.png";
+import copilotPlaybookDarkImg from "@/assets/img/Scale Copilot_Dark.png";
+import awareCardImg from "@/assets/img/Aware.png";
+import desireCardImg from "@/assets/img/Desire.png";
+import openCardImg from "@/assets/img/Open.png";
+import proficientCardImg from "@/assets/img/Proficient.png";
+import transformCardImg from "@/assets/img/Transform.png";
 
-import awareModalImg from "../../../assets/img/Aware 1.png";
-import desireModalImg from "../../../assets/img/Desire 1.png";
-import openModalImg from "../../../assets/img/Open 1.png";
-import proficientModalImg from "../../../assets/img/Proficient 1.png";
-import transformModalImg from "../../../assets/img/Transform 1.png";
+import awareModalImg from "@/assets/img/Aware 1.png";
+import desireModalImg from "@/assets/img/Desire 1.png";
+import openModalImg from "@/assets/img/Open 1.png";
+import proficientModalImg from "@/assets/img/Proficient 1.png";
+import transformModalImg from "@/assets/img/Transform 1.png";
 
 interface AdoptLandingPageProps {
   onBack?: () => void;

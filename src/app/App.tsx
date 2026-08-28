@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState, useCallback, Component, ReactNode, ErrorInfo } from "react";
 import { Nav } from "./components/Nav";
 import { Hero } from "./components/Hero";
 import { WorkSection } from "./components/WorkSection";
@@ -25,6 +25,39 @@ const routeFromPath = (): Route => {
 };
 
 const initialTheme = (): ThemeMode => "dark";
+
+interface ErrorBoundaryProps {
+  children: ReactNode;
+}
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error("ErrorBoundary caught:", error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{ color: "white", padding: "40px", background: "#030712", minHeight: "100vh", fontFamily: "sans-serif" }}>
+          <h2 style={{ color: "#f43f5e", fontSize: "24px", marginBottom: "16px" }}>Rendering Error Detected</h2>
+          <pre style={{ background: "#111827", padding: "20px", borderRadius: "12px", border: "1px solid #374151", overflowX: "auto", color: "#f87171" }}>
+            {this.state.error?.stack || this.state.error?.message}
+          </pre>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 /*
  * Detect lower-end systems so we can degrade gracefully.
@@ -465,15 +498,17 @@ export default function App() {
 
   if (route === "adopt-landing") {
     return (
-      <AdoptLandingPage
-        initialMode={mode}
-        onBack={() => navigate("home")}
-        onExplorePlaybook={() => {
-          const el = document.getElementById("playbook-stages");
-          if (el) el.scrollIntoView({ behavior: "smooth" });
-        }}
-        onViewCaseStudy={() => navigate("adopt-v2")}
-      />
+      <ErrorBoundary>
+        <AdoptLandingPage
+          initialMode={mode}
+          onBack={() => navigate("home")}
+          onExplorePlaybook={() => {
+            const el = document.getElementById("playbook-stages");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }}
+          onViewCaseStudy={() => navigate("adopt-v2")}
+        />
+      </ErrorBoundary>
     );
   }
   if (route === "adopt") {
