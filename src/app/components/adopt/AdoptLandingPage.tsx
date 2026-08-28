@@ -663,7 +663,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               alt="AI Adoption Iceberg Analogy"
               className={`w-full h-full transition-transform duration-700 ${
                 isDark
-                  ? "object-cover object-center w-full min-w-full scale-100 opacity-95"
+                  ? "object-contain object-center scale-[0.70] translate-y-[30px] opacity-95"
                   : "object-contain sm:object-cover object-center mix-blend-multiply opacity-95"
               }`}
             />
