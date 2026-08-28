@@ -32,10 +32,15 @@ import adoptIqDarkImg from "@/assets/img/AdoptIQ_Dark.png";
 import copilotPlaybookImg from "@/assets/img/Scale Copilot.png";
 import copilotPlaybookDarkImg from "@/assets/img/Scale Copilot_Dark.png";
 import awareCardImg from "@/assets/img/Aware.png";
+import awareDarkImg from "@/assets/img/Aware_Dark.png";
 import desireCardImg from "@/assets/img/Desire.png";
+import desireDarkImg from "@/assets/img/Desire_Dark.png";
 import openCardImg from "@/assets/img/Open.png";
+import openDarkImg from "@/assets/img/Open_Dark.png";
 import proficientCardImg from "@/assets/img/Proficient.png";
+import proficientDarkImg from "@/assets/img/Proficient_Dark.png";
 import transformCardImg from "@/assets/img/Transform.png";
+import transformDarkImg from "@/assets/img/Transform_Dark.png";
 
 import awareModalImg from "@/assets/img/Aware 1.png";
 import desireModalImg from "@/assets/img/Desire 1.png";
@@ -62,6 +67,7 @@ const STAGES_DATA = [
     badgeBorder: "border-[#e0f2fe]/60",
     image: "Aware.png",
     cardImg: awareCardImg,
+    cardDarkImg: awareDarkImg,
     modalImg: awareModalImg,
     pillar: "Signal",
     tagline: "Create awareness and promote about the existence of your product or feature.",
@@ -100,6 +106,7 @@ const STAGES_DATA = [
     badgeBorder: "border-[#ffe4e6]/60",
     image: "Desire.png",
     cardImg: desireCardImg,
+    cardDarkImg: desireDarkImg,
     modalImg: desireModalImg,
     pillar: "Emotional Pull",
     tagline: "Spark emotional connection and demonstrate tangible personal value.",
@@ -138,6 +145,7 @@ const STAGES_DATA = [
     badgeBorder: "border-[#ede9fe]/60",
     image: "Open.png",
     cardImg: openCardImg,
+    cardDarkImg: openDarkImg,
     modalImg: openModalImg,
     pillar: "First Action",
     tagline: "Lower activation barriers and guide users to their first successful interaction.",
@@ -176,6 +184,7 @@ const STAGES_DATA = [
     badgeBorder: "border-[#fef3c7]/60",
     image: "Proficient.png",
     cardImg: proficientCardImg,
+    cardDarkImg: proficientDarkImg,
     modalImg: proficientModalImg,
     pillar: "Reinforcement",
     tagline: "Deepen skills, build recurring workflow habits, and achieve mastery.",
@@ -214,6 +223,7 @@ const STAGES_DATA = [
     badgeBorder: "border-[#d1fae5]/60",
     image: "Transform.png",
     cardImg: transformCardImg,
+    cardDarkImg: transformDarkImg,
     modalImg: transformModalImg,
     pillar: "Identity Shift",
     tagline: "Empower champions to scale knowledge, build community, and lead enterprise change.",
@@ -1049,7 +1059,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       {/* Glass Card (Scaled 10% smaller) */}
                       <div className="relative w-[90%] rounded-[26px] sm:rounded-[30px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.25)] transition-all duration-300 flex items-center justify-center z-10">
                         <img
-                          src={stage.cardImg}
+                          src={isDark ? (stage.cardDarkImg || stage.cardImg) : stage.cardImg}
                           alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
                           className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                         />
