@@ -6,6 +6,7 @@ interface Sparkle {
   y: number;
   size: number;
   rotation: number;
+  animType: "A" | "B";
   floatDuration: number;
   floatDelay: number;
 }
@@ -14,12 +15,14 @@ function SparkleItem({ sparkle }: { sparkle: Sparkle }) {
   const [isSettled, setIsSettled] = useState(false);
 
   useEffect(() => {
-    // Quickly scale from initial pop down to 50%
+    // Gentle blossoming sparkle on click easing into settled state
     const timer = setTimeout(() => {
       setIsSettled(true);
-    }, 50);
+    }, 40);
     return () => clearTimeout(timer);
   }, []);
+
+  const animName = sparkle.animType === "A" ? "spaceFeatherFloatA" : "spaceFeatherFloatB";
 
   return (
     <div
@@ -35,30 +38,30 @@ function SparkleItem({ sparkle }: { sparkle: Sparkle }) {
         zIndex: 1,
       }}
     >
-      {/* Scale down to sharp, crisp, non-glowing star (scale 0.13), floating gently in the air */}
+      {/* 20% smaller gentle initial sparkle blossoming down to sharp point star */}
       <div
         style={{
           width: "100%",
           height: "100%",
-          transform: isSettled ? "scale(0.13)" : "scale(1.15)",
+          transform: isSettled ? "scale(0.18)" : "scale(0.85)",
           opacity: 1,
           transition: isSettled
-            ? "transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease"
+            ? "transform 0.85s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease"
             : "transform 0.08s ease-out",
           willChange: "transform, opacity",
         }}
       >
-        {/* Floating in the air with gentle buoyancy */}
+        {/* Circulating and flowing in space gently like a feather in the air */}
         <div
           style={{
             width: "100%",
             height: "100%",
-            animation: `spaceSparkleFloat ${sparkle.floatDuration}s ease-in-out infinite alternate, spaceSparkleTwinkle 4.2s ease-in-out infinite alternate`,
+            animation: `${animName} ${sparkle.floatDuration}s ease-in-out infinite alternate, spaceSparkleTwinkle 4.5s ease-in-out infinite alternate`,
             animationDelay: `${sparkle.floatDelay}s`,
             transform: `rotate(${sparkle.rotation}deg)`,
             filter: isSettled
               ? "none"
-              : "drop-shadow(0 0 16px rgba(255, 255, 255, 1)) drop-shadow(0 0 32px rgba(180, 220, 255, 0.9))",
+              : "drop-shadow(0 0 10px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 20px rgba(180, 220, 255, 0.7))",
             transition: "filter 0.6s ease",
           }}
         >
@@ -71,13 +74,13 @@ function SparkleItem({ sparkle }: { sparkle: Sparkle }) {
               shapeRendering: "geometricPrecision",
             }}
           >
-            {/* Initial birth flash aura only (hidden when settled) */}
+            {/* Gentle initial sparkle halo (fades away as it settles) */}
             {!isSettled && (
               <circle
                 cx="50"
                 cy="50"
-                r="28"
-                fill="rgba(255, 255, 255, 0.9)"
+                r="22"
+                fill="rgba(255, 255, 255, 0.75)"
               />
             )}
 
@@ -108,9 +111,10 @@ export function SpaceSparkles({ mode }: { mode: "dark" | "light" }) {
         id: Date.now() + Math.random(),
         x,
         y,
-        size: Math.floor(Math.random() * 18) + 54, // 54px - 72px initial birth size
+        size: Math.floor(Math.random() * 8) + 40, // 20% smaller initial birth size (40px-48px)
         rotation: Math.random() * 30 - 15,
-        floatDuration: Math.random() * 3 + 5.5, // 5.5s to 8.5s levitation
+        animType: Math.random() > 0.5 ? "A" : "B",
+        floatDuration: Math.random() * 4 + 8.5, // 8.5s to 12.5s gentle circulation
         floatDelay: Math.random() * 2,
       };
 
@@ -142,3 +146,4 @@ export function SpaceSparkles({ mode }: { mode: "dark" | "light" }) {
     </div>
   );
 }
+
