@@ -659,51 +659,39 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[100vh] lg:min-h-[105vh] relative z-20 py-16 lg:py-24 overflow-hidden flex items-center justify-center bg-transparent -mt-6 sm:-mt-10"
+        className="w-full min-h-[960px] lg:min-h-[1050px] relative z-20 py-20 lg:py-28 overflow-hidden flex items-center justify-center bg-transparent"
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background */}
         <div
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
           style={{
             maskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)"
+              ? "linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)"
               : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
             WebkitMaskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)"
+              ? "linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%)"
               : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
           }}
         >
+          {/* Subtle Top & Bottom Seamless Transition Gradients */}
+          {isDark && (
+            <>
+              <div className="absolute top-0 inset-x-0 h-32 z-10 bg-gradient-to-b from-[#030712] via-[#030712]/70 to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 inset-x-0 h-32 z-10 bg-gradient-to-t from-[#030712] via-[#030712]/70 to-transparent pointer-events-none" />
+            </>
+          )}
+
           <div
             className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              transform: `translate3d(${mousePos.x * 6}px, ${mousePos.y * 4}px, 0) perspective(1200px) rotateY(${mousePos.x * 1.5}deg) rotateX(${-mousePos.y * 1.2}deg)`,
             }}
           >
-            {/* Smooth Atmospheric Shade & Blur Behind the Mountain Peak in Dark Mode */}
-            {isDark && (
-              <>
-                <div
-                  className="absolute top-[8%] sm:top-[12%] left-1/2 -translate-x-1/2 w-[340px] sm:w-[500px] h-[260px] sm:h-[360px] rounded-full pointer-events-none -z-10"
-                  style={{
-                    background: "radial-gradient(ellipse at center, rgba(30, 27, 75, 0.65) 0%, rgba(15, 23, 42, 0.45) 45%, transparent 75%)",
-                    filter: "blur(40px)",
-                  }}
-                />
-                <div
-                  className="absolute top-[18%] sm:top-[22%] left-1/2 -translate-x-1/2 w-[420px] sm:w-[620px] h-[180px] sm:h-[240px] rounded-full pointer-events-none -z-10"
-                  style={{
-                    background: "radial-gradient(ellipse at center, rgba(56, 189, 248, 0.12) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 80%)",
-                    filter: "blur(45px)",
-                  }}
-                />
-              </>
-            )}
-
             <img
-              src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_dark.png` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
+              src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_dark_bg.jpg` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
-              className={`w-full h-full object-contain sm:object-cover object-center transition-transform duration-700 ${
-                isDark ? "opacity-100 scale-100 sm:scale-105 drop-shadow-[0_15px_45px_rgba(15,23,42,0.6)]" : "opacity-95 mix-blend-multiply"
+              className={`w-full h-full object-cover object-center transition-transform duration-700 ${
+                isDark ? "opacity-100 scale-100" : "opacity-95 mix-blend-multiply"
               }`}
             />
           </div>
