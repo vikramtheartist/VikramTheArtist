@@ -655,7 +655,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[780px] lg:min-h-[88vh] relative z-20 pt-14 pb-4 lg:pt-18 lg:pb-6 overflow-hidden flex items-center justify-center bg-transparent"
+        className="w-full min-h-[860px] lg:min-h-[96vh] relative z-20 pt-16 pb-12 lg:pt-20 lg:pb-16 overflow-hidden flex items-center justify-center bg-transparent"
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background */}
         <div
@@ -689,7 +689,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
 
         {/* Full-Width Centered Content Container */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[680px] lg:min-h-[740px]">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[740px] lg:min-h-[800px]">
           {/* Top Row: Left Headline & Right ABOVE THE SURFACE Card */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Top Left: Badge, Headline & Subtitle */}
@@ -792,7 +792,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
 
           {/* Bottom Row: Left 4 Checkmark Items & Right BELOW THE SURFACE Card */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 lg:pt-14">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-10 lg:pt-16">
             {/* Bottom Left: 4 Checkmark Items (Moved upward by 50px) */}
             <div
               className="lg:col-span-6 space-y-3.5 max-w-[480px] text-left transition-all duration-300 adopt-checkmarks-container"
@@ -826,13 +826,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ))}
             </div>
 
-            {/* Bottom Right: BELOW THE SURFACE Card (Moved left towards iceberg) */}
+            {/* Bottom Right: BELOW THE SURFACE Card (Moved upward by 50px and leftward by 30px) */}
             <div
               className={`lg:col-span-6 flex justify-start lg:justify-end transition-all duration-300 ${
                 isDark ? "adopt-dark-card-below" : "adopt-light-card-below"
               }`}
               style={{
-                transform: isDark ? "translate(-70px, -40px)" : "translateX(-55px)",
+                transform: isDark ? "translate(-100px, -90px)" : "translate(-85px, -50px)",
               }}
             >
               <div
@@ -899,7 +899,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 3: THE 5 STAGES OF THE ADOPT PLAYBOOK ─────────────────── */}
       <section
         id="playbook-stages"
-        className="pt-4 pb-14 lg:pt-6 lg:pb-20 relative overflow-hidden bg-transparent"
+        className="pt-14 pb-16 lg:pt-20 lg:pb-24 relative overflow-hidden bg-transparent"
       >
         {/* Subtle Ambient Micro-Sparkles floating in continuous atmosphere */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
