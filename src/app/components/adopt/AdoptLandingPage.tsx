@@ -28,12 +28,19 @@ import {
 } from "lucide-react";
 import "../../../styles/adopt-landing.css";
 import adoptIqImg from "../../../assets/img/AdoptIQ.png";
+import adoptIqDarkImg from "../../../assets/img/AdoptIQ_Dark.png";
 import copilotPlaybookImg from "../../../assets/img/Scale Copilot.png";
+import copilotPlaybookDarkImg from "../../../assets/img/Scale Copilot_Dark.png";
 import awareCardImg from "../../../assets/img/Aware.png";
+import awareCardDarkImg from "../../../assets/img/Aware_Dark.png";
 import desireCardImg from "../../../assets/img/Desire.png";
+import desireCardDarkImg from "../../../assets/img/Desire_Dark.png";
 import openCardImg from "../../../assets/img/Open.png";
+import openCardDarkImg from "../../../assets/img/Open_Dark.png";
 import proficientCardImg from "../../../assets/img/Proficient.png";
+import proficientCardDarkImg from "../../../assets/img/Proficient_Dark.png";
 import transformCardImg from "../../../assets/img/Transform.png";
+import transformCardDarkImg from "../../../assets/img/Transform_Dark.png";
 
 import awareModalImg from "../../../assets/img/Aware 1.png";
 import desireModalImg from "../../../assets/img/Desire 1.png";
@@ -45,6 +52,7 @@ interface AdoptLandingPageProps {
   onBack?: () => void;
   onExplorePlaybook?: () => void;
   onViewCaseStudy?: () => void;
+  initialMode?: "dark" | "light";
 }
 
 const STAGES_DATA = [
@@ -59,6 +67,7 @@ const STAGES_DATA = [
     badgeBorder: "border-[#e0f2fe]/60",
     image: "Aware.png",
     cardImg: awareCardImg,
+    cardDarkImg: awareCardDarkImg,
     modalImg: awareModalImg,
     pillar: "Signal",
     tagline: "Create awareness and promote about the existence of your product or feature.",
@@ -97,6 +106,7 @@ const STAGES_DATA = [
     badgeBorder: "border-[#ffe4e6]/60",
     image: "Desire.png",
     cardImg: desireCardImg,
+    cardDarkImg: desireCardDarkImg,
     modalImg: desireModalImg,
     pillar: "Emotional Pull",
     tagline: "Spark emotional connection and demonstrate tangible personal value.",
@@ -135,6 +145,7 @@ const STAGES_DATA = [
     badgeBorder: "border-[#ede9fe]/60",
     image: "Open.png",
     cardImg: openCardImg,
+    cardDarkImg: openCardDarkImg,
     modalImg: openModalImg,
     pillar: "First Action",
     tagline: "Lower activation barriers and guide users to their first successful interaction.",
@@ -173,6 +184,7 @@ const STAGES_DATA = [
     badgeBorder: "border-[#fef3c7]/60",
     image: "Proficient.png",
     cardImg: proficientCardImg,
+    cardDarkImg: proficientCardDarkImg,
     modalImg: proficientModalImg,
     pillar: "Reinforcement",
     tagline: "Deepen skills, build recurring workflow habits, and achieve mastery.",
@@ -211,6 +223,7 @@ const STAGES_DATA = [
     badgeBorder: "border-[#d1fae5]/60",
     image: "Transform.png",
     cardImg: transformCardImg,
+    cardDarkImg: transformCardDarkImg,
     modalImg: transformModalImg,
     pillar: "Identity Shift",
     tagline: "Empower champions to scale knowledge, build community, and lead enterprise change.",
@@ -650,6 +663,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           style={{
             maskImage: isDark ? "none" : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
             WebkitMaskImage: isDark ? "none" : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+            background: isDark
+              ? "radial-gradient(ellipse at 50% 55%, rgba(14, 42, 92, 0.45) 0%, rgba(3, 7, 18, 0.95) 75%, #030712 100%)"
+              : "transparent",
           }}
         >
           <div
@@ -661,9 +677,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <img
               src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_dark.png` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
-              className={`w-full h-full object-cover object-center transition-transform duration-700 ${
-                isDark ? "opacity-100" : "opacity-95 mix-blend-multiply"
-              }`}
+              className={`w-full h-full ${
+                isDark
+                  ? "max-w-[900px] max-h-[85vh] object-contain object-center drop-shadow-[0_20px_60px_rgba(56,189,248,0.25)] opacity-100"
+                  : "object-cover object-center mix-blend-multiply opacity-95"
+              } transition-transform duration-700`}
             />
           </div>
         </div>
@@ -1032,7 +1050,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       {/* Glass Card (Scaled 10% smaller) */}
                       <div className="relative w-[90%] rounded-[26px] sm:rounded-[30px] overflow-hidden group-hover:drop-shadow-[0_20px_45px_rgba(67,68,250,0.25)] transition-all duration-300 flex items-center justify-center z-10">
                         <img
-                          src={stage.cardImg}
+                          src={isDark ? stage.cardDarkImg : stage.cardImg}
                           alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
                           className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                         />
@@ -1367,7 +1385,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               {/* Left: Free-Floating 3D Copilot Playbook Visual (Shifted Left) */}
               <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                 <img
-                  src={copilotPlaybookImg}
+                  src={isDark ? copilotPlaybookDarkImg : copilotPlaybookImg}
                   alt="Scaled Copilot Adoption AI Adoption Framework 3D Dashboard"
                   className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(139,92,246,0.35)] transition-transform duration-500 hover:scale-[1.02]"
                 />
@@ -1492,7 +1510,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               {/* Left: Free-Floating 3D SaaS Dashboard Visual (Shifted Left) */}
               <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                 <img
-                  src={adoptIqImg}
+                  src={isDark ? adoptIqDarkImg : adoptIqImg}
                   alt="AdoptIQ.ai 3D Dashboard Engine at Work"
                   className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(99,102,241,0.35)] transition-transform duration-500 hover:scale-[1.02]"
                 />
