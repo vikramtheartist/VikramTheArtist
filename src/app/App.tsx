@@ -11,6 +11,7 @@ import { CaseStudyAdopt } from "./components/CaseStudyAdopt";
 import { CaseStudyAdoptV2 } from "./components/playbook/CaseStudyAdoptV2";
 import { AdoptLandingPage } from "./components/adopt/AdoptLandingPage";
 import { LightClouds } from "./components/LightClouds";
+import { SpaceSparkles } from "./components/SpaceSparkles";
 
 type Route = "home" | "adopt" | "adopt-v2" | "adopt-landing";
 type ThemeMode = "dark" | "light";
@@ -494,6 +495,7 @@ export default function App() {
     >
       <LightClouds />
       <EarthParallax mode={mode} />
+      <SpaceSparkles mode={mode} />
       <Nav mode={mode} onToggleTheme={toggleMode} />
       <main className="portfolio-main" style={{ position: "relative", zIndex: 1 }}>
         <Hero />
