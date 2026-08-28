@@ -767,9 +767,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           {/* Bottom Row: Left 4 Checkmark Items & Right BELOW THE SURFACE Card */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-12 lg:pt-20">
             {/* Bottom Left: 4 Checkmark Items (Moved upward by 30px in dark mode) */}
-            <div className={`lg:col-span-6 space-y-3.5 max-w-[480px] text-left transition-transform duration-300 ${
-              isDark ? "-translate-y-[30px]" : ""
-            }`}>
+            <div
+              className="lg:col-span-6 space-y-3.5 max-w-[480px] text-left transition-all duration-300 relative"
+              style={{
+                top: isDark ? "-30px" : "0px",
+                transform: isDark ? "translateY(-30px)" : "none",
+              }}
+            >
               {[
                 "Users don't resist products.",
                 "They resist changing routines.",
@@ -797,9 +801,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
 
             {/* Bottom Right: BELOW THE SURFACE Card (Moved upward by 40px and leftward by 20px in dark mode) */}
-            <div className={`lg:col-span-6 flex justify-start lg:justify-end transition-transform duration-300 ${
-              isDark ? "-translate-y-[40px] -translate-x-[20px]" : ""
-            }`}>
+            <div
+              className="lg:col-span-6 flex justify-start lg:justify-end transition-all duration-300 relative"
+              style={{
+                top: isDark ? "-40px" : "0px",
+                left: isDark ? "-20px" : "0px",
+                transform: isDark ? "translate3d(-20px, -40px, 0)" : "none",
+              }}
+            >
               <div
                 className={`relative rounded-[24px] p-6 w-full max-w-[340px] text-left transition-all duration-300 hover:scale-[1.02] group cursor-default ${
                   isDark
