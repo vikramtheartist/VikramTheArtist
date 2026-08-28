@@ -35,29 +35,29 @@ function SparkleItem({ sparkle }: { sparkle: Sparkle }) {
         zIndex: 1,
       }}
     >
-      {/* Scale down to 50% and keep floating at that reduced size */}
+      {/* Scale down by another 50% (to scale 0.26) and keep floating gently at that reduced size */}
       <div
         style={{
           width: "100%",
           height: "100%",
-          transform: isSettled ? "scale(0.50)" : "scale(1.25)",
+          transform: isSettled ? "scale(0.26)" : "scale(1.15)",
           opacity: 1,
           transition: isSettled
-            ? "transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease"
+            ? "transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease"
             : "transform 0.08s ease-out",
           willChange: "transform, opacity",
         }}
       >
-        {/* Continuous ambient deep-space floating & gentle shimmer */}
+        {/* Continuous gentle deep-space floating & breathing shimmer */}
         <div
           style={{
             width: "100%",
             height: "100%",
-            animation: `spaceSparkleFloat ${sparkle.floatDuration}s ease-in-out infinite alternate, spaceSparkleTwinkle 3.2s ease-in-out infinite alternate`,
+            animation: `spaceSparkleFloat ${sparkle.floatDuration}s ease-in-out infinite alternate, spaceSparkleTwinkle 3.6s ease-in-out infinite alternate`,
             animationDelay: `${sparkle.floatDelay}s`,
             transform: `rotate(${sparkle.rotation}deg)`,
             filter:
-              "drop-shadow(0 0 10px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 22px rgba(180, 220, 255, 0.75)) drop-shadow(0 0 35px rgba(140, 190, 255, 0.40))",
+              "drop-shadow(0 0 12px rgba(255, 255, 255, 1)) drop-shadow(0 0 24px rgba(180, 220, 255, 0.85)) drop-shadow(0 0 40px rgba(140, 190, 255, 0.50))",
           }}
         >
           <svg
