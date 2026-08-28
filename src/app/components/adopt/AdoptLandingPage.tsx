@@ -695,8 +695,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* Top Left: Badge, Headline & Subtitle */}
             <div className="lg:col-span-6 flex flex-col items-start text-left max-w-lg">
               {/* Eyebrow Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md border shadow-2xs bg-white/8 border-white/15 text-[#cbd5e1]">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
+              <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md border shadow-2xs ${
+                isDark
+                  ? "bg-white/8 border-white/15 text-[#cbd5e1]"
+                  : "bg-[#f0f9ff] border-[#bae6fd] text-[#0369a1]"
+              }`}>
+                <div className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#38bdf8]" : "bg-[#0284c7]"} animate-pulse`} />
                 <span>THE CORE PROBLEM</span>
               </div>
 
