@@ -666,11 +666,31 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
             }}
           >
+            {/* Smooth Atmospheric Shade & Blur Behind the Mountain Peak in Dark Mode */}
+            {isDark && (
+              <>
+                <div
+                  className="absolute top-[8%] sm:top-[12%] left-1/2 -translate-x-1/2 w-[340px] sm:w-[500px] h-[260px] sm:h-[360px] rounded-full pointer-events-none -z-10"
+                  style={{
+                    background: "radial-gradient(ellipse at center, rgba(30, 27, 75, 0.65) 0%, rgba(15, 23, 42, 0.45) 45%, transparent 75%)",
+                    filter: "blur(40px)",
+                  }}
+                />
+                <div
+                  className="absolute top-[18%] sm:top-[22%] left-1/2 -translate-x-1/2 w-[420px] sm:w-[620px] h-[180px] sm:h-[240px] rounded-full pointer-events-none -z-10"
+                  style={{
+                    background: "radial-gradient(ellipse at center, rgba(56, 189, 248, 0.12) 0%, rgba(99, 102, 241, 0.08) 50%, transparent 80%)",
+                    filter: "blur(45px)",
+                  }}
+                />
+              </>
+            )}
+
             <img
               src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_dark_transparent.png` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
               className={`w-full h-full object-contain sm:object-cover object-center transition-transform duration-700 ${
-                isDark ? "opacity-100 scale-100 sm:scale-105 drop-shadow-[0_20px_60px_rgba(56,189,248,0.25)]" : "opacity-95 mix-blend-multiply"
+                isDark ? "opacity-100 scale-100 sm:scale-105 drop-shadow-[0_15px_45px_rgba(15,23,42,0.6)]" : "opacity-95 mix-blend-multiply"
               }`}
             />
           </div>
