@@ -607,37 +607,6 @@ export function WorkSection({
             />
           </div>
         ))}
-
-        {/* More projects — stacks after the last card then stops */}
-        <div
-          className="ws-more-btn"
-          style={{
-            position: "sticky",
-            top: `${BASE_TOP + projects.length * PEEK}px`,
-            zIndex: projects.length + 1,
-            display: "flex",
-            justifyContent: "center",
-            padding: "28px 0",
-            transition: "transform 0.85s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-          }}
-        >
-          <span className="shine-wrap">
-            <a
-              href="https://sites.google.com/view/vikramtheartist/my-work?authuser=0"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="shine-inner text-white/80 hover:text-white text-sm"
-              style={{
-                padding: "11px 28px",
-                fontSize: "14px",
-                fontWeight: 400,
-                fontFamily: "'Segoe UI', -apple-system, BlinkMacSystemFont, 'Inter', sans-serif",
-              }}
-            >
-              <span>More projects</span>
-            </a>
-          </span>
-        </div>
       </div>
 
       {/* Spacer — brief pause at the fully-stacked state before the next section */}
