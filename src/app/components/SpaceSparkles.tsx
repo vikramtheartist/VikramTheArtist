@@ -35,29 +35,31 @@ function SparkleItem({ sparkle }: { sparkle: Sparkle }) {
         zIndex: 1,
       }}
     >
-      {/* Scale down by another 50% (to scale 0.26) and keep floating gently at that reduced size */}
+      {/* Scale down to much smaller star (scale 0.12) with lesser subtle glow, floating gently in the air */}
       <div
         style={{
           width: "100%",
           height: "100%",
-          transform: isSettled ? "scale(0.26)" : "scale(1.15)",
-          opacity: 1,
+          transform: isSettled ? "scale(0.13)" : "scale(1.15)",
+          opacity: isSettled ? 0.92 : 1,
           transition: isSettled
-            ? "transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease"
+            ? "transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease"
             : "transform 0.08s ease-out",
           willChange: "transform, opacity",
         }}
       >
-        {/* Continuous gentle deep-space floating & breathing shimmer */}
+        {/* Floating in the air with gentle buoyancy */}
         <div
           style={{
             width: "100%",
             height: "100%",
-            animation: `spaceSparkleFloat ${sparkle.floatDuration}s ease-in-out infinite alternate, spaceSparkleTwinkle 3.6s ease-in-out infinite alternate`,
+            animation: `spaceSparkleFloat ${sparkle.floatDuration}s ease-in-out infinite alternate, spaceSparkleTwinkle 4.2s ease-in-out infinite alternate`,
             animationDelay: `${sparkle.floatDelay}s`,
             transform: `rotate(${sparkle.rotation}deg)`,
-            filter:
-              "drop-shadow(0 0 12px rgba(255, 255, 255, 1)) drop-shadow(0 0 24px rgba(180, 220, 255, 0.85)) drop-shadow(0 0 40px rgba(140, 190, 255, 0.50))",
+            filter: isSettled
+              ? "drop-shadow(0 0 3px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 7px rgba(180, 220, 255, 0.45))"
+              : "drop-shadow(0 0 16px rgba(255, 255, 255, 1)) drop-shadow(0 0 32px rgba(180, 220, 255, 0.9)) drop-shadow(0 0 50px rgba(140, 190, 255, 0.6))",
+            transition: "filter 0.85s ease",
           }}
         >
           <svg
