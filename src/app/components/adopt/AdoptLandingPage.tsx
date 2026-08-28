@@ -485,7 +485,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <img
               src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_hero_glass_bg_Dark.png` : `${import.meta.env.BASE_URL}IMG/adopt_hero_glass_bg.jpg`}
               alt="ADOPT 8K 3D Glass Artwork"
-              className="w-full h-full object-cover object-[80%_center] lg:object-[78%_center] opacity-100 transition-opacity duration-700 animate-hero-float scale-105"
+              className={`w-full h-full object-cover object-[80%_center] lg:object-[78%_center] ${
+                isDark ? "opacity-100" : "opacity-90"
+              } transition-opacity duration-700 animate-hero-float scale-105`}
             />
           </div>
 
