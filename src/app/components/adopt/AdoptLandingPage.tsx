@@ -463,19 +463,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 1: HERO (SEAMLESS ATMOSPHERE) ────────────────────── */}
       <section
         id="hero"
-        className="relative z-10 min-h-[92vh] lg:min-h-[98vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent"
+        className="relative z-10 min-h-[90vh] lg:min-h-[96vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent"
       >
-        {/* Background Visual Asset: Fixed 8K 3D Translucent Waves & Glass Play Prism */}
+        {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism (Contained within Hero) */}
         <div
-          className="fixed top-0 left-0 w-full h-screen pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
+          className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
           style={{
-            opacity: Math.max(0, 1 - scrollY / 550),
             maskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 55%, transparent 92%)"
-              : "linear-gradient(to bottom, black 0%, black 70%, transparent 95%)",
+              ? "linear-gradient(to bottom, black 0%, black 80%, transparent 100%)"
+              : "linear-gradient(to bottom, black 0%, black 80%, transparent 98%)",
             WebkitMaskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 55%, transparent 92%)"
-              : "linear-gradient(to bottom, black 0%, black 70%, transparent 95%)",
+              ? "linear-gradient(to bottom, black 0%, black 80%, transparent 100%)"
+              : "linear-gradient(to bottom, black 0%, black 80%, transparent 98%)",
           }}
         >
           {/* Multi-axis 3D Gyroscope Prism Container */}
@@ -512,7 +511,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             className="absolute inset-0 pointer-events-none z-10 transition-all duration-700"
             style={{
               background: isDark
-                ? "linear-gradient(to right, rgba(5, 8, 22, 0.96) 0%, rgba(5, 8, 22, 0.85) 32%, rgba(5, 8, 22, 0.35) 55%, transparent 80%), linear-gradient(to bottom, transparent 65%, rgba(5, 8, 22, 0.95) 100%)"
+                ? "linear-gradient(to right, rgba(5, 8, 22, 0.96) 0%, rgba(5, 8, 22, 0.85) 32%, rgba(5, 8, 22, 0.35) 55%, transparent 80%), linear-gradient(to bottom, transparent 72%, rgba(5, 8, 22, 0.98) 100%)"
                 : "linear-gradient(to right, rgba(243, 248, 254, 0.98) 0%, rgba(243, 248, 254, 0.85) 32%, rgba(243, 248, 254, 0.45) 52%, transparent 78%), linear-gradient(to bottom, transparent 75%, rgba(243, 248, 254, 0.9) 100%)"
             }}
           />
@@ -659,7 +658,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className={`w-full min-h-[960px] lg:min-h-[1050px] relative z-20 py-16 sm:py-20 lg:py-24 overflow-hidden flex items-center justify-center transition-colors duration-500 ${
+        className={`w-full min-h-[860px] lg:min-h-[940px] relative z-20 pt-8 sm:pt-12 pb-16 sm:pb-24 overflow-hidden flex items-center justify-center transition-colors duration-500 ${
           isDark ? "bg-transparent" : "bg-[#f3f8fe]"
         }`}
       >
@@ -668,21 +667,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
           style={{
             maskImage: isDark
-              ? "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)"
+              ? "linear-gradient(to bottom, transparent 0%, black 3%, black 97%, transparent 100%)"
               : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
             WebkitMaskImage: isDark
-              ? "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)"
+              ? "linear-gradient(to bottom, transparent 0%, black 3%, black 97%, transparent 100%)"
               : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
           }}
         >
-          {/* Subtle Seamless Ambient Soft Blends */}
-          {isDark && (
-            <>
-              <div className="absolute top-0 inset-x-0 h-32 z-10 bg-gradient-to-b from-[#050816]/80 via-[#050816]/30 to-transparent pointer-events-none" />
-              <div className="absolute bottom-0 inset-x-0 h-32 z-10 bg-gradient-to-t from-[#050816]/80 via-[#050816]/30 to-transparent pointer-events-none" />
-            </>
-          )}
-
           <div
             className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
