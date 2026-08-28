@@ -35,15 +35,15 @@ function SparkleItem({ sparkle }: { sparkle: Sparkle }) {
         zIndex: 1,
       }}
     >
-      {/* Scale down to much smaller star (scale 0.12) with lesser subtle glow, floating gently in the air */}
+      {/* Scale down to sharp, crisp, non-glowing star (scale 0.13), floating gently in the air */}
       <div
         style={{
           width: "100%",
           height: "100%",
           transform: isSettled ? "scale(0.13)" : "scale(1.15)",
-          opacity: isSettled ? 0.92 : 1,
+          opacity: 1,
           transition: isSettled
-            ? "transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease"
+            ? "transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease"
             : "transform 0.08s ease-out",
           willChange: "transform, opacity",
         }}
@@ -57,48 +57,34 @@ function SparkleItem({ sparkle }: { sparkle: Sparkle }) {
             animationDelay: `${sparkle.floatDelay}s`,
             transform: `rotate(${sparkle.rotation}deg)`,
             filter: isSettled
-              ? "drop-shadow(0 0 3px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 7px rgba(180, 220, 255, 0.45))"
-              : "drop-shadow(0 0 16px rgba(255, 255, 255, 1)) drop-shadow(0 0 32px rgba(180, 220, 255, 0.9)) drop-shadow(0 0 50px rgba(140, 190, 255, 0.6))",
-            transition: "filter 0.85s ease",
+              ? "none"
+              : "drop-shadow(0 0 16px rgba(255, 255, 255, 1)) drop-shadow(0 0 32px rgba(180, 220, 255, 0.9))",
+            transition: "filter 0.6s ease",
           }}
         >
           <svg
             viewBox="0 0 100 100"
-            style={{ width: "100%", height: "100%", overflow: "visible" }}
+            style={{
+              width: "100%",
+              height: "100%",
+              overflow: "visible",
+              shapeRendering: "geometricPrecision",
+            }}
           >
-            <defs>
-              <radialGradient
-                id={`sparkleCore-${sparkle.id}`}
-                cx="50%"
-                cy="50%"
-                r="50%"
-              >
-                <stop offset="0%" stopColor="#ffffff" stopOpacity="1" />
-                <stop offset="35%" stopColor="#ffffff" stopOpacity="0.95" />
-                <stop offset="70%" stopColor="#dbeafe" stopOpacity="0.5" />
-                <stop offset="100%" stopColor="#93c5fd" stopOpacity="0" />
-              </radialGradient>
-            </defs>
+            {/* Initial birth flash aura only (hidden when settled) */}
+            {!isSettled && (
+              <circle
+                cx="50"
+                cy="50"
+                r="28"
+                fill="rgba(255, 255, 255, 0.9)"
+              />
+            )}
 
-            {/* Glowing center aura */}
-            <circle
-              cx="50"
-              cy="50"
-              r="22"
-              fill={`url(#sparkleCore-${sparkle.id})`}
-            />
-
-            {/* Exact 4-Point Concave Star Geometry matching user reference image */}
+            {/* Razor-sharp solid white 4-pointed diamond star */}
             <path
               d="M 50 0 Q 50 50 0 50 Q 50 50 50 100 Q 50 50 100 50 Q 50 50 50 0 Z"
               fill="#ffffff"
-            />
-
-            {/* Luminous Inner Core Star */}
-            <path
-              d="M 50 6 Q 50 50 6 50 Q 50 50 50 94 Q 50 50 94 50 Q 50 50 50 6 Z"
-              fill="#ffffff"
-              opacity="0.9"
             />
           </svg>
         </div>

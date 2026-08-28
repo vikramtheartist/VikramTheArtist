@@ -764,11 +764,10 @@ body {
 @keyframes spaceSparkleTwinkle {
   0%, 100% {
     opacity: 0.85;
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.95)) drop-shadow(0 0 20px rgba(180, 220, 255, 0.8));
   }
   50% {
     opacity: 1;
-    filter: drop-shadow(0 0 16px rgba(255, 255, 255, 1)) drop-shadow(0 0 32px rgba(210, 235, 255, 1)) drop-shadow(0 0 45px rgba(160, 210, 255, 0.6));
   }
 }
+
 
