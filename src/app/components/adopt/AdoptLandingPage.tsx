@@ -260,7 +260,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   onBack,
   onExplorePlaybook,
   onViewCaseStudy,
-  initialMode = "dark",
+  initialMode = "light",
 }) => {
   const [mode, setMode] = useState<"dark" | "light">(initialMode);
   const isDark = mode === "dark";
@@ -609,7 +609,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           isDark ? "bg-transparent" : "bg-[#f3f8fe]"
         }`}
       >
-        {/* Full-Bleed Parallax Iceberg Artwork Background (Peak Fully Unclipped) */}
+        {/* Full-Bleed Parallax Iceberg Artwork Background (100% Transparent, No Patches or Seams) */}
         <div className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden flex items-center justify-center">
           <div
             className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center pt-6 sm:pt-10 pb-6"
@@ -618,23 +618,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             }}
           >
             <img
-              src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_dark_bg.jpg` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
+              src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_dark_transparent.png` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_transparent.png`}
               alt="AI Adoption Iceberg Analogy"
-              className={`w-full h-full max-h-[880px] object-contain object-center select-none transition-transform duration-700 ${
-                isDark ? "opacity-100 scale-100" : "opacity-95 mix-blend-multiply"
-              }`}
+              className="w-full h-full max-h-[880px] object-contain object-center select-none transition-transform duration-700 opacity-100 scale-100 drop-shadow-[0_20px_45px_rgba(56,189,248,0.18)]"
             />
           </div>
-
-          {/* Left text column readability gradient */}
-          {isDark && (
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background: "linear-gradient(to right, #020410 0%, #020410 26%, rgba(2, 4, 16, 0.4) 48%, transparent 68%)"
-              }}
-            />
-          )}
         </div>
 
         {/* Full-Width Centered Content Container */}

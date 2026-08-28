@@ -500,7 +500,7 @@ export default function App() {
     return (
       <ErrorBoundary>
         <AdoptLandingPage
-          initialMode={mode}
+          initialMode="light"
           onBack={() => navigate("home")}
           onExplorePlaybook={() => {
             const el = document.getElementById("playbook-stages");
