@@ -463,7 +463,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 1: HERO (SEAMLESS ATMOSPHERE) ────────────────────── */}
       <section
         id="hero"
-        className="relative z-10 min-h-[92vh] lg:min-h-[98vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent"
+        className="relative z-10 min-h-[92vh] lg:min-h-[98vh] flex flex-col justify-between pt-24 sm:pt-28 pb-20 sm:pb-24 lg:pb-28 overflow-hidden bg-transparent"
       >
         {/* Background Visual Asset: Fixed 8K 3D Translucent Waves & Glass Play Prism (Sticks to Screen on Scroll) */}
         <div
@@ -660,7 +660,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[860px] lg:min-h-[96vh] relative z-20 pt-16 pb-12 lg:pt-20 lg:pb-16 overflow-hidden flex items-center justify-center bg-transparent"
+        className={`w-full min-h-[900px] lg:min-h-[100vh] relative z-20 overflow-hidden flex items-center justify-center bg-transparent ${
+          isDark ? "pt-28 pb-24 lg:pt-36 lg:pb-32" : "pt-20 pb-16 lg:pt-28 lg:pb-24"
+        }`}
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background */}
         <div
@@ -904,7 +906,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 3: THE 5 STAGES OF THE ADOPT PLAYBOOK ─────────────────── */}
       <section
         id="playbook-stages"
-        className="pt-14 pb-16 lg:pt-20 lg:pb-24 relative overflow-hidden bg-transparent"
+        className={`relative overflow-hidden bg-transparent ${
+          isDark ? "pt-28 pb-24 lg:pt-36 lg:pb-32" : "pt-20 pb-20 lg:pt-28 lg:pb-28"
+        }`}
       >
         {/* Subtle Ambient Micro-Sparkles floating in continuous atmosphere */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
