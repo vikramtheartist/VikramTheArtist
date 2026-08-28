@@ -114,8 +114,8 @@ export function SpaceSparkles({ mode }: { mode: "dark" | "light" }) {
         size: Math.floor(Math.random() * 8) + 40, // 20% smaller initial birth size (40px-48px)
         rotation: Math.random() * 30 - 15,
         animType: Math.random() > 0.5 ? "A" : "B",
-        floatDuration: Math.random() * 4 + 8.5, // 8.5s to 12.5s gentle circulation
-        floatDelay: Math.random() * 2,
+        floatDuration: Math.random() * 1.8 + 3.8, // Faster floating & flowing circulation (3.8s to 5.6s)
+        floatDelay: Math.random() * 1.2,
       };
 
       setSparkles((prev) => [...prev.slice(-40), newSparkle]);
