@@ -655,16 +655,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[920px] lg:min-h-[105vh] relative z-20 py-16 lg:py-24 overflow-hidden flex items-center justify-center bg-transparent"
+        className="w-full min-h-[780px] lg:min-h-[88vh] relative z-20 pt-14 pb-4 lg:pt-18 lg:pb-6 overflow-hidden flex items-center justify-center bg-transparent"
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background */}
         <div
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden w-full h-full"
           style={{
-            maskImage: isDark ? "none" : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
-            WebkitMaskImage: isDark ? "none" : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+            maskImage: isDark
+              ? "linear-gradient(to bottom, black 0%, black 80%, transparent 98%)"
+              : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+            WebkitMaskImage: isDark
+              ? "linear-gradient(to bottom, black 0%, black 80%, transparent 98%)"
+              : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
             background: isDark
-              ? "radial-gradient(ellipse at 50% 55%, rgba(14, 42, 92, 0.45) 0%, rgba(3, 7, 18, 0.95) 75%, #030712 100%)"
+              ? "radial-gradient(ellipse at 50% 50%, rgba(14, 42, 92, 0.45) 0%, rgba(3, 7, 18, 0.95) 75%, transparent 100%)"
               : "transparent",
           }}
         >
@@ -685,19 +689,15 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
 
         {/* Full-Width Centered Content Container */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[760px] lg:min-h-[820px]">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[680px] lg:min-h-[740px]">
           {/* Top Row: Left Headline & Right ABOVE THE SURFACE Card */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Top Left: Badge, Headline & Subtitle */}
             <div className="lg:col-span-6 flex flex-col items-start text-left max-w-lg">
               {/* Eyebrow Pill */}
-              <div className="mb-5">
-                <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-extrabold tracking-wider uppercase shadow-2xs ${
-                  isDark ? "bg-white/8 backdrop-blur-md border border-white/15 text-[#cbd5e1]" : "bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1]"
-                }`}>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8]" />
-                  <span>THE CORE PROBLEM</span>
-                </div>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md border shadow-2xs bg-white/8 border-white/15 text-[#cbd5e1]">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
+                <span>THE CORE PROBLEM</span>
               </div>
 
               {/* Main Headline */}
@@ -788,7 +788,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
 
           {/* Bottom Row: Left 4 Checkmark Items & Right BELOW THE SURFACE Card */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-12 lg:pt-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-8 lg:pt-14">
             {/* Bottom Left: 4 Checkmark Items (Moved upward by 50px) */}
             <div
               className="lg:col-span-6 space-y-3.5 max-w-[480px] text-left transition-all duration-300 adopt-checkmarks-container"
@@ -895,7 +895,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 3: THE 5 STAGES OF THE ADOPT PLAYBOOK ─────────────────── */}
       <section
         id="playbook-stages"
-        className="py-14 lg:py-22 relative overflow-hidden bg-transparent"
+        className="pt-4 pb-14 lg:pt-6 lg:pb-20 relative overflow-hidden bg-transparent"
       >
         {/* Subtle Ambient Micro-Sparkles floating in continuous atmosphere */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
