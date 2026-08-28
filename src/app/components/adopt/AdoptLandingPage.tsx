@@ -655,13 +655,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div
             className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
             style={{
-              transform: `translate3d(${mousePos.x * 8}px, ${(scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              transform: `translate3d(${mousePos.x * 8}px, ${50 + (scrollY - 500) * -0.035 + mousePos.y * 6}px, 0) scale(0.60) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
+              transformOrigin: "center center",
             }}
           >
             <img
               src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_dark.png` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
-              className={`w-full h-full object-contain sm:object-cover object-center transition-transform duration-700 opacity-95 ${
+              className={`w-full h-full object-contain object-center transition-transform duration-700 opacity-95 ${
                 isDark ? "" : "mix-blend-multiply"
               }`}
             />
