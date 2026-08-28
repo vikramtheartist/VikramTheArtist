@@ -25,7 +25,7 @@ const SECTIONS = [
   { id: "vision",    label: "Approach" },
   { id: "empathize", label: "Empathize" },
   { id: "findings",  label: "Findings" },
-  { id: "framework", label: "Framework" },
+  { id: "framework", label: "Playbook" },
   { id: "impact",    label: "Impact" },
   { id: "footer",    label: "Close" },
 ];

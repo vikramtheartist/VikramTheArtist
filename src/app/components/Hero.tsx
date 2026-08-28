@@ -166,28 +166,55 @@ function ShootingStars() {
 
 /* ── Hero ───────────────────────────────────────────────────── */
 const GREETINGS = ["Hi", "Hoi", "வணக்கம்", "Hej", "नमस्ते", "Ahoj", "Cześć"];
-const GRAPHEMES  = GREETINGS.map(w => [...new Intl.Segmenter().segment(w)].map(s => s.segment));
+const GRAPHEMES = (GREETINGS || ["Hi"]).map((w) => {
+  try {
+    if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
+      return [...new (Intl as any).Segmenter().segment(w)].map((s: any) => s.segment);
+    }
+  } catch {}
+  return Array.from(w);
+});
 
 export function Hero() {
   const [displayed, setDisplayed] = useState("Hi");
   const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
-    let wIdx = 0, charIdx = GRAPHEMES[0].length, deleting = false;
+    let wIdx = 0;
+    let charIdx = (GRAPHEMES[0] && GRAPHEMES[0].length) ? GRAPHEMES[0].length : 2;
+    let deleting = false;
     let timer: ReturnType<typeof setTimeout>;
+
     const tick = () => {
-      const clusters = GRAPHEMES[wIdx];
+      const clusters = GRAPHEMES[wIdx] || ["H", "i"];
       if (!deleting) {
-        if (charIdx < clusters.length) { charIdx++; setDisplayed(clusters.slice(0, charIdx).join("")); timer = setTimeout(tick, 90); }
-        else { deleting = true; timer = setTimeout(tick, 1400); }
+        if (charIdx < clusters.length) {
+          charIdx++;
+          setDisplayed(clusters.slice(0, charIdx).join(""));
+          timer = setTimeout(tick, 90);
+        } else {
+          deleting = true;
+          timer = setTimeout(tick, 1400);
+        }
       } else {
-        if (charIdx > 0) { charIdx--; setDisplayed(clusters.slice(0, charIdx).join("")); timer = setTimeout(tick, 55); }
-        else { wIdx = (wIdx + 1) % GREETINGS.length; charIdx = 0; deleting = false; timer = setTimeout(tick, 200); }
+        if (charIdx > 0) {
+          charIdx--;
+          setDisplayed(clusters.slice(0, charIdx).join(""));
+          timer = setTimeout(tick, 55);
+        } else {
+          wIdx = (wIdx + 1) % (GRAPHEMES.length || 1);
+          charIdx = 0;
+          deleting = false;
+          timer = setTimeout(tick, 200);
+        }
       }
     };
     timer = setTimeout(tick, 1600);
-    const cursorTimer = setInterval(() => setShowCursor(v => !v), 850);
-    return () => { clearTimeout(timer); clearInterval(cursorTimer); };
+    const cursorTimer = setInterval(() => setShowCursor((v) => !v), 850);
+    return () => {
+      clearTimeout(timer);
+      clearInterval(cursorTimer);
+    };
   }, []);
 
   return (

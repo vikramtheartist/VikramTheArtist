@@ -35,7 +35,7 @@ export function ImpactSnapshot() {
       <div className="relative">
         <div className="pb-eyebrow">The Impact So Far</div>
         <p className="pb-body mt-4 max-w-[640px]">
-          Before you explore the stages, here&rsquo;s the proof the framework
+          Before you explore the stages, here&rsquo;s the proof the playbook
           works — what ADOPT moved for Copilot adoption across CAC tenants.
         </p>
 

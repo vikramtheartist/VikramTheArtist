@@ -104,6 +104,11 @@ export function SpaceSparkles({ mode }: { mode: "dark" | "light" }) {
       // Only active in dark mode
       if (mode === "light") return;
 
+      const target = e.target as HTMLElement | null;
+      if (target?.closest?.("[data-no-sparkle], .no-sparkle, .scroll-to-explore-btn, a, button, input, textarea, select")) {
+        return;
+      }
+
       const x = e.clientX;
       const y = e.clientY;
 

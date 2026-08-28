@@ -24,7 +24,13 @@ const routeFromPath = (): Route => {
   return "home";
 };
 
-const initialTheme = (): ThemeMode => "dark";
+const initialTheme = (): ThemeMode => {
+  if (typeof window !== "undefined") {
+    const saved = localStorage.getItem("theme_mode");
+    if (saved === "light" || saved === "dark") return saved;
+  }
+  return "dark";
+};
 
 /*
  * Detect lower-end systems so we can degrade gracefully.
@@ -35,13 +41,14 @@ const initialTheme = (): ThemeMode => "dark";
  */
 function usePerfMode() {
   useEffect(() => {
-    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
     const lowCores = (navigator.hardwareConcurrency ?? 8) <= 4;
     const lowMem = ((navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8) <= 4;
     const lite = reduceMotion || lowCores || lowMem;
     document.documentElement.dataset.perf = lite ? "lite" : "full";
   }, []);
 }
+
 
 /*
  * Three-phase parallax — all motion done via transform: translate3d (GPU-composited),
@@ -64,12 +71,10 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
     const atm = atmRef.current;
     const planet1 = planet1Ref.current;
     const astro = astroRef.current;
-    if (!el) return;
-
-    const Y_OFFSET = 0;         // Atmospheric halo
-    const Y_OFFSET_EARTH = -40; // Earth moved upwards by 40px
+    const Y_OFFSET = -20;       // Atmospheric halo
+    const Y_OFFSET_EARTH = -60; // Earth moved up by 20px (from -40 to -60)
     const X_OFFSET_EARTH = 0;   // Earth centered horizontally
-    const Y_OFFSET_SUN = isLight ? -35 : -20; // Sun (aligned with earth displacement)
+    const Y_OFFSET_SUN = isLight ? -55 : -40; // Sun (aligned with earth displacement)
     const setPos = (top: number, left: number, scale: number = 1) => {
       const tAtm = top + Y_OFFSET;
       el.style.transform = `translate3d(${left + X_OFFSET_EARTH}px, ${top + Y_OFFSET_EARTH}px, 0) translate(-50%, -50%) scale(${scale})`;
@@ -82,7 +87,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const h = el.offsetHeight || 1200;
-      setPos(vh * 0.75 + h / 2, vw / 2, 1);
+      setPos(vh * 0.75 - 20 + h / 2, vw / 2, 1);
       if (planet1) planet1.style.transform = "scale(1)";
       if (astro) {
         astro.style.transform = "translate3d(0, 0, 0) translateY(-50%)";
@@ -130,7 +135,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
       const vw      = window.innerWidth;
       const vh      = window.innerHeight;
 
-      // Top of Earth aligns right below 'My work' title (~75% of viewport height at scroll=0)
+      // Top of Earth aligns right behind 'My work' title and card 1
       const initialCenterY = vh * 0.75 + cachedEarthH / 2;
       const phase1Y = initialCenterY - scrollY * 0.7;
 
@@ -373,7 +378,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
             pointerEvents: "none",
             zIndex: 0,
             willChange: "transform",
-            transform: "translate3d(50vw, calc(75vh + 600px), 0) translate(-50%, -50%)",
+            transform: "translate3d(50vw, calc(75vh + 580px), 0) translate(-50%, -50%)",
             transition: "background 0.6s ease",
           }}
         />
@@ -397,7 +402,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
           pointerEvents: "none",
           opacity: isLight ? 0 : 0.85,
           willChange: "transform",
-          transform: "translate3d(50vw, calc(75vh + 600px), 0) translate(-50%, -50%)",
+          transform: "translate3d(50vw, calc(75vh + 580px), 0) translate(-50%, -50%)",
           transition: "opacity 0.7s ease",
         }}
         className="earth-orb"
@@ -422,7 +427,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
           pointerEvents: "none",
           opacity: isLight ? 0.95 : 0,
           willChange: "transform",
-          transform: "translate3d(50vw, calc(75vh + 600px), 0) translate(-50%, -50%)",
+          transform: "translate3d(50vw, calc(75vh + 580px), 0) translate(-50%, -50%)",
           transition: "opacity 0.7s ease",
         }}
         className="sun-orb"
@@ -445,6 +450,9 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", mode);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("theme_mode", mode);
+    }
   }, [mode]);
 
   const navigate = useCallback((next: Route) => {
@@ -460,13 +468,20 @@ export default function App() {
   }, [route]);
 
   const toggleMode = useCallback(() => {
-    setMode((m) => (m === "dark" ? "light" : "dark"));
+    setMode((prev) => {
+      const next = prev === "dark" ? "light" : "dark";
+      if (typeof window !== "undefined") {
+        localStorage.setItem("theme_mode", next);
+      }
+      return next;
+    });
   }, []);
 
   if (route === "adopt-landing") {
     return (
       <AdoptLandingPage
-        initialMode="light"
+        mode={mode}
+        onToggleTheme={toggleMode}
         onBack={() => navigate("home")}
         onExplorePlaybook={() => {
           const el = document.getElementById("playbook-stages");

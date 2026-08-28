@@ -53,7 +53,7 @@ export function Hero() {
             <h1 className="pb-h1 mt-8">Scaling Copilot Adoption</h1>
 
             <p className="pb-body mt-8 max-w-[540px]">
-              How a behavior-led framework drove{" "}
+              How a behavior-led playbook drove{" "}
               <span className="pb-accent">2.5–3× community growth</span>{" "}
               by transforming users from unaware to champions
             </p>
@@ -74,7 +74,7 @@ export function Hero() {
               <div className="absolute inset-0 flex flex-col items-center justify-center px-12">
                 <div className="pb-adopt-word">ADOPT</div>
                 <div className="pb-adopt-sub mt-4 text-center">
-                  A Framework for<br />Behavior-Led Adoption
+                  A Playbook for<br />Behavior-Led Adoption
                 </div>
               </div>
             </div>

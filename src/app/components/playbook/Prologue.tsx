@@ -94,7 +94,7 @@ export function Prologue() {
         </h2>
         <p className="pb-body mt-6 max-w-[680px]">
           Adoption isn’t just about promotion — it’s more than that. Here’s the
-          way I see the problem before we get to the framework.
+          way I see the problem before we get to the playbook.
         </p>
 
         {/* ── Slider ───────────────────────────────────────────── */}
@@ -193,7 +193,7 @@ export function Prologue() {
         </div>
 
         <p className="pb-prologue-kicker mt-12 max-w-[780px]">
-          Because adoption isn’t just about promotion — it needs a framework.
+          Because adoption isn’t just about promotion — it needs a playbook.
         </p>
       </div>
     </section>

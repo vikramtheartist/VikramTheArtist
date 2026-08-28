@@ -188,11 +188,11 @@ const STAGES: Stage[] = [
     metrics: ["Feature adoption", "Session frequency"],
     initiatives: [
       {
-        title: "Agentic Framework — Copilot-Powered Content Suggestions",
+        title: "Agentic Playbook — Copilot-Powered Content Suggestions",
         status: "implemented",
         description:
           "Role-relevant content ideas recommended to admins for easy publishing — helping users engage faster. Community agents draft suggested answers and admins approve, edit, or dismiss them from a single review surface.",
-        imagePlaceholder: "Agentic framework + AI-suggested answers review mockup",
+        imagePlaceholder: "Agentic playbook + AI-suggested answers review mockup",
       },
       {
         title: "Prompt First Threads — Prompt of the Week",
@@ -291,9 +291,9 @@ export function Framework() {
     >
       <div className="mx-auto w-full max-w-[1280px]">
         <div>
-          <div className="pb-eyebrow">The Framework</div>
+          <div className="pb-eyebrow">The Playbook</div>
           <h2 className="pb-h2 mt-3 max-w-[820px]">
-            A <span className="pb-accent">behavior-led framework</span> called{" "}
+            A <span className="pb-accent">behavior-led playbook</span> called{" "}
             <span className="pb-accent-bright">ADOPT</span>
           </h2>
           <p className="pb-body mt-6 max-w-[940px]">

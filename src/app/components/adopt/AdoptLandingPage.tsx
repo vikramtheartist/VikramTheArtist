@@ -43,15 +43,24 @@ import transformCardImg from "../../../assets/img/Transform.png";
 import transformCardDarkImg from "../../../assets/img/Transform_Dark.png";
 
 import awareModalImg from "../../../assets/img/Aware 1.png";
+import awareModalDarkImg from "../../../assets/img/Aware 1_Dark.png";
 import desireModalImg from "../../../assets/img/Desire 1.png";
+import desireModalDarkImg from "../../../assets/img/Desire 1_Dark.png";
 import openModalImg from "../../../assets/img/Open 1.png";
+import openModalDarkImg from "../../../assets/img/Open 1_Dark.png";
 import proficientModalImg from "../../../assets/img/Proficient 1.png";
+import proficientModalDarkImg from "../../../assets/img/Proficient 1_Dark.png";
 import transformModalImg from "../../../assets/img/Transform 1.png";
+import transformModalDarkImg from "../../../assets/img/Transform 1 _Dark.png";
+import arrowImg from "../../../assets/img/Arrow.png";
+import ballImg from "../../../assets/img/Ball.png";
 
 interface AdoptLandingPageProps {
   onBack?: () => void;
   onExplorePlaybook?: () => void;
   onViewCaseStudy?: () => void;
+  mode?: "dark" | "light";
+  onToggleTheme?: () => void;
   initialMode?: "dark" | "light";
 }
 
@@ -69,6 +78,7 @@ const STAGES_DATA = [
     cardImg: awareCardImg,
     cardDarkImg: awareCardDarkImg,
     modalImg: awareModalImg,
+    modalDarkImg: awareModalDarkImg,
     pillar: "Signal",
     tagline: "Create awareness and promote about the existence of your product or feature.",
     body: "Awareness is the essential first step in adoption. If users are unaware of a feature or product, all other efforts to engage or convert them are ineffective.",
@@ -108,6 +118,7 @@ const STAGES_DATA = [
     cardImg: desireCardImg,
     cardDarkImg: desireCardDarkImg,
     modalImg: desireModalImg,
+    modalDarkImg: desireModalDarkImg,
     pillar: "Emotional Pull",
     tagline: "Spark emotional connection and demonstrate tangible personal value.",
     body: "Curiosity alone does not drive behavior change. Users must see 'What’s in it for me?' to overcome inertia and the friction of changing their established workflow routines.",
@@ -147,6 +158,7 @@ const STAGES_DATA = [
     cardImg: openCardImg,
     cardDarkImg: openCardDarkImg,
     modalImg: openModalImg,
+    modalDarkImg: openModalDarkImg,
     pillar: "First Action",
     tagline: "Lower activation barriers and guide users to their first successful interaction.",
     body: "The gap between intention and first action is where most users drop off. Minimizing cognitive friction and guaranteeing early success creates positive momentum.",
@@ -186,6 +198,7 @@ const STAGES_DATA = [
     cardImg: proficientCardImg,
     cardDarkImg: proficientCardDarkImg,
     modalImg: proficientModalImg,
+    modalDarkImg: proficientModalDarkImg,
     pillar: "Reinforcement",
     tagline: "Deepen skills, build recurring workflow habits, and achieve mastery.",
     body: "Initial trial must mature into consistent daily habits. By reinforcing best practices and uncovering advanced capabilities, users transition from occasional experimenters to power users.",
@@ -225,6 +238,7 @@ const STAGES_DATA = [
     cardImg: transformCardImg,
     cardDarkImg: transformCardDarkImg,
     modalImg: transformModalImg,
+    modalDarkImg: transformModalDarkImg,
     pillar: "Identity Shift",
     tagline: "Empower champions to scale knowledge, build community, and lead enterprise change.",
     body: "Sustainable enterprise adoption is self-propagating. When proficient users become vocal internal advocates and mentors, adoption reaches exponential network effects.",
@@ -244,7 +258,7 @@ const STAGES_DATA = [
         desc: "Peer-to-peer demo sessions and creative internal hackathons.",
       },
       {
-        title: "Cross-Team Frameworks",
+        title: "Cross-Team Playbooks",
         desc: "Codifying success stories into standard operating procedures.",
       },
     ],
@@ -260,15 +274,44 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   onBack,
   onExplorePlaybook,
   onViewCaseStudy,
-  initialMode = "light",
+  mode: controlledMode,
+  onToggleTheme,
+  initialMode = "dark",
 }) => {
-  const [mode, setMode] = useState<"dark" | "light">(initialMode);
+  const [internalMode, setInternalMode] = useState<"dark" | "light">(controlledMode || initialMode);
+  const mode = controlledMode !== undefined ? controlledMode : internalMode;
   const isDark = mode === "dark";
+
+  const handleToggleTheme = () => {
+    if (onToggleTheme) {
+      onToggleTheme();
+    } else {
+      setInternalMode((m) => (m === "dark" ? "light" : "dark"));
+    }
+  };
+
   const [scrollY, setScrollY] = useState(0);
   const [activeStageDetail, setActiveStageDetail] = useState<number | null>(null);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [showcaseSlide, setShowcaseSlide] = useState<number>(0);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX - touchEndX;
+    if (diff > 50) {
+      setShowcaseSlide(1);
+    } else if (diff < -50) {
+      setShowcaseSlide(0);
+    }
+    setTouchStartX(null);
+  };
 
   const handlePasswordSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -429,14 +472,30 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           }`}>
             <a href="#problem" className={`transition-colors py-1 cursor-pointer ${isDark ? "hover:text-white" : "hover:text-[#4344fa]"}`}>The Problem</a>
             <a href="#playbook-stages" className={`transition-colors py-1 cursor-pointer ${isDark ? "hover:text-white" : "hover:text-[#4344fa]"}`}>5 Stages</a>
-            <a href="#case-study" className={`transition-colors py-1 cursor-pointer ${isDark ? "hover:text-white" : "hover:text-[#4344fa]"}`}>Copilot Case Study</a>
-            <a href="#adoptiq" className={`transition-colors py-1 cursor-pointer ${isDark ? "hover:text-white" : "hover:text-[#4344fa]"}`}>AdoptIQ Engine</a>
+            <button
+              onClick={() => {
+                setShowcaseSlide(0);
+                scrollTo("case-study");
+              }}
+              className={`transition-colors py-1 cursor-pointer bg-transparent border-0 font-medium text-[14px] ${isDark ? "text-slate-300 hover:text-white" : "text-[#475569] hover:text-[#4344fa]"}`}
+            >
+              Copilot Case Study
+            </button>
+            <button
+              onClick={() => {
+                setShowcaseSlide(1);
+                scrollTo("case-study");
+              }}
+              className={`transition-colors py-1 cursor-pointer bg-transparent border-0 font-medium text-[14px] ${isDark ? "text-slate-300 hover:text-white" : "text-[#475569] hover:text-[#4344fa]"}`}
+            >
+              AdoptIQ Engine
+            </button>
           </nav>
 
           {/* Right: Apple-Style Dark/Light Theme Mode Toggle */}
           <div className="flex items-center gap-3">
             <button
-              onClick={() => setMode((m) => (m === "dark" ? "light" : "dark"))}
+              onClick={handleToggleTheme}
               className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold backdrop-blur-xl border transition-all cursor-pointer shadow-xs hover:scale-105 active:scale-95 ${
                 isDark
                   ? "bg-white/10 text-white border-white/15 hover:bg-white/18 hover:border-white/25"
@@ -474,12 +533,15 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             WebkitMaskImage: "linear-gradient(to bottom, black 80%, transparent 100%)",
           }}
         >
-          {/* Multi-axis 3D Gyroscope Prism Container */}
+          {/* Layer 1: Background Glass Slabs Artwork (Deepest Plane) */}
           <div
-            className="w-full h-full will-change-transform transition-transform duration-200 ease-out"
+            className="w-full h-full will-change-transform"
             style={{
-              transform: `translate3d(${50 + mousePos.x * 20}px, ${mousePos.y * 14}px, 0) scale(1.05) perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 3}deg)`,
+              transform: `translate3d(${50 + mousePos.x * 12}px, ${mousePos.y * 8 - scrollY * 0.08}px, 0) scale(1.05) perspective(1200px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 1.5}deg)`,
               transformOrigin: "78% 50%",
+              transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
             }}
           >
             <img
@@ -490,6 +552,111 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               } transition-opacity duration-700 animate-hero-float scale-105`}
             />
           </div>
+
+          {/* Layer 2: Small Floating 3D Ball (Top Right, Mid-Deep Depth) */}
+          {isDark && (
+            <div
+              className="absolute inset-0 flex items-start justify-end pointer-events-none z-10 select-none will-change-transform"
+              style={{
+                transform: `translate3d(${mousePos.x * 22}px, ${mousePos.y * 16 - scrollY * 0.22}px, 0) perspective(1000px) rotateY(${mousePos.x * 3.5}deg) rotateX(${-mousePos.y * 2.5}deg)`,
+                transformOrigin: "86% 20%",
+                transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+              }}
+            >
+              <div
+                className="relative animate-hero-float"
+                style={{
+                  width: "min(4.8vw, 68px)",
+                  marginRight: "12%",
+                  marginTop: "7.5%",
+                  filter: "drop-shadow(0 14px 28px rgba(168, 85, 247, 0.55)) drop-shadow(0 0 22px rgba(56, 189, 248, 0.4))",
+                  animationDelay: "-2.4s",
+                }}
+              >
+                <img
+                  src={ballImg}
+                  alt="Small 3D Glass Sphere"
+                  className="w-full h-auto object-contain select-none pointer-events-none"
+                  style={{
+                    transform: `rotate(${mousePos.x * 5 + scrollY * 0.04}deg)`,
+                    transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Layer 3: Central 3D Floating Arrow Prism (Mid-Foreground Focal Element) */}
+          {isDark && (
+            <div
+              className="absolute inset-0 flex items-center justify-end pointer-events-none z-10 select-none will-change-transform"
+              style={{
+                transform: `translate3d(${mousePos.x * 34 - scrollY * 0.42}px, ${mousePos.y * 24 - scrollY * 0.42}px, 0) perspective(1000px) rotateY(${mousePos.x * 5.2}deg) rotateX(${-mousePos.y * 4.2}deg)`,
+                transformOrigin: "75% 50%",
+                transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+              }}
+            >
+              <div
+                className="relative animate-hero-float"
+                style={{
+                  width: "min(34vw, 490px)",
+                  marginRight: "21%",
+                  marginTop: "-4%",
+                  filter: "drop-shadow(0 25px 50px rgba(59, 130, 246, 0.45)) drop-shadow(0 0 42px rgba(168, 85, 247, 0.38))",
+                  animationDelay: "0s",
+                }}
+              >
+                <img
+                  src={arrowImg}
+                  alt="ADOPT 3D Glass Arrow Prism"
+                  className="w-full h-auto object-contain select-none pointer-events-none"
+                  style={{
+                    transform: `rotate(${mousePos.x * 2.5}deg)`,
+                    transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Layer 4: Big Floating 3D Ball (Bottom Right, Closest Foreground Depth) */}
+          {isDark && (
+            <div
+              className="absolute inset-0 flex items-end justify-end pointer-events-none z-10 select-none will-change-transform"
+              style={{
+                transform: `translate3d(${mousePos.x * 52}px, ${mousePos.y * 36 - scrollY * 0.58}px, 0) perspective(1000px) rotateY(${mousePos.x * 7.5}deg) rotateX(${-mousePos.y * 6}deg)`,
+                transformOrigin: "92% 82%",
+                transition: "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)",
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+              }}
+            >
+              <div
+                className="relative animate-hero-float"
+                style={{
+                  width: "min(10.5vw, 142px)",
+                  marginRight: "4.5%",
+                  marginBottom: "8%",
+                  filter: "drop-shadow(0 28px 50px rgba(168, 85, 247, 0.65)) drop-shadow(0 0 38px rgba(56, 189, 248, 0.5))",
+                  animationDelay: "-4.2s",
+                }}
+              >
+                <img
+                  src={ballImg}
+                  alt="Big 3D Glass Sphere"
+                  className="w-full h-auto object-contain select-none pointer-events-none"
+                  style={{
+                    transform: `rotate(${mousePos.x * -7 - scrollY * 0.06}deg)`,
+                    transition: "transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                  }}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Floating Atmospheric Sparkle Orbs with Mouse Gyroscope */}
           <div
@@ -530,7 +697,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 isDark ? "bg-white/8 border border-white/15 text-[#a5b4fc]" : "adopt-hero-badge"
               }`}>
                 <span className="text-[12px] leading-none text-[#6366f1] animate-pulse">✦</span>
-                <span>THE ADOPT FRAMEWORK</span>
+                <span>THE ADOPT PLAYBOOK</span>
               </div>
             </div>
 
@@ -543,7 +710,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <h2 className={`text-[24px] sm:text-[28px] lg:text-[32px] font-bold tracking-tight leading-[1.25] mb-4 transition-colors ${
               isDark ? "text-white" : "text-[#1e293b]"
             }`}>
-              The behavioral framework I built to scale AI adoption.
+              The behavioral playbook I built to scale AI adoption.
             </h2>
 
             {/* Description */}
@@ -554,12 +721,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </p>
 
             {/* Call to Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 mb-10">
+            <div className="flex flex-wrap items-center gap-4">
               <button
                 onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
                 className="adopt-hero-btn-primary group"
               >
-                <span>Explore the Framework</span>
+                <span>Explore the Playbook</span>
                 <span className="adopt-btn-circle-arrow">
                   <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
                 </span>
@@ -579,22 +746,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               >
                 <span>Protected Playbook</span>
               </button>
-            </div>
-
-            {/* Micro Pillars in Hero */}
-            <div className="grid grid-cols-3 gap-3 max-w-lg pt-4 border-t border-slate-200/50">
-              <div className="flex flex-col text-left">
-                <span className="text-xs font-semibold text-slate-400">Pillar 01</span>
-                <span className={`text-sm font-bold ${isDark ? "text-slate-200" : "text-slate-800"}`}>Behavioral UX</span>
-              </div>
-              <div className="flex flex-col text-left">
-                <span className="text-xs font-semibold text-slate-400">Pillar 02</span>
-                <span className={`text-sm font-bold ${isDark ? "text-slate-200" : "text-slate-800"}`}>Habit Loops</span>
-              </div>
-              <div className="flex flex-col text-left">
-                <span className="text-xs font-semibold text-slate-400">Pillar 03</span>
-                <span className={`text-sm font-bold ${isDark ? "text-slate-200" : "text-slate-800"}`}>Enterprise Scale</span>
-              </div>
             </div>
           </div>
         </div>
@@ -740,13 +891,26 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               }}
             >
               <div
-                className={`relative rounded-[24px] p-6 w-full max-w-[340px] text-left transition-all duration-300 hover:scale-[1.02] group cursor-default ${
+                className={`relative rounded-[28px] p-6 w-full max-w-[340px] text-left transition-all duration-300 hover:scale-[1.02] group cursor-default ${
                   isDark
-                    ? "bg-[#090f24]/80 backdrop-blur-2xl border border-indigo-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.65)] hover:border-indigo-400/50"
+                    ? "text-white"
                     : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
                 }`}
                 style={{
                   transform: `perspective(1000px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 2}deg)`,
+                  ...(isDark
+                    ? {
+                        background: "rgba(0, 0, 0, 0.45)",
+                        backdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
+                        WebkitBackdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
+                        boxShadow: [
+                          "inset 0 0 0 1px rgba(255,255,255,0.16)",
+                          "0 8px 32px rgba(0,0,0,0.40)",
+                          "inset 0 1.5px 1px rgba(255,255,255,0.52)",
+                          "inset 0 -2px 5px rgba(0,0,0,0.28)",
+                        ].join(", "),
+                      }
+                    : {}),
                 }}
               >
                 {/* Connecting Line from Card to Iceberg Peak */}
@@ -758,21 +922,34 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </div>
 
                 <div className="flex items-center gap-3.5 mb-4">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
-                    isDark
-                      ? "bg-indigo-950/80 border border-indigo-500/30 text-indigo-300"
-                      : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
-                  }`}>
+                  <div
+                    className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
+                      isDark
+                        ? "text-white"
+                        : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
+                    }`}
+                    style={
+                      isDark
+                        ? {
+                            background:
+                              "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 30%, transparent 62%), linear-gradient(180deg, rgba(56,64,80,0.94) 0%, rgba(28,34,46,0.97) 38%, rgba(12,16,24,1) 100%)",
+                            boxShadow:
+                              "inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -2px 6px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3)",
+                            border: "1px solid rgba(255,255,255,0.12)",
+                          }
+                        : {}
+                    }
+                  >
                     <Mountain className="w-5 h-5 stroke-[2]" />
                   </div>
                   <div>
-                    <div className={`text-[13px] font-black tracking-wider uppercase ${
+                    <div className={`text-[13px] font-semibold tracking-wider uppercase font-['Poppins',sans-serif] ${
                       isDark ? "text-white" : "text-[#0f172a]"
                     }`}>
                       ABOVE THE SURFACE
                     </div>
-                    <div className={`text-[12px] font-medium ${
-                      isDark ? "text-slate-400" : "text-[#64748b]"
+                    <div className={`text-[12px] font-normal ${
+                      isDark ? "text-white/70" : "text-[#64748b]"
                     }`}>
                       What tools prioritize
                     </div>
@@ -787,9 +964,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     "Enterprise-grade security",
                   ].map((item, idx) => (
                     <div key={idx} className={`flex items-center gap-2.5 text-[13.5px] font-medium transition-colors ${
-                      isDark ? "text-slate-200 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
+                      isDark ? "text-white/85 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
                     }`}>
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_6px_#38bdf8] shrink-0" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8] shrink-0" />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -843,13 +1020,26 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               }}
             >
               <div
-                className={`relative rounded-[24px] p-6 w-full max-w-[340px] text-left transition-all duration-300 hover:scale-[1.02] group cursor-default ${
+                className={`relative rounded-[28px] p-6 w-full max-w-[340px] text-left transition-all duration-300 hover:scale-[1.02] group cursor-default ${
                   isDark
-                    ? "bg-[#090f24]/80 backdrop-blur-2xl border border-indigo-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.65)] hover:border-indigo-400/50"
+                    ? "text-white"
                     : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
                 }`}
                 style={{
                   transform: `perspective(1000px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 2}deg)`,
+                  ...(isDark
+                    ? {
+                        background: "rgba(0, 0, 0, 0.45)",
+                        backdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
+                        WebkitBackdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
+                        boxShadow: [
+                          "inset 0 0 0 1px rgba(255,255,255,0.16)",
+                          "0 8px 32px rgba(0,0,0,0.40)",
+                          "inset 0 1.5px 1px rgba(255,255,255,0.52)",
+                          "inset 0 -2px 5px rgba(0,0,0,0.28)",
+                        ].join(", "),
+                      }
+                    : {}),
                 }}
               >
                 {/* Connecting Line from Card to Underwater Iceberg Body */}
@@ -861,21 +1051,34 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </div>
 
                 <div className="flex items-center gap-3.5 mb-4">
-                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
-                    isDark
-                      ? "bg-indigo-950/80 border border-indigo-500/30 text-indigo-300"
-                      : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
-                  }`}>
+                  <div
+                    className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
+                      isDark
+                        ? "text-white"
+                        : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
+                    }`}
+                    style={
+                      isDark
+                        ? {
+                            background:
+                              "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 30%, transparent 62%), linear-gradient(180deg, rgba(56,64,80,0.94) 0%, rgba(28,34,46,0.97) 38%, rgba(12,16,24,1) 100%)",
+                            boxShadow:
+                              "inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -2px 6px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3)",
+                            border: "1px solid rgba(255,255,255,0.12)",
+                          }
+                        : {}
+                    }
+                  >
                     <Lock className="w-5 h-5 stroke-[2]" />
                   </div>
                   <div>
-                    <div className={`text-[13px] font-black tracking-wider uppercase ${
+                    <div className={`text-[13px] font-semibold tracking-wider uppercase font-['Poppins',sans-serif] ${
                       isDark ? "text-white" : "text-[#0f172a]"
                     }`}>
                       BELOW THE SURFACE
                     </div>
-                    <div className={`text-[12px] font-medium ${
-                      isDark ? "text-slate-400" : "text-[#64748b]"
+                    <div className={`text-[12px] font-normal ${
+                      isDark ? "text-white/70" : "text-[#64748b]"
                     }`}>
                       What tools adoption needs
                     </div>
@@ -890,9 +1093,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     "Low motivation to switch",
                   ].map((item, idx) => (
                     <div key={idx} className={`flex items-center gap-2.5 text-[13.5px] font-medium transition-colors ${
-                      isDark ? "text-slate-200 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
+                      isDark ? "text-white/85 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
                     }`}>
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_6px_#38bdf8] shrink-0" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8] shrink-0" />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -927,7 +1130,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               {/* Category Pills */}
               <div className="flex flex-wrap items-center gap-2 mb-4">
                 {[
-                  { label: "THE FRAMEWORK", dot: "bg-[#38bdf8]" },
+                  { label: "THE PLAYBOOK", dot: "bg-[#38bdf8]" },
                   { label: "BEHAVIORAL", dot: "bg-[#0284c7]" },
                   { label: "EXPERIMENTAL", dot: "bg-[#f43f5e]" },
                   { label: "SYSTEMIC", dot: "bg-[#8b5cf6]" },
@@ -952,7 +1155,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               }`}>
                 The 5 Stages of the<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]">
-                  ADOPT Framework
+                  ADOPT Playbook
                 </span>
               </h2>
               <p className={`text-[16px] sm:text-[17px] font-normal leading-relaxed mb-6 ${
@@ -969,7 +1172,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     : "bg-white/90 backdrop-blur-md border border-slate-200/80 text-slate-700"
                 }`}>
                   <span className="text-[#a855f7] font-bold">✦</span>
-                  <span>Click any card to explore full behavioral framework & tactics</span>
+                  <span>Click any card to explore full behavioral playbook & tactics</span>
                 </div>
               </div>
             </div>
@@ -1215,7 +1418,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                                   <div className="absolute bottom-3 w-28 h-6 bg-slate-950/40 rounded-full blur-md -z-10" />
                                 )}
                                 <img
-                                  src={stage.modalImg}
+                                  src={isDark && stage.modalDarkImg ? stage.modalDarkImg : stage.modalImg}
                                   alt={`${stage.title} Character`}
                                   className={`w-auto h-full max-h-full object-contain transition-transform duration-500 ${
                                     isActive
@@ -1390,241 +1593,370 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         <div id="adoptiq" className="absolute -top-24 left-0 pointer-events-none" />
         <div id="impact" className="absolute -top-24 left-0 pointer-events-none" />
 
-        {/* ── SECTION 4: APPLIED PLAYBOOK (Scaled Copilot Adoption Case Study) ── */}
+        {/* ── COMBINED SHOWCASE SLIDER: APPLIED FRAMEWORK & AI ADOPTION ENGINE ── */}
         <div id="case-study" className="relative w-full mb-16 sm:mb-20 lg:mb-24 pt-2">
-          <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-              {/* Left: Free-Floating 3D Copilot Playbook Visual (Shifted Left) */}
-              <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
-                <img
-                  src={isDark ? copilotPlaybookDarkImg : copilotPlaybookImg}
-                  alt="Scaled Copilot Adoption AI Adoption Framework 3D Dashboard"
-                  className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(139,92,246,0.35)] transition-transform duration-500 hover:scale-[1.02]"
-                />
+          {/* Top Control Bar with Segmented Tab Switcher and Left/Right Arrows */}
+          <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12 mb-6 sm:mb-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              {/* Segmented Switcher Tabs */}
+              <div className={`inline-flex p-1.5 rounded-full border shadow-2xs backdrop-blur-xl ${
+                isDark ? "bg-[#0b101e]/85 border-white/12" : "bg-white/90 border-slate-200/80"
+              }`}>
+                <button
+                  type="button"
+                  onClick={() => setShowcaseSlide(0)}
+                  className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-extrabold tracking-wide transition-all cursor-pointer ${
+                    showcaseSlide === 0
+                      ? isDark
+                        ? "bg-gradient-to-r from-pink-500/30 to-purple-500/30 text-pink-300 border border-pink-500/40 shadow-sm"
+                        : "bg-gradient-to-r from-[#fdf2f8] to-[#f5f3ff] text-[#db2777] border border-[#fbcfe8] shadow-xs"
+                      : isDark
+                      ? "text-slate-400 hover:text-white border border-transparent"
+                      : "text-slate-600 hover:text-slate-900 border border-transparent"
+                  }`}
+                >
+                  <span className="text-xs text-pink-400">✦</span>
+                  <span>APPLIED PLAYBOOK</span>
+                  <span className="hidden md:inline text-[11px] font-normal opacity-70">• Copilot Case Study</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setShowcaseSlide(1)}
+                  className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-extrabold tracking-wide transition-all cursor-pointer ${
+                    showcaseSlide === 1
+                      ? isDark
+                        ? "bg-gradient-to-r from-purple-500/30 to-indigo-500/30 text-purple-300 border border-purple-500/40 shadow-sm"
+                        : "bg-gradient-to-r from-[#f5f3ff] to-[#eef2ff] text-[#7c3aed] border border-[#ddd6fe] shadow-xs"
+                      : isDark
+                      ? "text-slate-400 hover:text-white border border-transparent"
+                      : "text-slate-600 hover:text-slate-900 border border-transparent"
+                  }`}
+                >
+                  <span className="text-xs text-purple-400">✦</span>
+                  <span>AI ADOPTION ENGINE</span>
+                  <span className="hidden md:inline text-[11px] font-normal opacity-70">• AdoptIQ.ai</span>
+                </button>
               </div>
 
-              {/* Right: Narrative, Headlines, Metrics & Case Study CTA (Shifted Left) */}
-              <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
-                {/* Eyebrow Badge */}
-                <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs ${
-                  isDark ? "bg-pink-500/15 border border-pink-500/30 text-pink-400" : "bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777]"
+              {/* Slider Left/Right Arrows & Slide Counter */}
+              <div className="flex items-center gap-3 self-end sm:self-auto">
+                <div className={`text-xs font-bold tracking-wider px-3 py-1.5 rounded-full border backdrop-blur-md ${
+                  isDark ? "bg-white/5 border-white/10 text-slate-300" : "bg-white/80 border-slate-200 text-slate-600"
                 }`}>
-                  <span className="text-[12px]">✦</span>
-                  <span>APPLIED FRAMEWORK</span>
+                  <span className={isDark ? "text-sky-400" : "text-[#4344fa]"}>0{showcaseSlide + 1}</span>
+                  <span className="opacity-40"> / 02</span>
                 </div>
 
-                {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
-                <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
-                  Scaled Copilot Adoption
-                </h2>
+                {/* Left Arrow Button */}
+                <button
+                  type="button"
+                  onClick={() => setShowcaseSlide((prev) => (prev === 0 ? 1 : prev - 1))}
+                  aria-label="Previous Slide"
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs hover:scale-110 active:scale-95 border ${
+                    isDark
+                      ? "bg-[#0b101e]/90 hover:bg-[#141b36] border-white/15 text-white hover:text-sky-400 hover:border-sky-500/40"
+                      : "bg-white/90 hover:bg-white border-slate-200 text-slate-700 hover:text-[#4344fa] hover:border-indigo-300"
+                  }`}
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
 
-                {/* Sub-tagline */}
-                <p className={`text-[15px] sm:text-[16px] font-semibold mb-4 tracking-tight ${
-                  isDark ? "text-slate-400" : "text-[#64748b]"
-                }`}>
-                  Enterprise scale AI adoption case study
-                </p>
+                {/* Right Arrow Button */}
+                <button
+                  type="button"
+                  onClick={() => setShowcaseSlide((prev) => (prev === 1 ? 0 : prev + 1))}
+                  aria-label="Next Slide"
+                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs hover:scale-110 active:scale-95 border ${
+                    isDark
+                      ? "bg-[#0b101e]/90 hover:bg-[#141b36] border-white/15 text-white hover:text-sky-400 hover:border-sky-500/40"
+                      : "bg-white/90 hover:bg-white border-slate-200 text-slate-700 hover:text-[#4344fa] hover:border-indigo-300"
+                  }`}
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
 
-                {/* Headline */}
-                <h3 className={`text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold tracking-tight leading-[1.15] mb-6 max-w-lg ${
-                  isDark ? "text-white" : "text-[#0a0e1a]"
-                }`}>
-                  How the Adopt Framework drove awareness into repeat usage and advocacy
-                </h3>
+          {/* Carousel Slider Track */}
+          <div
+            className="w-full overflow-hidden"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div
+              className="flex transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] w-full"
+              style={{
+                transform: `translateX(-${showcaseSlide * 100}%)`,
+              }}
+            >
+              {/* ── SLIDE 0: APPLIED PLAYBOOK (Scaled Copilot Adoption) ── */}
+              <div className="w-full shrink-0 min-w-full">
+                <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                    {/* Left: Free-Floating 3D Copilot Playbook Visual (Shifted Left) */}
+                    <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
+                      <img
+                        src={isDark ? copilotPlaybookDarkImg : copilotPlaybookImg}
+                        alt="Scaled Copilot Adoption AI Adoption Playbook 3D Dashboard"
+                        className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(139,92,246,0.35)] transition-transform duration-500 hover:scale-[1.02]"
+                      />
+                    </div>
 
-                {/* 3 Metric Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
-                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
-                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-pink-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#fbcfe8]"
-                  }`}>
-                    <div className="w-2 h-2 rounded-full bg-[#f97316]" />
-                    <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
-                      935K → 3.4M
-                    </div>
-                    <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
-                      Copilot MAU
-                    </div>
-                  </div>
+                    {/* Right: Narrative, Headlines, Metrics & Case Study CTA (Shifted Left) */}
+                    <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
+                      {/* Eyebrow Badge */}
+                      <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs ${
+                        isDark ? "bg-pink-500/15 border border-pink-500/30 text-pink-400" : "bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777]"
+                      }`}>
+                        <span className="text-[12px]">✦</span>
+                        <span>APPLIED PLAYBOOK</span>
+                      </div>
 
-                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
-                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-sky-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#bfdbfe]"
-                  }`}>
-                    <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
-                    <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
-                      33$ → 85$
-                    </div>
-                    <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
-                      CAC Reduction 71%
-                    </div>
-                  </div>
+                      {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
+                      <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
+                        Scaled Copilot Adoption
+                      </h2>
 
-                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
-                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-purple-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#fbcfe8]"
-                  }`}>
-                    <div className="w-2 h-2 rounded-full bg-[#ec4899]" />
-                    <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
-                      500K → 1.5M
-                    </div>
-                    <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
-                      Telemetry MAU
+                      {/* Sub-tagline */}
+                      <p className={`text-[15px] sm:text-[16px] font-semibold mb-4 tracking-tight ${
+                        isDark ? "text-slate-400" : "text-[#64748b]"
+                      }`}>
+                        Enterprise scale AI adoption case study
+                      </p>
+
+                      {/* Headline */}
+                      <h3 className={`text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold tracking-tight leading-[1.15] mb-6 max-w-lg ${
+                        isDark ? "text-white" : "text-[#0a0e1a]"
+                      }`}>
+                        How the Adopt Playbook drove awareness into repeat usage and advocacy
+                      </h3>
+
+                      {/* 3 Metric Cards */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
+                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
+                          isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-pink-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#fbcfe8]"
+                        }`}>
+                          <div className="w-2 h-2 rounded-full bg-[#f97316]" />
+                          <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                            935K → 3.4M
+                          </div>
+                          <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
+                            Copilot MAU
+                          </div>
+                        </div>
+
+                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
+                          isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-sky-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#bfdbfe]"
+                        }`}>
+                          <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
+                          <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                            33$ → 85$
+                          </div>
+                          <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
+                            CAC Reduction 71%
+                          </div>
+                        </div>
+
+                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
+                          isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-purple-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#fbcfe8]"
+                        }`}>
+                          <div className="w-2 h-2 rounded-full bg-[#ec4899]" />
+                          <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                            500K → 1.5M
+                          </div>
+                          <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
+                            Telemetry MAU
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Featured Key Outcome Card (24% more Active Copilot days) */}
+                      <div className={`w-full max-w-lg p-3.5 sm:p-4 rounded-[22px] shadow-xs flex items-center gap-3.5 sm:gap-4 mb-7 transition-colors ${
+                        isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-purple-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#ddd6fe]"
+                      }`}>
+                        <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-2xs ${
+                          isDark ? "bg-purple-950/70 border border-purple-500/30 text-purple-400" : "bg-gradient-to-tr from-[#ede9fe] to-[#f5f3ff] border border-[#ddd6fe] text-[#7c3aed]"
+                        }`}>
+                          <TrendingUp className="w-6 h-6 stroke-[2.5]" />
+                        </div>
+                        <div className="flex flex-col text-left">
+                          <span className={`text-[20px] sm:text-[22px] font-black tracking-tight leading-tight ${
+                            isDark ? "text-white" : "text-[#0f172a]"
+                          }`}>
+                            24% more
+                          </span>
+                          <span className={`text-[12.5px] sm:text-[13px] font-medium leading-snug ${
+                            isDark ? "text-slate-300" : "text-[#475569]"
+                          }`}>
+                            Active Copilot daily & weekly MAU members
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* CTA Button: Protected Figma Case Study */}
+                      <div className="pt-1 pb-3">
+                        <button
+                          onClick={() => {
+                            setPasswordInput("");
+                            setPasswordError("");
+                            setShowPasswordModal(true);
+                          }}
+                          className="adopt-hero-btn-primary group"
+                        >
+                          <span>View Copilot Case Study</span>
+                          <span className="adopt-btn-circle-arrow">
+                            <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
+                          </span>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                {/* Featured Key Outcome Card (24% more Active Copilot days) */}
-                <div className={`w-full max-w-lg p-3.5 sm:p-4 rounded-[22px] shadow-xs flex items-center gap-3.5 sm:gap-4 mb-7 transition-colors ${
-                  isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-purple-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#ddd6fe]"
-                }`}>
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-2xs ${
-                    isDark ? "bg-purple-950/70 border border-purple-500/30 text-purple-400" : "bg-gradient-to-tr from-[#ede9fe] to-[#f5f3ff] border border-[#ddd6fe] text-[#7c3aed]"
-                  }`}>
-                    <TrendingUp className="w-6 h-6 stroke-[2.5]" />
-                  </div>
-                  <div className="flex flex-col text-left">
-                    <span className={`text-[20px] sm:text-[22px] font-black tracking-tight leading-tight ${
-                      isDark ? "text-white" : "text-[#0f172a]"
-                    }`}>
-                      24% more
-                    </span>
-                    <span className={`text-[12.5px] sm:text-[13px] font-medium leading-snug ${
-                      isDark ? "text-slate-300" : "text-[#475569]"
-                    }`}>
-                      Active Copilot daily & weekly MAU members
-                    </span>
-                  </div>
-                </div>
+              {/* ── SLIDE 1: AI ADOPTION ENGINE (AdoptIQ.ai) ── */}
+              <div className="w-full shrink-0 min-w-full">
+                <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+                    {/* Left: Free-Floating 3D SaaS Dashboard Visual (Shifted Left) */}
+                    <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
+                      <img
+                        src={isDark ? adoptIqDarkImg : adoptIqImg}
+                        alt="AdoptIQ.ai 3D Dashboard Engine at Work"
+                        className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(99,102,241,0.35)] transition-transform duration-500 hover:scale-[1.02]"
+                      />
+                    </div>
 
-                {/* CTA Button: Protected Figma Case Study */}
-                <div className="pt-1 pb-3">
-                  <button
-                    onClick={() => {
-                      setPasswordInput("");
-                      setPasswordError("");
-                      setShowPasswordModal(true);
-                    }}
-                    className="adopt-hero-btn-primary group"
-                  >
-                    <span>View Copilot Case Study</span>
-                    <span className="adopt-btn-circle-arrow">
-                      <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
-                    </span>
-                  </button>
+                    {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA (Shifted Left) */}
+                    <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
+                      {/* Eyebrow Badge */}
+                      <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs ${
+                        isDark ? "bg-purple-500/15 border border-purple-500/30 text-purple-400" : "bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed]"
+                      }`}>
+                        <span className="text-[12px]">✦</span>
+                        <span>AI ADOPTION ENGINE</span>
+                      </div>
+
+                      {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
+                      <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
+                        AdoptIQ.ai
+                      </h2>
+
+                      {/* Sub-tagline */}
+                      <p className={`text-[15px] sm:text-[16px] font-semibold mb-4 tracking-tight ${
+                        isDark ? "text-slate-400" : "text-[#64748b]"
+                      }`}>
+                        Independently designed and vibe-coded by Vikram
+                      </p>
+
+                      {/* Headline */}
+                      <h3 className={`text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold tracking-tight leading-[1.15] mb-6 max-w-lg ${
+                        isDark ? "text-white" : "text-[#0a0e1a]"
+                      }`}>
+                        Turn your adoption problem into a clear UX action plan.
+                      </h3>
+
+                      {/* 4 Pipeline Flow Steps in Pill */}
+                      <div className={`w-full max-w-lg p-2.5 rounded-2xl shadow-xs flex items-center justify-between mb-5 ${
+                        isDark ? "bg-[#0b101e]/90 border border-white/12 text-slate-300" : "bg-white border border-[#e2e8f0] text-[#334155]"
+                      }`}>
+                        {[
+                          { icon: "📋", label: "Plan" },
+                          { icon: "🧠", label: "Diagnose" },
+                          { icon: "🎯", label: "Prioritize" },
+                          { icon: "🪄", label: "Generate" }
+                        ].map((step, idx, arr) => (
+                          <React.Fragment key={idx}>
+                            <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[12px] font-bold ${
+                              isDark ? "text-slate-200" : "text-[#334155]"
+                            }`}>
+                              <span className="text-[14px]">{step.icon}</span>
+                              <span>{step.label}</span>
+                            </div>
+                            {idx < arr.length - 1 && <span className={isDark ? "text-slate-600 text-xs" : "text-slate-300 text-xs"}>→</span>}
+                          </React.Fragment>
+                        ))}
+                      </div>
+
+                      {/* 3 Core Value Pillars */}
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-7">
+                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
+                          isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
+                        }`}>
+                          <span className="text-xl">🧠</span>
+                          <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                            Sentiment-to-Behavior Diagnosis
+                          </span>
+                        </div>
+
+                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
+                          isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
+                        }`}>
+                          <span className="text-xl">🪄</span>
+                          <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                            Predictive Contextual UX Interventions
+                          </span>
+                        </div>
+
+                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
+                          isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
+                        }`}>
+                          <span className="text-xl">👥</span>
+                          <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                            Effort-Free Roadmap Alignment
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* CTA Button: Cobalt/Indigo Gradient Pill */}
+                      <div className="pt-1 pb-3">
+                        <a
+                          href="https://adoptiqai.vercel.app/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="adopt-hero-btn-primary group text-decoration-none"
+                        >
+                          <span>Launch AdoptIQ.ai</span>
+                          <span className="adopt-btn-circle-arrow">
+                            <ArrowUpRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
+                          </span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* ── SECTION 5: AI ADOPTION ENGINE (AdoptIQ.ai) ──────────────── */}
-        <div id="adoptiq" className="relative w-full mb-16 sm:mb-20 lg:mb-24 pt-4 sm:pt-6">
-          <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-              {/* Left: Free-Floating 3D SaaS Dashboard Visual (Shifted Left) */}
-              <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
-                <img
-                  src={isDark ? adoptIqDarkImg : adoptIqImg}
-                  alt="AdoptIQ.ai 3D Dashboard Engine at Work"
-                  className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(99,102,241,0.35)] transition-transform duration-500 hover:scale-[1.02]"
-                />
-              </div>
-
-              {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA (Shifted Left) */}
-              <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
-                {/* Eyebrow Badge */}
-                <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs ${
-                  isDark ? "bg-purple-500/15 border border-purple-500/30 text-purple-400" : "bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed]"
-                }`}>
-                  <span className="text-[12px]">✦</span>
-                  <span>AI ADOPTION ENGINE</span>
-                </div>
-
-                {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
-                <h2 className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] tracking-[-0.035em] leading-[1.04] mb-2 font-sans">
-                  AdoptIQ.ai
-                </h2>
-
-                {/* Sub-tagline */}
-                <p className={`text-[15px] sm:text-[16px] font-semibold mb-4 tracking-tight ${
-                  isDark ? "text-slate-400" : "text-[#64748b]"
-                }`}>
-                  Independently designed and vibe-coded by Vikram
-                </p>
-
-                {/* Headline */}
-                <h3 className={`text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold tracking-tight leading-[1.15] mb-6 max-w-lg ${
-                  isDark ? "text-white" : "text-[#0a0e1a]"
-                }`}>
-                  Turn your adoption problem into a clear UX action plan.
-                </h3>
-
-                {/* 4 Pipeline Flow Steps in Pill */}
-                <div className={`w-full max-w-lg p-2.5 rounded-2xl shadow-xs flex items-center justify-between mb-5 ${
-                  isDark ? "bg-[#0b101e]/90 border border-white/12 text-slate-300" : "bg-white border border-[#e2e8f0] text-[#334155]"
-                }`}>
-                  {[
-                    { icon: "📋", label: "Plan" },
-                    { icon: "🧠", label: "Diagnose" },
-                    { icon: "🎯", label: "Prioritize" },
-                    { icon: "🪄", label: "Generate" }
-                  ].map((step, idx, arr) => (
-                    <React.Fragment key={idx}>
-                      <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[12px] font-bold ${
-                        isDark ? "text-slate-200" : "text-[#334155]"
-                      }`}>
-                        <span className="text-[14px]">{step.icon}</span>
-                        <span>{step.label}</span>
-                      </div>
-                      {idx < arr.length - 1 && <span className={isDark ? "text-slate-600 text-xs" : "text-slate-300 text-xs"}>→</span>}
-                    </React.Fragment>
-                  ))}
-                </div>
-
-                {/* 3 Core Value Pillars */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-7">
-                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
-                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
-                  }`}>
-                    <span className="text-xl">🧠</span>
-                    <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
-                      Sentiment-to-Behavior Diagnosis
-                    </span>
-                  </div>
-
-                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
-                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
-                  }`}>
-                    <span className="text-xl">🪄</span>
-                    <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
-                      Predictive Contextual UX Interventions
-                    </span>
-                  </div>
-
-                  <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
-                    isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
-                  }`}>
-                    <span className="text-xl">👥</span>
-                    <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
-                      Effort-Free Roadmap Alignment
-                    </span>
-                  </div>
-                </div>
-
-                {/* CTA Button: Cobalt/Indigo Gradient Pill */}
-                <div className="pt-1 pb-3">
-                  <a
-                    href="https://adoptiqai.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="adopt-hero-btn-primary group text-decoration-none"
-                  >
-                    <span>Launch AdoptIQ.ai</span>
-                    <span className="adopt-btn-circle-arrow">
-                      <ArrowUpRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
-                    </span>
-                  </a>
-                </div>
-              </div>
-            </div>
+          {/* Bottom Slide Dots */}
+          <div className="flex items-center justify-center gap-2.5 mt-6">
+            <button
+              type="button"
+              onClick={() => setShowcaseSlide(0)}
+              aria-label="Slide 1: Copilot Case Study"
+              className={`h-2 rounded-full transition-all cursor-pointer ${
+                showcaseSlide === 0
+                  ? "w-8 bg-gradient-to-r from-pink-500 to-purple-500"
+                  : isDark
+                  ? "w-2 bg-white/20 hover:bg-white/40"
+                  : "w-2 bg-slate-300 hover:bg-slate-400"
+              }`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowcaseSlide(1)}
+              aria-label="Slide 2: AdoptIQ.ai"
+              className={`h-2 rounded-full transition-all cursor-pointer ${
+                showcaseSlide === 1
+                  ? "w-8 bg-gradient-to-r from-purple-500 to-indigo-500"
+                  : isDark
+                  ? "w-2 bg-white/20 hover:bg-white/40"
+                  : "w-2 bg-slate-300 hover:bg-slate-400"
+              }`}
+            />
           </div>
         </div>
 
@@ -1687,32 +2019,28 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
               {/* Right Side: Center-Aligned Action Buttons */}
               <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3 shrink-0">
-                {/* 1. Launch the Framework (Signature Blue Pill + Circular Arrow) */}
+                {/* 1. Launch the Playbook (Signature Blue Pill + Circular Arrow) */}
                 <button
                   onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
                   className="adopt-hero-btn-primary group"
                 >
-                  <span>Launch the Framework</span>
+                  <span>Launch the Playbook</span>
                   <span className="adopt-btn-circle-arrow">
                     <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
                   </span>
                 </button>
 
-                {/* 2. Launch AdoptIQ.ai (Glossy White Pill + Purple Icon) */}
+                {/* 2. Launch AdoptIQ.ai (Signature Blue Pill + Circular Arrow) */}
                 <a
                   href="https://adoptiqai.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`px-5 py-2 rounded-full font-bold text-[13px] shadow-sm hover:shadow-md transition-all flex items-center gap-2 cursor-pointer hover:scale-105 active:scale-95 text-decoration-none group ${
-                    isDark
-                      ? "bg-white/10 hover:bg-white/18 text-white border border-white/20"
-                      : "bg-white text-[#1e293b] hover:bg-slate-50"
-                  }`}
+                  className="adopt-hero-btn-primary group text-decoration-none"
                 >
                   <span>Launch AdoptIQ.ai</span>
-                  <ArrowUpRight className={`w-3.5 h-3.5 stroke-[2.5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
-                    isDark ? "text-purple-400" : "text-[#8b5cf6]"
-                  }`} />
+                  <span className="adopt-btn-circle-arrow">
+                    <ArrowUpRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
+                  </span>
                 </a>
               </div>
             </div>

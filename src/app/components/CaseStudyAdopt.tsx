@@ -348,12 +348,12 @@ const LEARNINGS = {
   next: [
     "Personalised adoption journeys based on maturity",
     "Embed ADOPT deeper into product surfaces",
-    "Extend the framework to other Copilot scenarios",
+    "Extend the playbook to other Copilot scenarios",
   ],
 };
 
 const CONTRIBUTION = [
-  "Developed the ADOPT framework to scale adoption as a system",
+  "Developed the ADOPT playbook to scale adoption as a system",
   "Led end-to-end UX and strategy for the Copilot Adoption Community",
   "Defined adoption as a continuous behaviour loop, not a launch activity",
   "Aligned PM, research, content, and engineering on measurable adoption loops",
@@ -434,7 +434,7 @@ export function CaseStudyAdopt({ onBack }: Props) {
         <ChallengeGoal />        {/* 01 · The adoption problem */}
         <BehaviourFunnel />      {/*    + Behaviour funnel visual */}
         <BeforeAfter />          {/* 02 · Why existing approaches failed */}
-        <Solution />             {/* 03 · A behaviour-led framework */}
+        <Solution />             {/* 03 · A behaviour-led playbook */}
         <Framework />            {/* 04 · How ADOPT works */}
         <Surfaces />             {/* 05 · Across product surfaces */}
         <Solutions />            {/* 06 · ADOPT in the Copilot Adoption Community */}
@@ -1790,7 +1790,7 @@ function Solution() {
             maxWidth: "880px",
           }}
         >
-          A behaviour-led framework
+          A behaviour-led playbook
         </h2>
       </Reveal>
 
@@ -1910,10 +1910,10 @@ function Framework() {
 
   return (
     <section id="framework" className="cs-section cs-section--wide">
-      <SectionHead eyebrow="04 · Framework" title="Adoption is a system, not a feature" />
+      <SectionHead eyebrow="04 · Playbook" title="Adoption is a system, not a feature" />
       <Reveal>
         <p className="cs-body" style={{ marginBottom: "36px", maxWidth: "720px" }}>
-          ADOPT is the framework I developed to move enterprise adoption from one-time activation
+          ADOPT is the playbook I developed to move enterprise adoption from one-time activation
           into a continuous behaviour loop.
           <span style={{ color: "var(--text-3)" }}> Tap a stage to expand.</span>
         </p>
@@ -2513,7 +2513,7 @@ function Impact() {
         >
           <div style={{ flex: "1 1 240px", minWidth: 0 }}>
             <p style={{ fontFamily: "'Poppins', sans-serif", fontSize: "11px", letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--accent)", margin: "0 0 8px" }}>
-              Reusable framework
+              Reusable playbook
             </p>
             <p style={{ fontSize: "16px", color: "var(--text-1)", margin: 0, lineHeight: 1.5 }}>
               ADOPT now generalises to other Copilot scenarios — and any AI surface where adoption
@@ -2582,7 +2582,7 @@ function Learnings() {
 function Contribution() {
   return (
     <section className="cs-section">
-      <SectionHead eyebrow="11 · My contribution" title="Leadership through frameworks" />
+      <SectionHead eyebrow="11 · My contribution" title="Leadership through playbooks" />
       <Reveal as="ul" style={{
         listStyle: "none", padding: 0, margin: 0,
         display: "flex", flexDirection: "column",
@@ -2719,7 +2719,7 @@ function Surfaces() {
       </Reveal>
       <Reveal>
         <p className="cs-body" style={{ maxWidth: "780px", marginBottom: "48px" }}>
-          The framework only works if every stage has a tangible touchpoint. Each ADOPT stage was
+          The playbook only works if every stage has a tangible touchpoint. Each ADOPT stage was
           wired into a real Viva Engage / Microsoft 365 surface — not left as theory.
         </p>
       </Reveal>
@@ -3009,7 +3009,7 @@ function Toolkit() {
       </Reveal>
       <Reveal>
         <p className="cs-body" style={{ maxWidth: "780px", marginBottom: "48px" }}>
-          ADOPT isn’t just a framework — it ships with everything a comms or admin team needs to
+          ADOPT isn’t just a playbook — it ships with everything a comms or admin team needs to
           run it end-to-end.
         </p>
       </Reveal>

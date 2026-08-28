@@ -263,7 +263,7 @@ const projects: {
   {
     title: "Notification Experience Design",
     description:
-      "Notification XD Playbook framework helps the product to proactively notify the on-going users problems and also allowing them to take necessary action through recommendations at any point in time.",
+      "Notification XD Playbook helps the product to proactively notify the on-going users problems and also allowing them to take necessary action through recommendations at any point in time.",
     ctas: [{ label: "View more", href: "https://docs.google.com/presentation/d/10f2xETw-H17PE4fwk7_gnLniytWco4oBRpC-0JpCjNw/pub?start=false&loop=false&delayms=10000" }],
     thumb: (
       <div className="w-full h-full overflow-hidden rounded-xl">
@@ -477,7 +477,6 @@ export function WorkSection({
     const section = sectionRef.current;
     if (!section) return;
     const cards = Array.from(section.querySelectorAll<HTMLElement>(".ws-card"));
-    const moreBtn = section.querySelector<HTMLElement>(".ws-more-btn");
 
     let ticking = false;
     let cachedSectionTop = 0;
@@ -516,10 +515,6 @@ export function WorkSection({
           : `translate3d(0, 0, 0) scale(${scale})`;
         card.style.transformOrigin = "top center";
       });
-
-      if (moreBtn) {
-        moreBtn.style.transform = isPastSection ? "translate3d(0, -260px, 0)" : "translate3d(0, 0, 0)";
-      }
     };
 
     const onScroll = () => {
@@ -545,23 +540,76 @@ export function WorkSection({
       ref={sectionRef}
       id="work"
       className="relative px-8"
-      style={{ paddingTop: "90px", maxWidth: "900px", margin: "0 auto" }}
+      style={{ paddingTop: "240px", maxWidth: "900px", margin: "0 auto" }}
     >
-      {/* Heading */}
-      <h2
-        className="text-center mb-12 h-grad-bright"
-        style={{
-          fontFamily: "'Poppins', sans-serif",
-          fontSize: "3.125rem",
-          lineHeight: 1.2,
-          fontWeight: 300,
-          position: "relative",
-          zIndex: 5,
-          paddingBottom: "0.1em",
+      <style>{`
+        @keyframes gentleArrowJump {
+          0%, 100% {
+            transform: translateY(0);
+            opacity: 0.8;
+          }
+          50% {
+            transform: translateY(7px);
+            opacity: 1;
+          }
+        }
+        .scroll-arrow-jump {
+          animation: gentleArrowJump 2s ease-in-out infinite;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      `}</style>
+
+      {/* Clickable Heading + Jumping Arrow */}
+      <div
+        data-no-sparkle="true"
+        className="no-sparkle flex flex-col items-center justify-center cursor-pointer select-none mb-10 group"
+        onClick={(e) => {
+          e.stopPropagation();
+          const firstCard = document.querySelector(".ws-card");
+          if (firstCard) {
+            const top = firstCard.getBoundingClientRect().top + window.scrollY - 110;
+            window.scrollTo({ top, behavior: "smooth" });
+          }
         }}
+        style={{ position: "relative", zIndex: 5 }}
       >
-        <span>My </span><span>work</span>
-      </h2>
+        {/* Heading */}
+        <h2
+          className="text-center h-grad-bright transition-opacity duration-200 group-hover:opacity-95"
+          style={{
+            fontFamily: "'Poppins', sans-serif",
+            fontSize: "3.125rem",
+            lineHeight: 1.2,
+            fontWeight: 300,
+            marginBottom: "-3px",
+            paddingBottom: "0.1em",
+          }}
+        >
+          <span>My </span><span>work</span>
+        </h2>
+
+        {/* Gentle jumping arrow below My Work */}
+        <div
+          className="scroll-arrow-jump transition-opacity duration-200 group-hover:opacity-100"
+          style={{ marginTop: "-10px", opacity: 0.8 }}
+        >
+          <svg
+            width="19"
+            height="19"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ color: "var(--text-1)" }}
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </div>
+      </div>
 
       {/* Sticky card stack */}
       <div className="flex flex-col">
