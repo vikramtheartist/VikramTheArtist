@@ -341,70 +341,25 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
   return (
     <div className={`adopt-page-wrapper selection:bg-indigo-500 selection:text-white relative ${isDark ? "dark" : ""}`}>
-      {/* ── CONTINUOUS FLOWING MOODBOARD GRADIENT ATMOSPHERE (FULL PAGE) ─ */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-        {/* Top Hero Glows: Cosmic Cyan + Deep Violet + Magenta */}
-        <div className={`absolute -top-24 -left-20 w-[950px] h-[950px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-br from-cyan-500/20 via-sky-600/12 to-transparent"
-            : "bg-gradient-to-br from-cyan-200/40 via-sky-100/25 to-transparent"
-        }`} />
-        <div className={`absolute -top-10 right-0 w-[900px] h-[900px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-bl from-pink-500/18 via-purple-600/20 to-transparent"
-            : "bg-gradient-to-bl from-pink-200/35 via-purple-200/25 to-transparent"
-        }`} />
-        <div className={`absolute top-[450px] left-[25%] w-[750px] h-[600px] rounded-full blur-[130px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-tr from-violet-600/20 via-fuchsia-600/14 to-transparent"
-            : "bg-gradient-to-tr from-violet-200/25 via-fuchsia-100/20 to-transparent"
-        }`} />
-
-        {/* Section 2 (Core Problem / Iceberg) Cosmic Glow */}
-        <div className={`absolute top-[950px] -left-10 w-[900px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-r from-blue-600/22 via-indigo-600/18 to-transparent"
-            : "bg-gradient-to-r from-blue-200/30 via-indigo-100/20 to-transparent"
-        }`} />
-        <div className={`absolute top-[1300px] -right-10 w-[950px] h-[900px] rounded-full blur-[150px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-l from-pink-600/20 via-purple-600/16 to-transparent"
-            : "bg-gradient-to-l from-pink-200/35 via-rose-100/20 to-transparent"
-        }`} />
-
-        {/* Section 3 (5 Stages) Cosmic Glow */}
-        <div className={`absolute top-[1850px] left-[5%] w-[1000px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-br from-cyan-500/20 via-sky-600/14 to-transparent"
-            : "bg-gradient-to-br from-cyan-200/35 via-sky-100/25 to-transparent"
-        }`} />
-        <div className={`absolute top-[2250px] right-[5%] w-[950px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-bl from-purple-600/22 via-pink-600/18 to-transparent"
-            : "bg-gradient-to-bl from-purple-200/35 via-pink-200/25 to-transparent"
-        }`} />
-
-        {/* Section 4 & 5 (Case Study & AdoptIQ) Flow */}
-        <div className={`absolute top-[2850px] -left-20 w-[1000px] h-[950px] rounded-full blur-[150px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-tr from-violet-600/22 via-sky-600/14 to-transparent"
-            : "bg-gradient-to-tr from-violet-200/30 via-sky-100/25 to-transparent"
-        }`} />
-        <div className={`absolute top-[3450px] right-0 w-[1000px] h-[900px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-l from-pink-600/22 via-purple-600/16 to-transparent"
-            : "bg-gradient-to-l from-pink-200/35 via-purple-100/25 to-transparent"
-        }`} />
-        <div className={`absolute top-[4050px] left-[10%] w-[950px] h-[800px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-r from-cyan-600/20 via-indigo-600/16 to-transparent"
-            : "bg-gradient-to-r from-cyan-200/30 via-indigo-100/20 to-transparent"
-        }`} />
-      </div>
+      {/* ── CONTINUOUS FLOWING MOODBOARD GRADIENT ATMOSPHERE (LIGHT MODE ONLY) ─ */}
+      {!isDark && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
+          <div className="absolute -top-24 -left-20 w-[950px] h-[950px] rounded-full blur-[140px] bg-gradient-to-br from-cyan-200/40 via-sky-100/25 to-transparent" />
+          <div className="absolute -top-10 right-0 w-[900px] h-[900px] rounded-full blur-[140px] bg-gradient-to-bl from-pink-200/35 via-purple-200/25 to-transparent" />
+          <div className="absolute top-[450px] left-[25%] w-[750px] h-[600px] rounded-full blur-[130px] bg-gradient-to-tr from-violet-200/25 via-fuchsia-100/20 to-transparent" />
+          <div className="absolute top-[950px] -left-10 w-[900px] h-[850px] rounded-full blur-[140px] bg-gradient-to-r from-blue-200/30 via-indigo-100/20 to-transparent" />
+          <div className="absolute top-[1300px] -right-10 w-[950px] h-[900px] rounded-full blur-[150px] bg-gradient-to-l from-pink-200/35 via-rose-100/20 to-transparent" />
+          <div className="absolute top-[1850px] left-[5%] w-[1000px] h-[850px] rounded-full blur-[140px] bg-gradient-to-br from-cyan-200/35 via-sky-100/25 to-transparent" />
+          <div className="absolute top-[2250px] right-[5%] w-[950px] h-[850px] rounded-full blur-[140px] bg-gradient-to-bl from-purple-200/35 via-pink-200/25 to-transparent" />
+          <div className="absolute top-[2850px] -left-20 w-[1000px] h-[950px] rounded-full blur-[150px] bg-gradient-to-tr from-violet-200/30 via-sky-100/25 to-transparent" />
+          <div className="absolute top-[3450px] right-0 w-[1000px] h-[900px] rounded-full blur-[140px] bg-gradient-to-l from-pink-200/35 via-purple-100/25 to-transparent" />
+          <div className="absolute top-[4050px] left-[10%] w-[950px] h-[800px] rounded-full blur-[140px] bg-gradient-to-r from-cyan-200/30 via-indigo-100/20 to-transparent" />
+        </div>
+      )}
 
       {/* ── TOP STICKY NAVIGATION BAR ─────────────────────────────────── */}
       <header className={`sticky top-0 z-50 w-full backdrop-blur-2xl transition-all duration-300 ${
-        isDark ? "bg-[#050816]/80 border-b border-white/10 shadow-sm" : "bg-white/70 border-b border-slate-200/40"
+        isDark ? "bg-[#020410]/85 border-b border-white/10 shadow-sm" : "bg-white/70 border-b border-slate-200/40"
       }`}>
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 h-20 flex items-center justify-between">
           {/* Left: Back to Portfolio */}
@@ -463,19 +418,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 1: HERO (SEAMLESS ATMOSPHERE) ────────────────────── */}
       <section
         id="hero"
-        className="relative z-10 min-h-[90vh] lg:min-h-[96vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent"
+        className="relative z-10 min-h-[88vh] lg:min-h-[94vh] flex flex-col justify-between pt-20 sm:pt-24 pb-10 overflow-hidden bg-transparent"
       >
         {/* Background Visual Asset: 8K 3D Translucent Waves & Glass Play Prism (Contained within Hero) */}
         <div
           className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
-          style={{
-            maskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 80%, transparent 100%)"
-              : "linear-gradient(to bottom, black 0%, black 80%, transparent 98%)",
-            WebkitMaskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 80%, transparent 100%)"
-              : "linear-gradient(to bottom, black 0%, black 80%, transparent 98%)",
-          }}
         >
           {/* Multi-axis 3D Gyroscope Prism Container */}
           <div
@@ -511,7 +458,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             className="absolute inset-0 pointer-events-none z-10 transition-all duration-700"
             style={{
               background: isDark
-                ? "linear-gradient(to right, rgba(5, 8, 22, 0.96) 0%, rgba(5, 8, 22, 0.85) 32%, rgba(5, 8, 22, 0.35) 55%, transparent 80%), linear-gradient(to bottom, transparent 72%, rgba(5, 8, 22, 0.98) 100%)"
+                ? "linear-gradient(to right, #020410 0%, #020410 25%, rgba(2, 4, 16, 0.4) 50%, transparent 80%)"
                 : "linear-gradient(to right, rgba(243, 248, 254, 0.98) 0%, rgba(243, 248, 254, 0.85) 32%, rgba(243, 248, 254, 0.45) 52%, transparent 78%), linear-gradient(to bottom, transparent 75%, rgba(243, 248, 254, 0.9) 100%)"
             }}
           />
@@ -658,21 +605,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className={`w-full min-h-[860px] lg:min-h-[940px] relative z-20 pt-8 sm:pt-12 pb-16 sm:pb-24 overflow-hidden flex items-center justify-center transition-colors duration-500 ${
+        className={`w-full min-h-[820px] lg:min-h-[900px] relative z-20 pt-6 sm:pt-10 pb-16 sm:pb-24 overflow-hidden flex items-center justify-center transition-colors duration-500 ${
           isDark ? "bg-transparent" : "bg-[#f3f8fe]"
         }`}
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background */}
         <div
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
-          style={{
-            maskImage: isDark
-              ? "linear-gradient(to bottom, transparent 0%, black 3%, black 97%, transparent 100%)"
-              : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
-            WebkitMaskImage: isDark
-              ? "linear-gradient(to bottom, transparent 0%, black 3%, black 97%, transparent 100%)"
-              : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
-          }}
         >
           <div
             className="w-full h-full absolute inset-0 will-change-transform transition-transform duration-300 ease-out flex items-center justify-center"
@@ -688,6 +627,16 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               }`}
             />
           </div>
+
+          {/* Left text column readability gradient */}
+          {isDark && (
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: "linear-gradient(to right, #020410 0%, #020410 28%, rgba(2, 4, 16, 0.4) 48%, transparent 68%)"
+              }}
+            />
+          )}
         </div>
 
         {/* Full-Width Centered Content Container */}
