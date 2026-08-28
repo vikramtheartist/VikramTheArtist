@@ -23,12 +23,13 @@ import {
   Download,
   ShieldCheck,
   Mountain,
-  Lock,
-  X
+  X,
 } from "lucide-react";
 import "../../../styles/adopt-landing.css";
 import adoptIqImg from "../../../assets/img/AdoptIQ.png";
+import adoptIqDarkImg from "../../../assets/img/AdoptIQ_Dark.png";
 import copilotPlaybookImg from "../../../assets/img/Scale Copilot.png";
+import copilotPlaybookDarkImg from "../../../assets/img/Scale Copilot_Dark.png";
 import awareCardImg from "../../../assets/img/Aware.png";
 import desireCardImg from "../../../assets/img/Desire.png";
 import openCardImg from "../../../assets/img/Open.png";
@@ -1381,7 +1382,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               {/* Left: Free-Floating 3D Copilot Playbook Visual (Shifted Left) */}
               <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                 <img
-                  src={copilotPlaybookImg}
+                  src={isDark ? copilotPlaybookDarkImg : copilotPlaybookImg}
                   alt="Scaled Copilot Adoption AI Adoption Framework 3D Dashboard"
                   className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(139,92,246,0.35)] transition-transform duration-500 hover:scale-[1.02]"
                 />
@@ -1506,7 +1507,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               {/* Left: Free-Floating 3D SaaS Dashboard Visual (Shifted Left) */}
               <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                 <img
-                  src={adoptIqImg}
+                  src={isDark ? adoptIqDarkImg : adoptIqImg}
                   alt="AdoptIQ.ai 3D Dashboard Engine at Work"
                   className="w-full h-auto max-w-[660px] object-contain drop-shadow-[0_25px_60px_rgba(99,102,241,0.35)] transition-transform duration-500 hover:scale-[1.02]"
                 />
