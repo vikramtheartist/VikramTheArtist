@@ -54,6 +54,7 @@ import transformModalImg from "../../../assets/img/Transform 1.png";
 import transformModalDarkImg from "../../../assets/img/Transform 1 _Dark.png";
 import arrowImg from "../../../assets/img/Arrow.png";
 import ballImg from "../../../assets/img/Ball.png";
+import { UnderwaterDepthBackground } from "./UnderwaterDepthBackground";
 
 interface AdoptLandingPageProps {
   onBack?: () => void;
@@ -384,66 +385,31 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
   return (
     <div className={`adopt-page-wrapper selection:bg-indigo-500 selection:text-white relative ${isDark ? "dark" : ""}`}>
-      {/* ── CONTINUOUS FLOWING MOODBOARD GRADIENT ATMOSPHERE (FULL PAGE) ─ */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-        {/* Top Hero Glows: Pastel Mint/Cyan + Iris Violet/Lilac + Strawberry Pink */}
-        <div className={`absolute -top-24 -left-20 w-[900px] h-[900px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-br from-cyan-500/22 via-sky-600/15 to-transparent"
-            : "bg-gradient-to-br from-cyan-200/40 via-sky-100/25 to-transparent"
-        }`} />
-        <div className={`absolute -top-10 right-0 w-[850px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-bl from-pink-500/20 via-purple-600/22 to-transparent"
-            : "bg-gradient-to-bl from-pink-200/35 via-purple-200/25 to-transparent"
-        }`} />
-        <div className={`absolute top-[450px] left-[25%] w-[700px] h-[550px] rounded-full blur-[130px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-tr from-violet-600/22 via-fuchsia-600/16 to-transparent"
-            : "bg-gradient-to-tr from-violet-200/25 via-fuchsia-100/20 to-transparent"
-        }`} />
+      {/* ── PROGRESSIVE DEEP-SEA UNDERWATER BACKGROUND (DARK MODE ONLY) ── */}
+      {isDark ? (
+        <UnderwaterDepthBackground isDark={isDark} scrollY={scrollY} mousePos={mousePos} />
+      ) : (
+        /* ── CONTINUOUS FLOWING MOODBOARD GRADIENT ATMOSPHERE (LIGHT MODE ONLY) ─ */
+        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
+          {/* Top Hero Glows: Pastel Mint/Cyan + Iris Violet/Lilac + Strawberry Pink */}
+          <div className="absolute -top-24 -left-20 w-[900px] h-[900px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-br from-cyan-200/40 via-sky-100/25 to-transparent" />
+          <div className="absolute -top-10 right-0 w-[850px] h-[850px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-bl from-pink-200/35 via-purple-200/25 to-transparent" />
+          <div className="absolute top-[450px] left-[25%] w-[700px] h-[550px] rounded-full blur-[130px] transition-all duration-700 bg-gradient-to-tr from-violet-200/25 via-fuchsia-100/20 to-transparent" />
 
-        {/* Section 2 (Core Problem) Flow */}
-        <div className={`absolute top-[1000px] -left-10 w-[850px] h-[800px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-r from-blue-600/25 via-indigo-600/20 to-transparent"
-            : "bg-gradient-to-r from-blue-200/30 via-indigo-100/20 to-transparent"
-        }`} />
-        <div className={`absolute top-[1350px] -right-10 w-[900px] h-[850px] rounded-full blur-[150px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-l from-pink-600/22 via-rose-600/16 to-transparent"
-            : "bg-gradient-to-l from-pink-200/35 via-rose-100/20 to-transparent"
-        }`} />
+          {/* Section 2 (Core Problem) Flow */}
+          <div className="absolute top-[1000px] -left-10 w-[850px] h-[800px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-r from-blue-200/30 via-indigo-100/20 to-transparent" />
+          <div className="absolute top-[1350px] -right-10 w-[900px] h-[850px] rounded-full blur-[150px] transition-all duration-700 bg-gradient-to-l from-pink-200/35 via-rose-100/20 to-transparent" />
 
-        {/* Section 3 (5 Stages) Flow */}
-        <div className={`absolute top-[1900px] left-[5%] w-[950px] h-[800px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-br from-cyan-500/22 via-sky-600/15 to-transparent"
-            : "bg-gradient-to-br from-cyan-200/35 via-sky-100/25 to-transparent"
-        }`} />
-        <div className={`absolute top-[2300px] right-[5%] w-[900px] h-[800px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-bl from-purple-600/25 via-pink-600/20 to-transparent"
-            : "bg-gradient-to-bl from-purple-200/35 via-pink-200/25 to-transparent"
-        }`} />
+          {/* Section 3 (5 Stages) Flow */}
+          <div className="absolute top-[1900px] left-[5%] w-[950px] h-[800px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-br from-cyan-200/35 via-sky-100/25 to-transparent" />
+          <div className="absolute top-[2300px] right-[5%] w-[900px] h-[800px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-bl from-purple-200/35 via-pink-200/25 to-transparent" />
 
-        {/* Section 4 & 5 (Case Study & AdoptIQ) Flow */}
-        <div className={`absolute top-[2900px] -left-20 w-[950px] h-[900px] rounded-full blur-[150px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-tr from-violet-600/24 via-sky-600/15 to-transparent"
-            : "bg-gradient-to-tr from-violet-200/30 via-sky-100/25 to-transparent"
-        }`} />
-        <div className={`absolute top-[3500px] right-0 w-[950px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-l from-pink-600/24 via-purple-600/18 to-transparent"
-            : "bg-gradient-to-l from-pink-200/35 via-purple-100/25 to-transparent"
-        }`} />
-        <div className={`absolute top-[4100px] left-[10%] w-[900px] h-[750px] rounded-full blur-[140px] transition-all duration-700 ${
-          isDark
-            ? "bg-gradient-to-r from-cyan-600/22 via-indigo-600/18 to-transparent"
-            : "bg-gradient-to-r from-cyan-200/30 via-indigo-100/20 to-transparent"
-        }`} />
-      </div>
+          {/* Section 4 & 5 (Case Study & AdoptIQ) Flow */}
+          <div className="absolute top-[2900px] -left-20 w-[950px] h-[900px] rounded-full blur-[150px] transition-all duration-700 bg-gradient-to-tr from-violet-200/30 via-sky-100/25 to-transparent" />
+          <div className="absolute top-[3500px] right-0 w-[950px] h-[850px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-l from-pink-200/35 via-purple-100/25 to-transparent" />
+          <div className="absolute top-[4100px] left-[10%] w-[900px] h-[750px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-r from-cyan-200/30 via-indigo-100/20 to-transparent" />
+        </div>
+      )}
 
       {/* ── TOP STICKY NAVIGATION BAR ─────────────────────────────────── */}
       <header className={`sticky top-0 z-50 w-full backdrop-blur-2xl transition-all duration-300 ${
