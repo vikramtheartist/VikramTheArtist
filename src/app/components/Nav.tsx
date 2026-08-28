@@ -53,15 +53,34 @@ export function Nav({ mode = "dark", onToggleTheme }: NavProps) {
         </button>
       )}
 
-      <span className="shine-wrap">
-        <a
-          href="#contact"
-          className="shine-inner text-white/70 hover:text-white text-sm tracking-wide"
-          style={{ padding: "10px 22px" }}
+      <a
+        href="#contact"
+        className="adopt-hero-btn-primary group"
+        style={{
+          textDecoration: "none",
+          padding: "6px 6px 6px 18px",
+          fontSize: "14px",
+          gap: "10px",
+        }}
+      >
+        <span>Get In Touch</span>
+        <span
+          className="adopt-btn-circle-arrow"
+          style={{ width: "28px", height: "28px" }}
         >
-          Get In Touch
-        </a>
-      </span>
+          <svg
+            className="w-3.5 h-3.5 text-[#3e38f5] stroke-[2.5]"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </span>
+      </a>
     </nav>
   );
 }
