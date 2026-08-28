@@ -54,7 +54,6 @@ import transformModalImg from "../../../assets/img/Transform 1.png";
 import transformModalDarkImg from "../../../assets/img/Transform 1 _Dark.png";
 import arrowImg from "../../../assets/img/Arrow.png";
 import ballImg from "../../../assets/img/Ball.png";
-import { UnderwaterDepthBackground } from "./UnderwaterDepthBackground";
 
 interface AdoptLandingPageProps {
   onBack?: () => void;
@@ -385,30 +384,214 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
   return (
     <div className={`adopt-page-wrapper selection:bg-indigo-500 selection:text-white relative ${isDark ? "dark" : ""}`}>
-      {/* ── PROGRESSIVE DEEP-SEA UNDERWATER BACKGROUND (DARK MODE ONLY) ── */}
-      {isDark ? (
-        <UnderwaterDepthBackground isDark={isDark} scrollY={scrollY} mousePos={mousePos} />
-      ) : (
-        /* ── CONTINUOUS FLOWING MOODBOARD GRADIENT ATMOSPHERE (LIGHT MODE ONLY) ─ */
-        <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-          {/* Top Hero Glows: Pastel Mint/Cyan + Iris Violet/Lilac + Strawberry Pink */}
-          <div className="absolute -top-24 -left-20 w-[900px] h-[900px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-br from-cyan-200/40 via-sky-100/25 to-transparent" />
-          <div className="absolute -top-10 right-0 w-[850px] h-[850px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-bl from-pink-200/35 via-purple-200/25 to-transparent" />
-          <div className="absolute top-[450px] left-[25%] w-[700px] h-[550px] rounded-full blur-[130px] transition-all duration-700 bg-gradient-to-tr from-violet-200/25 via-fuchsia-100/20 to-transparent" />
+      {/* ── CONTINUOUS FLOWING ATMOSPHERE (FULL PAGE) ─ */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
+        {/* Light Mode Atmosphere */}
+        {!isDark && (
+          <>
+            <div className="absolute -top-24 -left-20 w-[900px] h-[900px] rounded-full blur-[140px] bg-gradient-to-br from-cyan-200/40 via-sky-100/25 to-transparent" />
+            <div className="absolute -top-10 right-0 w-[850px] h-[850px] rounded-full blur-[140px] bg-gradient-to-bl from-pink-200/35 via-purple-200/25 to-transparent" />
+            <div className="absolute top-[450px] left-[25%] w-[700px] h-[550px] rounded-full blur-[130px] bg-gradient-to-tr from-violet-200/25 via-fuchsia-100/20 to-transparent" />
+            <div className="absolute top-[1000px] -left-10 w-[850px] h-[800px] rounded-full blur-[140px] bg-gradient-to-r from-blue-200/30 via-indigo-100/20 to-transparent" />
+            <div className="absolute top-[1350px] -right-10 w-[900px] h-[850px] rounded-full blur-[150px] bg-gradient-to-l from-pink-200/35 via-rose-100/20 to-transparent" />
+            <div className="absolute top-[1900px] left-[5%] w-[950px] h-[800px] rounded-full blur-[140px] bg-gradient-to-br from-cyan-200/35 via-sky-100/25 to-transparent" />
+            <div className="absolute top-[2300px] right-[5%] w-[900px] h-[800px] rounded-full blur-[140px] bg-gradient-to-bl from-purple-200/35 via-pink-200/25 to-transparent" />
+            <div className="absolute top-[2900px] -left-20 w-[950px] h-[900px] rounded-full blur-[150px] bg-gradient-to-tr from-violet-200/30 via-sky-100/25 to-transparent" />
+            <div className="absolute top-[3500px] right-0 w-[950px] h-[850px] rounded-full blur-[140px] bg-gradient-to-l from-pink-200/35 via-purple-100/25 to-transparent" />
+            <div className="absolute top-[4100px] left-[10%] w-[900px] h-[750px] rounded-full blur-[140px] bg-gradient-to-r from-cyan-200/30 via-indigo-100/20 to-transparent" />
+          </>
+        )}
 
-          {/* Section 2 (Core Problem) Flow */}
-          <div className="absolute top-[1000px] -left-10 w-[850px] h-[800px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-r from-blue-200/30 via-indigo-100/20 to-transparent" />
-          <div className="absolute top-[1350px] -right-10 w-[900px] h-[850px] rounded-full blur-[150px] transition-all duration-700 bg-gradient-to-l from-pink-200/35 via-rose-100/20 to-transparent" />
+        {/* Dark Mode: Epic Deep Sea Abyssal Oceanic Descent Atmosphere */}
+        {isDark && (
+          <>
+            {/* 1. Hero Atmospheric Cosmic & Glass Slat Glows */}
+            <div className="absolute -top-24 -left-20 w-[900px] h-[900px] rounded-full blur-[140px] bg-gradient-to-br from-cyan-500/20 via-sky-600/12 to-transparent" />
+            <div className="absolute -top-10 right-0 w-[850px] h-[850px] rounded-full blur-[140px] bg-gradient-to-bl from-pink-500/18 via-purple-600/20 to-transparent" />
 
-          {/* Section 3 (5 Stages) Flow */}
-          <div className="absolute top-[1900px] left-[5%] w-[950px] h-[800px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-br from-cyan-200/35 via-sky-100/25 to-transparent" />
-          <div className="absolute top-[2300px] right-[5%] w-[900px] h-[800px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-bl from-purple-200/35 via-pink-200/25 to-transparent" />
+            {/* 2. SECTION 2: Core Problem / Subsurface Ocean Water (0m - 100m) */}
+            <div
+              className="absolute top-[850px] left-0 w-full h-[1200px]"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(3, 16, 36, 0.4) 0%, rgba(4, 25, 58, 0.85) 30%, rgba(2, 17, 40, 0.95) 70%, rgba(1, 10, 24, 1) 100%)",
+              }}
+            />
 
-          {/* Section 4 & 5 (Case Study & AdoptIQ) Flow */}
-          <div className="absolute top-[2900px] -left-20 w-[950px] h-[900px] rounded-full blur-[150px] transition-all duration-700 bg-gradient-to-tr from-violet-200/30 via-sky-100/25 to-transparent" />
-          <div className="absolute top-[3500px] right-0 w-[950px] h-[850px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-l from-pink-200/35 via-purple-100/25 to-transparent" />
-          <div className="absolute top-[4100px] left-[10%] w-[900px] h-[750px] rounded-full blur-[140px] transition-all duration-700 bg-gradient-to-r from-cyan-200/30 via-indigo-100/20 to-transparent" />
-        </div>
+            {/* Downward Caustic Volumetric Light Shafts (Godrays from Surface) */}
+            <div className="absolute top-[900px] left-[10%] w-[180px] h-[950px] deep-sea-caustic-ray opacity-60 rotate-[-12deg]" />
+            <div className="absolute top-[880px] left-[32%] w-[240px] h-[1100px] deep-sea-caustic-ray opacity-75 rotate-[-4deg]" style={{ animationDelay: "-3s" }} />
+            <div className="absolute top-[860px] right-[28%] w-[200px] h-[1050px] deep-sea-caustic-ray opacity-70 rotate-[8deg]" style={{ animationDelay: "-5s" }} />
+            <div className="absolute top-[920px] right-[12%] w-[160px] h-[900px] deep-sea-caustic-ray opacity-50 rotate-[15deg]" style={{ animationDelay: "-2s" }} />
+
+            {/* 3. SECTION 3: The 5 Stages / Midnight Bathyal Abyss (100m - 300m) */}
+            <div
+              className="absolute top-[2000px] left-0 w-full h-[1500px]"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(1, 10, 24, 1) 0%, rgba(2, 15, 38, 0.92) 35%, rgba(4, 20, 48, 0.75) 60%, rgba(1, 8, 20, 1) 100%)",
+              }}
+            />
+
+            {/* Deep Sea Bioluminescent Stage Arc Ambient Backlight */}
+            <div className="absolute top-[2300px] left-1/2 -translate-x-1/2 w-[1200px] h-[650px] rounded-full blur-[140px] bg-gradient-to-r from-cyan-500/16 via-indigo-500/22 to-pink-500/18" />
+            <div className="absolute top-[2700px] left-[15%] w-[800px] h-[500px] rounded-full blur-[150px] bg-gradient-to-tr from-sky-600/15 via-blue-700/12 to-transparent" />
+
+            {/* 4. SECTION 4 & 5: Applied Playbook / Abyssal Seabed & Trench (300m - 800m) */}
+            <div
+              className="absolute top-[3400px] left-0 w-full h-[2200px]"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(1, 8, 20, 1) 0%, rgba(2, 12, 30, 0.96) 25%, rgba(1, 7, 18, 0.98) 65%, rgba(1, 4, 12, 1) 100%)",
+              }}
+            />
+
+            {/* Seabed Bioluminescent Coral & Hydrothermal Vents Glow */}
+            <div className="absolute top-[3800px] left-1/2 -translate-x-1/2 w-[1100px] h-[750px] rounded-full blur-[160px] bg-gradient-to-tr from-indigo-600/24 via-purple-600/20 to-cyan-500/16" />
+            <div className="absolute top-[4400px] left-1/2 -translate-x-1/2 w-[1300px] h-[600px] rounded-full blur-[160px] bg-gradient-to-r from-blue-700/18 via-indigo-600/22 to-fuchsia-600/15" />
+
+            {/* 5. Deep Ocean Rising Micro-Bubbles (Subtle Floating Particles) */}
+            {[
+              { left: "8%", top: "1100px", size: 10, duration: 16, delay: 0 },
+              { left: "14%", top: "1400px", size: 6, duration: 13, delay: 2 },
+              { left: "22%", top: "1800px", size: 8, duration: 18, delay: 5 },
+              { left: "30%", top: "2200px", size: 12, duration: 15, delay: 1 },
+              { left: "38%", top: "2600px", size: 5, duration: 12, delay: 4 },
+              { left: "48%", top: "1300px", size: 9, duration: 19, delay: 7 },
+              { left: "55%", top: "2900px", size: 14, duration: 14, delay: 3 },
+              { left: "64%", top: "2100px", size: 7, duration: 17, delay: 6 },
+              { left: "72%", top: "3300px", size: 11, duration: 15, delay: 2 },
+              { left: "80%", top: "1600px", size: 6, duration: 13, delay: 8 },
+              { left: "88%", top: "2500px", size: 10, duration: 18, delay: 4 },
+              { left: "92%", top: "3700px", size: 8, duration: 14, delay: 1 },
+              { left: "18%", top: "3900px", size: 9, duration: 16, delay: 5 },
+              { left: "28%", top: "4200px", size: 13, duration: 15, delay: 3 },
+              { left: "68%", top: "4100px", size: 7, duration: 14, delay: 7 },
+              { left: "84%", top: "4300px", size: 11, duration: 18, delay: 2 },
+            ].map((b, idx) => (
+              <div
+                key={idx}
+                className="deep-sea-bubble"
+                style={{
+                  left: b.left,
+                  top: b.top,
+                  width: `${b.size}px`,
+                  height: `${b.size}px`,
+                  "--bubble-duration": `${b.duration}s`,
+                  "--bubble-delay": `${b.delay}s`,
+                } as React.CSSProperties}
+              />
+            ))}
+
+            {/* 6. Bioluminescent Marine Snow / Plankton Flakes */}
+            {[
+              { left: "12%", top: "1200px", size: 3, delay: 0 },
+              { left: "25%", top: "1700px", size: 4, delay: 2 },
+              { left: "40%", top: "2400px", size: 3, delay: 1 },
+              { left: "60%", top: "2800px", size: 4, delay: 3 },
+              { left: "75%", top: "2100px", size: 3, delay: 1.5 },
+              { left: "85%", top: "3100px", size: 4, delay: 2.5 },
+              { left: "20%", top: "3600px", size: 3, delay: 0.5 },
+              { left: "50%", top: "4000px", size: 4, delay: 3.5 },
+              { left: "80%", top: "4400px", size: 3, delay: 2 },
+            ].map((p, idx) => (
+              <div
+                key={`plank-${idx}`}
+                className="deep-sea-marine-particle"
+                style={{
+                  left: p.left,
+                  top: p.top,
+                  width: `${p.size}px`,
+                  height: `${p.size}px`,
+                  animationDelay: `${p.delay}s`,
+                }}
+              />
+            ))}
+          </>
+        )}
+      </div>
+
+      {/* ── OCEAN DEPTH GAUGE SCALE RAIL (RIGHT SIDE IN DARK MODE) ───── */}
+      {isDark && (
+        <aside className="adopt-depth-rail hidden xl:flex">
+          {/* Surface 0m Node */}
+          <div className="absolute top-[880px] flex flex-col items-center group">
+            <span className="text-[10px] font-extrabold tracking-widest uppercase text-sky-400/90 font-mono mb-1">
+              SURFACE
+            </span>
+            <div className="text-[11px] font-bold text-slate-300 font-mono mb-2">
+              00m
+            </div>
+            <div className="w-3 h-3 rounded-full border-2 border-sky-400 bg-sky-950 flex items-center justify-center shadow-[0_0_12px_#38bdf8]">
+              <div className="w-1 h-1 rounded-full bg-sky-300 animate-ping" />
+            </div>
+          </div>
+
+          {/* Depth Line 0m -> 100m */}
+          <div
+            className="absolute top-[945px] w-[1px] h-[340px]"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(56,189,248,0.8) 0%, rgba(99,102,241,0.5) 100%)",
+            }}
+          />
+
+          {/* Behavior 100m Node */}
+          <div className="absolute top-[1290px] flex flex-col items-center">
+            <div className="w-2.5 h-2.5 rotate-45 border-2 border-indigo-400 bg-indigo-950 shadow-[0_0_10px_#818cf8] mb-2" />
+            <span className="text-[10px] font-extrabold tracking-widest uppercase text-indigo-400/90 font-mono mb-0.5">
+              BEHAVIOR
+            </span>
+            <div className="text-[11px] font-bold text-slate-300 font-mono">
+              100m
+            </div>
+          </div>
+
+          {/* Depth Line 100m -> 300m */}
+          <div
+            className="absolute top-[1360px] w-[1px] h-[820px]"
+            style={{
+              background:
+                "repeating-linear-gradient(180deg, rgba(99,102,241,0.5) 0, rgba(99,102,241,0.5) 4px, transparent 4px, transparent 8px)",
+            }}
+          />
+
+          {/* Stages 300m Node */}
+          <div className="absolute top-[2180px] flex flex-col items-center">
+            <div className="w-3 h-3 rounded-full border-2 border-purple-400 bg-purple-950 shadow-[0_0_12px_#c084fc] mb-2 flex items-center justify-center">
+              <div className="w-1 h-1 rounded-full bg-purple-300" />
+            </div>
+            <span className="text-[10px] font-extrabold tracking-widest uppercase text-purple-400/90 font-mono mb-0.5">
+              STAGES
+            </span>
+            <div className="text-[11px] font-bold text-slate-300 font-mono">
+              300m
+            </div>
+          </div>
+
+          {/* Depth Line 300m -> 800m */}
+          <div
+            className="absolute top-[2250px] w-[1px] h-[1350px]"
+            style={{
+              background:
+                "repeating-linear-gradient(180deg, rgba(168,85,247,0.45) 0, rgba(168,85,247,0.45) 4px, transparent 4px, transparent 8px)",
+            }}
+          />
+
+          {/* Applied Impact 800m Node */}
+          <div className="absolute top-[3600px] flex flex-col items-center">
+            <div className="w-3 h-3 rounded-full border-2 border-pink-400 bg-pink-950 shadow-[0_0_14px_#f472b6] mb-2 flex items-center justify-center">
+              <div className="w-1 h-1 rounded-full bg-pink-300" />
+            </div>
+            <span className="text-[10px] font-extrabold tracking-widest uppercase text-pink-400/90 font-mono mb-0.5 text-center">
+              APPLIED<br />IMPACT
+            </span>
+            <div className="text-[11px] font-bold text-slate-300 font-mono mb-2">
+              800m
+            </div>
+            <div className="text-pink-400 text-xs animate-bounce">↓</div>
+          </div>
+        </aside>
       )}
 
       {/* ── TOP STICKY NAVIGATION BAR ─────────────────────────────────── */}

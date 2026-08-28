@@ -713,3 +713,112 @@
     rotateX(calc(20deg * var(--ratio-y)))
     scale3d(1.03, 1.03, 1.03);
 }
+
+/* ── Deep Sea Underwater Abyssal Background Effects ───────────── */
+@keyframes deep-sea-bubble-rise {
+  0% {
+    transform: translate3d(0, 100%, 0) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate3d(16px, 50%, 0) scale(1);
+    opacity: 0.85;
+  }
+  85% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate3d(-14px, -20px, 0) scale(1.15);
+    opacity: 0;
+  }
+}
+
+@keyframes deep-sea-caustic-shimmer {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.06) rotate(1.5deg);
+  }
+}
+
+@keyframes deep-sea-marine-snow {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(18px) translateX(12px);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.2;
+  }
+}
+
+.deep-sea-caustic-ray {
+  position: absolute;
+  top: 0;
+  width: 120px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(56, 189, 248, 0.16) 0%, rgba(14, 165, 233, 0.08) 35%, rgba(6, 182, 212, 0.02) 70%, transparent 100%);
+  filter: blur(28px);
+  transform-origin: top center;
+  pointer-events: none;
+  animation: deep-sea-caustic-shimmer 8s ease-in-out infinite alternate;
+}
+
+.deep-sea-bubble {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.85) 0%, rgba(56, 189, 248, 0.45) 40%, rgba(99, 102, 241, 0.15) 75%, transparent 100%);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5), inset 0 0 4px rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+  animation: deep-sea-bubble-rise var(--bubble-duration, 14s) ease-in infinite;
+  animation-delay: var(--bubble-delay, 0s);
+}
+
+.deep-sea-marine-particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: rgba(147, 197, 253, 0.8);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+  pointer-events: none;
+  animation: deep-sea-marine-snow 6s ease-in-out infinite;
+}
+
+/* ── Deep Ocean Depth Scale Rail (Right Side) ─────────────────── */
+.adopt-depth-rail {
+  position: absolute;
+  right: 24px;
+  top: 0;
+  bottom: 0;
+  width: 90px;
+  pointer-events: none;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 1280px) {
+  .adopt-depth-rail {
+    right: 12px;
+    opacity: 0.6;
+    scale: 0.85;
+    transform-origin: right top;
+  }
+}
+
+@media (max-width: 1024px) {
+  .adopt-depth-rail {
+    display: none;
+  }
+}
+
