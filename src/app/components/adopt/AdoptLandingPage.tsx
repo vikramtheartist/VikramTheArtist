@@ -646,18 +646,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[100vh] lg:min-h-[105vh] relative z-20 py-16 lg:py-24 overflow-hidden flex items-center justify-center bg-transparent -mt-8 sm:-mt-14"
+        className="w-full min-h-[100vh] lg:min-h-[105vh] relative z-20 py-16 lg:py-24 overflow-hidden flex items-center justify-center bg-transparent -mt-6 sm:-mt-10"
       >
-        {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Top & Bottom Feather Blends */}
+        {/* Full-Bleed Parallax Iceberg Artwork Background */}
         <div
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
           style={{
             maskImage: isDark
-              ? "linear-gradient(to bottom, transparent 0%, black 22%, black 82%, transparent 100%)"
-              : "linear-gradient(to bottom, transparent 0%, black 15%, black 75%, transparent 96%)",
+              ? "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)"
+              : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
             WebkitMaskImage: isDark
-              ? "linear-gradient(to bottom, transparent 0%, black 22%, black 82%, transparent 100%)"
-              : "linear-gradient(to bottom, transparent 0%, black 15%, black 75%, transparent 96%)",
+              ? "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)"
+              : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
           }}
         >
           <div
@@ -667,10 +667,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             }}
           >
             <img
-              src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_bg.jpg` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
+              src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_dark_transparent.png` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
               className={`w-full h-full object-contain sm:object-cover object-center transition-transform duration-700 ${
-                isDark ? "opacity-100 scale-100 sm:scale-105" : "opacity-95 mix-blend-multiply"
+                isDark ? "opacity-100 scale-100 sm:scale-105 drop-shadow-[0_20px_60px_rgba(56,189,248,0.25)]" : "opacity-95 mix-blend-multiply"
               }`}
             />
           </div>
