@@ -46,6 +46,7 @@ interface AdoptLandingPageProps {
   onBack?: () => void;
   onExplorePlaybook?: () => void;
   onViewCaseStudy?: () => void;
+  initialMode?: "dark" | "light";
 }
 
 const STAGES_DATA = [
