@@ -48,7 +48,13 @@ html, body { max-width: 100%; overflow-x: clip; }
     align-items: flex-end !important;
     text-align: right !important;
     margin: 0 0 0 auto !important;
-    max-width: 1100px !important;
+    max-width: 1200px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-subtitle {
+    white-space: normal !important;
   }
 }
 

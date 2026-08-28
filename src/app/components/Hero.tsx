@@ -234,11 +234,11 @@ export function Hero() {
             </span>
             {", I am Vikram ✌🏻"}
           </h1>
-          <div style={{ marginTop: '28px', marginBottom: 0 }}>
-            <p className="hero-subtitle" style={{ fontFamily: "'Merriweather', serif", fontWeight: 300, fontSize: 'clamp(calc(1.5rem - 2px), 2.2vw, calc(2rem - 2px))', lineHeight: 1.25, color: '#E6E6E6', margin: 0, maxWidth: '720px', marginLeft: 'auto' }}>
+          <div style={{ marginTop: '28px', marginBottom: 0, width: '100%' }}>
+            <p className="hero-subtitle" style={{ fontFamily: "'Merriweather', serif", fontWeight: 300, fontSize: 'clamp(1.15rem, 2.05vw, 1.85rem)', lineHeight: 1.25, color: '#E6E6E6', margin: 0, whiteSpace: 'nowrap', maxWidth: 'none', marginLeft: 'auto' }}>
               Product Designer at Microsoft. Designing AI-first products.
             </p>
-            <p style={{ fontFamily: "'Segoe UI', sans-serif", fontWeight: 300, fontSize: 'clamp(15px, 1.3vw, 20px)', lineHeight: 1.4, color: 'var(--text-2)', margin: '4px 0 0 0' }}>
+            <p style={{ fontFamily: "'Segoe UI', sans-serif", fontWeight: 300, fontSize: 'clamp(15px, 1.3vw, 20px)', lineHeight: 1.4, color: 'var(--text-2)', margin: '6px 0 0 0' }}>
               Previously at Google and McKinsey.
             </p>
           </div>
