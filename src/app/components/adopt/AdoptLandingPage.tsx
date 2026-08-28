@@ -23,6 +23,7 @@ import {
   Download,
   ShieldCheck,
   Mountain,
+  Lock,
   X,
 } from "lucide-react";
 import "../../../styles/adopt-landing.css";
