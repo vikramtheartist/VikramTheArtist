@@ -49,8 +49,9 @@
 .adopt-light-card-below {
   transform: translateX(-55px) !important;
 }
-.adopt-dark-checkmarks {
-  transform: translateY(-30px) !important;
+.adopt-dark-checkmarks,
+.adopt-checkmarks-container {
+  transform: translateY(-50px) !important;
 }
 
 /* ── Hero Eyebrow Pill ─────────────────────────────────────────── */

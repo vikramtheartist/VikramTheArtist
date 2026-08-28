@@ -789,13 +789,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
           {/* Bottom Row: Left 4 Checkmark Items & Right BELOW THE SURFACE Card */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-12 lg:pt-20">
-            {/* Bottom Left: 4 Checkmark Items (Moved upward by 30px in dark mode) */}
+            {/* Bottom Left: 4 Checkmark Items (Moved upward by 50px) */}
             <div
-              className={`lg:col-span-6 space-y-3.5 max-w-[480px] text-left transition-all duration-300 ${
-                isDark ? "adopt-dark-checkmarks" : ""
-              }`}
+              className="lg:col-span-6 space-y-3.5 max-w-[480px] text-left transition-all duration-300 adopt-checkmarks-container"
               style={{
-                transform: isDark ? "translateY(-30px)" : "none",
+                transform: "translateY(-50px)",
               }}
             >
               {[
