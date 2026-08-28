@@ -470,7 +470,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             }}
           >
             <img
-              src={`${import.meta.env.BASE_URL}IMG/adopt_hero_glass_bg.jpg`}
+              src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_hero_glass_bg_Dark.png` : `${import.meta.env.BASE_URL}IMG/adopt_hero_glass_bg.jpg`}
               alt="ADOPT 8K 3D Glass Artwork"
               className="w-full h-full object-cover object-[80%_center] lg:object-[78%_center] opacity-95 transition-opacity duration-700 animate-hero-float scale-105"
             />
