@@ -642,14 +642,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className="w-full min-h-[100vh] lg:min-h-[108vh] relative z-20 py-16 lg:pt-20 lg:pb-28 overflow-hidden flex items-center justify-center bg-transparent"
+        className="w-full min-h-[100vh] lg:min-h-[105vh] relative z-20 py-16 lg:py-24 overflow-hidden flex items-center justify-center bg-transparent"
       >
-        {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Multiply Blending */}
+        {/* Full-Bleed Parallax Iceberg Artwork Background */}
         <div
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
           style={{
-            maskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+            maskImage: isDark
+              ? "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)"
+              : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+            WebkitMaskImage: isDark
+              ? "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)"
+              : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
           }}
         >
           <div
@@ -661,8 +665,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <img
               src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_bg.jpg` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
-              className={`w-full h-full object-contain sm:object-cover object-center transition-transform duration-700 opacity-95 ${
-                isDark ? "" : "mix-blend-multiply"
+              className={`w-full h-full object-contain sm:object-cover object-center transition-transform duration-700 ${
+                isDark ? "opacity-100 scale-100 sm:scale-105" : "opacity-95 mix-blend-multiply"
               }`}
             />
           </div>
@@ -675,16 +679,15 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* Top Left: Badge, Headline & Context */}
             <div className="lg:col-span-6 flex flex-col items-start text-left">
               <div className="mb-4">
-                <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase shadow-2xs ${
-                  isDark ? "bg-white/8 border border-white/15 text-[#a5b4fc]" : "bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1]"
+                <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-extrabold tracking-wider uppercase shadow-2xs ${
+                  isDark ? "bg-purple-950/50 border border-purple-500/30 text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.15)]" : "bg-[#f3f0fe] border border-[#e0e7ff] text-[#6366f1]"
                 }`}>
-                  <span className="text-[12px] leading-none text-[#6366f1]">✦</span>
+                  <span className="w-2 h-2 rounded-full bg-[#a855f7]" />
                   <span>THE CORE PROBLEM</span>
                 </div>
-                <div className="w-8 h-[2.5px] bg-[#38bdf8] rounded-full mt-2.5 shadow-[0_0_8px_rgba(56,189,248,0.6)]" />
               </div>
 
-              <h2 className={`text-[44px] sm:text-[52px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-4 font-sans ${
+              <h2 className={`text-[42px] sm:text-[50px] lg:text-[56px] font-black tracking-[-0.035em] leading-[1.05] mb-4 font-sans ${
                 isDark ? "text-white" : "text-[#0a0e1a]"
               }`}>
                 AI adoption is not<br />
@@ -697,16 +700,16 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               <p className={`text-[14px] sm:text-[15px] leading-relaxed max-w-[420px] font-normal mb-8 ${
                 isDark ? "text-slate-400" : "text-[#64748b]"
               }`}>
-                Turns powerful products into ghost towns if they collide with familiar habits, uncertainty, and inertia.
+                Even powerful products sit in limbo when they collide with familiar habits, uncertainty, and inertia.
               </p>
             </div>
 
             {/* Top Right: ABOVE THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className={`relative rounded-[24px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[60px] mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
+                className={`relative rounded-[22px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[40px] mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
                   isDark
-                    ? "bg-[#0b101e]/85 backdrop-blur-2xl border border-white/12 shadow-[0_20px_50px_rgba(0,0,0,0.6)] hover:border-sky-500/40"
+                    ? "bg-[#0b101e]/85 backdrop-blur-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.7)] hover:border-purple-400/40"
                     : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
                 }`}
                 style={{
@@ -714,26 +717,26 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 }}
               >
                 {/* Connecting Line to Mountain Peak with Pulsing Sonar Beacon */}
-                <div className="hidden lg:block absolute -left-16 top-6 w-16 h-8 pointer-events-none">
+                <div className="hidden lg:block absolute -left-16 top-7 w-16 h-8 pointer-events-none">
                   {/* Glowing Radar Sonar Ping Node */}
-                  <div className="absolute left-0 top-[25px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#6366f1] animate-adopt-sonar" />
+                  <div className="absolute left-0 top-[25px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#a855f7] animate-adopt-sonar" />
                   <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
-                    <path d="M64 10 L 22 10 L 0 28" stroke="#a5b4fc" strokeWidth="1.4" className="animate-adopt-dash" />
-                    <circle cx="0" cy="28" r="3.5" fill="#6366f1" />
-                    <circle cx="0" cy="28" r="6" stroke="#c7d2fe" strokeWidth="1" opacity="0.6" />
+                    <path d="M64 10 L 22 10 L 0 28" stroke={isDark ? "#a855f7" : "#a5b4fc"} strokeWidth="1.4" className="animate-adopt-dash" />
+                    <circle cx="0" cy="28" r="3.5" fill={isDark ? "#a855f7" : "#6366f1"} />
+                    <circle cx="0" cy="28" r="6" stroke={isDark ? "#c084fc" : "#c7d2fe"} strokeWidth="1" opacity="0.6" />
                   </svg>
                 </div>
 
                 <div className="flex items-center gap-3.5 mb-3.5">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
                     isDark
-                      ? "bg-sky-950/70 border border-sky-500/30 text-sky-400"
+                      ? "bg-purple-950/80 border border-purple-500/40 text-purple-300"
                       : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
                   }`}>
                     <Mountain className="w-5 h-5 stroke-[2]" />
                   </div>
                   <div>
-                    <div className={`text-[13px] font-black tracking-wider uppercase ${
+                    <div className={`text-[13px] font-extrabold tracking-wider uppercase ${
                       isDark ? "text-white" : "text-[#0f172a]"
                     }`}>
                       ABOVE THE SURFACE
@@ -741,26 +744,24 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     <div className={`text-[12px] font-medium ${
                       isDark ? "text-slate-400" : "text-[#64748b]"
                     }`}>
-                      What teams prioritize
+                      What tools prioritize
                     </div>
                   </div>
                 </div>
 
-                <div className="space-y-2 pl-2">
+                <div className="space-y-2 pl-1">
                   {[
                     "Advanced capabilities",
                     "Continuous innovation",
-                    "Feature-rich roadmap",
+                    "Feature-rich roadmaps",
                     "Enterprise-grade security",
                   ].map((item, idx) => (
                     <div key={idx} className={`flex items-center gap-2.5 text-[13px] font-medium transition-colors ${
                       isDark ? "text-slate-300 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
                     }`}>
-                      <div className={`w-2 h-2 rounded-full flex items-center justify-center shrink-0 shadow-xs ${
-                        isDark ? "bg-sky-900 border border-sky-400" : "bg-indigo-100 border border-[#818cf8]"
-                      }`}>
-                        <div className={`w-1 h-1 rounded-full ${isDark ? "bg-sky-400" : "bg-[#6366f1]"}`} />
-                      </div>
+                      <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                        isDark ? "bg-[#38bdf8] shadow-[0_0_6px_rgba(56,189,248,0.8)]" : "bg-[#6366f1]"
+                      }`} />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -802,9 +803,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* Bottom Right: BELOW THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className={`relative rounded-[24px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[50px] mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
+                className={`relative rounded-[22px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[40px] mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
                   isDark
-                    ? "bg-[#0b101e]/85 backdrop-blur-2xl border border-white/12 shadow-[0_20px_50px_rgba(0,0,0,0.6)] hover:border-purple-500/40"
+                    ? "bg-[#0b101e]/85 backdrop-blur-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.7)] hover:border-purple-400/40"
                     : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
                 }`}
                 style={{
@@ -812,26 +813,26 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 }}
               >
                 {/* Connecting Line to Submerged Iceberg with Pulsing Sonar Beacon */}
-                <div className="hidden lg:block absolute -left-16 top-6 w-16 h-4 pointer-events-none">
+                <div className="hidden lg:block absolute -left-16 top-7 w-16 h-4 pointer-events-none">
                   {/* Glowing Radar Sonar Ping Node */}
                   <div className="absolute left-0 top-[8px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#38bdf8] animate-adopt-sonar" />
                   <svg className="w-full h-full" viewBox="0 0 64 16" fill="none">
-                    <path d="M64 8 L 0 8" stroke="#38bdf8" strokeWidth="1.4" className="animate-adopt-dash" />
+                    <path d="M64 8 L 0 8" stroke={isDark ? "#38bdf8" : "#38bdf8"} strokeWidth="1.4" className="animate-adopt-dash" />
                     <circle cx="0" cy="8" r="3.5" fill="#38bdf8" />
                     <circle cx="0" cy="8" r="6" stroke="#7dd3fc" strokeWidth="1" opacity="0.6" />
                   </svg>
                 </div>
 
                 <div className="flex items-center gap-3.5 mb-3.5">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
                     isDark
-                      ? "bg-purple-950/70 border border-purple-500/30 text-purple-400"
+                      ? "bg-purple-950/80 border border-purple-500/40 text-purple-300"
                       : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
                   }`}>
                     <Lock className="w-5 h-5 stroke-[2]" />
                   </div>
                   <div>
-                    <div className={`text-[13px] font-black tracking-wider uppercase ${
+                    <div className={`text-[13px] font-extrabold tracking-wider uppercase ${
                       isDark ? "text-white" : "text-[#0f172a]"
                     }`}>
                       BELOW THE SURFACE
@@ -839,12 +840,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     <div className={`text-[12px] font-medium ${
                       isDark ? "text-slate-400" : "text-[#64748b]"
                     }`}>
-                      What holds adoption back
+                      What tools adoption needs
                     </div>
                   </div>
                 </div>
 
-                <div className="space-y-2 pl-2">
+                <div className="space-y-2 pl-1">
                   {[
                     "Familiar habits",
                     "Fear of change",
@@ -854,11 +855,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     <div key={idx} className={`flex items-center gap-2.5 text-[13px] font-medium transition-colors ${
                       isDark ? "text-slate-300 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
                     }`}>
-                      <div className={`w-2 h-2 rounded-full flex items-center justify-center shrink-0 shadow-xs ${
-                        isDark ? "bg-purple-900 border border-purple-400" : "bg-indigo-100 border border-[#818cf8]"
-                      }`}>
-                        <div className={`w-1 h-1 rounded-full ${isDark ? "bg-purple-400" : "bg-[#6366f1]"}`} />
-                      </div>
+                      <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                        isDark ? "bg-[#38bdf8] shadow-[0_0_6px_rgba(56,189,248,0.8)]" : "bg-[#6366f1]"
+                      }`} />
                       <span>{item}</span>
                     </div>
                   ))}
