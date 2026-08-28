@@ -466,7 +466,7 @@ export default function App() {
   if (route === "adopt-landing") {
     return (
       <AdoptLandingPage
-        initialMode={mode}
+        initialMode="light"
         onBack={() => navigate("home")}
         onExplorePlaybook={() => {
           const el = document.getElementById("playbook-stages");

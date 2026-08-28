@@ -646,10 +646,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background with Seamless Multiply Blending */}
         <div
-          className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
+          className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden w-full h-full"
           style={{
-            maskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
-            WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+            maskImage: isDark ? "none" : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
+            WebkitMaskImage: isDark ? "none" : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
           }}
         >
           <div
@@ -661,11 +661,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <img
               src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_iceberg_dark.png` : `${import.meta.env.BASE_URL}IMG/adopt_iceberg_light_bg.jpg`}
               alt="AI Adoption Iceberg Analogy"
-              className={`w-full h-full transition-transform duration-700 ${
-                isDark
-                  ? "object-contain object-center scale-[0.70] translate-y-[30px] opacity-95"
-                  : "object-contain sm:object-cover object-center mix-blend-multiply opacity-95"
-              }`}
+              className={`w-full h-full ${
+                isDark ? "object-cover object-center w-full" : "object-contain sm:object-cover object-center mix-blend-multiply"
+              } transition-transform duration-700 opacity-95`}
             />
           </div>
         </div>
