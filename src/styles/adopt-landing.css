@@ -32,7 +32,8 @@
 }
 
 .adopt-page-wrapper.dark {
-  background: #030712;
+  background: radial-gradient(circle at 50% 0%, #0d122b 0%, #060919 35%, #040612 100%);
+  background-color: #050816;
   color: #f8fafc;
 }
 

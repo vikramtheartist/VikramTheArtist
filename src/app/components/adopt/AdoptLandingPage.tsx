@@ -343,68 +343,68 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     <div className={`adopt-page-wrapper selection:bg-indigo-500 selection:text-white relative ${isDark ? "dark" : ""}`}>
       {/* ── CONTINUOUS FLOWING MOODBOARD GRADIENT ATMOSPHERE (FULL PAGE) ─ */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none z-0">
-        {/* Top Hero Glows: Pastel Mint/Cyan + Iris Violet/Lilac + Strawberry Pink */}
-        <div className={`absolute -top-24 -left-20 w-[900px] h-[900px] rounded-full blur-[140px] transition-all duration-700 ${
+        {/* Top Hero Glows: Cosmic Cyan + Deep Violet + Magenta */}
+        <div className={`absolute -top-24 -left-20 w-[950px] h-[950px] rounded-full blur-[140px] transition-all duration-700 ${
           isDark
-            ? "bg-gradient-to-br from-cyan-500/22 via-sky-600/15 to-transparent"
+            ? "bg-gradient-to-br from-cyan-500/20 via-sky-600/12 to-transparent"
             : "bg-gradient-to-br from-cyan-200/40 via-sky-100/25 to-transparent"
         }`} />
-        <div className={`absolute -top-10 right-0 w-[850px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
+        <div className={`absolute -top-10 right-0 w-[900px] h-[900px] rounded-full blur-[140px] transition-all duration-700 ${
           isDark
-            ? "bg-gradient-to-bl from-pink-500/20 via-purple-600/22 to-transparent"
+            ? "bg-gradient-to-bl from-pink-500/18 via-purple-600/20 to-transparent"
             : "bg-gradient-to-bl from-pink-200/35 via-purple-200/25 to-transparent"
         }`} />
-        <div className={`absolute top-[450px] left-[25%] w-[700px] h-[550px] rounded-full blur-[130px] transition-all duration-700 ${
+        <div className={`absolute top-[450px] left-[25%] w-[750px] h-[600px] rounded-full blur-[130px] transition-all duration-700 ${
           isDark
-            ? "bg-gradient-to-tr from-violet-600/22 via-fuchsia-600/16 to-transparent"
+            ? "bg-gradient-to-tr from-violet-600/20 via-fuchsia-600/14 to-transparent"
             : "bg-gradient-to-tr from-violet-200/25 via-fuchsia-100/20 to-transparent"
         }`} />
 
-        {/* Section 2 (Core Problem) Flow */}
-        <div className={`absolute top-[1000px] -left-10 w-[850px] h-[800px] rounded-full blur-[140px] transition-all duration-700 ${
+        {/* Section 2 (Core Problem / Iceberg) Cosmic Glow */}
+        <div className={`absolute top-[950px] -left-10 w-[900px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
           isDark
-            ? "bg-gradient-to-r from-blue-600/25 via-indigo-600/20 to-transparent"
+            ? "bg-gradient-to-r from-blue-600/22 via-indigo-600/18 to-transparent"
             : "bg-gradient-to-r from-blue-200/30 via-indigo-100/20 to-transparent"
         }`} />
-        <div className={`absolute top-[1350px] -right-10 w-[900px] h-[850px] rounded-full blur-[150px] transition-all duration-700 ${
+        <div className={`absolute top-[1300px] -right-10 w-[950px] h-[900px] rounded-full blur-[150px] transition-all duration-700 ${
           isDark
-            ? "bg-gradient-to-l from-pink-600/22 via-rose-600/16 to-transparent"
+            ? "bg-gradient-to-l from-pink-600/20 via-purple-600/16 to-transparent"
             : "bg-gradient-to-l from-pink-200/35 via-rose-100/20 to-transparent"
         }`} />
 
-        {/* Section 3 (5 Stages) Flow */}
-        <div className={`absolute top-[1900px] left-[5%] w-[950px] h-[800px] rounded-full blur-[140px] transition-all duration-700 ${
+        {/* Section 3 (5 Stages) Cosmic Glow */}
+        <div className={`absolute top-[1850px] left-[5%] w-[1000px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
           isDark
-            ? "bg-gradient-to-br from-cyan-500/22 via-sky-600/15 to-transparent"
+            ? "bg-gradient-to-br from-cyan-500/20 via-sky-600/14 to-transparent"
             : "bg-gradient-to-br from-cyan-200/35 via-sky-100/25 to-transparent"
         }`} />
-        <div className={`absolute top-[2300px] right-[5%] w-[900px] h-[800px] rounded-full blur-[140px] transition-all duration-700 ${
+        <div className={`absolute top-[2250px] right-[5%] w-[950px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
           isDark
-            ? "bg-gradient-to-bl from-purple-600/25 via-pink-600/20 to-transparent"
+            ? "bg-gradient-to-bl from-purple-600/22 via-pink-600/18 to-transparent"
             : "bg-gradient-to-bl from-purple-200/35 via-pink-200/25 to-transparent"
         }`} />
 
         {/* Section 4 & 5 (Case Study & AdoptIQ) Flow */}
-        <div className={`absolute top-[2900px] -left-20 w-[950px] h-[900px] rounded-full blur-[150px] transition-all duration-700 ${
+        <div className={`absolute top-[2850px] -left-20 w-[1000px] h-[950px] rounded-full blur-[150px] transition-all duration-700 ${
           isDark
-            ? "bg-gradient-to-tr from-violet-600/24 via-sky-600/15 to-transparent"
+            ? "bg-gradient-to-tr from-violet-600/22 via-sky-600/14 to-transparent"
             : "bg-gradient-to-tr from-violet-200/30 via-sky-100/25 to-transparent"
         }`} />
-        <div className={`absolute top-[3500px] right-0 w-[950px] h-[850px] rounded-full blur-[140px] transition-all duration-700 ${
+        <div className={`absolute top-[3450px] right-0 w-[1000px] h-[900px] rounded-full blur-[140px] transition-all duration-700 ${
           isDark
-            ? "bg-gradient-to-l from-pink-600/24 via-purple-600/18 to-transparent"
+            ? "bg-gradient-to-l from-pink-600/22 via-purple-600/16 to-transparent"
             : "bg-gradient-to-l from-pink-200/35 via-purple-100/25 to-transparent"
         }`} />
-        <div className={`absolute top-[4100px] left-[10%] w-[900px] h-[750px] rounded-full blur-[140px] transition-all duration-700 ${
+        <div className={`absolute top-[4050px] left-[10%] w-[950px] h-[800px] rounded-full blur-[140px] transition-all duration-700 ${
           isDark
-            ? "bg-gradient-to-r from-cyan-600/22 via-indigo-600/18 to-transparent"
+            ? "bg-gradient-to-r from-cyan-600/20 via-indigo-600/16 to-transparent"
             : "bg-gradient-to-r from-cyan-200/30 via-indigo-100/20 to-transparent"
         }`} />
       </div>
 
       {/* ── TOP STICKY NAVIGATION BAR ─────────────────────────────────── */}
       <header className={`sticky top-0 z-50 w-full backdrop-blur-2xl transition-all duration-300 ${
-        isDark ? "bg-[#030712]/80 border-b border-white/10 shadow-sm" : "bg-white/70 border-b border-slate-200/40"
+        isDark ? "bg-[#050816]/80 border-b border-white/10 shadow-sm" : "bg-white/70 border-b border-slate-200/40"
       }`}>
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 h-20 flex items-center justify-between">
           {/* Left: Back to Portfolio */}
@@ -465,16 +465,16 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         id="hero"
         className="relative z-10 min-h-[92vh] lg:min-h-[98vh] flex flex-col justify-between pt-24 sm:pt-28 pb-12 overflow-hidden bg-transparent"
       >
-        {/* Background Visual Asset: Fixed 8K 3D Translucent Waves & Glass Play Prism (Sticks to Screen on Scroll) */}
+        {/* Background Visual Asset: Fixed 8K 3D Translucent Waves & Glass Play Prism */}
         <div
           className="fixed top-0 left-0 w-full h-screen pointer-events-none select-none z-0 overflow-hidden flex items-center justify-end"
           style={{
-            opacity: Math.max(0, 1 - scrollY / 450),
+            opacity: Math.max(0, 1 - scrollY / 550),
             maskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 50%, transparent 88%)"
+              ? "linear-gradient(to bottom, black 0%, black 55%, transparent 92%)"
               : "linear-gradient(to bottom, black 0%, black 70%, transparent 95%)",
             WebkitMaskImage: isDark
-              ? "linear-gradient(to bottom, black 0%, black 50%, transparent 88%)"
+              ? "linear-gradient(to bottom, black 0%, black 55%, transparent 92%)"
               : "linear-gradient(to bottom, black 0%, black 70%, transparent 95%)",
           }}
         >
@@ -507,12 +507,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             }}
           />
 
-          {/* Seamless luminous ambient gradient overlay on the left & bottom to perfectly integrate text & next section */}
+          {/* Seamless luminous ambient gradient overlay on the left & bottom */}
           <div
             className="absolute inset-0 pointer-events-none z-10 transition-all duration-700"
             style={{
               background: isDark
-                ? "linear-gradient(to right, rgba(3, 7, 18, 0.98) 0%, rgba(3, 7, 18, 0.88) 32%, rgba(3, 7, 18, 0.45) 55%, transparent 80%), linear-gradient(to bottom, transparent 65%, rgba(3, 7, 18, 0.95) 100%)"
+                ? "linear-gradient(to right, rgba(5, 8, 22, 0.96) 0%, rgba(5, 8, 22, 0.85) 32%, rgba(5, 8, 22, 0.35) 55%, transparent 80%), linear-gradient(to bottom, transparent 65%, rgba(5, 8, 22, 0.95) 100%)"
                 : "linear-gradient(to right, rgba(243, 248, 254, 0.98) 0%, rgba(243, 248, 254, 0.85) 32%, rgba(243, 248, 254, 0.45) 52%, transparent 78%), linear-gradient(to bottom, transparent 75%, rgba(243, 248, 254, 0.9) 100%)"
             }}
           />
@@ -659,8 +659,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 2: THE CORE PROBLEM (FULL-WIDTH PARALLAX CENTERPIECE) ──── */}
       <section
         id="problem"
-        className={`w-full min-h-[960px] lg:min-h-[1050px] relative z-20 py-20 lg:py-28 overflow-hidden flex items-center justify-center transition-colors duration-500 ${
-          isDark ? "bg-[#030712]" : "bg-[#f3f8fe]"
+        className={`w-full min-h-[960px] lg:min-h-[1050px] relative z-20 py-16 sm:py-20 lg:py-24 overflow-hidden flex items-center justify-center transition-colors duration-500 ${
+          isDark ? "bg-transparent" : "bg-[#f3f8fe]"
         }`}
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background */}
@@ -668,18 +668,18 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           className="absolute inset-0 select-none pointer-events-none z-0 overflow-hidden"
           style={{
             maskImage: isDark
-              ? "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)"
+              ? "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)"
               : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
             WebkitMaskImage: isDark
-              ? "linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%)"
+              ? "linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%)"
               : "linear-gradient(to bottom, black 0%, black 75%, transparent 96%)",
           }}
         >
-          {/* Seamless Atmospheric Ambient Top & Bottom Blends */}
+          {/* Subtle Seamless Ambient Soft Blends */}
           {isDark && (
             <>
-              <div className="absolute top-0 inset-x-0 h-44 z-10 bg-gradient-to-b from-[#030712] via-[#030712]/90 via-35% to-transparent pointer-events-none" />
-              <div className="absolute bottom-0 inset-x-0 h-44 z-10 bg-gradient-to-t from-[#030712] via-[#030712]/90 via-35% to-transparent pointer-events-none" />
+              <div className="absolute top-0 inset-x-0 h-32 z-10 bg-gradient-to-b from-[#050816]/80 via-[#050816]/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 inset-x-0 h-32 z-10 bg-gradient-to-t from-[#050816]/80 via-[#050816]/30 to-transparent pointer-events-none" />
             </>
           )}
 
@@ -734,7 +734,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* Top Right: ABOVE THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className={`relative rounded-[22px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[40px] mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
+                className={`relative rounded-[22px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[30px] mt-2 lg:mt-2 animate-adopt-float-1 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
                   isDark
                     ? "bg-[#0b101e]/85 backdrop-blur-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.7)] hover:border-purple-400/40"
                     : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
@@ -827,10 +827,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ))}
             </div>
 
-            {/* Bottom Right: BELOW THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt (Positioned Closer to Iceberg) */}
+            {/* Bottom Right: BELOW THE SURFACE Callout Card with Sonar Beacon & Interactive 3D Tilt */}
             <div className="lg:col-span-6 flex justify-start lg:justify-end">
               <div
-                className={`relative rounded-[22px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[110px] mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
+                className={`relative rounded-[22px] p-5 w-full max-w-[320px] text-left lg:-translate-x-[90px] mb-2 animate-adopt-float-2 transition-all duration-300 hover:scale-[1.03] group cursor-default ${
                   isDark
                     ? "bg-[#0b101e]/85 backdrop-blur-2xl border border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.7)] hover:border-purple-400/40"
                     : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
@@ -898,10 +898,20 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       {/* ── SECTION 3: THE 5 STAGES OF THE ADOPT PLAYBOOK ─────────────────── */}
       <section
         id="playbook-stages"
-        className="py-14 lg:py-22 relative overflow-hidden bg-transparent"
+        className="py-16 lg:py-24 relative overflow-hidden bg-transparent"
       >
-        {/* Subtle Ambient Micro-Sparkles floating in continuous atmosphere */}
+        {/* Subtle Ambient Micro-Sparkles and Colored Nebulae Cones behind Stages */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
+          {/* Subtle colored backlight glows behind 5 stages */}
+          {isDark && (
+            <>
+              <div className="absolute top-1/2 left-[10%] -translate-y-1/2 w-64 h-64 rounded-full bg-cyan-500/10 blur-[100px]" />
+              <div className="absolute top-1/2 left-[30%] -translate-y-1/2 w-64 h-64 rounded-full bg-rose-500/10 blur-[100px]" />
+              <div className="absolute top-1/2 left-[50%] -translate-y-1/2 w-64 h-64 rounded-full bg-purple-500/12 blur-[100px]" />
+              <div className="absolute top-1/2 left-[70%] -translate-y-1/2 w-64 h-64 rounded-full bg-amber-500/10 blur-[100px]" />
+              <div className="absolute top-1/2 left-[90%] -translate-y-1/2 w-64 h-64 rounded-full bg-emerald-500/10 blur-[100px]" />
+            </>
+          )}
           <span className="absolute top-10 left-[16%] text-cyan-400/45 text-sm select-none animate-pulse">✦</span>
           <span className="absolute top-24 left-[28%] text-sky-400/35 text-xs select-none">⋆</span>
           <span className="absolute top-14 right-[24%] text-pink-400/45 text-sm select-none animate-pulse" style={{ animationDelay: "1s" }}>✦</span>
@@ -1314,8 +1324,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           )}
 
           {/* ── Bottom Summary Ribbon (Concentric Radar + 5 Timeline Steps) ─ */}
-          <div className={`mt-8 rounded-[26px] p-6 sm:p-7 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-6 items-center ${
-            isDark ? "bg-[#0b101e]/85 backdrop-blur-xl border border-white/12" : "bg-white/92 backdrop-blur-xl border border-slate-200/70"
+          <div className={`mt-8 rounded-[28px] p-6 sm:p-7 shadow-[0_20px_50px_rgba(0,0,0,0.4)] grid grid-cols-1 lg:grid-cols-12 gap-6 items-center transition-all ${
+            isDark ? "bg-[#0b101e]/85 backdrop-blur-2xl border border-white/15" : "bg-white/92 backdrop-blur-xl border border-slate-200/70"
           }`}>
             {/* Left Radar and Text */}
             <div className={`lg:col-span-5 flex items-center gap-4 border-b lg:border-b-0 lg:border-r pb-5 lg:pb-0 lg:pr-6 ${
@@ -1331,13 +1341,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </div>
 
               <div>
-                <h4 className={`text-[16px] font-extrabold leading-snug ${
+                <h4 className={`text-[15px] sm:text-[16px] font-extrabold leading-snug ${
                   isDark ? "text-white" : "text-[#0f172a]"
                 }`}>
                   Behavior changes in<br />
                   stages, not all at once.
                 </h4>
-                <p className={`text-[13px] mt-0.5 font-normal ${
+                <p className={`text-[12px] sm:text-[13px] mt-0.5 font-normal ${
                   isDark ? "text-slate-400" : "text-[#64748b]"
                 }`}>
                   Swap the right support for the right mindset.
@@ -1348,15 +1358,15 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* Right 5 Steps Connected by Dotted Path */}
             <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-5 gap-3 relative">
               {[
-                { icon: "📣", title: "Signal", desc: "Spot early signals for action.", color: "text-[#38bdf8]" },
-                { icon: "❤️", title: "Emotional Pull", desc: "Tap into emotional motivation.", color: "text-[#f43f5e]" },
-                { icon: "🚀", title: "First Action", desc: "Make the first step easy.", color: "text-[#8b5cf6]" },
-                { icon: "👑", title: "Reinforcement", desc: "Help habits and confidence grow.", color: "text-[#f59e0b]" },
-                { icon: "🌟", title: "Identity Shift", desc: "Turn users into advocates.", color: "text-[#10b981]" }
+                { icon: "📣", title: "Signal", desc: "Spot early signals for action.", dotBg: "bg-[#38bdf8]", glow: "shadow-[0_0_8px_rgba(56,189,248,0.8)]" },
+                { icon: "❤️", title: "Emotional Pull", desc: "Tap into emotional motivation.", dotBg: "bg-[#f43f5e]", glow: "shadow-[0_0_8px_rgba(244,63,94,0.8)]" },
+                { icon: "🚀", title: "First Action", desc: "Make the first step easy.", dotBg: "bg-[#8b5cf6]", glow: "shadow-[0_0_8px_rgba(139,92,246,0.8)]" },
+                { icon: "👑", title: "Reinforcement", desc: "Help habits and confidence grow.", dotBg: "bg-[#f59e0b]", glow: "shadow-[0_0_8px_rgba(245,158,11,0.8)]" },
+                { icon: "🌟", title: "Identity Shift", desc: "Turn users into advocates.", dotBg: "bg-[#10b981]", glow: "shadow-[0_0_8px_rgba(16,185,129,0.8)]" }
               ].map((step, idx) => (
-                <div key={idx} className="flex flex-col items-start p-1.5 relative">
+                <div key={idx} className="flex flex-col items-start p-1.5 relative group">
                   <div className="flex items-center gap-1.5 mb-1">
-                    <span className="text-[14px]">{step.icon}</span>
+                    <span className={`w-2 h-2 rounded-full ${step.dotBg} ${step.glow} shrink-0`} />
                     <span className={`text-[12px] font-bold ${isDark ? "text-white" : "text-[#0f172a]"}`}>{step.title}</span>
                   </div>
                   <span className={`text-[11px] leading-tight ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>{step.desc}</span>
