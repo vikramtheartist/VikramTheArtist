@@ -719,13 +719,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </p>
             </div>
 
-            {/* Top Right: ABOVE THE SURFACE Card (Moved left by 30px in dark mode) */}
+            {/* Top Right: ABOVE THE SURFACE Card (Moved left towards iceberg) */}
             <div
               className={`lg:col-span-6 flex justify-start lg:justify-end transition-all duration-300 ${
-                isDark ? "adopt-dark-card-above" : ""
+                isDark ? "adopt-dark-card-above" : "adopt-light-card-above"
               }`}
               style={{
-                transform: isDark ? "translateX(-30px)" : "none",
+                transform: isDark ? "translateX(-80px)" : "translateX(-55px)",
               }}
             >
               <div
@@ -824,13 +824,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               ))}
             </div>
 
-            {/* Bottom Right: BELOW THE SURFACE Card (Moved upward by 40px and leftward by 20px in dark mode) */}
+            {/* Bottom Right: BELOW THE SURFACE Card (Moved left towards iceberg) */}
             <div
               className={`lg:col-span-6 flex justify-start lg:justify-end transition-all duration-300 ${
-                isDark ? "adopt-dark-card-below" : ""
+                isDark ? "adopt-dark-card-below" : "adopt-light-card-below"
               }`}
               style={{
-                transform: isDark ? "translate(-20px, -40px)" : "none",
+                transform: isDark ? "translate(-70px, -40px)" : "translateX(-55px)",
               }}
             >
               <div
