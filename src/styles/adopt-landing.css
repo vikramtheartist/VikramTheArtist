@@ -38,20 +38,20 @@
 
 /* ── Dark & Light Mode Iceberg Card Offsets ─────────────────────── */
 .adopt-dark-card-above {
-  transform: translateX(-120px) !important;
+  transform: translateX(-150px) !important;
 }
 .adopt-dark-card-below {
   transform: translate(-100px, -90px) !important;
 }
 .adopt-light-card-above {
-  transform: translateX(-95px) !important;
+  transform: translateX(-125px) !important;
 }
 .adopt-light-card-below {
   transform: translate(-85px, -50px) !important;
 }
 .adopt-dark-checkmarks,
 .adopt-checkmarks-container {
-  transform: translateY(-50px) !important;
+  transform: translateY(-100px) !important;
 }
 
 /* ── Hero Eyebrow Pill ─────────────────────────────────────────── */

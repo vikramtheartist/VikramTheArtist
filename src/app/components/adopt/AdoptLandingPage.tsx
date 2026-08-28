@@ -732,7 +732,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 isDark ? "adopt-dark-card-above" : "adopt-light-card-above"
               }`}
               style={{
-                transform: isDark ? "translateX(-120px)" : "translateX(-95px)",
+                transform: isDark ? "translateX(-150px)" : "translateX(-125px)",
               }}
             >
               <div
@@ -796,11 +796,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
           {/* Bottom Row: Left 4 Checkmark Items & Right BELOW THE SURFACE Card */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-10 lg:pt-16">
-            {/* Bottom Left: 4 Checkmark Items (Moved upward by 50px) */}
+            {/* Bottom Left: 4 Checkmark Items (Moved upward by 100px total) */}
             <div
               className="lg:col-span-6 space-y-3.5 max-w-[480px] text-left transition-all duration-300 adopt-checkmarks-container"
               style={{
-                transform: "translateY(-50px)",
+                transform: "translateY(-100px)",
               }}
             >
               {[
