@@ -485,7 +485,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <img
               src={isDark ? `${import.meta.env.BASE_URL}IMG/adopt_hero_glass_bg_Dark.png` : `${import.meta.env.BASE_URL}IMG/adopt_hero_glass_bg.jpg`}
               alt="ADOPT 8K 3D Glass Artwork"
-              className="w-full h-full object-cover object-[80%_center] lg:object-[78%_center] opacity-95 transition-opacity duration-700 animate-hero-float scale-105"
+              className="w-full h-full object-cover object-[80%_center] lg:object-[78%_center] opacity-100 transition-opacity duration-700 animate-hero-float scale-105"
             />
           </div>
 
@@ -503,13 +503,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             }}
           />
 
-          {/* Seamless luminous ambient gradient overlay on the left to perfectly integrate text */}
+          {/* Seamless luminous ambient gradient overlay on the left to perfectly integrate text with reduced fade */}
           <div
             className="absolute inset-0 pointer-events-none z-10 transition-all duration-700"
             style={{
               background: isDark
-                ? "linear-gradient(to right, rgba(3, 7, 18, 0.98) 0%, rgba(3, 7, 18, 0.88) 32%, rgba(3, 7, 18, 0.45) 55%, transparent 80%)"
-                : "linear-gradient(to right, rgba(243, 248, 254, 0.98) 0%, rgba(243, 248, 254, 0.85) 32%, rgba(243, 248, 254, 0.45) 52%, transparent 78%)"
+                ? "linear-gradient(to right, rgba(3, 7, 18, 0.96) 0%, rgba(3, 7, 18, 0.82) 28%, rgba(3, 7, 18, 0.35) 48%, transparent 72%)"
+                : "linear-gradient(to right, rgba(243, 248, 254, 0.85) 0%, rgba(243, 248, 254, 0.42) 22%, rgba(243, 248, 254, 0.1) 36%, transparent 52%)"
             }}
           />
         </div>
@@ -575,68 +575,71 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     : "adopt-hero-btn-secondary"
                 }`}
               >
-                <span>See the Case Study</span>
+                <span>Protected Playbook</span>
               </button>
             </div>
+
+            {/* Micro Pillars in Hero */}
+            <div className="grid grid-cols-3 gap-3 max-w-lg pt-4 border-t border-slate-200/50">
+              <div className="flex flex-col text-left">
+                <span className="text-xs font-semibold text-slate-400">Pillar 01</span>
+                <span className={`text-sm font-bold ${isDark ? "text-slate-200" : "text-slate-800"}`}>Behavioral UX</span>
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-xs font-semibold text-slate-400">Pillar 02</span>
+                <span className={`text-sm font-bold ${isDark ? "text-slate-200" : "text-slate-800"}`}>Habit Loops</span>
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-xs font-semibold text-slate-400">Pillar 03</span>
+                <span className={`text-sm font-bold ${isDark ? "text-slate-200" : "text-slate-800"}`}>Enterprise Scale</span>
+              </div>
+            </div>
           </div>
+        </div>
 
-          {/* Credibility Metric Bar with Differential Layer Parallax */}
-          <div
-            className="pt-4 relative z-10 will-change-transform transition-transform duration-200"
-            style={{
-              transform: `translate3d(0, ${scrollY * -0.1}px, 0)`,
-            }}
-          >
-            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-4xl">
-              {/* Stat 1: 1M Users */}
-              <div className={`group cursor-default transition-all ${
-                isDark ? "flex items-center gap-3.5 p-3 rounded-2xl bg-[#0b101e]/85 backdrop-blur-xl border border-white/10 shadow-sm" : "flex items-center gap-3"
-              }`}>
+        {/* Floating Metrics Pill Bar */}
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 pt-8">
+          <div className={`p-4 sm:p-5 rounded-[28px] shadow-sm backdrop-blur-xl border transition-colors ${
+            isDark ? "bg-[#0b101e]/85 border-white/12" : "bg-white/90 border-slate-200/70"
+          }`}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 divide-y md:divide-y-0 md:divide-x divide-slate-200/60">
+              <div className="flex items-center gap-3.5 pl-2 pt-2 md:pt-0">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
-                  isDark ? "bg-purple-950/70 border-purple-500/30 text-purple-400" : "bg-[#f3f0fe]/90 border-purple-100/50 text-[#6d28d9]"
+                  isDark ? "bg-sky-950/70 border-sky-500/30 text-sky-400" : "bg-[#f0f9ff]/90 border-sky-100/50 text-[#0284c7]"
                 }`}>
-                  <Users className="w-4 h-4" />
+                  <Zap className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>1M</div>
-                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Users</div>
+                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>5 Stages</div>
+                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Structured path</div>
                 </div>
               </div>
 
-              {/* Stat 2: 5-stage framework */}
-              <div className={`group cursor-default transition-all ${
-                isDark ? "flex items-center gap-3.5 p-3 rounded-2xl bg-[#0b101e]/85 backdrop-blur-xl border border-white/10 shadow-sm" : "flex items-center gap-3"
-              }`}>
+              <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
-                  isDark ? "bg-sky-950/70 border-sky-500/30 text-sky-400" : "bg-[#e8f1ff]/90 border-sky-100/50 text-[#2563eb]"
+                  isDark ? "bg-indigo-950/70 border-indigo-500/30 text-indigo-400" : "bg-[#f5f3ff]/90 border-indigo-100/50 text-[#6366f1]"
                 }`}>
-                  <Layers className="w-4 h-4" />
+                  <Bot className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>5-stage</div>
-                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Framework</div>
+                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>AI Ready</div>
+                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Built for GenAI</div>
                 </div>
               </div>
 
-              {/* Stat 3: 300K -> 1M growth */}
-              <div className={`group cursor-default transition-all ${
-                isDark ? "flex items-center gap-3.5 p-3 rounded-2xl bg-[#0b101e]/85 backdrop-blur-xl border border-white/10 shadow-sm" : "flex items-center gap-3"
-              }`}>
+              <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
-                  isDark ? "bg-rose-950/70 border-rose-500/30 text-rose-400" : "bg-[#fef2f2]/90 border-rose-100/50 text-[#e11d48]"
+                  isDark ? "bg-pink-950/70 border-pink-500/30 text-pink-400" : "bg-[#fdf2f8]/90 border-pink-100/50 text-[#db2777]"
                 }`}>
                   <TrendingUp className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>300K → 1M</div>
-                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Copilot in W365</div>
+                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>3.6x Growth</div>
+                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>In recurring active users</div>
                 </div>
               </div>
 
-              {/* Stat 4: Behavior-first */}
-              <div className={`group cursor-default transition-all ${
-                isDark ? "flex items-center gap-3.5 p-3 rounded-2xl bg-[#0b101e]/85 backdrop-blur-xl border border-white/10 shadow-sm" : "flex items-center gap-3"
-              }`}>
+              <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
                   isDark ? "bg-emerald-950/70 border-emerald-500/30 text-emerald-400" : "bg-[#ecfdf5]/90 border-emerald-100/50 text-[#059669]"
                 }`}>
@@ -729,7 +732,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 isDark ? "adopt-dark-card-above" : "adopt-light-card-above"
               }`}
               style={{
-                transform: isDark ? "translateX(-80px)" : "translateX(-55px)",
+                transform: isDark ? "translateX(-120px)" : "translateX(-95px)",
               }}
             >
               <div

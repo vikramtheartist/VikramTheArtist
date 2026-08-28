@@ -38,13 +38,13 @@
 
 /* ── Dark & Light Mode Iceberg Card Offsets ─────────────────────── */
 .adopt-dark-card-above {
-  transform: translateX(-80px) !important;
+  transform: translateX(-120px) !important;
 }
 .adopt-dark-card-below {
   transform: translate(-100px, -90px) !important;
 }
 .adopt-light-card-above {
-  transform: translateX(-55px) !important;
+  transform: translateX(-95px) !important;
 }
 .adopt-light-card-below {
   transform: translate(-85px, -50px) !important;
