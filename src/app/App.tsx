@@ -24,9 +24,9 @@ const routeFromPath = (): Route => {
   return "home";
 };
 
-const initialTheme = (): ThemeMode => {
+const initialAdoptTheme = (): ThemeMode => {
   if (typeof window !== "undefined") {
-    const saved = localStorage.getItem("theme_mode");
+    const saved = localStorage.getItem("adopt_theme_mode") || localStorage.getItem("theme_mode");
     if (saved === "light" || saved === "dark") return saved;
   }
   return "dark";
@@ -57,7 +57,7 @@ function usePerfMode() {
  *   Phase 2 — Earth locked at viewport centre
  * In lite-perf mode the parallax is replaced by a single static position.
  */
-function EarthParallax({ mode }: { mode: ThemeMode }) {
+function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
   const imgRef = useRef<HTMLImageElement>(null);
   const sunRef = useRef<HTMLImageElement>(null);
   const atmRef = useRef<HTMLDivElement>(null);
@@ -438,7 +438,7 @@ function EarthParallax({ mode }: { mode: ThemeMode }) {
 
 export default function App() {
   const [route, setRoute] = useState<Route>(() => routeFromPath());
-  const [mode, setMode] = useState<ThemeMode>(() => initialTheme());
+  const [adoptMode, setAdoptMode] = useState<ThemeMode>(() => initialAdoptTheme());
 
   usePerfMode();
 
@@ -448,12 +448,11 @@ export default function App() {
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
+  // Set data-theme on document: homepage and case studies always dark, Adopt landing supports both
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", mode);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("theme_mode", mode);
-    }
-  }, [mode]);
+    const activeTheme = route === "adopt-landing" ? adoptMode : "dark";
+    document.documentElement.setAttribute("data-theme", activeTheme);
+  }, [route, adoptMode]);
 
   const navigate = useCallback((next: Route) => {
     if (next === route) return;
@@ -467,11 +466,11 @@ export default function App() {
     window.scrollTo(0, 0);
   }, [route]);
 
-  const toggleMode = useCallback(() => {
-    setMode((prev) => {
+  const toggleAdoptMode = useCallback(() => {
+    setAdoptMode((prev) => {
       const next = prev === "dark" ? "light" : "dark";
       if (typeof window !== "undefined") {
-        localStorage.setItem("theme_mode", next);
+        localStorage.setItem("adopt_theme_mode", next);
       }
       return next;
     });
@@ -480,8 +479,8 @@ export default function App() {
   if (route === "adopt-landing") {
     return (
       <AdoptLandingPage
-        mode={mode}
-        onToggleTheme={toggleMode}
+        mode={adoptMode}
+        onToggleTheme={toggleAdoptMode}
         onBack={() => navigate("home")}
         onExplorePlaybook={() => {
           const el = document.getElementById("playbook-stages");
@@ -506,13 +505,11 @@ export default function App() {
         color: "var(--text-1)",
         fontFamily: "'Inter', sans-serif",
         position: "relative",
-        transition: "background-color 0.4s ease, color 0.4s ease",
       }}
     >
-      <LightClouds />
-      <EarthParallax mode={mode} />
-      <SpaceSparkles mode={mode} />
-      <Nav mode={mode} onToggleTheme={toggleMode} />
+      <EarthParallax mode="dark" />
+      <SpaceSparkles mode="dark" />
+      <Nav mode="dark" />
       <main className="portfolio-main" style={{ position: "relative", zIndex: 1 }}>
         <Hero />
         <WorkSection
