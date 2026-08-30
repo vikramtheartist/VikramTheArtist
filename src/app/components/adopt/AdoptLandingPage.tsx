@@ -708,7 +708,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
             {/* Main Headline with Signature Cobalt-to-Purple Gradient */}
             <h1
-              className="text-[48px] sm:text-[76px] lg:text-[96px] font-black tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] leading-[0.92] mb-4 inline-block"
+              className="text-[48px] sm:text-[76px] lg:text-[96px] font-black tracking-[0.08em] text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] leading-[0.92] mb-4 inline-block"
               style={{ fontFamily: "Georgia, serif" }}
             >
               ADOPT
@@ -884,7 +884,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                 {/* Main Headline */}
                 <h2
-                  className={`text-[48px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-5 ${
+                  className={`text-[40px] lg:text-[50px] font-black tracking-[-0.035em] leading-[1.06] mb-5 ${
                     isDark ? "text-white" : "text-[#0a0e1a]"
                   }`}
                   style={{ fontFamily: "Georgia, serif" }}
@@ -1123,7 +1123,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </div>
 
               <h2
-                className={`text-[32px] sm:text-[42px] font-black tracking-tight leading-[1.08] mb-3.5 ${
+                className={`text-[24px] sm:text-[34px] font-black tracking-tight leading-[1.1] mb-3.5 ${
                   isDark ? "text-white drop-shadow-md" : "text-[#0a0e1a]"
                 }`}
                 style={{ fontFamily: "Georgia, serif" }}
