@@ -16,6 +16,12 @@ export function Nav({ mode = "dark", onToggleTheme, onNavigateVibeCoding }: NavP
         My Work
       </a>
       <a
+        href="#experience"
+        className="text-white/70 hover:text-white text-sm tracking-wide transition-colors duration-200"
+      >
+        My Experience
+      </a>
+      <a
         href="/vibe-coding"
         onClick={(e) => {
           if (onNavigateVibeCoding) {
@@ -32,12 +38,6 @@ export function Nav({ mode = "dark", onToggleTheme, onNavigateVibeCoding }: NavP
         className="text-white/70 hover:text-white text-sm tracking-wide transition-colors duration-200"
       >
         My Articles
-      </a>
-      <a
-        href="#experience"
-        className="text-white/70 hover:text-white text-sm tracking-wide transition-colors duration-200"
-      >
-        Experience
       </a>
 
       {/* Theme toggle */}
