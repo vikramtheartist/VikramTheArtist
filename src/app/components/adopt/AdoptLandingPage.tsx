@@ -894,7 +894,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 >
                   AI adoption is not<br />
                   a feature problem.<br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#6366f1] to-[#818cf8]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]">
                     It’s a behavior<br /> problem.
                   </span>
                 </h2>
@@ -1133,7 +1133,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               >
                 AI adoption is not<br />
                 a feature problem.<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#818cf8] to-[#ec4899]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]">
                   It’s a behavior problem.
                 </span>
               </h2>
