@@ -583,7 +583,7 @@ export function WorkSection({
             fontSize: "clamp(2.25rem, 5.5vw, 3.125rem)",
             lineHeight: 1.15,
             fontWeight: 300,
-            marginBottom: "-21px",
+            marginBottom: "-16px",
             paddingBottom: "0",
           }}
         >
@@ -593,7 +593,7 @@ export function WorkSection({
         {/* Gentle jumping arrow below My Work */}
         <div
           className="scroll-arrow-jump transition-opacity duration-200 group-hover:opacity-100"
-          style={{ marginTop: "-1px", opacity: 0.85 }}
+          style={{ marginTop: "2px", opacity: 0.85 }}
         >
           <svg
             width="20"

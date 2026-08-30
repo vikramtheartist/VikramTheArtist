@@ -230,7 +230,7 @@ html, body {
 @media (max-width: 767px) {
   #work h2 {
     font-size: clamp(1.85rem, 6.8vw, 2.4rem) !important;
-    margin-bottom: -17px !important;
+    margin-bottom: -12px !important;
     padding-bottom: 0 !important;
   }
   #experience h2,
