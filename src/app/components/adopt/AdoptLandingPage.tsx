@@ -1919,8 +1919,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         Enterprise scale AI adoption case study
                       </p>
 
-                      {/* Headline */}
-                      <h3 className={`text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold tracking-tight leading-[1.15] mb-6 max-w-lg ${
+                      {/* Headline (Unbold) */}
+                      <h3 className={`text-[26px] sm:text-[32px] lg:text-[36px] font-normal tracking-tight leading-[1.15] mb-6 max-w-lg ${
                         isDark ? "text-white" : "text-[#0a0e1a]"
                       }`}>
                         How the Adopt Playbook drove awareness into repeat usage and advocacy
@@ -2051,8 +2051,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         Independently designed and vibe-coded by Vikram
                       </p>
 
-                      {/* Headline */}
-                      <h3 className={`text-[26px] sm:text-[32px] lg:text-[36px] font-extrabold tracking-tight leading-[1.15] mb-6 max-w-lg ${
+                      {/* Headline (Unbold) */}
+                      <h3 className={`text-[26px] sm:text-[32px] lg:text-[36px] font-normal tracking-tight leading-[1.15] mb-6 max-w-lg ${
                         isDark ? "text-white" : "text-[#0a0e1a]"
                       }`}>
                         Turn your adoption problem into a clear UX action plan.
