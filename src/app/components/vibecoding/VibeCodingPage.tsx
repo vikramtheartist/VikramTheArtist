@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   ArrowLeft,
   ArrowRight,
+  ArrowUpRight,
   Sparkles,
   Maximize2,
   Code2,
@@ -154,8 +155,8 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
         </div>
       </header>
 
-      {/* ── MAIN CONTENT CONTAINER ─────────────────────────────────── */}
-      <main className="max-w-7xl mx-auto px-6 sm:px-10 pt-12 sm:pt-20 pb-28 space-y-16 sm:space-y-20 relative z-10">
+      {/* ── MAIN CONTENT CONTAINER (TIGHTER ELEGANT SPACING) ───────── */}
+      <main className="max-w-7xl mx-auto px-6 sm:px-10 pt-10 sm:pt-16 pb-24 space-y-8 sm:space-y-10 relative z-10">
         {/* ── Hero Listing Header (Clean 2-line title, No Image) ─────── */}
         <section className="text-center max-w-4xl mx-auto space-y-6">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border shadow-xs bg-white/8 border-white/15 text-[#cbd5e1]">
@@ -303,22 +304,29 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
                 <span className="text-white/70">Technology:</span> React · TypeScript · Node.js · OpenAI
               </div>
 
-              {/* Password-Protected Primary Action Button */}
-              <div className="pt-3">
+              {/* Action Buttons: Secondary Buttons */}
+              <div className="pt-3 flex flex-wrap items-center gap-3">
                 <button
                   type="button"
-                  onClick={() => handleProtectedAction("AdoptIQ.ai Case Study", () => {
+                  onClick={() => handleProtectedAction("AdoptIQ.ai Process", () => {
                     if (onNavigateAdopt) onNavigateAdopt();
                     else if (typeof window !== "undefined") window.location.pathname = "/adopt-landing";
                   })}
-                  className="adopt-hero-btn-primary group cursor-pointer"
-                  style={{ textDecoration: "none" }}
+                  className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-[14px] sm:text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm bg-white/8 hover:bg-white/15 text-white border border-white/18 inline-flex items-center gap-2"
                 >
-                  <span>Explore AdoptIQ.ai</span>
-                  <span className="adopt-btn-circle-arrow">
-                    <ArrowRight className="w-3.5 h-3.5 text-[#3e38f5] stroke-[2.5]" />
-                  </span>
+                  <span>Learn more about the process</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white/80" />
                 </button>
+
+                <a
+                  href="https://adoptiqai.vercel.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-[14px] sm:text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm bg-white/8 hover:bg-white/15 text-white border border-white/18 inline-flex items-center gap-2 text-decoration-none"
+                >
+                  <span>View Demo</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-white/80" />
+                </a>
               </div>
             </div>
 
@@ -397,14 +405,24 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
                 <span className="text-white/70">Technology:</span> React Native · TypeScript · WebSocket · Supabase
               </div>
 
-              {/* Password-Protected Secondary Action Button */}
-              <div className="pt-3">
+              {/* Action Buttons: Secondary Buttons */}
+              <div className="pt-3 flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => handleProtectedAction("PartyTogether Process")}
+                  className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-[14px] sm:text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm bg-white/8 hover:bg-white/15 text-white border border-white/18 inline-flex items-center gap-2"
+                >
+                  <span>Learn more about the process</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-white/80" />
+                </button>
+
                 <button
                   type="button"
                   onClick={() => handleProtectedAction("PartyTogether Interactive Demo")}
-                  className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-[14px] sm:text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm bg-white/8 hover:bg-white/15 text-white border border-white/18"
+                  className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-[14px] sm:text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm bg-white/8 hover:bg-white/15 text-white border border-white/18 inline-flex items-center gap-2"
                 >
                   <span>View interactive demo</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-white/80" />
                 </button>
               </div>
             </div>
