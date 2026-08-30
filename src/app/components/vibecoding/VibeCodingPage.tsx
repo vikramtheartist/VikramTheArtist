@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ArrowLeft,
   ArrowRight,
@@ -15,10 +15,9 @@ import {
   Globe,
   Layers,
   Cpu,
-  Share2,
-  ChevronRight,
-  ExternalLink
+  Share2
 } from "lucide-react";
+import "../../../styles/adopt-landing.css";
 
 interface VibeCodingPageProps {
   onBack?: () => void;
@@ -34,8 +33,8 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
     }
   };
 
-  const handleContactClick = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleContactClick = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
     if (onBack) {
       onBack();
       setTimeout(() => {
@@ -44,6 +43,18 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
     } else if (typeof window !== "undefined") {
       window.location.href = "/#contact";
     }
+  };
+
+  const glassCardStyle: React.CSSProperties = {
+    background: "rgba(0, 0, 0, 0.45)",
+    backdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
+    WebkitBackdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
+    boxShadow: [
+      "inset 0 0 0 1px rgba(255,255,255,0.16)",
+      "0 8px 32px rgba(0,0,0,0.40)",
+      "inset 0 1.5px 1px rgba(255,255,255,0.52)",
+      "inset 0 -2px 5px rgba(0,0,0,0.28)",
+    ].join(", "),
   };
 
   return (
@@ -73,125 +84,126 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
             <span>Back to Portfolio</span>
           </button>
 
-          <a
-            href="#contact"
-            onClick={handleContactClick}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs sm:text-sm font-medium tracking-wide text-white transition-all duration-300 shadow-[0_0_20px_rgba(79,70,229,0.35)] hover:shadow-[0_0_30px_rgba(99,102,241,0.55)] hover:scale-[1.02]"
+          <button
+            type="button"
+            onClick={() => handleContactClick()}
+            className="adopt-hero-btn-primary group"
             style={{
-              background: "linear-gradient(135deg, #4338ca 0%, #3b82f6 100%)",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
+              textDecoration: "none",
+              padding: "6px 6px 6px 18px",
+              fontSize: "14px",
+              gap: "10px",
             }}
           >
             <span>Collaborate</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </a>
+            <span
+              className="adopt-btn-circle-arrow"
+              style={{ width: "28px", height: "28px" }}
+            >
+              <ArrowRight className="w-3.5 h-3.5 text-[#3e38f5] stroke-[2.5]" />
+            </span>
+          </button>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 sm:px-10 pt-12 sm:pt-20 pb-28 space-y-20 sm:space-y-24">
-        {/* ── Hero Section ─────────────────────────────────────────── */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Heading & Subtitle */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="text-[11px] sm:text-xs font-mono font-semibold tracking-[0.2em] text-[#38bdf8] uppercase">
-              DESIGNING THROUGH CODE
-            </div>
-
-            <h1
-              className="text-4xl sm:text-6xl lg:text-[4.25rem] leading-[1.08] tracking-tight font-normal text-white"
-              style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
-            >
-              From product intent <br />
-              to{" "}
-              <span
-                style={{
-                  background: "linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  display: "inline-block",
-                }}
-              >
-                working software.
-              </span>
-            </h1>
-
-            <p
-              className="text-base sm:text-lg text-white/70 leading-relaxed font-light max-w-xl"
-              style={{ fontFamily: "'Satoshi', 'Inter', sans-serif" }}
-            >
-              I use AI-assisted coding to explore complex interactions, test product hypotheses and build functional experiences—without losing design judgment, systems thinking or craft.
-            </p>
+      <main className="max-w-7xl mx-auto px-6 sm:px-10 pt-12 sm:pt-20 pb-28 space-y-16 sm:space-y-20">
+        {/* ── Hero Listing Header (Clean 2-line title, No Image) ─────── */}
+        <section className="text-center max-w-4xl mx-auto space-y-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border shadow-xs bg-white/8 border-white/15 text-[#cbd5e1]">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
+            <span>DESIGNING THROUGH CODE</span>
           </div>
 
-          {/* Right Column: Floating 3D Isometric Screen Mockup */}
-          <div className="lg:col-span-6 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[560px] rounded-2xl overflow-hidden border border-white/10 bg-[#070b19]/80 shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-sm group hover:border-white/20 transition-all duration-500">
-              <img
-                src="/IMG/VibeCodingHero.jpg"
-                alt="From product intent to working software"
-                className="w-full h-auto object-cover transform group-hover:scale-[1.01] transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050711]/70 via-transparent to-transparent pointer-events-none" />
-            </div>
-          </div>
+          {/* 2-Line Headline */}
+          <h1
+            className="text-4xl sm:text-6xl lg:text-[4.75rem] leading-[1.08] tracking-tight font-normal text-white"
+            style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+          >
+            From product intent <br />
+            to{" "}
+            <span
+              style={{
+                background: "linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                display: "inline-block",
+              }}
+            >
+              working software.
+            </span>
+          </h1>
+
+          <p
+            className="text-base sm:text-lg text-white/70 leading-relaxed font-light max-w-2xl mx-auto"
+            style={{ fontFamily: "'Satoshi', 'Inter', sans-serif" }}
+          >
+            I use AI-assisted coding to explore complex interactions, test product hypotheses and build functional experiences—without losing design judgment, systems thinking or craft.
+          </p>
         </section>
 
-        {/* ── 4-Step Process Strip / Workflow Bar ───────────────────── */}
-        <section className="rounded-2xl border border-white/[0.08] bg-[#090e21]/70 backdrop-blur-md p-6 sm:p-7 shadow-xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-4 items-center">
-            {/* Step 1: Frame */}
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#38bdf8] shrink-0">
-                <Maximize2 className="w-4 h-4" />
+        {/* ── 4-Step Process Strip (Matching ADOPT Landing Page Pill) ── */}
+        <section className="max-w-5xl mx-auto">
+          <div className="p-4 sm:p-5 rounded-[28px] sm:rounded-full shadow-lg backdrop-blur-xl border bg-[#0b101e]/85 border-white/12">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 divide-y md:divide-y-0 md:divide-x divide-white/10">
+              {/* Step 1: Frame */}
+              <div className="flex items-center gap-3.5 pl-2 pt-2 md:pt-0">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-sky-950/70 border-sky-500/30 text-sky-400">
+                  <Maximize2 className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[17px] sm:text-[18px] font-bold text-white leading-tight">Frame</div>
+                  <div className="text-[12px] font-medium text-slate-400">Clarify intent & constraints</div>
+                </div>
               </div>
-              <div>
-                <div className="text-sm font-semibold text-white tracking-wide">Frame</div>
-                <div className="text-xs text-white/55 font-light">Clarify intent & constraints</div>
-              </div>
-            </div>
 
-            {/* Step 2: Build */}
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#818cf8] shrink-0">
-                <Code2 className="w-4 h-4" />
+              {/* Step 2: Build */}
+              <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-indigo-950/70 border-indigo-500/30 text-indigo-400">
+                  <Code2 className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[17px] sm:text-[18px] font-bold text-white leading-tight">Build</div>
+                  <div className="text-[12px] font-medium text-slate-400">Compose systems & interactions</div>
+                </div>
               </div>
-              <div>
-                <div className="text-sm font-semibold text-white tracking-wide">Build</div>
-                <div className="text-xs text-white/55 font-light">Compose systems & interactions</div>
-              </div>
-            </div>
 
-            {/* Step 3: Evaluate */}
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#38bdf8] shrink-0">
-                <BarChart3 className="w-4 h-4" />
+              {/* Step 3: Evaluate */}
+              <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-pink-950/70 border-pink-500/30 text-pink-400">
+                  <BarChart3 className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[17px] sm:text-[18px] font-bold text-white leading-tight">Evaluate</div>
+                  <div className="text-[12px] font-medium text-slate-400">Test in context & measure</div>
+                </div>
               </div>
-              <div>
-                <div className="text-sm font-semibold text-white tracking-wide">Evaluate</div>
-                <div className="text-xs text-white/55 font-light">Test in context & measure</div>
-              </div>
-            </div>
 
-            {/* Step 4: Refine */}
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#c084fc] shrink-0">
-                <RotateCw className="w-4 h-4" />
-              </div>
-              <div>
-                <div className="text-sm font-semibold text-white tracking-wide">Refine</div>
-                <div className="text-xs text-white/55 font-light">Iterate with design judgment</div>
+              {/* Step 4: Refine */}
+              <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-emerald-950/70 border-emerald-500/30 text-emerald-400">
+                  <RotateCw className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[17px] sm:text-[18px] font-bold text-white leading-tight">Refine</div>
+                  <div className="text-[12px] font-medium text-slate-400">Iterate with design judgment</div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── Showcase Card 01: AdoptIQ.ai ─────────────────────────── */}
-        <section className="rounded-3xl border border-white/[0.08] bg-gradient-to-b from-[#0b1024]/90 to-[#070b1a]/90 backdrop-blur-xl p-8 sm:p-12 shadow-2xl relative overflow-hidden group hover:border-white/15 transition-all duration-300">
+        {/* ── Showcase Card 01: AdoptIQ.ai (Glass Card Style) ──────── */}
+        <section
+          className="rounded-[36px] p-8 sm:p-12 transition-all duration-300 relative overflow-hidden group"
+          style={glassCardStyle}
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Info Column */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="text-[11px] font-mono font-semibold tracking-[0.2em] text-[#38bdf8] uppercase">
-                01 / BEHAVIORAL INTELLIGENCE
+              {/* Category Pill matching ADOPT Core Problem */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border shadow-xs bg-white/8 border-white/15 text-[#cbd5e1]">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
+                <span>01 / BEHAVIORAL INTELLIGENCE</span>
               </div>
 
               <h2
@@ -206,7 +218,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
               </p>
 
               {/* 3-Column Spec Grid */}
-              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.06] pb-2">
+              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.08] pb-2">
                 <div>
                   <div className="text-xs text-white/40 uppercase tracking-wider font-mono">Purpose</div>
                   <div className="text-xs sm:text-sm text-white/85 font-medium mt-1">Turn behavioral signals into action</div>
@@ -242,15 +254,18 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
                 <span className="text-white/70">Technology:</span> React · TypeScript · Node.js · OpenAI
               </div>
 
-              {/* Action Button */}
+              {/* Primary Action Button (Matching 3rd Screenshot) */}
               <div className="pt-3">
                 <button
                   type="button"
                   onClick={onNavigateAdopt || (() => { if (typeof window !== "undefined") window.location.pathname = "/adopt-landing"; })}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium text-white bg-[#1e293b]/80 border border-white/20 hover:border-[#38bdf8] hover:bg-[#38bdf8]/10 transition-all duration-300 group/btn"
+                  className="adopt-hero-btn-primary group"
+                  style={{ textDecoration: "none" }}
                 >
                   <span>Explore AdoptIQ.ai</span>
-                  <ArrowRight className="w-4 h-4 text-white/70 group-hover/btn:translate-x-1 group-hover/btn:text-[#38bdf8] transition-all" />
+                  <span className="adopt-btn-circle-arrow">
+                    <ArrowRight className="w-3.5 h-3.5 text-[#3e38f5] stroke-[2.5]" />
+                  </span>
                 </button>
               </div>
             </div>
@@ -268,13 +283,18 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
           </div>
         </section>
 
-        {/* ── Showcase Card 02: PartyTogether ──────────────────────── */}
-        <section className="rounded-3xl border border-white/[0.08] bg-gradient-to-b from-[#0b1024]/90 to-[#070b1a]/90 backdrop-blur-xl p-8 sm:p-12 shadow-2xl relative overflow-hidden group hover:border-white/15 transition-all duration-300">
+        {/* ── Showcase Card 02: PartyTogether (Glass Card Style) ────── */}
+        <section
+          className="rounded-[36px] p-8 sm:p-12 transition-all duration-300 relative overflow-hidden group"
+          style={glassCardStyle}
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Info Column */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="text-[11px] font-mono font-semibold tracking-[0.2em] text-[#818cf8] uppercase">
-                02 / COLLABORATIVE INTERACTION
+              {/* Category Pill matching ADOPT Core Problem */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border shadow-xs bg-white/8 border-white/15 text-[#cbd5e1]">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#818cf8] animate-pulse" />
+                <span>02 / COLLABORATIVE INTERACTION</span>
               </div>
 
               <h2
@@ -289,7 +309,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
               </p>
 
               {/* 3-Column Spec Grid */}
-              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.06] pb-2">
+              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.08] pb-2">
                 <div>
                   <div className="text-xs text-white/40 uppercase tracking-wider font-mono">Purpose</div>
                   <div className="text-xs sm:text-sm text-white/85 font-medium mt-1">Make listening social</div>
@@ -325,15 +345,14 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
                 <span className="text-white/70">Technology:</span> React Native · TypeScript · WebSocket · Supabase
               </div>
 
-              {/* Action Button */}
+              {/* Secondary Action Button (Matching 4th Screenshot) */}
               <div className="pt-3">
                 <button
                   type="button"
-                  onClick={handleContactClick}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium text-white bg-[#1e293b]/80 border border-white/20 hover:border-[#818cf8] hover:bg-[#818cf8]/10 transition-all duration-300 group/btn"
+                  onClick={() => handleContactClick()}
+                  className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-[14px] sm:text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm bg-white/8 hover:bg-white/15 text-white border border-white/18"
                 >
                   <span>View interactive demo</span>
-                  <ArrowRight className="w-4 h-4 text-white/70 group-hover/btn:translate-x-1 group-hover/btn:text-[#818cf8] transition-all" />
                 </button>
               </div>
             </div>
@@ -351,13 +370,18 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
           </div>
         </section>
 
-        {/* ── Showcase Card 03: Antigravity Token Studio ─────────────── */}
-        <section className="rounded-3xl border border-white/[0.08] bg-gradient-to-b from-[#0b1024]/90 to-[#070b1a]/90 backdrop-blur-xl p-8 sm:p-12 shadow-2xl relative overflow-hidden group hover:border-white/15 transition-all duration-300">
+        {/* ── Showcase Card 03: Antigravity Token Studio (Glass Card) ── */}
+        <section
+          className="rounded-[36px] p-8 sm:p-12 transition-all duration-300 relative overflow-hidden group"
+          style={glassCardStyle}
+        >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Info Column */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="text-[11px] font-mono font-semibold tracking-[0.2em] text-[#10b981] uppercase">
-                03 / DESIGN SYSTEM ENGINEERING
+              {/* Category Pill matching ADOPT Core Problem */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border shadow-xs bg-white/8 border-white/15 text-[#cbd5e1]">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
+                <span>03 / DESIGN SYSTEM ENGINEERING</span>
               </div>
 
               <h2
@@ -372,7 +396,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
               </p>
 
               {/* 3-Column Spec Grid */}
-              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.06] pb-2">
+              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.08] pb-2">
                 <div>
                   <div className="text-xs text-white/40 uppercase tracking-wider font-mono">Purpose</div>
                   <div className="text-xs sm:text-sm text-white/85 font-medium mt-1">Close the design-to-code gap</div>
@@ -408,15 +432,14 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
                 <span className="text-white/70">Technology:</span> TypeScript · AST · Tailwind · Vite
               </div>
 
-              {/* Action Button */}
+              {/* Secondary Action Button (Matching 4th Screenshot) */}
               <div className="pt-3">
                 <button
                   type="button"
-                  onClick={handleContactClick}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-medium text-white bg-[#1e293b]/80 border border-white/20 hover:border-[#10b981] hover:bg-[#10b981]/10 transition-all duration-300 group/btn"
+                  onClick={() => handleContactClick()}
+                  className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-[14px] sm:text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm bg-white/8 hover:bg-white/15 text-white border border-white/18"
                 >
                   <span>Inspect architecture</span>
-                  <ArrowRight className="w-4 h-4 text-white/70 group-hover/btn:translate-x-1 group-hover/btn:text-[#10b981] transition-all" />
                 </button>
               </div>
             </div>
@@ -435,7 +458,10 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
         </section>
 
         {/* ── Feature Callout Card: "Vibe coding is not skipping design." ── */}
-        <section className="rounded-3xl border border-white/[0.08] bg-gradient-to-b from-[#0a0f26]/95 to-[#060918]/95 backdrop-blur-2xl p-8 sm:p-14 shadow-2xl relative overflow-hidden">
+        <section
+          className="rounded-[36px] p-8 sm:p-14 transition-all duration-300 relative overflow-hidden"
+          style={glassCardStyle}
+        >
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
             <h2
               className="text-3xl sm:text-4xl lg:text-5xl font-normal text-white tracking-tight"
@@ -530,7 +556,10 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
         </section>
 
         {/* ── Showcase Card 04: Technical Explorations (Cosmic Sandbox) ─ */}
-        <section className="rounded-2xl border border-white/[0.08] bg-[#090e21]/70 backdrop-blur-md p-6 sm:p-8 shadow-xl">
+        <section
+          className="rounded-[28px] p-6 sm:p-8 transition-all duration-300 shadow-xl"
+          style={glassCardStyle}
+        >
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
             {/* Left Label */}
             <div className="md:col-span-3 text-xs sm:text-sm font-mono uppercase tracking-[0.15em] text-white/60">
@@ -558,7 +587,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
               <button
                 type="button"
-                onClick={handleContactClick}
+                onClick={() => handleContactClick()}
                 className="inline-flex items-center gap-1.5 text-xs font-medium text-[#38bdf8] hover:text-white shrink-0 group/link transition-colors"
               >
                 <span>Launch physics sandbox</span>
@@ -568,7 +597,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
           </div>
         </section>
 
-        {/* ── Closing Philosophy & CTA ──────────────────────────────── */}
+        {/* ── Closing Philosophy & Primary Action CTA ───────────────── */}
         <section className="text-center py-12 sm:py-16 space-y-6 max-w-3xl mx-auto">
           <h2
             className="text-3xl sm:text-5xl font-normal text-white tracking-tight leading-snug"
@@ -582,19 +611,26 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
             Design judgment leads. AI expands the possible. Code makes it real.
           </p>
 
-          <div className="pt-4">
-            <a
-              href="#contact"
-              onClick={handleContactClick}
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-medium tracking-wide text-white transition-all duration-300 shadow-[0_0_25px_rgba(79,70,229,0.4)] hover:shadow-[0_0_40px_rgba(99,102,241,0.65)] hover:scale-[1.03]"
+          <div className="pt-4 flex justify-center">
+            <button
+              type="button"
+              onClick={() => handleContactClick()}
+              className="adopt-hero-btn-primary group"
               style={{
-                background: "linear-gradient(135deg, #4338ca 0%, #3b82f6 100%)",
-                border: "1px solid rgba(255, 255, 255, 0.25)",
+                textDecoration: "none",
+                padding: "8px 8px 8px 24px",
+                fontSize: "15px",
+                gap: "12px",
               }}
             >
               <span>Discuss a product problem</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
+              <span
+                className="adopt-btn-circle-arrow"
+                style={{ width: "32px", height: "32px" }}
+              >
+                <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
+              </span>
+            </button>
           </div>
         </section>
       </main>
