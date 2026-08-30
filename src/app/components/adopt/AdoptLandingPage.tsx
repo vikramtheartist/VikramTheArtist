@@ -1900,9 +1900,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         <span>APPLIED PLAYBOOK</span>
                       </div>
 
-                      {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
+                      {/* Brand Title (White in dark mode, Gradient in light mode) */}
                       <h2
-                        className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] tracking-[-0.035em] leading-[1.04] mb-2"
+                        className={`text-[44px] sm:text-[52px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
+                          isDark
+                            ? "text-white"
+                            : "text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]"
+                        }`}
                         style={{ fontFamily: "Georgia, serif" }}
                       >
                         Scaled Copilot Adoption
@@ -2028,9 +2032,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         <span>AI ADOPTION ENGINE</span>
                       </div>
 
-                      {/* Brand Title with Exact Same Cobalt-to-Purple Gradient */}
+                      {/* Brand Title (White in dark mode, Gradient in light mode) */}
                       <h2
-                        className="text-[44px] sm:text-[52px] lg:text-[58px] font-black text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] tracking-[-0.035em] leading-[1.04] mb-2"
+                        className={`text-[44px] sm:text-[52px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
+                          isDark
+                            ? "text-white"
+                            : "text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]"
+                        }`}
                         style={{ fontFamily: "Georgia, serif" }}
                       >
                         AdoptIQ.ai
