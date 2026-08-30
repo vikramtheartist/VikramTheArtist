@@ -895,9 +895,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   }`}
                   style={{ fontFamily: "Georgia, serif" }}
                 >
-                  AI adoption is not<br />
-                  a feature problem.<br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]">
+                    AI adoption is not<br />
+                    a feature problem.
+                  </span><br />
+                  <span>
                     It’s a behavior<br /> problem.
                   </span>
                 </h2>
@@ -1135,9 +1137,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 }`}
                 style={{ fontFamily: "Georgia, serif" }}
               >
-                AI adoption is not<br />
-                a feature problem.<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]">
+                  AI adoption is not<br />
+                  a feature problem.
+                </span><br />
+                <span>
                   It’s a behavior problem.
                 </span>
               </h2>
