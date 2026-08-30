@@ -2229,28 +2229,32 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
               {/* Right Side: Center-Aligned Action Buttons */}
               <div className="flex flex-wrap items-center justify-center lg:justify-end gap-3 shrink-0">
-                {/* 1. Launch the Playbook (Signature Blue Pill + Circular Arrow) */}
+                {/* 1. Launch the Playbook (Secondary Button Look) */}
                 <button
                   onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
-                  className="adopt-hero-btn-primary group"
+                  className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-[14px] sm:text-[15px] font-semibold transition-all duration-200 cursor-pointer backdrop-blur-md shadow-sm group ${
+                    isDark
+                      ? "bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 text-white"
+                      : "bg-white/90 hover:bg-white border border-slate-200 hover:border-slate-300 text-slate-900"
+                  }`}
                 >
                   <span>Launch the Playbook</span>
-                  <span className="adopt-btn-circle-arrow">
-                    <ArrowRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
-                  </span>
+                  <ArrowRight className={`w-4 h-4 ${isDark ? "text-white/80" : "text-slate-700"} group-hover:translate-x-1 transition-transform`} />
                 </button>
 
-                {/* 2. Launch AdoptIQ.ai (Signature Blue Pill + Circular Arrow) */}
+                {/* 2. Launch AdoptIQ.ai (Secondary Button Look) */}
                 <a
                   href="https://adoptiqai.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="adopt-hero-btn-primary group text-decoration-none"
+                  className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-[14px] sm:text-[15px] font-semibold transition-all duration-200 cursor-pointer backdrop-blur-md shadow-sm group text-decoration-none ${
+                    isDark
+                      ? "bg-white/10 hover:bg-white/15 border border-white/20 hover:border-white/30 text-white"
+                      : "bg-white/90 hover:bg-white border border-slate-200 hover:border-slate-300 text-slate-900"
+                  }`}
                 >
                   <span>Launch AdoptIQ.ai</span>
-                  <span className="adopt-btn-circle-arrow">
-                    <ArrowUpRight className="w-4 h-4 text-[#3e38f5] stroke-[2.5]" />
-                  </span>
+                  <ArrowUpRight className={`w-4 h-4 ${isDark ? "text-white/80" : "text-slate-700"} group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform`} />
                 </a>
               </div>
             </div>
