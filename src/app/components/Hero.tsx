@@ -47,6 +47,7 @@ function StarCanvas() {
   }, []);
 
   useEffect(() => {
+    let animId = 0;
     const resize = () => {
       const w = window.innerWidth;
       const h = Math.round(window.innerHeight * 1.4);
@@ -61,9 +62,18 @@ function StarCanvas() {
         drawLayer(canvasRef2.current, starsLayer2);
       }
     };
-    resize();
+    
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(resize, { timeout: 150 });
+    } else {
+      animId = requestAnimationFrame(resize);
+    }
+
     window.addEventListener("resize", resize, { passive: true });
-    return () => window.removeEventListener("resize", resize);
+    return () => {
+      if (animId) cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resize);
+    };
   }, [drawLayer, starsLayer1, starsLayer2]);
 
   useEffect(() => {

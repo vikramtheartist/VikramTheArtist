@@ -12,20 +12,47 @@
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
       <link rel="preconnect" href="https://api.fontshare.com" />
       <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
-      <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      <!-- Non-blocking font stylesheets -->
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
+      <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" media="print" onload="this.media='all'" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Lato:wght@100;300;400;700&family=Merriweather:wght@300;400;700&family=Poppins:wght@300;400;500&display=swap" media="print" onload="this.media='all'" />
+      <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" />
+        <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Lato:wght@100;300;400;700&family=Merriweather:wght@300;400;700&family=Poppins:wght@300;400;500&display=swap" />
+      </noscript>
+
       <title>Vikram the Artist</title>
 
-      <!-- Preload responsive LCP Earth visual -->
-      <link rel="preload" as="image" href="/IMG/Earth_only_2x-768.avif" type="image/avif" imagesrcset="/IMG/Earth_only_2x-768.avif 768w, /IMG/Earth_only_2x-1200.avif 1200w, /IMG/Earth_only_2x-1536.avif 1536w" imagesizes="(max-width: 768px) 100vw, 160vw" fetchpriority="high" />
+      <!-- Preload responsive LCP candidates -->
+      <link rel="preload" as="image" href="/IMG/Planet%201-256.avif" type="image/avif" imagesrcset="/IMG/Planet%201-128.avif 128w, /IMG/Planet%201-256.avif 256w, /IMG/Planet%201-384.avif 384w" imagesizes="clamp(110px, 9vw, 170px)" media="(max-width: 767px)" fetchpriority="high" />
+      <link rel="preload" as="image" href="/IMG/Earth_only_2x-1200.avif" type="image/avif" imagesrcset="/IMG/Earth_only_2x-768.avif 768w, /IMG/Earth_only_2x-1200.avif 1200w, /IMG/Earth_only_2x-1536.avif 1536w" imagesizes="160vw" media="(min-width: 768px)" fetchpriority="high" />
 
-      <!-- Google tag (gtag.js) -->
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-JSSLD137TQ"></script>
+      <!-- Google tag (gtag.js) - Initialized on first interaction or post-load idle -->
       <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'G-JSSLD137TQ');
+
+        function loadAnalytics() {
+          if (window._gtagLoaded) return;
+          window._gtagLoaded = true;
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-JSSLD137TQ';
+          document.head.appendChild(s);
+        }
+        ['scroll', 'touchstart', 'click', 'keydown'].forEach(function(e) {
+          window.addEventListener(e, loadAnalytics, { once: true, passive: true });
+        });
+        window.addEventListener('load', function() {
+          if ('requestIdleCallback' in window) {
+            window.requestIdleCallback(function() { setTimeout(loadAnalytics, 8000); });
+          } else {
+            setTimeout(loadAnalytics, 10000);
+          }
+        });
       </script>
     </head>
 

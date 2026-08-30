@@ -788,4 +788,14 @@ body {
   }
 }
 
+/* ── Below-the-fold content visibility optimization ─────────── */
+#experience,
+#skills,
+#about,
+#clients,
+#footer-cta {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 600px;
+}
+
 

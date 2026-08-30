@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback, lazy, Suspense } from "react";
 import { Nav } from "./components/Nav";
 import { Hero } from "./components/Hero";
 import { WorkSection } from "./components/WorkSection";
@@ -7,11 +7,12 @@ import { ExperienceTimeline } from "./components/ExperienceTimeline";
 import { ClientsSection } from "./components/ClientsSection";
 import { SkillsSection } from "./components/SkillsSection";
 import { FooterCTA } from "./components/FooterCTA";
-import { CaseStudyAdopt } from "./components/CaseStudyAdopt";
-import { CaseStudyAdoptV2 } from "./components/playbook/CaseStudyAdoptV2";
-import { AdoptLandingPage } from "./components/adopt/AdoptLandingPage";
 import { LightClouds } from "./components/LightClouds";
 import { SpaceSparkles } from "./components/SpaceSparkles";
+
+const CaseStudyAdopt = lazy(() => import("./components/CaseStudyAdopt").then(m => ({ default: m.CaseStudyAdopt })));
+const CaseStudyAdoptV2 = lazy(() => import("./components/playbook/CaseStudyAdoptV2").then(m => ({ default: m.CaseStudyAdoptV2 })));
+const AdoptLandingPage = lazy(() => import("./components/adopt/AdoptLandingPage").then(m => ({ default: m.AdoptLandingPage })));
 
 type Route = "home" | "adopt" | "adopt-v2" | "adopt-landing";
 type ThemeMode = "dark" | "light";
@@ -160,10 +161,6 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
         planet1.style.transform = `scale(${planet1Scale})`;
       }
 
-      if (!hasCards && cachedCardsCount < 3) {
-        measureCards();
-      }
-
       const card3Top      = cachedCard3Top - scrollY;
       const lastTop       = cachedLastCardTop - scrollY;
       const lastStickyTop = 96 + (cachedCardsCount - 1) * 22;
@@ -230,6 +227,10 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
     };
 
     const renderLoop = () => {
+      if (document.hidden) {
+        isRunning = false;
+        return;
+      }
       const delta = targetScrollY - currentScrollY;
       if (Math.abs(delta) < 0.05) {
         currentScrollY = targetScrollY;
@@ -248,37 +249,47 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
 
     const onScroll = () => {
       targetScrollY = window.scrollY;
-      if (!isRunning) {
+      if (!isRunning && !document.hidden) {
         isRunning = true;
         rafId = requestAnimationFrame(renderLoop);
       }
     };
 
+    const onResize = () => {
+      measureCards();
+      targetScrollY = window.scrollY;
+      currentScrollY = window.scrollY;
+      compute(window.scrollY);
+    };
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        if (rafId) cancelAnimationFrame(rafId);
+        isRunning = false;
+      } else {
+        targetScrollY = window.scrollY;
+        currentScrollY = window.scrollY;
+        compute(window.scrollY);
+      }
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", () => {
-      measureCards();
-      targetScrollY = window.scrollY;
-      currentScrollY = window.scrollY;
-      compute(window.scrollY);
-    }, { passive: true });
-    el.addEventListener("load", () => {
+    window.addEventListener("resize", onResize, { passive: true });
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
+    const onLoad = () => {
       measureCards();
       compute(window.scrollY);
-    });
-    // Re-measure after initial layout stabilization
-    const timer = setTimeout(() => {
-      measureCards();
-      targetScrollY = window.scrollY;
-      currentScrollY = window.scrollY;
-      compute(window.scrollY);
-    }, 400);
+    };
+    el.addEventListener("load", onLoad, { once: true });
 
     compute(window.scrollY);
     return () => {
-      clearTimeout(timer);
       if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
-      el.removeEventListener("load", onScroll);
+      window.removeEventListener("resize", onResize);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      el.removeEventListener("load", onLoad);
     };
   }, [isLight]);
 
@@ -338,7 +349,7 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
             src={`${import.meta.env.BASE_URL}IMG/Planet%201.png`}
             alt=""
             decoding="async"
-            fetchPriority="low"
+            fetchPriority="high"
             width={384}
             height={384}
             style={{
@@ -560,23 +571,33 @@ export default function App() {
 
   if (route === "adopt-landing") {
     return (
-      <AdoptLandingPage
-        mode={adoptMode}
-        onToggleTheme={toggleAdoptMode}
-        onBack={() => navigate("home")}
-        onExplorePlaybook={() => {
-          const el = document.getElementById("playbook-stages");
-          if (el) el.scrollIntoView({ behavior: "smooth" });
-        }}
-        onViewCaseStudy={() => navigate("adopt-v2")}
-      />
+      <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
+        <AdoptLandingPage
+          mode={adoptMode}
+          onToggleTheme={toggleAdoptMode}
+          onBack={() => navigate("home")}
+          onExplorePlaybook={() => {
+            const el = document.getElementById("playbook-stages");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }}
+          onViewCaseStudy={() => navigate("adopt-v2")}
+        />
+      </Suspense>
     );
   }
   if (route === "adopt") {
-    return <CaseStudyAdopt onBack={() => navigate("home")} />;
+    return (
+      <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
+        <CaseStudyAdopt onBack={() => navigate("home")} />
+      </Suspense>
+    );
   }
   if (route === "adopt-v2") {
-    return <CaseStudyAdoptV2 onBack={() => navigate("home")} />;
+    return (
+      <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
+        <CaseStudyAdoptV2 onBack={() => navigate("home")} />
+      </Suspense>
+    );
   }
 
   return (
