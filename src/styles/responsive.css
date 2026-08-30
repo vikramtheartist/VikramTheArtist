@@ -144,7 +144,7 @@ html, body {
 
 /* ── Work Section ────────────────────────────────────────────── */
 #work {
-  padding-top: clamp(60px, 10vw, 200px) !important;
+  padding-top: clamp(10px, 6vw, 150px) !important;
   padding-bottom: 40px !important;
 }
 
