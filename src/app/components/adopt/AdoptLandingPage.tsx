@@ -1908,7 +1908,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                       {/* Brand Title (White in dark mode, Gradient in light mode) */}
                       <h2
-                        className={`text-[44px] sm:text-[52px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
+                        className={`text-[34px] sm:text-[42px] lg:text-[48px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
                           isDark
                             ? "text-white"
                             : "text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]"
@@ -2040,7 +2040,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                       {/* Brand Title (White in dark mode, Gradient in light mode) */}
                       <h2
-                        className={`text-[44px] sm:text-[52px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
+                        className={`text-[34px] sm:text-[42px] lg:text-[48px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
                           isDark
                             ? "text-white"
                             : "text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]"
