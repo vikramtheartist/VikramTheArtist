@@ -870,8 +870,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           <div className="hidden lg:block w-full">
             {/* Top Row: Left Headline & Right ABOVE THE SURFACE Card */}
             <div className="grid grid-cols-12 gap-8 items-start mb-16">
-              {/* Top Left: Badge, Headline & Subtitle */}
-              <div className="col-span-6 flex flex-col items-start text-left max-w-lg">
+              {/* Top Left: Badge, Headline & Subtitle (shifted upward by 20px) */}
+              <div
+                className="col-span-6 flex flex-col items-start text-left max-w-lg"
+                style={{ transform: "translateY(-20px)" }}
+              >
                 {/* Eyebrow Pill */}
                 <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md border shadow-2xs ${
                   isDark
