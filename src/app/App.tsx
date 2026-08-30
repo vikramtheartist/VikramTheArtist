@@ -105,6 +105,7 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
     let cachedCard3Top = 0;
     let cachedCard3Height = 0;
     let cachedLastCardTop = 0;
+    let cachedWorkTitleBottom = 0;
     let hasCards = false;
     let cachedCardsCount = 0;
 
@@ -113,6 +114,11 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
 
     const measureCards = () => {
       cachedEarthH = el.offsetHeight || 1200;
+      const workHeader = document.querySelector<HTMLElement>("#work .scroll-arrow-jump") || document.querySelector<HTMLElement>("#work h2") || document.querySelector<HTMLElement>("#work");
+      if (workHeader) {
+        const rect = workHeader.getBoundingClientRect();
+        cachedWorkTitleBottom = rect.bottom + window.scrollY;
+      }
       const cards = Array.from(document.querySelectorAll<HTMLElement>(".ws-card"));
       cachedCardsCount = cards.length;
       if (cards.length >= 3) {
@@ -135,8 +141,9 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
       const vw      = window.innerWidth;
       const vh      = window.innerHeight;
 
-      // Top of Earth aligns right behind 'My work' title and card 1
-      const initialCenterY = vh * 0.75 + cachedEarthH / 2;
+      // Earth horizon starts cleanly below the 'My work' title and arrow, framing the first card
+      const minTopBelowArrow = cachedWorkTitleBottom ? (cachedWorkTitleBottom + 16) : (vh * 0.78);
+      const initialCenterY = Math.max(vh * 0.78 + cachedEarthH / 2, minTopBelowArrow + cachedEarthH / 2 - Y_OFFSET_EARTH);
       const phase1Y = initialCenterY - scrollY * 0.7;
 
       // Calculate scroll progress towards reaching the stop spot (vh / 2)

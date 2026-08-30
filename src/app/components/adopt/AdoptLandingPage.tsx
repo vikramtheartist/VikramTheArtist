@@ -707,12 +707,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
 
             {/* Main Headline with Signature Cobalt-to-Purple Gradient */}
-            <h1 className="text-[68px] sm:text-[84px] lg:text-[96px] font-black tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] leading-[0.92] mb-4 font-sans inline-block">
+            <h1 className="text-[48px] sm:text-[76px] lg:text-[96px] font-black tracking-[-0.04em] text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899] leading-[0.92] mb-4 font-sans inline-block">
               ADOPT
             </h1>
 
             {/* Sub-headline */}
-            <h2 className={`text-[24px] sm:text-[28px] lg:text-[32px] font-bold tracking-tight leading-[1.25] mb-4 transition-colors ${
+            <h2 className={`text-[20px] sm:text-[26px] lg:text-[32px] font-bold tracking-tight leading-[1.25] mb-4 transition-colors ${
               isDark ? "text-white" : "text-[#1e293b]"
             }`}>
               The behavioral playbook I built to scale AI adoption.
@@ -726,7 +726,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </p>
 
             {/* Call to Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               <button
                 onClick={onExplorePlaybook || (() => scrollTo("playbook-stages"))}
                 className="adopt-hero-btn-primary group"
@@ -743,7 +743,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   setPasswordError("");
                   setShowPasswordModal(true);
                 }}
-                className={`rounded-full px-6 py-3 font-semibold text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm ${
+                className={`rounded-full px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-[14px] sm:text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm ${
                   isDark
                     ? "bg-white/8 hover:bg-white/15 text-white border border-white/18"
                     : "adopt-hero-btn-secondary"
@@ -817,7 +817,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       <section
         id="problem"
         className={`w-full min-h-[900px] lg:min-h-[100vh] relative z-20 overflow-hidden flex items-center justify-center bg-transparent ${
-          isDark ? "pt-28 pb-24 lg:pt-36 lg:pb-32" : "pt-20 pb-16 lg:pt-28 lg:pb-24"
+          isDark ? "pt-24 pb-24 lg:pt-36 lg:pb-32" : "pt-16 pb-16 lg:pt-28 lg:pb-24"
         }`}
       >
         {/* Full-Bleed Parallax Iceberg Artwork Background */}
@@ -849,16 +849,265 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               }`}
             />
           </div>
+
+          {/* Mobile Vignette Scrim (Protects text contrast on small screens from the bright iceberg peak) */}
+          <div
+            className="lg:hidden absolute inset-0 pointer-events-none transition-all duration-700"
+            style={{
+              background: isDark
+                ? "linear-gradient(to bottom, rgba(3, 7, 18, 0.95) 0%, rgba(3, 7, 18, 0.82) 24%, rgba(3, 7, 18, 0.42) 48%, rgba(3, 7, 18, 0.88) 78%, rgba(3, 7, 18, 0.98) 100%)"
+                : "linear-gradient(to bottom, rgba(243, 248, 254, 0.94) 0%, rgba(243, 248, 254, 0.76) 24%, rgba(243, 248, 254, 0.28) 48%, rgba(243, 248, 254, 0.85) 78%, rgba(243, 248, 254, 0.97) 100%)",
+            }}
+          />
         </div>
 
-        {/* Full-Width Centered Content Container */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between min-h-[740px] lg:min-h-[800px]">
-          {/* Top Row: Left Headline & Right ABOVE THE SURFACE Card */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            {/* Top Left: Badge, Headline & Subtitle */}
-            <div className="lg:col-span-6 flex flex-col items-start text-left max-w-lg">
-              {/* Eyebrow Pill */}
-              <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md border shadow-2xs ${
+        {/* Full-Width Content Container */}
+        <div className="max-w-[1440px] mx-auto px-5 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between">
+          {/* DESKTOP LAYOUT (>= 1024px) */}
+          <div className="hidden lg:block w-full">
+            {/* Top Row: Left Headline & Right ABOVE THE SURFACE Card */}
+            <div className="grid grid-cols-12 gap-8 items-start mb-16">
+              {/* Top Left: Badge, Headline & Subtitle */}
+              <div className="col-span-6 flex flex-col items-start text-left max-w-lg">
+                {/* Eyebrow Pill */}
+                <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md border shadow-2xs ${
+                  isDark
+                    ? "bg-white/8 border-white/15 text-[#cbd5e1]"
+                    : "bg-[#f0f9ff] border-[#bae6fd] text-[#0369a1]"
+                }`}>
+                  <div className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#38bdf8]" : "bg-[#0284c7]"} animate-pulse`} />
+                  <span>THE CORE PROBLEM</span>
+                </div>
+
+                {/* Main Headline */}
+                <h2 className={`text-[48px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-5 font-sans ${
+                  isDark ? "text-white" : "text-[#0a0e1a]"
+                }`}>
+                  AI adoption is not<br />
+                  a feature problem.<br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#6366f1] to-[#818cf8]">
+                    It’s a behavior<br /> problem.
+                  </span>
+                </h2>
+
+                {/* Sub-paragraph */}
+                <p className={`text-[15px] leading-relaxed max-w-[420px] font-normal ${
+                  isDark ? "text-slate-300/80" : "text-[#64748b]"
+                }`}>
+                  Even powerful products sit in limbo if they collide with familiar habits, uncertainty, and inertia.
+                </p>
+              </div>
+
+              {/* Top Right: ABOVE THE SURFACE Card */}
+              <div
+                className={`col-span-6 flex justify-end transition-all duration-300 ${
+                  isDark ? "adopt-dark-card-above" : "adopt-light-card-above"
+                }`}
+              >
+                <div
+                  className={`relative rounded-[28px] p-6 w-full max-w-[340px] text-left transition-all duration-300 hover:scale-[1.02] group cursor-default ${
+                    isDark
+                      ? "text-white"
+                      : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
+                  }`}
+                  style={{
+                    transform: `perspective(1000px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 2}deg)`,
+                    ...(isDark
+                      ? {
+                          background: "rgba(0, 0, 0, 0.45)",
+                          backdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
+                          WebkitBackdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
+                          boxShadow: [
+                            "inset 0 0 0 1px rgba(255,255,255,0.16)",
+                            "0 8px 32px rgba(0,0,0,0.40)",
+                            "inset 0 1.5px 1px rgba(255,255,255,0.52)",
+                            "inset 0 -2px 5px rgba(0,0,0,0.28)",
+                          ].join(", "),
+                        }
+                      : {}),
+                  }}
+                >
+                  {/* Connecting Line from Card to Iceberg Peak */}
+                  <div className="absolute -left-16 top-8 w-16 h-8 pointer-events-none">
+                    <div className="absolute left-0 top-[14px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#818cf8] shadow-[0_0_10px_#818cf8] animate-adopt-sonar" />
+                    <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
+                      <path d="M64 14 L 0 14" stroke="#818cf8" strokeWidth="1.2" strokeDasharray="3 3" opacity="0.8" />
+                    </svg>
+                  </div>
+
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
+                          isDark
+                            ? "text-white bg-sky-950/80 border border-sky-500/30"
+                            : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
+                        }`}
+                      >
+                        <Mountain className="w-5 h-5 stroke-[2] text-sky-400" />
+                      </div>
+                      <div>
+                        <div className={`text-[12.5px] font-bold tracking-wider uppercase font-['Poppins',sans-serif] ${
+                          isDark ? "text-white" : "text-[#0f172a]"
+                        }`}>
+                          ABOVE THE SURFACE
+                        </div>
+                        <div className={`text-[11.5px] font-normal ${
+                          isDark ? "text-white/70" : "text-[#64748b]"
+                        }`}>
+                          What tools prioritize
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 shrink-0">
+                      10% Visible
+                    </span>
+                  </div>
+
+                  <div className="space-y-2.5 pl-1">
+                    {[
+                      "Advanced capabilities",
+                      "Continuous innovation",
+                      "Feature-rich roadmaps",
+                      "Enterprise-grade security",
+                    ].map((item, idx) => (
+                      <div key={idx} className={`flex items-center gap-2.5 text-[13.5px] font-medium transition-colors ${
+                        isDark ? "text-white/85 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
+                      }`}>
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8] shrink-0" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Row: Left 4 Checkmark Items & Right BELOW THE SURFACE Card */}
+            <div className="grid grid-cols-12 gap-8 items-end">
+              {/* Bottom Left: 4 Checkmark Items */}
+              <div
+                className={`col-span-6 space-y-3.5 max-w-[480px] text-left transition-all duration-300 ${
+                  isDark ? "adopt-dark-checkmarks" : "adopt-checkmarks-container"
+                }`}
+              >
+                {[
+                  "Users don't resist products.",
+                  "They resist changing routines.",
+                  "Better technology does not automatically create behavior change.",
+                  "Sustainable adoption starts with human behavior.",
+                ].map((text, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
+                  >
+                    <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all ${
+                      isDark
+                        ? "bg-[#141b36] border border-indigo-500/40 text-indigo-300 shadow-[0_0_10px_rgba(99,102,241,0.25)] group-hover:border-indigo-400"
+                        : "bg-[#f5f3ff] border border-[#ddd6fe] text-[#7c3aed] shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd]"
+                    }`}>
+                      <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                    </div>
+                    <span className={`text-[14.5px] font-medium leading-normal transition-colors flex-1 ${
+                      isDark ? "text-slate-200 group-hover:text-white" : "text-[#1e293b] group-hover:text-[#0f172a]"
+                    }`}>
+                      {text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Bottom Right: BELOW THE SURFACE Card */}
+              <div
+                className={`col-span-6 flex justify-end transition-all duration-300 ${
+                  isDark ? "adopt-dark-card-below" : "adopt-light-card-below"
+                }`}
+              >
+                <div
+                  className={`relative rounded-[28px] p-6 w-full max-w-[340px] text-left transition-all duration-300 hover:scale-[1.02] group cursor-default ${
+                    isDark
+                      ? "text-white"
+                      : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
+                  }`}
+                  style={{
+                    transform: `perspective(1000px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 2}deg)`,
+                    ...(isDark
+                      ? {
+                          background: "rgba(0, 0, 0, 0.45)",
+                          backdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
+                          WebkitBackdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
+                          boxShadow: [
+                            "inset 0 0 0 1px rgba(255,255,255,0.16)",
+                            "0 8px 32px rgba(0,0,0,0.40)",
+                            "inset 0 1.5px 1px rgba(255,255,255,0.52)",
+                            "inset 0 -2px 5px rgba(0,0,0,0.28)",
+                          ].join(", "),
+                        }
+                      : {}),
+                  }}
+                >
+                  {/* Connecting Line from Card to Underwater Iceberg Body */}
+                  <div className="absolute -left-16 top-8 w-16 h-8 pointer-events-none">
+                    <div className="absolute left-0 top-[14px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#818cf8] shadow-[0_0_10px_#818cf8] animate-adopt-sonar" />
+                    <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
+                      <path d="M64 14 L 0 14" stroke="#818cf8" strokeWidth="1.2" strokeDasharray="3 3" opacity="0.8" />
+                    </svg>
+                  </div>
+
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
+                          isDark
+                            ? "text-white bg-indigo-950/80 border border-indigo-500/30"
+                            : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
+                        }`}
+                      >
+                        <Lock className="w-5 h-5 stroke-[2] text-indigo-400" />
+                      </div>
+                      <div>
+                        <div className={`text-[12.5px] font-bold tracking-wider uppercase font-['Poppins',sans-serif] ${
+                          isDark ? "text-white" : "text-[#0f172a]"
+                        }`}>
+                          BELOW THE SURFACE
+                        </div>
+                        <div className={`text-[11.5px] font-normal ${
+                          isDark ? "text-white/70" : "text-[#64748b]"
+                        }`}>
+                          What adoption needs
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 shrink-0">
+                      90% Hidden
+                    </span>
+                  </div>
+
+                  <div className="space-y-2.5 pl-1">
+                    {[
+                      "Familiar habits",
+                      "Fear of change",
+                      "Unclear personal value",
+                      "Low motivation to switch",
+                    ].map((item, idx) => (
+                      <div key={idx} className={`flex items-center gap-2.5 text-[13.5px] font-medium transition-colors ${
+                        isDark ? "text-white/85 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
+                      }`}>
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#818cf8] shadow-[0_0_8px_#818cf8] shrink-0" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* MOBILE & TABLET LAYOUT (< 1024px): Seamless Iceberg Narrative Stack */}
+          <div className="lg:hidden flex flex-col gap-6 sm:gap-8 w-full max-w-xl mx-auto text-left">
+            {/* 1. Header Block */}
+            <div className="flex flex-col items-start text-left">
+              <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase mb-4 backdrop-blur-md border shadow-2xs ${
                 isDark
                   ? "bg-white/8 border-white/15 text-[#cbd5e1]"
                   : "bg-[#f0f9ff] border-[#bae6fd] text-[#0369a1]"
@@ -867,244 +1116,161 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 <span>THE CORE PROBLEM</span>
               </div>
 
-              {/* Main Headline */}
-              <h2 className={`text-[46px] sm:text-[54px] lg:text-[60px] font-black tracking-[-0.035em] leading-[1.04] mb-5 font-sans ${
-                isDark ? "text-white" : "text-[#0a0e1a]"
+              <h2 className={`text-[32px] sm:text-[42px] font-black tracking-tight leading-[1.08] mb-3.5 font-sans ${
+                isDark ? "text-white drop-shadow-md" : "text-[#0a0e1a]"
               }`}>
                 AI adoption is not<br />
                 a feature problem.<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#6366f1] to-[#818cf8]">
-                  It’s a behavior<br /> problem.
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#818cf8] to-[#ec4899]">
+                  It’s a behavior problem.
                 </span>
               </h2>
 
-              {/* Sub-paragraph */}
-              <p className={`text-[14px] sm:text-[15px] leading-relaxed max-w-[420px] font-normal ${
-                isDark ? "text-slate-300/80" : "text-[#64748b]"
+              <p className={`text-[14px] sm:text-[15px] leading-relaxed font-normal ${
+                isDark ? "text-slate-300" : "text-[#475569]"
               }`}>
                 Even powerful products sit in limbo if they collide with familiar habits, uncertainty, and inertia.
               </p>
             </div>
 
-            {/* Top Right: ABOVE THE SURFACE Card (Moved left towards iceberg) */}
+            {/* 2. Above The Surface Card (Tip of the Iceberg) */}
             <div
-              className={`lg:col-span-6 flex justify-start lg:justify-end transition-all duration-300 ${
-                isDark ? "adopt-dark-card-above" : "adopt-light-card-above"
+              className={`w-full rounded-[24px] p-5 sm:p-6 transition-all duration-300 shadow-lg ${
+                isDark
+                  ? "bg-[#070d1e]/90 backdrop-blur-xl border border-sky-500/30 text-white"
+                  : "bg-white/95 backdrop-blur-xl border border-sky-200 text-[#0f172a] shadow-sky-500/5"
               }`}
-              style={{
-                transform: isDark ? "translateX(-150px)" : "translateX(-125px)",
-              }}
             >
-              <div
-                className={`relative rounded-[28px] p-6 w-full max-w-[340px] text-left transition-all duration-300 hover:scale-[1.02] group cursor-default ${
-                  isDark
-                    ? "text-white"
-                    : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
-                }`}
-                style={{
-                  transform: `perspective(1000px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 2}deg)`,
-                  ...(isDark
-                    ? {
-                        background: "rgba(0, 0, 0, 0.45)",
-                        backdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
-                        WebkitBackdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
-                        boxShadow: [
-                          "inset 0 0 0 1px rgba(255,255,255,0.16)",
-                          "0 8px 32px rgba(0,0,0,0.40)",
-                          "inset 0 1.5px 1px rgba(255,255,255,0.52)",
-                          "inset 0 -2px 5px rgba(0,0,0,0.28)",
-                        ].join(", "),
-                      }
-                    : {}),
-                }}
-              >
-                {/* Connecting Line from Card to Iceberg Peak */}
-                <div className="hidden lg:block absolute -left-16 top-8 w-16 h-8 pointer-events-none">
-                  <div className="absolute left-0 top-[14px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#818cf8] shadow-[0_0_10px_#818cf8] animate-adopt-sonar" />
-                  <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
-                    <path d="M64 14 L 0 14" stroke="#818cf8" strokeWidth="1.2" strokeDasharray="3 3" opacity="0.8" />
-                  </svg>
-                </div>
-
-                <div className="flex items-center gap-3.5 mb-4">
-                  <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
-                      isDark
-                        ? "text-white"
-                        : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
-                    }`}
-                    style={
-                      isDark
-                        ? {
-                            background:
-                              "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 30%, transparent 62%), linear-gradient(180deg, rgba(56,64,80,0.94) 0%, rgba(28,34,46,0.97) 38%, rgba(12,16,24,1) 100%)",
-                            boxShadow:
-                              "inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -2px 6px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3)",
-                            border: "1px solid rgba(255,255,255,0.12)",
-                          }
-                        : {}
-                    }
-                  >
-                    <Mountain className="w-5 h-5 stroke-[2]" />
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                    isDark ? "bg-sky-950/80 border border-sky-500/40 text-sky-400" : "bg-sky-50 border border-sky-200 text-sky-600"
+                  }`}>
+                    <Mountain className="w-4.5 h-4.5 stroke-[2]" />
                   </div>
                   <div>
-                    <div className={`text-[13px] font-semibold tracking-wider uppercase font-['Poppins',sans-serif] ${
-                      isDark ? "text-white" : "text-[#0f172a]"
-                    }`}>
+                    <div className="text-[13px] font-bold tracking-wider uppercase font-['Poppins',sans-serif]">
                       ABOVE THE SURFACE
                     </div>
-                    <div className={`text-[12px] font-normal ${
-                      isDark ? "text-white/70" : "text-[#64748b]"
-                    }`}>
+                    <div className={`text-[11.5px] ${isDark ? "text-slate-400" : "text-slate-500"}`}>
                       What tools prioritize
                     </div>
                   </div>
                 </div>
+                <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-sky-500/20 text-sky-300 border border-sky-500/30 shrink-0">
+                  10% Visible
+                </span>
+              </div>
 
-                <div className="space-y-2.5 pl-1">
-                  {[
-                    "Advanced capabilities",
-                    "Continuous innovation",
-                    "Feature-rich roadmaps",
-                    "Enterprise-grade security",
-                  ].map((item, idx) => (
-                    <div key={idx} className={`flex items-center gap-2.5 text-[13.5px] font-medium transition-colors ${
-                      isDark ? "text-white/85 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
-                    }`}>
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8] shrink-0" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
-                </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pl-1">
+                {[
+                  "Advanced capabilities",
+                  "Continuous innovation",
+                  "Feature-rich roadmaps",
+                  "Enterprise-grade security",
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-2.5 text-[13.5px] font-medium">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8] shrink-0" />
+                    <span className={isDark ? "text-slate-200" : "text-slate-700"}>{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
 
-          {/* Bottom Row: Left 4 Checkmark Items & Right BELOW THE SURFACE Card */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end pt-10 lg:pt-16">
-            {/* Bottom Left: 4 Checkmark Items (Moved upward by 100px total) */}
-            <div
-              className="lg:col-span-6 space-y-3.5 max-w-[480px] text-left transition-all duration-300 adopt-checkmarks-container"
-              style={{
-                transform: "translateY(-100px)",
-              }}
-            >
-              {[
-                "Users don't resist products.",
-                "They resist changing routines.",
-                "Better technology does not automatically create behavior change.",
-                "Sustainable adoption starts with human behavior.",
-              ].map((text, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center gap-3.5 group cursor-default transition-all duration-300 hover:translate-x-1.5"
-                >
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-all ${
-                    isDark
-                      ? "bg-[#141b36] border border-indigo-500/40 text-indigo-300 shadow-[0_0_10px_rgba(99,102,241,0.25)] group-hover:border-indigo-400"
-                      : "bg-[#f5f3ff] border border-[#ddd6fe] text-[#7c3aed] shadow-2xs group-hover:bg-[#ede9fe] group-hover:border-[#c4b5fd]"
-                  }`}>
-                    <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                  </div>
-                  <span className={`text-[14px] sm:text-[15px] font-medium leading-normal transition-colors flex-1 ${
-                    isDark ? "text-slate-200 group-hover:text-white" : "text-[#1e293b] group-hover:text-[#0f172a]"
-                  }`}>
-                    {text}
-                  </span>
-                </div>
-              ))}
+            {/* 3. The Waterline / Adoption Barrier Separator */}
+            <div className="flex items-center gap-2.5 sm:gap-3 w-full my-0.5 select-none">
+              <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent via-cyan-500/40 to-indigo-500/40" />
+              <div className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 rounded-full text-[10px] sm:text-[10.5px] font-extrabold uppercase tracking-wider sm:tracking-widest ${
+                isDark ? "bg-[#0c1630] border border-cyan-500/30 text-cyan-300" : "bg-sky-100/90 border border-sky-300 text-sky-800"
+              }`}>
+                <span>🌊 THE WATERLINE • THE ADOPTION BARRIER</span>
+              </div>
+              <div className="h-[1px] flex-1 bg-gradient-to-r from-indigo-500/40 via-purple-500/40 to-transparent" />
             </div>
 
-            {/* Bottom Right: BELOW THE SURFACE Card (Moved upward by 50px and leftward by 30px) */}
+            {/* 4. Below The Surface Card (Submerged Bulk of the Iceberg) */}
             <div
-              className={`lg:col-span-6 flex justify-start lg:justify-end transition-all duration-300 ${
-                isDark ? "adopt-dark-card-below" : "adopt-light-card-below"
+              className={`w-full rounded-[24px] p-5 sm:p-6 transition-all duration-300 shadow-lg ${
+                isDark
+                  ? "bg-[#080d24]/92 backdrop-blur-xl border border-indigo-500/35 text-white"
+                  : "bg-white/95 backdrop-blur-xl border border-indigo-200 text-[#0f172a] shadow-indigo-500/5"
               }`}
-              style={{
-                transform: isDark ? "translate(-100px, -90px)" : "translate(-85px, -50px)",
-              }}
             >
-              <div
-                className={`relative rounded-[28px] p-6 w-full max-w-[340px] text-left transition-all duration-300 hover:scale-[1.02] group cursor-default ${
-                  isDark
-                    ? "text-white"
-                    : "bg-white/92 backdrop-blur-xl border border-white/80 shadow-[0_15px_35px_-8px_rgba(99,102,241,0.14)] hover:shadow-[0_22px_45px_-8px_rgba(99,102,241,0.25)]"
-                }`}
-                style={{
-                  transform: `perspective(1000px) rotateY(${mousePos.x * 2}deg) rotateX(${-mousePos.y * 2}deg)`,
-                  ...(isDark
-                    ? {
-                        background: "rgba(0, 0, 0, 0.45)",
-                        backdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
-                        WebkitBackdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
-                        boxShadow: [
-                          "inset 0 0 0 1px rgba(255,255,255,0.16)",
-                          "0 8px 32px rgba(0,0,0,0.40)",
-                          "inset 0 1.5px 1px rgba(255,255,255,0.52)",
-                          "inset 0 -2px 5px rgba(0,0,0,0.28)",
-                        ].join(", "),
-                      }
-                    : {}),
-                }}
-              >
-                {/* Connecting Line from Card to Underwater Iceberg Body */}
-                <div className="hidden lg:block absolute -left-16 top-8 w-16 h-8 pointer-events-none">
-                  <div className="absolute left-0 top-[14px] w-2 h-2 -ml-1 -mt-1 rounded-full bg-[#818cf8] shadow-[0_0_10px_#818cf8] animate-adopt-sonar" />
-                  <svg className="w-full h-full" viewBox="0 0 64 32" fill="none">
-                    <path d="M64 14 L 0 14" stroke="#818cf8" strokeWidth="1.2" strokeDasharray="3 3" opacity="0.8" />
-                  </svg>
-                </div>
-
-                <div className="flex items-center gap-3.5 mb-4">
-                  <div
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-110 transition-transform ${
-                      isDark
-                        ? "text-white"
-                        : "bg-gradient-to-b from-[#f5f3ff] to-[#ede9fe] border border-[#c7d2fe] text-[#6366f1]"
-                    }`}
-                    style={
-                      isDark
-                        ? {
-                            background:
-                              "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.10) 30%, transparent 62%), linear-gradient(180deg, rgba(56,64,80,0.94) 0%, rgba(28,34,46,0.97) 38%, rgba(12,16,24,1) 100%)",
-                            boxShadow:
-                              "inset 0 1px 0 rgba(255,255,255,0.42), inset 0 -2px 6px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3)",
-                            border: "1px solid rgba(255,255,255,0.12)",
-                          }
-                        : {}
-                    }
-                  >
-                    <Lock className="w-5 h-5 stroke-[2]" />
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${
+                    isDark ? "bg-indigo-950/80 border border-indigo-500/40 text-indigo-400" : "bg-indigo-50 border border-indigo-200 text-indigo-600"
+                  }`}>
+                    <Lock className="w-4.5 h-4.5 stroke-[2]" />
                   </div>
                   <div>
-                    <div className={`text-[13px] font-semibold tracking-wider uppercase font-['Poppins',sans-serif] ${
-                      isDark ? "text-white" : "text-[#0f172a]"
-                    }`}>
+                    <div className="text-[13px] font-bold tracking-wider uppercase font-['Poppins',sans-serif]">
                       BELOW THE SURFACE
                     </div>
-                    <div className={`text-[12px] font-normal ${
-                      isDark ? "text-white/70" : "text-[#64748b]"
-                    }`}>
-                      What tools adoption needs
+                    <div className={`text-[11.5px] ${isDark ? "text-slate-400" : "text-slate-500"}`}>
+                      What adoption actually needs
                     </div>
                   </div>
                 </div>
+                <span className="text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 shrink-0">
+                  90% Hidden
+                </span>
+              </div>
 
-                <div className="space-y-2.5 pl-1">
-                  {[
-                    "Familiar habits",
-                    "Fear of change",
-                    "Unclear personal value",
-                    "Low motivation to switch",
-                  ].map((item, idx) => (
-                    <div key={idx} className={`flex items-center gap-2.5 text-[13.5px] font-medium transition-colors ${
-                      isDark ? "text-white/85 hover:text-white" : "text-[#334155] hover:text-[#0f172a]"
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pl-1">
+                {[
+                  "Familiar habits",
+                  "Fear of change",
+                  "Unclear personal value",
+                  "Low motivation to switch",
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-2.5 text-[13.5px] font-medium">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#a855f7] shadow-[0_0_8px_#a855f7] shrink-0" />
+                    <span className={isDark ? "text-slate-200" : "text-slate-700"}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* 5. The Behavioral Reality Card (Key Realizations) */}
+            <div
+              className={`w-full rounded-[24px] p-5 sm:p-6 transition-all duration-300 shadow-md ${
+                isDark
+                  ? "bg-[#050917]/92 backdrop-blur-xl border border-white/15 text-white"
+                  : "bg-white/90 backdrop-blur-xl border border-slate-200 text-[#0f172a]"
+              }`}
+            >
+              <div className="flex items-center gap-2 mb-3.5">
+                <span className="text-xs text-indigo-400">✦</span>
+                <span className={`text-[11px] font-extrabold uppercase tracking-wider ${
+                  isDark ? "text-slate-400" : "text-slate-500"
+                }`}>
+                  THE BEHAVIORAL REALITY
+                </span>
+              </div>
+
+              <div className="space-y-3">
+                {[
+                  "Users don't resist products.",
+                  "They resist changing routines.",
+                  "Better technology does not automatically create behavior change.",
+                  "Sustainable adoption starts with human behavior.",
+                ].map((text, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
+                      isDark
+                        ? "bg-indigo-950/80 border border-indigo-500/40 text-indigo-300"
+                        : "bg-indigo-50 border border-indigo-200 text-indigo-600"
                     }`}>
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] shadow-[0_0_8px_#38bdf8] shrink-0" />
-                      <span>{item}</span>
+                      <Check className="w-3 h-3 stroke-[2.5]" />
                     </div>
-                  ))}
-                </div>
+                    <span className={`text-[13.5px] font-medium leading-snug ${
+                      isDark ? "text-slate-200" : "text-slate-800"
+                    }`}>
+                      {text}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

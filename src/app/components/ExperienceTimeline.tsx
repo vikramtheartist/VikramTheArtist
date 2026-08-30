@@ -188,6 +188,7 @@ const entries: Entry[] = [
 
 function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
   const [hovered, setHovered] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [visible, setVisible] = useState(false);
   const entryRef = useRef<HTMLDivElement>(null);
 
@@ -204,9 +205,10 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
 
   const isWork = entry.type === "work";
   const hasDesc = (entry.descriptions?.length ?? 0) > 0;
+  const isOpened = hovered || expanded;
 
   /* Match .shine-inner button material from theme.css */
-  const dotShadow = hovered
+  const dotShadow = isOpened
     ? [
         "inset 0 1px 0 rgba(255,255,255,0.52)",
         "inset 0 4px 10px -4px rgba(255,255,255,0.24)",
@@ -224,7 +226,7 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
         "0 1px 3px rgba(0,0,0,0.25)",
       ].join(", ");
 
-  const dotBg = hovered
+  const dotBg = isOpened
     ? [
         "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.14) 30%, transparent 62%)",
         "radial-gradient(ellipse 78% 42% at 50% 112%, rgba(180,200,230,0.20) 0%, transparent 58%)",
@@ -242,9 +244,12 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
       className={`tl-entry tl-s${index}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onClick={() => {
+        if (hasDesc) setExpanded((v) => !v);
+      }}
       style={{
         padding: "14px 20px",
-        cursor: "default",
+        cursor: hasDesc ? "pointer" : "default",
         opacity: visible ? 1 : 0,
         transform: visible ? "translateY(0)" : "translateY(22px)",
         transition: "opacity 0.65s ease, transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
@@ -261,8 +266,8 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
         }}>
           <div style={{
             transition: "transform 0.35s ease, opacity 0.35s ease",
-            transform: hovered ? "scale(1.07) translateX(-2px)" : "scale(1)",
-            opacity: hovered ? 1 : 0.72,
+            transform: isOpened ? "scale(1.07) translateX(-2px)" : "scale(1)",
+            opacity: isOpened ? 1 : 0.72,
             display: "flex", justifyContent: "flex-end",
           }}>
             {entry.logo}
@@ -270,7 +275,7 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
 
           <span style={{
             fontSize: entry.company === "Microsoft" ? "14px" : "12px", letterSpacing: "0.03em", whiteSpace: "nowrap",
-            color: entry.company === "Microsoft" ? "var(--text-2)" : hovered ? "var(--text-2)" : "var(--text-4)",
+            color: entry.company === "Microsoft" ? "var(--text-2)" : isOpened ? "var(--text-2)" : "var(--text-4)",
             transition: "color 0.35s",
           }}>
             {entry.period}
@@ -304,7 +309,7 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
             color: "white",
             boxShadow: dotShadow,
             transition: "box-shadow 0.4s ease, transform 0.35s ease, background 0.4s ease",
-            transform: hovered ? "scale(1.15)" : "scale(1)",
+            transform: isOpened ? "scale(1.15)" : "scale(1)",
           }}>
             {/* Icon */}
             <div style={{ position: "relative", zIndex: 1 }}>
@@ -334,16 +339,24 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
                 <span>{entry.company}</span>
                 {entry.location && <><span>·</span><span>{entry.location}</span></>}
               </div>
+              <div className="tl-mobile-date" style={{ display: "none" }}>
+                {entry.period} {entry.isCurrent ? "• Current" : ""}
+              </div>
             </>
           ) : (
-            <div style={{
-              fontSize: "15px", fontWeight: 500,
-              fontFamily: "'Satoshi', sans-serif",
-              color: hovered ? "var(--text-1)" : "var(--text-3)",
-              transition: "color 0.35s",
-            }}>
-              {entry.company}
-            </div>
+            <>
+              <div style={{
+                fontSize: "15px", fontWeight: 500,
+                fontFamily: "'Satoshi', sans-serif",
+                color: isOpened ? "var(--text-1)" : "var(--text-3)",
+                transition: "color 0.35s",
+              }}>
+                {entry.company}
+              </div>
+              <div className="tl-mobile-date" style={{ display: "none" }}>
+                {entry.period}
+              </div>
+            </>
           )}
         </div>
       </div>
@@ -352,14 +365,14 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
       {hasDesc && (
         <div style={{
           display: "flex",
-          maxHeight: hovered ? "300px" : "0",
-          opacity: hovered ? 1 : 0,
+          maxHeight: isOpened ? "400px" : "0",
+          opacity: isOpened ? 1 : 0,
           overflow: "hidden",
           transition: "max-height 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease",
         }}>
-          {/* Spacer aligns content under right column */}
+          {/* Spacer aligns content under right column on desktop */}
           <div className="tl-desc-spacer" style={{ flex: "0 0 calc(50% + 2px)", flexShrink: 0 }} />
-          <div style={{ flex: 1, paddingLeft: "18px" }}>
+          <div className="tl-desc-content" style={{ flex: 1, paddingLeft: "18px" }}>
             <ul style={{ margin: 0, padding: "10px 0 6px", listStyle: "none" }}>
               {entry.descriptions!.map((d, i) => (
                 <li key={i} style={{

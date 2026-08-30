@@ -4,7 +4,8 @@ function Badge({ children }: { children: React.ReactNode }) {
       className="about-badge"
       style={{
         display: "inline-block",
-        padding: "2px 16px 3px",
+        padding: "2px 16px 4px",
+        margin: "3px 2px",
         borderRadius: "9999px",
         whiteSpace: "nowrap",
         fontFamily: "'DM Serif Display', serif",
@@ -24,9 +25,9 @@ function Badge({ children }: { children: React.ReactNode }) {
 const proseStyle: React.CSSProperties = {
   fontFamily: "'Satoshi', sans-serif",
   fontWeight: 400,
-  fontSize: "clamp(1.05rem, 1.27vw, 1.32rem)",
-  letterSpacing: "-0.5px",
-  lineHeight: 2.4,
+  fontSize: "clamp(1.02rem, 1.28vw, 1.32rem)",
+  letterSpacing: "-0.3px",
+  lineHeight: 2.3,
   color: "var(--text-2)",
   textAlign: "center",
   margin: 0,
@@ -35,10 +36,12 @@ const proseStyle: React.CSSProperties = {
 export function AboutSection() {
   return (
     <section
+      id="about"
+      className="about-section"
       style={{
         maxWidth: "1000px",
         margin: "0 auto",
-        padding: "100px 24px",
+        padding: "clamp(60px, 10vw, 100px) 16px",
         position: "relative",
       }}
     >

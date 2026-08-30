@@ -225,20 +225,22 @@ export function Hero() {
         <div className="hide-in-light fade-with-theme"><ShootingStars /></div>
 
         <div className="hero-title-block">
-          <h1 style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: 'clamp(2.5rem, 4.72vw, 4.25rem)', lineHeight: 1.2, color: '#C5DC4B', margin: 0 }}>
-            <span style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
-              {displayed}
-              <span style={{ display: "inline-block", width: "3px", height: "0.85em",
-                background: "var(--text-3)", marginLeft: "3px", verticalAlign: "middle",
-                borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
-            </span>
-            {", I am Vikram ✌🏻"}
-          </h1>
-          <div style={{ marginTop: '28px', marginBottom: 0, width: '100%' }}>
-            <p className="hero-subtitle" style={{ fontFamily: "'Merriweather', serif", fontWeight: 300, fontSize: 'clamp(1.15rem, 2.05vw, 1.85rem)', lineHeight: 1.25, color: '#E6E6E6', margin: 0, whiteSpace: 'nowrap', maxWidth: 'none', marginLeft: 'auto' }}>
-              Product Designer at Microsoft. Designing AI-first products.
+          <div className="hero-heading-container">
+            <h1 style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: 'clamp(1.95rem, 6.5vw, 4.25rem)', lineHeight: 1.18, color: '#C5DC4B', margin: 0 }}>
+              <span style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
+                {displayed}
+                <span style={{ display: "inline-block", width: "3px", height: "0.85em",
+                  background: "var(--text-3)", marginLeft: "3px", verticalAlign: "middle",
+                  borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
+              </span>
+              {", I am Vikram ✌🏻"}
+            </h1>
+          </div>
+          <div className="hero-subtitle-block" style={{ marginTop: '34px', marginBottom: 0, width: '100%' }}>
+            <p className="hero-subtitle" style={{ fontFamily: "'Merriweather', serif", fontWeight: 300, fontSize: "clamp(18px, 2.5vw, 42px)", lineHeight: 1.35, color: '#E6E6E6', margin: 0 }}>
+              Product Designer at Microsoft. <span className="block sm:inline">Designing AI-first products.</span>
             </p>
-            <p style={{ fontFamily: "'Segoe UI', sans-serif", fontWeight: 300, fontSize: 'clamp(15px, 1.3vw, 20px)', lineHeight: 1.4, color: 'var(--text-2)', margin: '6px 0 0 0' }}>
+            <p style={{ fontFamily: "'Segoe UI', sans-serif", fontWeight: 300, fontSize: 'clamp(16px, 1.4vw, 22px)', lineHeight: 1.4, color: 'var(--text-2)', margin: '10px 0 0 0' }}>
               Previously at Google and McKinsey.
             </p>
           </div>

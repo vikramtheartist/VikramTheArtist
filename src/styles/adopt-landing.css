@@ -37,21 +37,36 @@
 }
 
 /* ── Dark & Light Mode Iceberg Card Offsets ─────────────────────── */
-.adopt-dark-card-above {
-  transform: translateX(-150px) !important;
+@media (min-width: 1024px) {
+  .adopt-dark-card-above {
+    transform: translateX(-150px) !important;
+  }
+  .adopt-dark-card-below {
+    transform: translate(-100px, -90px) !important;
+  }
+  .adopt-light-card-above {
+    transform: translateX(-125px) !important;
+  }
+  .adopt-light-card-below {
+    transform: translate(-85px, -50px) !important;
+  }
+  .adopt-dark-checkmarks,
+  .adopt-checkmarks-container {
+    transform: translateY(-100px) !important;
+  }
 }
-.adopt-dark-card-below {
-  transform: translate(-100px, -90px) !important;
-}
-.adopt-light-card-above {
-  transform: translateX(-125px) !important;
-}
-.adopt-light-card-below {
-  transform: translate(-85px, -50px) !important;
-}
-.adopt-dark-checkmarks,
-.adopt-checkmarks-container {
-  transform: translateY(-100px) !important;
+
+@media (max-width: 1023px) {
+  .adopt-dark-card-above,
+  .adopt-dark-card-below,
+  .adopt-light-card-above,
+  .adopt-light-card-below,
+  .adopt-dark-checkmarks,
+  .adopt-checkmarks-container {
+    transform: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
 }
 
 /* ── Hero Eyebrow Pill ─────────────────────────────────────────── */
@@ -477,6 +492,12 @@
   user-select: none;
 }
 
+@media (max-width: 640px) {
+  .adopt-3d-compact-viewport {
+    height: 280px;
+  }
+}
+
 .adopt-3d-compact-ring {
   transform-style: preserve-3d;
   position: relative;
@@ -499,6 +520,15 @@
   transform-style: preserve-3d;
   transition: opacity 0.5s ease, filter 0.5s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   backface-visibility: visible;
+}
+
+@media (max-width: 640px) {
+  .adopt-3d-compact-card-wrapper {
+    width: 160px;
+    height: 260px;
+    margin-top: -130px;
+    margin-left: -80px;
+  }
 }
 
 .adopt-3d-compact-ground-shadow {

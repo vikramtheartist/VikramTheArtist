@@ -6,11 +6,11 @@ interface NavProps {
 export function Nav({ mode = "dark", onToggleTheme }: NavProps) {
   const isLight = mode === "light";
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-end gap-8"
-      style={{ padding: '30px 32px' }}>
+    <nav className="portfolio-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-end gap-6 sm:gap-8 transition-all duration-300"
+      style={{ padding: '24px 32px' }}>
       <a
         href="#work"
-        className="text-white/70 hover:text-white text-sm tracking-wide transition-colors duration-200"
+        className="text-white/70 hover:text-white text-sm font-medium tracking-wide transition-colors duration-200"
       >
         My Work
       </a>

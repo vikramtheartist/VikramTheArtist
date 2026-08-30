@@ -539,8 +539,8 @@ export function WorkSection({
     <section
       ref={sectionRef}
       id="work"
-      className="relative px-8"
-      style={{ paddingTop: "240px", maxWidth: "900px", margin: "0 auto" }}
+      className="relative px-0 sm:px-4 md:px-8"
+      style={{ paddingTop: "clamp(80px, 12vw, 240px)", maxWidth: "900px", margin: "0 auto" }}
     >
       <style>{`
         @keyframes gentleArrowJump {
@@ -564,7 +564,7 @@ export function WorkSection({
       {/* Clickable Heading + Jumping Arrow */}
       <div
         data-no-sparkle="true"
-        className="no-sparkle flex flex-col items-center justify-center cursor-pointer select-none mb-10 group"
+        className="no-sparkle work-header-block flex flex-col items-center justify-center cursor-pointer select-none mb-8 sm:mb-12 group"
         onClick={(e) => {
           e.stopPropagation();
           const firstCard = document.querySelector(".ws-card");
@@ -573,18 +573,18 @@ export function WorkSection({
             window.scrollTo({ top, behavior: "smooth" });
           }
         }}
-        style={{ position: "relative", zIndex: 5 }}
+        style={{ position: "relative", zIndex: 10 }}
       >
         {/* Heading */}
         <h2
           className="text-center h-grad-bright transition-opacity duration-200 group-hover:opacity-95"
           style={{
             fontFamily: "'Poppins', sans-serif",
-            fontSize: "3.125rem",
-            lineHeight: 1.2,
+            fontSize: "clamp(2.25rem, 5.5vw, 3.125rem)",
+            lineHeight: 1.15,
             fontWeight: 300,
-            marginBottom: "-3px",
-            paddingBottom: "0.1em",
+            marginBottom: "-21px",
+            paddingBottom: "0",
           }}
         >
           <span>My </span><span>work</span>
@@ -593,11 +593,11 @@ export function WorkSection({
         {/* Gentle jumping arrow below My Work */}
         <div
           className="scroll-arrow-jump transition-opacity duration-200 group-hover:opacity-100"
-          style={{ marginTop: "-10px", opacity: 0.8 }}
+          style={{ marginTop: "-1px", opacity: 0.85 }}
         >
           <svg
-            width="19"
-            height="19"
+            width="20"
+            height="20"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
