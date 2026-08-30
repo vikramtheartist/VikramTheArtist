@@ -540,7 +540,7 @@ export function WorkSection({
       ref={sectionRef}
       id="work"
       className="relative px-0 sm:px-4 md:px-8"
-      style={{ paddingTop: "clamp(10px, 6vw, 140px)", maxWidth: "900px", margin: "0 auto" }}
+      style={{ paddingTop: "clamp(0px, 4vw, 90px)", marginTop: "-50px", maxWidth: "900px", marginLeft: "auto", marginRight: "auto" }}
     >
       <style>{`
         @keyframes gentleArrowJump {
