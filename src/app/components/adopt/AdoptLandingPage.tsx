@@ -873,8 +873,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               className="grid grid-cols-12 gap-8 items-start mb-16"
               style={{ transform: "translateY(-50px)" }}
             >
-              {/* Top Left: Badge, Headline & Subtitle */}
-              <div className="col-span-6 flex flex-col items-start text-left max-w-lg">
+              {/* Top Left: Badge, Headline & Subtitle (shifted upward by additional 50px) */}
+              <div
+                className="col-span-6 flex flex-col items-start text-left max-w-lg"
+                style={{ transform: "translateY(-50px)" }}
+              >
                 {/* Eyebrow Pill */}
                 <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md border shadow-2xs ${
                   isDark
@@ -994,12 +997,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
             {/* Bottom Row: Left 4 Checkmark Items & Right BELOW THE SURFACE Card */}
             <div className="grid grid-cols-12 gap-8 items-end">
-              {/* Bottom Left: 4 Checkmark Items (shifted upward by 50px) */}
+              {/* Bottom Left: 4 Checkmark Items (shifted upward by 100px) */}
               <div
                 className={`col-span-6 space-y-3.5 max-w-[480px] text-left transition-all duration-300 ${
                   isDark ? "adopt-dark-checkmarks" : "adopt-checkmarks-container"
                 }`}
-                style={{ transform: "translateY(-50px)" }}
+                style={{ transform: "translateY(-100px)" }}
               >
                 {[
                   "Users don't resist products.",
