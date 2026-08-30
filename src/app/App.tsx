@@ -71,10 +71,10 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
     const atm = atmRef.current;
     const planet1 = planet1Ref.current;
     const astro = astroRef.current;
-    const Y_OFFSET = -190;      // Atmospheric halo moved up by 50px more
-    const Y_OFFSET_EARTH = -230; // Earth moved up by 50px more (from -180 to -230)
+    const Y_OFFSET = -290;      // Atmospheric halo moved up by 100px more
+    const Y_OFFSET_EARTH = -330; // Earth moved up by 100px more (from -230 to -330)
     const X_OFFSET_EARTH = 0;   // Earth centered horizontally
-    const Y_OFFSET_SUN = isLight ? -225 : -210; // Sun (aligned with earth displacement)
+    const Y_OFFSET_SUN = isLight ? -325 : -310; // Sun (aligned with earth displacement)
     const setPos = (top: number, left: number, scale: number = 1) => {
       const tAtm = top + Y_OFFSET;
       el.style.transform = `translate3d(${left + X_OFFSET_EARTH}px, ${top + Y_OFFSET_EARTH}px, 0) translate(-50%, -50%) scale(${scale})`;
