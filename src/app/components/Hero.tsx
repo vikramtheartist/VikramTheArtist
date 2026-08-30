@@ -221,7 +221,7 @@ export function Hero() {
     <>
       <div className="hide-in-light fade-with-theme"><StarCanvas /></div>
 
-      <section className="relative flex flex-col" style={{ zIndex: 4 }}>
+      <section className="hero-section relative flex flex-col" style={{ zIndex: 4 }}>
         <div className="hide-in-light fade-with-theme"><ShootingStars /></div>
 
         <div className="hero-title-block">
@@ -237,7 +237,7 @@ export function Hero() {
             </h1>
           </div>
           <div className="hero-subtitle-block" style={{ marginTop: '34px', marginBottom: 0, width: '100%' }}>
-            <p className="hero-subtitle" style={{ fontFamily: "'Merriweather', serif", fontWeight: 300, fontSize: "clamp(18px, 2.5vw, 42px)", lineHeight: 1.35, color: '#E6E6E6', margin: 0 }}>
+            <p className="hero-subtitle" style={{ fontFamily: "'Georgia', serif", fontWeight: 400, fontSize: "clamp(18px, 2.05vw, 36px)", lineHeight: 1.35, color: '#E6E6E6', margin: 0 }}>
               Product Designer at Microsoft. <span className="block sm:inline">Designing AI-first products.</span>
             </p>
             <p style={{ fontFamily: "'Segoe UI', sans-serif", fontWeight: 300, fontSize: 'clamp(16px, 1.4vw, 22px)', lineHeight: 1.4, color: 'var(--text-2)', margin: '10px 0 0 0' }}>
