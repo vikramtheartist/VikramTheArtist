@@ -868,13 +868,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         <div className="max-w-[1440px] mx-auto px-5 sm:px-10 lg:px-14 w-full relative z-10 my-auto flex flex-col justify-between">
           {/* DESKTOP LAYOUT (>= 1024px) */}
           <div className="hidden lg:block w-full">
-            {/* Top Row: Left Headline & Right ABOVE THE SURFACE Card */}
-            <div className="grid grid-cols-12 gap-8 items-start mb-16">
-              {/* Top Left: Badge, Headline & Subtitle (shifted upward by 40px) */}
-              <div
-                className="col-span-6 flex flex-col items-start text-left max-w-lg"
-                style={{ transform: "translateY(-40px)" }}
-              >
+            {/* Top Row: Left Headline & Right ABOVE THE SURFACE Card (shifted upward by 50px) */}
+            <div
+              className="grid grid-cols-12 gap-8 items-start mb-16"
+              style={{ transform: "translateY(-50px)" }}
+            >
+              {/* Top Left: Badge, Headline & Subtitle */}
+              <div className="col-span-6 flex flex-col items-start text-left max-w-lg">
                 {/* Eyebrow Pill */}
                 <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase mb-5 backdrop-blur-md border shadow-2xs ${
                   isDark
@@ -994,11 +994,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
             {/* Bottom Row: Left 4 Checkmark Items & Right BELOW THE SURFACE Card */}
             <div className="grid grid-cols-12 gap-8 items-end">
-              {/* Bottom Left: 4 Checkmark Items */}
+              {/* Bottom Left: 4 Checkmark Items (shifted upward by 50px) */}
               <div
                 className={`col-span-6 space-y-3.5 max-w-[480px] text-left transition-all duration-300 ${
                   isDark ? "adopt-dark-checkmarks" : "adopt-checkmarks-container"
                 }`}
+                style={{ transform: "translateY(-50px)" }}
               >
                 {[
                   "Users don't resist products.",
