@@ -1,9 +1,10 @@
 interface NavProps {
   mode?: "dark" | "light";
   onToggleTheme?: () => void;
+  onNavigateVibeCoding?: () => void;
 }
 
-export function Nav({ mode = "dark", onToggleTheme }: NavProps) {
+export function Nav({ mode = "dark", onToggleTheme, onNavigateVibeCoding }: NavProps) {
   const isLight = mode === "light";
   return (
     <nav className="portfolio-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-end gap-6 sm:gap-8 transition-all duration-300"
@@ -13,6 +14,24 @@ export function Nav({ mode = "dark", onToggleTheme }: NavProps) {
         className="text-white/70 hover:text-white text-sm font-medium tracking-wide transition-colors duration-200"
       >
         My Work
+      </a>
+      <a
+        href="/vibe-coding"
+        onClick={(e) => {
+          if (onNavigateVibeCoding) {
+            e.preventDefault();
+            onNavigateVibeCoding();
+          }
+        }}
+        className="text-white/70 hover:text-white text-sm tracking-wide transition-colors duration-200"
+      >
+        Vibe Coding
+      </a>
+      <a
+        href="#my-articles"
+        className="text-white/70 hover:text-white text-sm tracking-wide transition-colors duration-200"
+      >
+        My Articles
       </a>
       <a
         href="#experience"

@@ -41,6 +41,16 @@ const routes = [
     ogTitle: "Scaling Copilot Adoption | Vikram Venkatesh",
     ogDescription: "Case study on scaling enterprise copilot adoption with the ADOPT framework.",
     ogUrl: "https://vikramtheartist.com/playbook/adopt-v2",
+  },
+  {
+    path: "vibe-coding",
+    title: "Vibe Coding Showcase — AI-Assisted Engineering & Prototypes | Vikram Venkatesh",
+    description: "Curated collection of production-grade AI applications, collaborative audio rooms, and interactive physics engines built with autonomous agentic workflows.",
+    canonical: "https://vikramtheartist.com/vibe-coding",
+    robots: "index, follow, max-image-preview:large",
+    ogTitle: "Vibe Coding Showcase — AI-Assisted Engineering & Prototypes",
+    ogDescription: "Curated collection of production-grade AI applications, collaborative audio rooms, and interactive physics engines built with autonomous agentic workflows.",
+    ogUrl: "https://vikramtheartist.com/vibe-coding",
   }
 ];
 

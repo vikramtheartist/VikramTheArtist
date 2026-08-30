@@ -13,8 +13,9 @@ import { SpaceSparkles } from "./components/SpaceSparkles";
 const CaseStudyAdopt = lazy(() => import("./components/CaseStudyAdopt").then(m => ({ default: m.CaseStudyAdopt })));
 const CaseStudyAdoptV2 = lazy(() => import("./components/playbook/CaseStudyAdoptV2").then(m => ({ default: m.CaseStudyAdoptV2 })));
 const AdoptLandingPage = lazy(() => import("./components/adopt/AdoptLandingPage").then(m => ({ default: m.AdoptLandingPage })));
+const VibeCodingPage = lazy(() => import("./components/vibecoding/VibeCodingPage").then(m => ({ default: m.VibeCodingPage })));
 
-type Route = "home" | "adopt" | "adopt-v2" | "adopt-landing";
+type Route = "home" | "adopt" | "adopt-v2" | "adopt-landing" | "vibe-coding";
 type ThemeMode = "dark" | "light";
 
 const routeFromPath = (): Route => {
@@ -22,6 +23,7 @@ const routeFromPath = (): Route => {
   if (p.endsWith("/adopt-landing") || p.endsWith("/adopt")) return "adopt-landing";
   if (p.endsWith("/playbook/adopt-v2")) return "adopt-v2";
   if (p.endsWith("/playbook/adopt")) return "adopt";
+  if (p.endsWith("/vibe-coding")) return "vibe-coding";
   return "home";
 };
 
@@ -550,9 +552,10 @@ export default function App() {
   const navigate = useCallback((next: Route) => {
     if (next === route) return;
     const path =
-      next === "adopt-landing" ? "/adopt"
+      next === "adopt-landing" ? "/adopt-landing"
       : next === "adopt" ? "/playbook/adopt"
       : next === "adopt-v2" ? "/playbook/adopt-v2"
+      : next === "vibe-coding" ? "/vibe-coding"
       : "/";
     window.history.pushState({}, "", path);
     setRoute(next);
@@ -569,6 +572,16 @@ export default function App() {
     });
   }, []);
 
+  if (route === "vibe-coding") {
+    return (
+      <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
+        <VibeCodingPage
+          onBack={() => navigate("home")}
+          onNavigateAdopt={() => navigate("adopt-landing")}
+        />
+      </Suspense>
+    );
+  }
   if (route === "adopt-landing") {
     return (
       <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
@@ -612,7 +625,7 @@ export default function App() {
     >
       <EarthParallax mode="dark" />
       <SpaceSparkles mode="dark" />
-      <Nav mode="dark" />
+      <Nav mode="dark" onNavigateVibeCoding={() => navigate("vibe-coding")} />
       <main className="portfolio-main" style={{ position: "relative", zIndex: 1 }}>
         <Hero />
         <WorkSection
