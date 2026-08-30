@@ -34,27 +34,27 @@ function MicrosoftLogo() {
 }
 
 function OracleLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/Oracle.png`} alt="Oracle" style={{ height: "11px", objectFit: "contain" }} />;
+  return <img src={`${import.meta.env.BASE_URL}IMG/Oracle.png`} alt="Oracle" loading="lazy" decoding="async" fetchPriority="low" width={89} height={12} style={{ height: "11px", width: "auto", objectFit: "contain" }} />;
 }
 
 function GoogleLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/Google.png`} alt="Google" style={{ height: "28px", objectFit: "contain" }} />;
+  return <img src={`${import.meta.env.BASE_URL}IMG/Google.png`} alt="Google" loading="lazy" decoding="async" fetchPriority="low" width={90} height={31} style={{ height: "28px", width: "auto", objectFit: "contain" }} />;
 }
 
 function McKinseyLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/McKinsey.png`} alt="McKinsey & Company" style={{ height: "28px", objectFit: "contain" }} />;
+  return <img src={`${import.meta.env.BASE_URL}IMG/McKinsey.png`} alt="McKinsey & Company" loading="lazy" decoding="async" fetchPriority="low" width={112} height={33} style={{ height: "28px", width: "auto", objectFit: "contain" }} />;
 }
 
 function CognizantLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/Cognizant.png`} alt="Cognizant" style={{ height: "28px", objectFit: "contain" }} />;
+  return <img src={`${import.meta.env.BASE_URL}IMG/Cognizant.png`} alt="Cognizant" loading="lazy" decoding="async" fetchPriority="low" width={94} height={29} style={{ height: "28px", width: "auto", objectFit: "contain" }} />;
 }
 
 function TCSLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/TCS.png`} alt="TCS" style={{ height: "18px", objectFit: "contain" }} />;
+  return <img src={`${import.meta.env.BASE_URL}IMG/TCS.png`} alt="TCS" loading="lazy" decoding="async" fetchPriority="low" width={26} height={16} style={{ height: "18px", width: "auto", objectFit: "contain" }} />;
 }
 
 function AllscriptsLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/Allscripts.png`} alt="Allscripts" style={{ height: "19px", objectFit: "contain" }} />;
+  return <img src={`${import.meta.env.BASE_URL}IMG/Allscripts.png`} alt="Allscripts" loading="lazy" decoding="async" fetchPriority="low" width={67} height={17} style={{ height: "19px", width: "auto", objectFit: "contain" }} />;
 }
 
 function LionbridgeLogo() {
@@ -70,7 +70,7 @@ function NTTTRLogo() {
 }
 
 function HFILogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/Hfi.png`} alt="HFI" style={{ height: "22px", objectFit: "contain" }} />;
+  return <img src={`${import.meta.env.BASE_URL}IMG/Hfi.png`} alt="HFI" loading="lazy" decoding="async" fetchPriority="low" width={32} height={23} style={{ height: "22px", width: "auto", objectFit: "contain" }} />;
 }
 
 function CSELogo() {

@@ -10,9 +10,13 @@
       <link rel="apple-touch-icon" href="/favicon.png?v=3" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link rel="preconnect" href="https://api.fontshare.com" />
+      <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
       <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
       <title>Vikram the Artist</title>
-      <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+
+      <!-- Preload responsive LCP Earth visual -->
+      <link rel="preload" as="image" href="/IMG/Earth_only_2x-768.avif" type="image/avif" imagesrcset="/IMG/Earth_only_2x-768.avif 768w, /IMG/Earth_only_2x-1200.avif 1200w, /IMG/Earth_only_2x-1536.avif 1536w" imagesizes="(max-width: 768px) 100vw, 160vw" fetchpriority="high" />
 
       <!-- Google tag (gtag.js) -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-JSSLD137TQ"></script>

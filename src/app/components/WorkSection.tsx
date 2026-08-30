@@ -29,11 +29,28 @@ const projects: {
     ],
     thumb: (
       <div className="w-full h-full overflow-hidden rounded-xl">
-        <img
-          src={adoptThumb}
-          alt="Driving Copilot Adoption"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", opacity: 0.9 }}
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Adopt_Thumb-480.avif 480w, ${import.meta.env.BASE_URL}IMG/Adopt_Thumb-800.avif 800w, ${import.meta.env.BASE_URL}IMG/Adopt_Thumb-1087.avif 1087w`}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <source
+            type="image/webp"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Adopt_Thumb-480.webp 480w, ${import.meta.env.BASE_URL}IMG/Adopt_Thumb-800.webp 800w, ${import.meta.env.BASE_URL}IMG/Adopt_Thumb-1087.webp 1087w`}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <img
+            src={`${import.meta.env.BASE_URL}IMG/Adopt_Thumb.png`}
+            alt="Driving Copilot Adoption"
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
+            width={1087}
+            height={1067}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center", opacity: 0.9 }}
+          />
+        </picture>
       </div>
     ),
   },
@@ -44,11 +61,28 @@ const projects: {
     ctas: [{ label: "Data Security Posture Mgmt", href: "https://datasecurity-vikram.framer.website/" }],
     thumb: (
       <div className="w-full h-full overflow-hidden rounded-xl">
-        <img
-          src={`${import.meta.env.BASE_URL}IMG/Data Security_Card.png`}
-          alt="Data Security"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Data%20Security_Card-360.avif 360w, ${import.meta.env.BASE_URL}IMG/Data%20Security_Card-540.avif 540w, ${import.meta.env.BASE_URL}IMG/Data%20Security_Card-728.avif 728w`}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <source
+            type="image/webp"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Data%20Security_Card-360.webp 360w, ${import.meta.env.BASE_URL}IMG/Data%20Security_Card-540.webp 540w, ${import.meta.env.BASE_URL}IMG/Data%20Security_Card-728.webp 728w`}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <img
+            src={`${import.meta.env.BASE_URL}IMG/Data%20Security_Card.png`}
+            alt="Data Security"
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
+            width={728}
+            height={516}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+          />
+        </picture>
       </div>
     ),
   },
@@ -219,11 +253,26 @@ const projects: {
     ctas: [{ label: "View more", href: "https://www.figma.com/deck/ELKvu1uZ9wBlg314EFdMVO/Communities-2.0--Hack?node-id=1-16&viewport=-101%2C-140%2C0.65&t=5MqLdsILtEH45MGQ-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1", internal: true }],
     thumb: (
       <div className="w-full h-full overflow-hidden rounded-xl">
-        <img
-          src={`${import.meta.env.BASE_URL}IMG/Communities.png`}
-          alt="Viva Engage Communities"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Communities.avif`}
+          />
+          <source
+            type="image/webp"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Communities.webp`}
+          />
+          <img
+            src={`${import.meta.env.BASE_URL}IMG/Communities.png`}
+            alt="Viva Engage Communities"
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
+            width={365}
+            height={280}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+          />
+        </picture>
       </div>
     ),
   },
@@ -234,11 +283,28 @@ const projects: {
     ctas: [{ label: "View more", href: "https://docs.google.com/presentation/d/e/2PACX-1vQvENFUrPSpj9opoTOxY0pCLjRgFd63Jnu5Ps8BQa4SBmR6Tj_uToYbOo2EoOZS3Dj5kqW2d9gaSXrF/pub?start=false&loop=false&delayms=3000" }],
     thumb: (
       <div className="w-full h-full overflow-hidden rounded-xl">
-        <img
-          src={`${import.meta.env.BASE_URL}IMG/Helpdesk_Card.png`}
-          alt="AI Powered Help-desk Experience"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Helpdesk_Card-360.avif 360w, ${import.meta.env.BASE_URL}IMG/Helpdesk_Card-540.avif 540w, ${import.meta.env.BASE_URL}IMG/Helpdesk_Card-728.avif 728w`}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <source
+            type="image/webp"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Helpdesk_Card-360.webp 360w, ${import.meta.env.BASE_URL}IMG/Helpdesk_Card-540.webp 540w, ${import.meta.env.BASE_URL}IMG/Helpdesk_Card-728.webp 728w`}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <img
+            src={`${import.meta.env.BASE_URL}IMG/Helpdesk_Card.png`}
+            alt="AI Powered Help-desk Experience"
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
+            width={728}
+            height={540}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+          />
+        </picture>
       </div>
     ),
   },
@@ -252,11 +318,28 @@ const projects: {
     ],
     thumb: (
       <div className="w-full h-full overflow-hidden rounded-xl">
-        <img
-          src={`${import.meta.env.BASE_URL}IMG/feedback_Card.png`}
-          alt="Feedback 360"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcSet={`${import.meta.env.BASE_URL}IMG/feedback_Card-360.avif 360w, ${import.meta.env.BASE_URL}IMG/feedback_Card-540.avif 540w, ${import.meta.env.BASE_URL}IMG/feedback_Card-728.avif 728w`}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <source
+            type="image/webp"
+            srcSet={`${import.meta.env.BASE_URL}IMG/feedback_Card-360.webp 360w, ${import.meta.env.BASE_URL}IMG/feedback_Card-540.webp 540w, ${import.meta.env.BASE_URL}IMG/feedback_Card-728.webp 728w`}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <img
+            src={`${import.meta.env.BASE_URL}IMG/feedback_Card.png`}
+            alt="Feedback 360"
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
+            width={728}
+            height={570}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+          />
+        </picture>
       </div>
     ),
   },
@@ -267,11 +350,28 @@ const projects: {
     ctas: [{ label: "View more", href: "https://docs.google.com/presentation/d/10f2xETw-H17PE4fwk7_gnLniytWco4oBRpC-0JpCjNw/pub?start=false&loop=false&delayms=10000" }],
     thumb: (
       <div className="w-full h-full overflow-hidden rounded-xl">
-        <img
-          src={`${import.meta.env.BASE_URL}IMG/Notification_Card.png`}
-          alt="Notification Experience Design"
-          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
-        />
+        <picture>
+          <source
+            type="image/avif"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Notification_Card-360.avif 360w, ${import.meta.env.BASE_URL}IMG/Notification_Card-540.avif 540w, ${import.meta.env.BASE_URL}IMG/Notification_Card-728.avif 728w`}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <source
+            type="image/webp"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Notification_Card-360.webp 360w, ${import.meta.env.BASE_URL}IMG/Notification_Card-540.webp 540w, ${import.meta.env.BASE_URL}IMG/Notification_Card-728.webp 728w`}
+            sizes="(max-width: 768px) 100vw, 450px"
+          />
+          <img
+            src={`${import.meta.env.BASE_URL}IMG/Notification_Card.png`}
+            alt="Notification Experience Design"
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
+            width={728}
+            height={588}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+          />
+        </picture>
       </div>
     ),
   },

@@ -286,12 +286,24 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
     <>
       {/* Space Background — cosmic stars and distant ringed planets behind Earth in dark mode */}
       {!isLight && (
-        <>
+        <picture style={{ display: "contents" }}>
+          <source
+            type="image/avif"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Space-768.avif 768w, ${import.meta.env.BASE_URL}IMG/Space-1440.avif 1440w, ${import.meta.env.BASE_URL}IMG/Space-2560.avif 2560w`}
+            sizes="100vw"
+          />
+          <source
+            type="image/webp"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Space-768.webp 768w, ${import.meta.env.BASE_URL}IMG/Space-1440.webp 1440w, ${import.meta.env.BASE_URL}IMG/Space-2560.webp 2560w`}
+            sizes="100vw"
+          />
           <img
             src={`${import.meta.env.BASE_URL}IMG/Space.png`}
             alt=""
             decoding="async"
-            fetchPriority="high"
+            fetchPriority="low"
+            width={2560}
+            height={1710}
             style={{
               position: "fixed",
               top: 0,
@@ -303,17 +315,32 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
               zIndex: 0,
               pointerEvents: "none",
               opacity: 1,
-              transition: "opacity 0.7s ease",
             }}
           />
+        </picture>
+      )}
 
-          {/* Small Left Planet (Planet 1) positioned above Earth horizon */}
+      {/* Small Left Planet (Planet 1) positioned above Earth horizon */}
+      {!isLight && (
+        <picture style={{ display: "contents" }}>
+          <source
+            type="image/avif"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Planet%201-128.avif 128w, ${import.meta.env.BASE_URL}IMG/Planet%201-256.avif 256w, ${import.meta.env.BASE_URL}IMG/Planet%201-384.avif 384w`}
+            sizes="clamp(110px, 9vw, 170px)"
+          />
+          <source
+            type="image/webp"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Planet%201-128.webp 128w, ${import.meta.env.BASE_URL}IMG/Planet%201-256.webp 256w, ${import.meta.env.BASE_URL}IMG/Planet%201-384.webp 384w`}
+            sizes="clamp(110px, 9vw, 170px)"
+          />
           <img
             ref={planet1Ref}
             src={`${import.meta.env.BASE_URL}IMG/Planet%201.png`}
             alt=""
             decoding="async"
             fetchPriority="low"
+            width={384}
+            height={384}
             style={{
               position: "fixed",
               top: "28vh",
@@ -323,38 +350,55 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
               zIndex: 0,
               pointerEvents: "none",
               opacity: 0.95,
-              transition: "opacity 0.7s ease",
               filter: "drop-shadow(0 0 20px rgba(139, 92, 246, 0.35))",
               willChange: "transform",
               transformOrigin: "center center",
             }}
           />
+        </picture>
+      )}
 
-          {/* Floating Astronaut in space on right, enters from top with scroll to 50% of screen */}
+      {/* Floating Astronaut in space on right, enters from top with scroll to 50% of screen */}
+      {!isLight && (
+        <div
+          ref={astroRef}
+          style={{
+            position: "fixed",
+            top: "50vh",
+            right: "clamp(24px, 4.5vw, 90px)",
+            zIndex: 0,
+            pointerEvents: "none",
+            userSelect: "none",
+            transform: "translate3d(50px, -65vh, 0) translateY(-50%) rotate(8deg)",
+            opacity: 0,
+            willChange: "transform, opacity",
+          }}
+        >
           <div
-            ref={astroRef}
             style={{
-              position: "fixed",
-              top: "50vh",
-              right: "clamp(24px, 4.5vw, 90px)",
-              zIndex: 0,
-              pointerEvents: "none",
-              userSelect: "none",
-              transform: "translate3d(50px, -65vh, 0) translateY(-50%) rotate(8deg)",
-              opacity: 0,
-              willChange: "transform, opacity",
+              animation: "astronautFloat 7s ease-in-out infinite",
+              willChange: "transform",
             }}
           >
-            <div
-              style={{
-                animation: "astronautFloat 7s ease-in-out infinite",
-                willChange: "transform",
-              }}
-            >
+            <picture style={{ display: "contents" }}>
+              <source
+                type="image/avif"
+                srcSet={`${import.meta.env.BASE_URL}IMG/Astronaut-200.avif 200w, ${import.meta.env.BASE_URL}IMG/Astronaut-368.avif 368w`}
+                sizes="clamp(160px, 16.5vw, 255px)"
+              />
+              <source
+                type="image/webp"
+                srcSet={`${import.meta.env.BASE_URL}IMG/Astronaut-200.webp 200w, ${import.meta.env.BASE_URL}IMG/Astronaut-368.webp 368w`}
+                sizes="clamp(160px, 16.5vw, 255px)"
+              />
               <img
                 src={`${import.meta.env.BASE_URL}IMG/Astronaut.png`}
                 alt="Floating Astronaut"
+                loading="lazy"
                 decoding="async"
+                fetchPriority="low"
+                width={368}
+                height={366}
                 style={{
                   width: "clamp(160px, 16.5vw, 255px)",
                   height: "auto",
@@ -362,9 +406,9 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
                   filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 25px rgba(100, 160, 255, 0.20))",
                 }}
               />
-            </div>
+            </picture>
           </div>
-        </>
+        </div>
       )}
 
       {/* Sun glow halo — visible in light mode only */}
@@ -393,54 +437,83 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
         />
       )}
       {/* Earth — primary orb; defines parallax positioning. Visible in dark, fades out in light. */}
-      <img
-        ref={imgRef}
-        src={`${import.meta.env.BASE_URL}IMG/Earth_only_2x.png`}
-        alt=""
-        decoding="async"
-        fetchPriority={isLight ? "low" : "high"}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "160vw",
-          maxWidth: "2400px",
-          minWidth: "1500px",
-          height: "auto",
-          zIndex: 0,
-          pointerEvents: "none",
-          opacity: isLight ? 0 : 0.85,
-          willChange: "transform",
-          transform: "translate3d(50vw, calc(75vh + 580px), 0) translate(-50%, -50%)",
-          transition: "opacity 0.7s ease",
-        }}
-        className="earth-orb"
-      />
+      <picture style={{ display: "contents" }}>
+        <source
+          type="image/avif"
+          srcSet={`${import.meta.env.BASE_URL}IMG/Earth_only_2x-768.avif 768w, ${import.meta.env.BASE_URL}IMG/Earth_only_2x-1200.avif 1200w, ${import.meta.env.BASE_URL}IMG/Earth_only_2x-1536.avif 1536w`}
+          sizes="(max-width: 768px) 100vw, 160vw"
+        />
+        <source
+          type="image/webp"
+          srcSet={`${import.meta.env.BASE_URL}IMG/Earth_only_2x-768.webp 768w, ${import.meta.env.BASE_URL}IMG/Earth_only_2x-1200.webp 1200w, ${import.meta.env.BASE_URL}IMG/Earth_only_2x-1536.webp 1536w`}
+          sizes="(max-width: 768px) 100vw, 160vw"
+        />
+        <img
+          ref={imgRef}
+          src={`${import.meta.env.BASE_URL}IMG/Earth_only_2x.png`}
+          alt=""
+          decoding="async"
+          fetchPriority={isLight ? "low" : "high"}
+          width={1536}
+          height={1024}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "160vw",
+            maxWidth: "2400px",
+            minWidth: "1500px",
+            height: "auto",
+            zIndex: 0,
+            pointerEvents: "none",
+            opacity: isLight ? 0 : 0.85,
+            willChange: "transform",
+            transform: "translate3d(50vw, calc(75vh + 580px), 0) translate(-50%, -50%)",
+          }}
+          className="earth-orb"
+        />
+      </picture>
 
-      {/* Sun — same anchor as Earth, 30% larger; fades in for light mode */}
-      <img
-        ref={sunRef}
-        src={`${import.meta.env.BASE_URL}IMG/Sun_only_2x.png`}
-        alt=""
-        decoding="async"
-        loading={isLight ? "eager" : "lazy"}
-        fetchPriority={isLight ? "high" : "low"}
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "130vw",
-          maxWidth: "1950px",
-          height: "auto",
-          zIndex: 0,
-          pointerEvents: "none",
-          opacity: isLight ? 0.95 : 0,
-          willChange: "transform",
-          transform: "translate3d(50vw, calc(75vh + 580px), 0) translate(-50%, -50%)",
-          transition: "opacity 0.7s ease",
-        }}
-        className="sun-orb"
-      />
+      {/* Sun — same anchor as Earth, 30% larger; mounts for light mode */}
+      {isLight && (
+        <picture style={{ display: "contents" }}>
+          <source
+            type="image/avif"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Sun_only_2x-480.avif 480w, ${import.meta.env.BASE_URL}IMG/Sun_only_2x-768.avif 768w, ${import.meta.env.BASE_URL}IMG/Sun_only_2x-891.avif 891w`}
+            sizes="(max-width: 768px) 130vw, 130vw"
+          />
+          <source
+            type="image/webp"
+            srcSet={`${import.meta.env.BASE_URL}IMG/Sun_only_2x-480.webp 480w, ${import.meta.env.BASE_URL}IMG/Sun_only_2x-768.webp 768w, ${import.meta.env.BASE_URL}IMG/Sun_only_2x-891.webp 891w`}
+            sizes="(max-width: 768px) 130vw, 130vw"
+          />
+          <img
+            ref={sunRef}
+            src={`${import.meta.env.BASE_URL}IMG/Sun_only_2x.png`}
+            alt=""
+            decoding="async"
+            loading="eager"
+            fetchPriority="high"
+            width={891}
+            height={891}
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "130vw",
+              maxWidth: "1950px",
+              height: "auto",
+              zIndex: 0,
+              pointerEvents: "none",
+              opacity: 0.95,
+              willChange: "transform",
+              transform: "translate3d(50vw, calc(75vh + 580px), 0) translate(-50%, -50%)",
+              transition: "opacity 0.7s ease",
+            }}
+            className="sun-orb"
+          />
+        </picture>
+      )}
     </>
   );
 }

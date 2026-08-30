@@ -1,3 +1,5 @@
+import { useRef, useEffect, useState } from "react";
+
 /* ── Client logo data ───────────────────────────────────────────── */
 
 const clients = [
@@ -211,8 +213,26 @@ const clients = [
 /* ── Section ────────────────────────────────────────────────────── */
 
 export function ClientsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isInView, setIsInView] = useState(true);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { rootMargin: "200px 0px" }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="relative py-14">
+    <section ref={sectionRef} className="relative py-14">
       <h2 className="text-center mb-12" style={{ fontFamily: "'Poppins', sans-serif", fontSize: "2.5rem", lineHeight: 1 }}>
         <span style={{
           fontWeight: 300,
@@ -240,6 +260,11 @@ export function ClientsSection() {
           will-change: transform;
         }
         .marquee-track:hover { animation-play-state: paused; }
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-track {
+            animation: none !important;
+          }
+        }
         .marquee-fade {
           -webkit-mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
           mask-image: linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%);
@@ -247,15 +272,37 @@ export function ClientsSection() {
       `}</style>
 
       <div className="marquee-fade relative overflow-hidden">
-        <div className="marquee-track flex" style={{ width: "max-content" }}>
+        <div
+          className="marquee-track flex"
+          style={{
+            width: "max-content",
+            animationPlayState: isInView ? "running" : "paused",
+          }}
+        >
           {[0, 1, 2].map(i => (
-            <img
-              key={i}
-              src={`${import.meta.env.BASE_URL}IMG/Top customers.png`}
-              alt=""
-              aria-hidden={i > 0}
-              style={{ height: "80px", width: "auto", display: "block", flexShrink: 0 }}
-            />
+            <picture key={i}>
+              <source
+                type="image/avif"
+                srcSet={`${import.meta.env.BASE_URL}IMG/Top%20customers-768.avif 768w, ${import.meta.env.BASE_URL}IMG/Top%20customers-1440.avif 1440w, ${import.meta.env.BASE_URL}IMG/Top%20customers-2048.avif 2048w, ${import.meta.env.BASE_URL}IMG/Top%20customers-4096.avif 4096w`}
+                sizes="(max-width: 768px) 768px, 1440px"
+              />
+              <source
+                type="image/webp"
+                srcSet={`${import.meta.env.BASE_URL}IMG/Top%20customers-768.webp 768w, ${import.meta.env.BASE_URL}IMG/Top%20customers-1440.webp 1440w, ${import.meta.env.BASE_URL}IMG/Top%20customers-2048.webp 2048w, ${import.meta.env.BASE_URL}IMG/Top%20customers-4096.webp 4096w`}
+                sizes="(max-width: 768px) 768px, 1440px"
+              />
+              <img
+                src={`${import.meta.env.BASE_URL}IMG/Top%20customers.png`}
+                alt="Top customers"
+                aria-hidden={i > 0}
+                loading="lazy"
+                decoding="async"
+                fetchPriority="low"
+                width={4096}
+                height={229}
+                style={{ height: "80px", width: "auto", display: "block", flexShrink: 0 }}
+              />
+            </picture>
           ))}
         </div>
       </div>
