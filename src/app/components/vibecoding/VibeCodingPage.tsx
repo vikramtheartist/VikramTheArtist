@@ -571,48 +571,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
           </div>
         </section>
 
-        {/* ── Showcase Card 04: Technical Explorations (Password Protected) ─ */}
-        <section
-          className="p-6 sm:p-8 transition-all duration-300 shadow-lg"
-          style={{ ...cleanCardStyle, borderRadius: "24px" }}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-            {/* Left Label */}
-            <div className="md:col-span-3 text-xs sm:text-sm font-mono uppercase tracking-[0.15em] text-white/60">
-              Technical explorations
-            </div>
 
-            {/* Middle Thumbnail */}
-            <div className="md:col-span-4 rounded-xl overflow-hidden border border-white/10 bg-black/40 shadow-md">
-              <img
-                src="/IMG/CosmicSandbox.jpg"
-                alt="Cosmic Kinetic Sandbox"
-                className="w-full h-24 object-cover"
-              />
-            </div>
-
-            {/* Right Details */}
-            <div className="md:col-span-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <h3 className="text-base font-semibold text-white">Cosmic Kinetic Sandbox</h3>
-                <p className="text-xs text-[#c084fc] font-medium mt-0.5">3D Celestial N-Body Gravity Engine</p>
-                <p className="text-xs text-slate-400 font-light mt-1">
-                  Interactive orbital mechanics visualizer with realistic particle streams and WebGL shaders.
-                </p>
-              </div>
-
-              {/* Password-Protected Link Button */}
-              <button
-                type="button"
-                onClick={() => handleProtectedAction("Cosmic Kinetic Sandbox")}
-                className="inline-flex items-center gap-1.5 text-xs font-medium text-[#38bdf8] hover:text-white shrink-0 group/link transition-colors cursor-pointer"
-              >
-                <span>Launch physics sandbox</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          </div>
-        </section>
 
         {/* ── Closing Philosophy & Primary Action CTA ───────────────── */}
         <section className="text-center py-12 sm:py-16 space-y-6 max-w-3xl mx-auto">
