@@ -45,16 +45,12 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
     }
   };
 
-  const glassCardStyle: React.CSSProperties = {
-    background: "rgba(0, 0, 0, 0.45)",
-    backdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
-    WebkitBackdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
-    boxShadow: [
-      "inset 0 0 0 1px rgba(255,255,255,0.16)",
-      "0 8px 32px rgba(0,0,0,0.40)",
-      "inset 0 1.5px 1px rgba(255,255,255,0.52)",
-      "inset 0 -2px 5px rgba(0,0,0,0.28)",
-    ].join(", "),
+  // Clean, sleek dark card styling without heavy glass reflections
+  const cleanCardStyle: React.CSSProperties = {
+    background: "#080c1d",
+    border: "1px solid rgba(255, 255, 255, 0.08)",
+    borderRadius: "28px",
+    boxShadow: "0 12px 32px -8px rgba(0, 0, 0, 0.6)",
   };
 
   return (
@@ -63,9 +59,9 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
       style={{
         backgroundColor: "#050711",
         backgroundImage: `
-          radial-gradient(ellipse 90% 50% at 50% -10%, rgba(56, 189, 248, 0.08), transparent 70%),
-          radial-gradient(ellipse 60% 40% at 90% 30%, rgba(129, 140, 248, 0.05), transparent 60%),
-          radial-gradient(ellipse 70% 50% at 10% 70%, rgba(192, 132, 252, 0.04), transparent 60%),
+          radial-gradient(ellipse 90% 50% at 50% -10%, rgba(56, 189, 248, 0.06), transparent 70%),
+          radial-gradient(ellipse 60% 40% at 90% 30%, rgba(129, 140, 248, 0.04), transparent 60%),
+          radial-gradient(ellipse 70% 50% at 10% 70%, rgba(192, 132, 252, 0.03), transparent 60%),
           radial-gradient(circle at 50% 100%, rgba(6, 10, 26, 1), #050711)
         `,
         position: "relative",
@@ -73,7 +69,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
       }}
     >
       {/* ── Top Header Navigation ──────────────────────────────────── */}
-      <header className="sticky top-0 z-50 backdrop-blur-xl border-b border-white/[0.06] bg-[#050711]/80 transition-all duration-300">
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#050711]/90 backdrop-blur-md transition-all duration-300">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 py-5 flex items-center justify-between">
           <button
             type="button"
@@ -109,7 +105,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
       <main className="max-w-7xl mx-auto px-6 sm:px-10 pt-12 sm:pt-20 pb-28 space-y-16 sm:space-y-20">
         {/* ── Hero Listing Header (Clean 2-line title, No Image) ─────── */}
         <section className="text-center max-w-4xl mx-auto space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border shadow-xs bg-white/8 border-white/15 text-[#cbd5e1]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase border bg-[#090e21] border-white/10 text-[#cbd5e1]">
             <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
             <span>DESIGNING THROUGH CODE</span>
           </div>
@@ -141,13 +137,13 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
           </p>
         </section>
 
-        {/* ── 4-Step Process Strip (Matching ADOPT Landing Page Pill) ── */}
+        {/* ── 4-Step Process Strip (Matching Clean Pill Design) ──────── */}
         <section className="max-w-5xl mx-auto">
-          <div className="p-4 sm:p-5 rounded-[28px] sm:rounded-full shadow-lg backdrop-blur-xl border bg-[#0b101e]/85 border-white/12">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 divide-y md:divide-y-0 md:divide-x divide-white/10">
+          <div className="p-4 sm:p-5 rounded-[28px] sm:rounded-full border bg-[#080c1d] border-white/[0.08] shadow-xl">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 divide-y md:divide-y-0 md:divide-x divide-white/[0.08]">
               {/* Step 1: Frame */}
               <div className="flex items-center gap-3.5 pl-2 pt-2 md:pt-0">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-sky-950/70 border-sky-500/30 text-sky-400">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-sky-950/60 border-sky-500/25 text-sky-400">
                   <Maximize2 className="w-4 h-4" />
                 </div>
                 <div>
@@ -158,7 +154,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
               {/* Step 2: Build */}
               <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-indigo-950/70 border-indigo-500/30 text-indigo-400">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-indigo-950/60 border-indigo-500/25 text-indigo-400">
                   <Code2 className="w-4 h-4" />
                 </div>
                 <div>
@@ -169,7 +165,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
               {/* Step 3: Evaluate */}
               <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-pink-950/70 border-pink-500/30 text-pink-400">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-pink-950/60 border-pink-500/25 text-pink-400">
                   <BarChart3 className="w-4 h-4" />
                 </div>
                 <div>
@@ -180,7 +176,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
               {/* Step 4: Refine */}
               <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-emerald-950/70 border-emerald-500/30 text-emerald-400">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 border bg-emerald-950/60 border-emerald-500/25 text-emerald-400">
                   <RotateCw className="w-4 h-4" />
                 </div>
                 <div>
@@ -192,16 +188,16 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
           </div>
         </section>
 
-        {/* ── Showcase Card 01: AdoptIQ.ai (Glass Card Style) ──────── */}
+        {/* ── Showcase Card 01: AdoptIQ.ai (Clean Simple Dark Card) ──── */}
         <section
-          className="rounded-[36px] p-8 sm:p-12 transition-all duration-300 relative overflow-hidden group"
-          style={glassCardStyle}
+          className="p-8 sm:p-12 transition-all duration-300 relative overflow-hidden group hover:border-white/15"
+          style={cleanCardStyle}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Info Column */}
             <div className="lg:col-span-6 space-y-6">
-              {/* Category Pill matching ADOPT Core Problem */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border shadow-xs bg-white/8 border-white/15 text-[#cbd5e1]">
+              {/* Category Pill */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase border bg-white/[0.04] border-white/10 text-[#cbd5e1]">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
                 <span>01 / BEHAVIORAL INTELLIGENCE</span>
               </div>
@@ -218,7 +214,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
               </p>
 
               {/* 3-Column Spec Grid */}
-              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.08] pb-2">
+              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.06] pb-2">
                 <div>
                   <div className="text-xs text-white/40 uppercase tracking-wider font-mono">Purpose</div>
                   <div className="text-xs sm:text-sm text-white/85 font-medium mt-1">Turn behavioral signals into action</div>
@@ -235,15 +231,15 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
               {/* Feature Badges Row */}
               <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-white/75">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10">
                   <Activity className="w-3.5 h-3.5 text-[#38bdf8]" />
                   <span>Behavioral diagnosis</span>
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10">
                   <TrendingUp className="w-3.5 h-3.5 text-[#818cf8]" />
                   <span>Actionable insights</span>
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10">
                   <Compass className="w-3.5 h-3.5 text-[#c084fc]" />
                   <span>Guided interventions</span>
                 </span>
@@ -254,7 +250,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
                 <span className="text-white/70">Technology:</span> React · TypeScript · Node.js · OpenAI
               </div>
 
-              {/* Primary Action Button (Matching 3rd Screenshot) */}
+              {/* Primary Action Button */}
               <div className="pt-3">
                 <button
                   type="button"
@@ -272,7 +268,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
             {/* Right Visual Column */}
             <div className="lg:col-span-6">
-              <div className="rounded-2xl overflow-hidden border border-white/10 bg-[#080d1f] shadow-2xl group-hover:border-white/20 transition-all duration-500">
+              <div className="rounded-2xl overflow-hidden border border-white/10 bg-[#050713] shadow-xl group-hover:border-white/20 transition-all duration-500">
                 <img
                   src="/IMG/AdoptIQDashboardCard.jpg"
                   alt="AdoptIQ.ai Behavioral Intelligence Dashboard"
@@ -283,16 +279,16 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
           </div>
         </section>
 
-        {/* ── Showcase Card 02: PartyTogether (Glass Card Style) ────── */}
+        {/* ── Showcase Card 02: PartyTogether (Clean Simple Dark Card) ── */}
         <section
-          className="rounded-[36px] p-8 sm:p-12 transition-all duration-300 relative overflow-hidden group"
-          style={glassCardStyle}
+          className="p-8 sm:p-12 transition-all duration-300 relative overflow-hidden group hover:border-white/15"
+          style={cleanCardStyle}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Info Column */}
             <div className="lg:col-span-6 space-y-6">
-              {/* Category Pill matching ADOPT Core Problem */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border shadow-xs bg-white/8 border-white/15 text-[#cbd5e1]">
+              {/* Category Pill */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase border bg-white/[0.04] border-white/10 text-[#cbd5e1]">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#818cf8] animate-pulse" />
                 <span>02 / COLLABORATIVE INTERACTION</span>
               </div>
@@ -309,7 +305,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
               </p>
 
               {/* 3-Column Spec Grid */}
-              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.08] pb-2">
+              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.06] pb-2">
                 <div>
                   <div className="text-xs text-white/40 uppercase tracking-wider font-mono">Purpose</div>
                   <div className="text-xs sm:text-sm text-white/85 font-medium mt-1">Make listening social</div>
@@ -326,15 +322,15 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
               {/* Feature Badges Row */}
               <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-white/75">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10">
                   <Radio className="w-3.5 h-3.5 text-[#818cf8]" />
                   <span>Real-time sync</span>
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10">
                   <Sliders className="w-3.5 h-3.5 text-[#38bdf8]" />
                   <span>Shared control</span>
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10">
                   <Globe className="w-3.5 h-3.5 text-[#c084fc]" />
                   <span>Cross-platform</span>
                 </span>
@@ -345,7 +341,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
                 <span className="text-white/70">Technology:</span> React Native · TypeScript · WebSocket · Supabase
               </div>
 
-              {/* Secondary Action Button (Matching 4th Screenshot) */}
+              {/* Secondary Action Button */}
               <div className="pt-3">
                 <button
                   type="button"
@@ -359,7 +355,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
             {/* Right Visual Column: 3 Phone Screens */}
             <div className="lg:col-span-6">
-              <div className="rounded-2xl overflow-hidden border border-white/10 bg-[#080d1f] shadow-2xl group-hover:border-white/20 transition-all duration-500">
+              <div className="rounded-2xl overflow-hidden border border-white/10 bg-[#050713] shadow-xl group-hover:border-white/20 transition-all duration-500">
                 <img
                   src="/IMG/PartyTogetherPhones.jpg"
                   alt="PartyTogether Synchronized Audio App"
@@ -370,16 +366,16 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
           </div>
         </section>
 
-        {/* ── Showcase Card 03: Antigravity Token Studio (Glass Card) ── */}
+        {/* ── Showcase Card 03: Antigravity Token Studio (Clean Dark Card) ── */}
         <section
-          className="rounded-[36px] p-8 sm:p-12 transition-all duration-300 relative overflow-hidden group"
-          style={glassCardStyle}
+          className="p-8 sm:p-12 transition-all duration-300 relative overflow-hidden group hover:border-white/15"
+          style={cleanCardStyle}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Info Column */}
             <div className="lg:col-span-6 space-y-6">
-              {/* Category Pill matching ADOPT Core Problem */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase backdrop-blur-md border shadow-xs bg-white/8 border-white/15 text-[#cbd5e1]">
+              {/* Category Pill */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase border bg-white/[0.04] border-white/10 text-[#cbd5e1]">
                 <div className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
                 <span>03 / DESIGN SYSTEM ENGINEERING</span>
               </div>
@@ -396,7 +392,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
               </p>
 
               {/* 3-Column Spec Grid */}
-              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.08] pb-2">
+              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-white/[0.06] pb-2">
                 <div>
                   <div className="text-xs text-white/40 uppercase tracking-wider font-mono">Purpose</div>
                   <div className="text-xs sm:text-sm text-white/85 font-medium mt-1">Close the design-to-code gap</div>
@@ -413,15 +409,15 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
               {/* Feature Badges Row */}
               <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-white/75">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10">
                   <Layers className="w-3.5 h-3.5 text-[#10b981]" />
                   <span>Design-token sync</span>
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10">
                   <Code2 className="w-3.5 h-3.5 text-[#38bdf8]" />
                   <span>AST code generation</span>
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10">
                   <Cpu className="w-3.5 h-3.5 text-[#c084fc]" />
                   <span>Production components</span>
                 </span>
@@ -432,7 +428,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
                 <span className="text-white/70">Technology:</span> TypeScript · AST · Tailwind · Vite
               </div>
 
-              {/* Secondary Action Button (Matching 4th Screenshot) */}
+              {/* Secondary Action Button */}
               <div className="pt-3">
                 <button
                   type="button"
@@ -446,7 +442,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
             {/* Right Visual Column */}
             <div className="lg:col-span-6">
-              <div className="rounded-2xl overflow-hidden border border-white/10 bg-[#080d1f] shadow-2xl group-hover:border-white/20 transition-all duration-500">
+              <div className="rounded-2xl overflow-hidden border border-white/10 bg-[#050713] shadow-xl group-hover:border-white/20 transition-all duration-500">
                 <img
                   src="/IMG/TokenStudio.jpg"
                   alt="Antigravity Token Studio AST Workbench"
@@ -459,8 +455,8 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
         {/* ── Feature Callout Card: "Vibe coding is not skipping design." ── */}
         <section
-          className="rounded-[36px] p-8 sm:p-14 transition-all duration-300 relative overflow-hidden"
-          style={glassCardStyle}
+          className="p-8 sm:p-14 transition-all duration-300 relative overflow-hidden"
+          style={cleanCardStyle}
         >
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
             <h2
@@ -476,7 +472,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
             <div className="lg:col-span-4 space-y-10">
               {/* Point 1 */}
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-white/[0.05] border border-white/12 flex items-center justify-center text-[#38bdf8] shrink-0 shadow-[0_0_15px_rgba(56,189,248,0.2)]">
+                <div className="w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#38bdf8] shrink-0">
                   <Maximize2 className="w-5 h-5" />
                 </div>
                 <div>
@@ -489,7 +485,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
               {/* Point 2 */}
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-white/[0.05] border border-white/12 flex items-center justify-center text-[#818cf8] shrink-0 shadow-[0_0_15px_rgba(129,140,248,0.2)]">
+                <div className="w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#818cf8] shrink-0">
                   <BarChart3 className="w-5 h-5" />
                 </div>
                 <div>
@@ -506,21 +502,21 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
               <div className="relative w-64 h-48 sm:w-80 sm:h-56 flex items-center justify-center">
                 {/* Outer glowing orbital ellipse */}
                 <div
-                  className="absolute inset-0 rounded-full border border-[#818cf8]/40 shadow-[0_0_40px_rgba(99,102,241,0.25)] transform -rotate-12"
+                  className="absolute inset-0 rounded-full border border-[#818cf8]/30 shadow-[0_0_30px_rgba(99,102,241,0.15)] transform -rotate-12"
                   style={{
-                    boxShadow: "0 0 50px rgba(56, 189, 248, 0.25), inset 0 0 30px rgba(192, 132, 252, 0.15)",
+                    boxShadow: "0 0 30px rgba(56, 189, 248, 0.15), inset 0 0 20px rgba(192, 132, 252, 0.1)",
                   }}
                 />
-                <div className="absolute inset-4 rounded-full border border-dashed border-white/20 transform -rotate-12" />
+                <div className="absolute inset-4 rounded-full border border-dashed border-white/15 transform -rotate-12" />
 
                 {/* Glowing celestial center star */}
-                <div className="w-3 h-3 rounded-full bg-white shadow-[0_0_20px_#ffffff,0_0_40px_#38bdf8]" />
+                <div className="w-3 h-3 rounded-full bg-white shadow-[0_0_15px_#ffffff,0_0_30px_#38bdf8]" />
 
                 {/* Orbiting glowing node points */}
-                <div className="absolute top-4 left-10 w-2.5 h-2.5 rounded-full bg-[#38bdf8] shadow-[0_0_15px_#38bdf8]" />
-                <div className="absolute bottom-6 right-10 w-2.5 h-2.5 rounded-full bg-[#c084fc] shadow-[0_0_15px_#c084fc]" />
-                <div className="absolute top-8 right-6 w-2 h-2 rounded-full bg-[#818cf8] shadow-[0_0_12px_#818cf8]" />
-                <div className="absolute bottom-8 left-8 w-2 h-2 rounded-full bg-[#38bdf8] shadow-[0_0_12px_#38bdf8]" />
+                <div className="absolute top-4 left-10 w-2.5 h-2.5 rounded-full bg-[#38bdf8] shadow-[0_0_12px_#38bdf8]" />
+                <div className="absolute bottom-6 right-10 w-2.5 h-2.5 rounded-full bg-[#c084fc] shadow-[0_0_12px_#c084fc]" />
+                <div className="absolute top-8 right-6 w-2 h-2 rounded-full bg-[#818cf8] shadow-[0_0_10px_#818cf8]" />
+                <div className="absolute bottom-8 left-8 w-2 h-2 rounded-full bg-[#38bdf8] shadow-[0_0_10px_#38bdf8]" />
               </div>
             </div>
 
@@ -528,7 +524,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
             <div className="lg:col-span-4 space-y-10">
               {/* Point 3 */}
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-white/[0.05] border border-white/12 flex items-center justify-center text-[#c084fc] shrink-0 shadow-[0_0_15px_rgba(192,132,252,0.2)]">
+                <div className="w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#c084fc] shrink-0">
                   <Share2 className="w-5 h-5" />
                 </div>
                 <div>
@@ -541,7 +537,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
               {/* Point 4 */}
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-white/[0.05] border border-white/12 flex items-center justify-center text-[#38bdf8] shrink-0 shadow-[0_0_15px_rgba(56,189,248,0.2)]">
+                <div className="w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#38bdf8] shrink-0">
                   <Code2 className="w-5 h-5" />
                 </div>
                 <div>
@@ -555,10 +551,10 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
           </div>
         </section>
 
-        {/* ── Showcase Card 04: Technical Explorations (Cosmic Sandbox) ─ */}
+        {/* ── Showcase Card 04: Technical Explorations (Clean Dark Card) ─ */}
         <section
-          className="rounded-[28px] p-6 sm:p-8 transition-all duration-300 shadow-xl"
-          style={glassCardStyle}
+          className="p-6 sm:p-8 transition-all duration-300 shadow-lg"
+          style={{ ...cleanCardStyle, borderRadius: "24px" }}
         >
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
             {/* Left Label */}
