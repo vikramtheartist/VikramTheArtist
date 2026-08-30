@@ -17,7 +17,9 @@ import {
   Cpu,
   Share2,
   Lock,
-  X
+  X,
+  Target,
+  Network
 } from "lucide-react";
 import "../../../styles/adopt-landing.css";
 
@@ -422,99 +424,148 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
 
 
 
-        {/* ── Feature Callout Card: "Vibe coding is not skipping design." ── */}
+        {/* ── Feature Callout Card: "Vibe coding is not skipping design." (Redesigned matching mockup) ── */}
         <section
-          className="p-8 sm:p-14 transition-all duration-300 relative overflow-hidden"
+          id="vibe-philosophy"
+          className="p-8 sm:p-12 lg:p-14 transition-all duration-300 relative overflow-hidden group hover:border-white/15"
           style={cleanCardStyle}
         >
-          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-            <h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-normal text-white tracking-tight"
-              style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
-            >
-              Vibe coding is not skipping design.
-            </h2>
+          {/* Top Row: Headline & Prism Convergence Visual */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Headline Column */}
+            <div className="lg:col-span-5 flex items-start gap-5">
+              {/* Vertical Accent Line */}
+              <div className="flex flex-col items-center shrink-0 pt-2">
+                <div className="w-2 h-2 rounded-full bg-[#38bdf8] shadow-[0_0_10px_#38bdf8]" />
+                <div className="w-[2px] h-28 sm:h-32 bg-gradient-to-b from-[#38bdf8] via-[#a855f7] to-[#ec4899] my-1" />
+                <div className="w-2 h-2 rounded-full bg-[#ec4899] shadow-[0_0_10px_#ec4899]" />
+              </div>
+
+              {/* Title & Subtitle */}
+              <div className="space-y-4">
+                <h2
+                  className="text-3xl sm:text-4xl lg:text-[46px] font-normal text-white tracking-tight leading-[1.12]"
+                  style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+                >
+                  Vibe coding is<br />
+                  not skipping design.
+                </h2>
+
+                <p className="text-sm sm:text-[15px] text-slate-300/80 font-light leading-relaxed max-w-sm">
+                  AI accelerates the build. Design still gives it direction.
+                </p>
+              </div>
+            </div>
+
+            {/* Right Visual Column: Dual-Node Prism Convergence Visual */}
+            <div className="lg:col-span-7 relative">
+              <div className="relative rounded-2xl overflow-hidden bg-[#030614] border border-white/[0.08] shadow-2xl p-2 sm:p-4 group-hover:border-white/15 transition-all">
+                {/* Floating Node Labels */}
+                <div className="absolute top-4 left-6 z-20 pointer-events-none text-left">
+                  <div className="text-xs sm:text-[13px] font-semibold text-white tracking-tight">Human intent</div>
+                  <div className="text-[11px] text-[#38bdf8] font-light">Purpose & judgment</div>
+                </div>
+
+                <div className="absolute bottom-6 left-6 z-20 pointer-events-none text-left">
+                  <div className="text-xs sm:text-[13px] font-semibold text-white tracking-tight">AI generation</div>
+                  <div className="text-[11px] text-[#c084fc] font-light">Speed & possibility</div>
+                </div>
+
+                {/* 3D Prism Illustration */}
+                <img
+                  src="/IMG/vibe-coding-prism.jpg"
+                  alt="Human Intent and AI Generation converging into a glass prism lens producing layered UI software"
+                  className="w-full h-auto object-cover rounded-xl transition-transform duration-700 group-hover:scale-[1.01]"
+                />
+              </div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            {/* Left Quadrant Points */}
-            <div className="lg:col-span-4 space-y-10">
-              {/* Point 1 */}
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#38bdf8] shrink-0">
-                  <Maximize2 className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-base font-semibold text-white">Frame the behavior</h3>
-                  <p className="text-xs sm:text-sm text-slate-400 font-light mt-1 leading-relaxed">
-                    Define intent, success metrics, and edge cases.
-                  </p>
-                </div>
-              </div>
-
-              {/* Point 2 */}
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#818cf8] shrink-0">
-                  <BarChart3 className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="text-base font-semibold text-white">Evaluate in context</h3>
-                  <p className="text-xs sm:text-sm text-slate-400 font-light mt-1 leading-relaxed">
-                    Measure outcomes with real users and data.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Center Orbital Ring Visual */}
-            <div className="lg:col-span-4 flex justify-center py-6 lg:py-0">
-              <div className="relative w-64 h-48 sm:w-80 sm:h-56 flex items-center justify-center">
-                {/* Outer glowing orbital ellipse */}
-                <div
-                  className="absolute inset-0 rounded-full border border-[#818cf8]/30 shadow-[0_0_30px_rgba(99,102,241,0.15)] transform -rotate-12"
-                  style={{
-                    boxShadow: "0 0 30px rgba(56, 189, 248, 0.15), inset 0 0 20px rgba(192, 132, 252, 0.1)",
-                  }}
+          {/* Bottom Process Pipeline Capsule */}
+          <div className="mt-10 sm:mt-12 rounded-[22px] sm:rounded-[26px] bg-[#040715]/90 border border-white/[0.12] p-5 sm:p-7 relative overflow-hidden shadow-inner">
+            {/* Background Wavy Glowing Flow Line */}
+            <div className="absolute inset-x-8 top-1/2 -translate-y-1/2 h-16 pointer-events-none opacity-40 hidden sm:block">
+              <svg className="w-full h-full" viewBox="0 0 1000 60" preserveAspectRatio="none" fill="none">
+                <path
+                  d="M 50 30 Q 250 10, 450 30 T 850 30"
+                  stroke="url(#gradient-line)"
+                  strokeWidth="2"
+                  strokeDasharray="4 4"
                 />
-                <div className="absolute inset-4 rounded-full border border-dashed border-white/15 transform -rotate-12" />
-
-                {/* Glowing celestial center star */}
-                <div className="w-3 h-3 rounded-full bg-white shadow-[0_0_15px_#ffffff,0_0_30px_#38bdf8]" />
-
-                {/* Orbiting glowing node points */}
-                <div className="absolute top-4 left-10 w-2.5 h-2.5 rounded-full bg-[#38bdf8] shadow-[0_0_12px_#38bdf8]" />
-                <div className="absolute bottom-6 right-10 w-2.5 h-2.5 rounded-full bg-[#c084fc] shadow-[0_0_12px_#c084fc]" />
-                <div className="absolute top-8 right-6 w-2 h-2 rounded-full bg-[#818cf8] shadow-[0_0_10px_#818cf8]" />
-                <div className="absolute bottom-8 left-8 w-2 h-2 rounded-full bg-[#38bdf8] shadow-[0_0_10px_#38bdf8]" />
-              </div>
+                <defs>
+                  <linearGradient id="gradient-line" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#38bdf8" />
+                    <stop offset="35%" stopColor="#818cf8" />
+                    <stop offset="70%" stopColor="#c084fc" />
+                    <stop offset="100%" stopColor="#ec4899" />
+                  </linearGradient>
+                </defs>
+              </svg>
             </div>
 
-            {/* Right Quadrant Points */}
-            <div className="lg:col-span-4 space-y-10">
-              {/* Point 3 */}
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#c084fc] shrink-0">
-                  <Share2 className="w-5 h-5" />
+            {/* Pipeline Steps Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-2 items-center relative z-10">
+              {/* Step 01 */}
+              <div className="flex items-center gap-3 text-left">
+                <div className="w-10 h-10 rounded-xl bg-sky-950/70 border border-sky-500/30 flex items-center justify-center text-[#38bdf8] shrink-0 shadow-[0_0_12px_rgba(56,189,248,0.2)]">
+                  <Target className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-white">Model the interaction</h3>
-                  <p className="text-xs sm:text-sm text-slate-400 font-light mt-1 leading-relaxed">
-                    Map flows, states, and feedback loops.
-                  </p>
+                  <div className="text-xs sm:text-[13px] font-bold text-white tracking-tight">01 Frame intent</div>
+                  <div className="text-[11px] text-slate-400 font-light">Behavior, value, constraints</div>
                 </div>
               </div>
 
-              {/* Point 4 */}
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-[#38bdf8] shrink-0">
+              {/* Step 02 */}
+              <div className="flex items-center gap-3 text-left">
+                <div className="w-10 h-10 rounded-xl bg-indigo-950/70 border border-indigo-500/30 flex items-center justify-center text-[#818cf8] shrink-0 shadow-[0_0_12px_rgba(129,140,248,0.2)]">
+                  <Network className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs sm:text-[13px] font-bold text-white tracking-tight">02 Model experience</div>
+                  <div className="text-[11px] text-slate-400 font-light">Flows, states, feedback</div>
+                </div>
+              </div>
+
+              {/* Step 03 */}
+              <div className="flex items-center gap-3 text-left">
+                <div className="w-10 h-10 rounded-xl bg-purple-950/70 border border-purple-500/30 flex items-center justify-center text-[#c084fc] shrink-0 shadow-[0_0_12px_rgba(192,132,252,0.2)]">
                   <Code2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-white">Build the system</h3>
-                  <p className="text-xs sm:text-sm text-slate-400 font-light mt-1 leading-relaxed">
-                    Compose components, logic, and data.
-                  </p>
+                  <div className="text-xs sm:text-[13px] font-bold text-white tracking-tight">03 Build with AI</div>
+                  <div className="text-[11px] text-slate-400 font-light">Components, logic, data</div>
                 </div>
+              </div>
+
+              {/* Step 04 */}
+              <div className="flex items-center gap-3 text-left">
+                <div className="w-10 h-10 rounded-xl bg-pink-950/70 border border-pink-500/30 flex items-center justify-center text-[#ec4899] shrink-0 shadow-[0_0_12px_rgba(236,72,153,0.2)]">
+                  <BarChart3 className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs sm:text-[13px] font-bold text-white tracking-tight">04 Validate in context</div>
+                  <div className="text-[11px] text-slate-400 font-light">People, evidence, outcomes</div>
+                </div>
+              </div>
+
+              {/* End Goal Badge */}
+              <div className="flex justify-start sm:justify-end lg:justify-center">
+                <div className="inline-flex items-center justify-center px-4 py-2.5 rounded-xl text-xs sm:text-[13px] font-bold text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-pink-600 shadow-[0_0_20px_rgba(168,85,247,0.35)] border border-white/20 select-none">
+                  Meaningful product
+                </div>
+              </div>
+            </div>
+
+            {/* Dotted Return Feedback Loop Arrow */}
+            <div className="pt-4 mt-2 border-t border-white/[0.06] flex items-center justify-between text-[10.5px] text-slate-400/80 font-mono">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-ping" />
+                <span>Iterative Feedback Loop</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-slate-400">
+                <span>Refine intent with live telemetry & design judgment</span>
+                <ArrowRight className="w-3.5 h-3.5 text-[#ec4899]" />
               </div>
             </div>
           </div>
