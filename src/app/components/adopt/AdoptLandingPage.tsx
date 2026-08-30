@@ -890,7 +890,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                 {/* Main Headline */}
                 <h2
-                  className={`text-[40px] lg:text-[50px] font-black tracking-[-0.035em] leading-[1.06] mb-5 ${
+                  className={`text-[40px] lg:text-[50px] font-normal tracking-[-0.035em] leading-[1.06] mb-5 ${
                     isDark ? "text-white" : "text-[#0a0e1a]"
                   }`}
                   style={{ fontFamily: "Georgia, serif" }}
@@ -1132,7 +1132,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </div>
 
               <h2
-                className={`text-[24px] sm:text-[34px] font-black tracking-tight leading-[1.1] mb-3.5 ${
+                className={`text-[24px] sm:text-[34px] font-normal tracking-tight leading-[1.1] mb-3.5 ${
                   isDark ? "text-white drop-shadow-md" : "text-[#0a0e1a]"
                 }`}
                 style={{ fontFamily: "Georgia, serif" }}
@@ -1347,7 +1347,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 The 5 Stages of the
               </div>
               <h2
-                className="text-[44px] sm:text-[52px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-4 inline-block"
+                className="text-[44px] sm:text-[52px] lg:text-[58px] font-normal tracking-[-0.035em] leading-[1.04] mb-4 inline-block"
                 style={{ fontFamily: "Georgia, serif" }}
               >
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]">
@@ -1912,7 +1912,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                       {/* Brand Title (White in dark mode, Gradient in light mode) */}
                       <h2
-                        className={`text-[34px] sm:text-[42px] lg:text-[48px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
+                        className={`text-[34px] sm:text-[42px] lg:text-[48px] font-normal tracking-[-0.035em] leading-[1.04] mb-2 ${
                           isDark
                             ? "text-white"
                             : "text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]"
@@ -2044,7 +2044,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                       {/* Brand Title (White in dark mode, Gradient in light mode) */}
                       <h2
-                        className={`text-[34px] sm:text-[42px] lg:text-[48px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
+                        className={`text-[34px] sm:text-[42px] lg:text-[48px] font-normal tracking-[-0.035em] leading-[1.04] mb-2 ${
                           isDark
                             ? "text-white"
                             : "text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]"
