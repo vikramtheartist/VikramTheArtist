@@ -236,14 +236,14 @@ export function Hero() {
 
         <div className="hero-title-block">
           <div className="hero-heading-container">
-            <h1 style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: 'clamp(1.95rem, 6.5vw, 4.25rem)', lineHeight: 1.18, color: '#C5DC4B', margin: 0 }}>
-              <span style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
+            <h1 aria-label="Hi, I am Vikram" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: 'clamp(1.95rem, 6.5vw, 4.25rem)', lineHeight: 1.18, color: '#C5DC4B', margin: 0 }}>
+              <span aria-hidden="true" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
                 {displayed}
                 <span style={{ display: "inline-block", width: "3px", height: "0.85em",
                   background: "var(--text-3)", marginLeft: "3px", verticalAlign: "middle",
                   borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
               </span>
-              {", I am Vikram ✌🏻"}
+              <span aria-hidden="true">{", I am Vikram ✌🏻"}</span>
             </h1>
           </div>
           <div className="hero-subtitle-block" style={{ marginTop: '34px', marginBottom: 0, width: '100%' }}>

@@ -58,7 +58,7 @@ export function FooterCTA() {
           </a>
           . Get in touch on{" "}
           <a
-            href="http://linkedin.com/in/vikramtheartist"
+            href="https://www.linkedin.com/in/vikramtheartist"
             target="_blank"
             rel="noopener noreferrer"
             style={{
@@ -66,7 +66,7 @@ export function FooterCTA() {
               textDecoration: "none",
             }}
           >
-            Linkedin
+            LinkedIn
           </a>
           !
         </p>
