@@ -257,7 +257,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
               </div>
 
               <h2
-                className="text-3xl sm:text-4xl lg:text-5xl font-normal text-white tracking-tight"
+                className="text-[20px] sm:text-[26px] lg:text-[38px] font-normal text-white tracking-tight"
                 style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
               >
                 AdoptIQ.ai
@@ -358,7 +358,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
               </div>
 
               <h2
-                className="text-3xl sm:text-4xl lg:text-5xl font-normal text-white tracking-tight"
+                className="text-[20px] sm:text-[26px] lg:text-[38px] font-normal text-white tracking-tight"
                 style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
               >
                 PartyTogether
@@ -421,7 +421,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
                   onClick={() => handleProtectedAction("PartyTogether Interactive Demo")}
                   className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-[14px] sm:text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm bg-white/8 hover:bg-white/15 text-white border border-white/18 inline-flex items-center gap-2"
                 >
-                  <span>View interactive demo</span>
+                  <span>View Demo</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-white/80" />
                 </button>
               </div>
