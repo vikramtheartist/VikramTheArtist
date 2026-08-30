@@ -1333,13 +1333,15 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 ))}
               </div>
 
+              <div className={`text-[20px] sm:text-[26px] lg:text-[32px] font-bold tracking-tight leading-[1.25] mb-1.5 transition-colors ${
+                isDark ? "text-white" : "text-[#1e293b]"
+              }`}>
+                The 5 Stages of the
+              </div>
               <h2
-                className={`text-[44px] sm:text-[52px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-4 ${
-                  isDark ? "text-white" : "text-[#0a0e1a]"
-                }`}
+                className="text-[44px] sm:text-[52px] lg:text-[58px] font-black tracking-[-0.035em] leading-[1.04] mb-4 inline-block"
                 style={{ fontFamily: "Georgia, serif" }}
               >
-                The 5 Stages of the<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]">
                   ADOPT Playbook
                 </span>
