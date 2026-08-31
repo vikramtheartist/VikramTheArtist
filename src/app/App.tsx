@@ -75,11 +75,10 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
     const planet1 = planet1Ref.current;
     const astro = astroRef.current;
     const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-    const mobileEarthOffset = isMobile ? -300 : 0;
-    const Y_OFFSET = -20 + mobileEarthOffset;       // Atmospheric halo
-    const Y_OFFSET_EARTH = -60 + mobileEarthOffset; // Earth offset (moved up on mobile)
+    const Y_OFFSET = -20;                           // Atmospheric halo
+    const Y_OFFSET_EARTH = isMobile ? 0 : -60;      // Earth offset
     const X_OFFSET_EARTH = 0;                       // Earth centered horizontally
-    const Y_OFFSET_SUN = (isLight ? -55 : -40) + mobileEarthOffset; // Sun (aligned with earth displacement)
+    const Y_OFFSET_SUN = isLight ? -55 : -40;       // Sun (aligned with earth displacement)
     const setPos = (top: number, left: number, scale: number = 1) => {
       const tAtm = top + Y_OFFSET;
       el.style.transform = `translate3d(${left + X_OFFSET_EARTH}px, ${top + Y_OFFSET_EARTH}px, 0) translate(-50%, -50%) scale(${scale})`;
@@ -145,6 +144,17 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
     const compute = (scrollY: number) => {
       const vw      = window.innerWidth;
       const vh      = window.innerHeight;
+      const isMobileNow = vw < 768;
+
+      // On mobile: Earth always sticks at the bottom, exactly 20% visible from the bottom edge
+      if (isMobileNow) {
+        const scale = 0.90;
+        const scaledH = (el.offsetHeight || 1200) * scale;
+        const mobileCenterY = vh + (scaledH / 2) - (scaledH * 0.20);
+        setPos(mobileCenterY, vw / 2, scale);
+        if (planet1) planet1.style.transform = `scale(${scale})`;
+        return;
+      }
 
       // Earth horizon starts cleanly below the 'My work' title and arrow, framing the first card
       const minTopBelowArrow = cachedWorkTitleBottom ? (cachedWorkTitleBottom + 16) : (vh * 0.78);

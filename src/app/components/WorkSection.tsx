@@ -773,12 +773,12 @@ export function WorkSection({
       </div>
 
       {/* ── Mobile Version: Horizontal Swipe Slider (md:hidden) ── */}
-      <div className="block md:hidden relative w-full pb-6 px-0">
+      <div className="block md:hidden relative w-full pb-6">
         {/* Carousel Track */}
         <div
           ref={mobileSliderRef}
           onScroll={handleMobileScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-0 px-0 pb-3 pt-1 scrollbar-none w-full"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 pl-4 pr-10 pb-3 pt-1 scrollbar-none w-full"
           style={{
             WebkitOverflowScrolling: "touch",
             scrollSnapType: "x mandatory",
@@ -790,7 +790,7 @@ export function WorkSection({
           {projects.map((p) => (
             <div
               key={p.title}
-              className="w-full min-w-full shrink-0 snap-center px-4"
+              className="w-[84vw] max-w-[340px] shrink-0 snap-start"
             >
               <ProjectCard
                 {...p}
