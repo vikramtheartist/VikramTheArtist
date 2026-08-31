@@ -232,7 +232,7 @@ export function ClientsSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="clients" className="relative py-14">
+    <section ref={sectionRef} className="relative py-14">
       <h2 className="text-center mb-12" style={{ fontFamily: "'Poppins', sans-serif", fontSize: "2.5rem", lineHeight: 1 }}>
         <span style={{
           fontWeight: 300,

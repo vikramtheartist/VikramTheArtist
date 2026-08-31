@@ -83,16 +83,16 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
     const Y_OFFSET_SUN = isLight ? -55 : -40;       // Sun (aligned with earth displacement)
     const setPos = (top: number, left: number, scale: number = 1) => {
       const tAtm = top + Y_OFFSET;
-      if (el) el.style.transform = `translate3d(${left + X_OFFSET_EARTH}px, ${top + Y_OFFSET_EARTH}px, 0) translate(-50%, -50%) scale(${scale})`;
+      el.style.transform = `translate3d(${left + X_OFFSET_EARTH}px, ${top + Y_OFFSET_EARTH}px, 0) translate(-50%, -50%) scale(${scale})`;
       if (sun) sun.style.transform = `translate3d(${left}px, ${top + Y_OFFSET_SUN}px, 0) translate(-50%, -50%) scale(${scale})`;
       if (atm) atm.style.transform = `translate3d(${left}px, ${tAtm}px, 0) translate(-50%, -50%) scale(${scale})`;
     };
 
-    // Skip parallax only if user explicitly requested reduced-motion
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches) {
+    // Lite-perf: park everything in a sensible static spot, skip scroll listener entirely.
+    if (document.documentElement.dataset.perf === "lite") {
       const vw = window.innerWidth;
       const vh = window.innerHeight;
-      const h = el?.offsetHeight || 1200;
+      const h = el.offsetHeight || 1200;
       setPos(vh * 0.75 - 20 + h / 2, vw / 2, 1);
       if (planet1) planet1.style.transform = "scale(1)";
       if (astro) {
@@ -102,34 +102,28 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
       return;
     }
 
-    let cachedEarthH = el?.offsetHeight || 1200;
+    let targetScrollY = window.scrollY;
+    let currentScrollY = window.scrollY;
+    let rafId = 0;
+    let isRunning = false;
+
+    let cachedEarthH = el.offsetHeight || 1200;
     let cachedCard3Top = 0;
     let cachedCard3Height = 0;
     let cachedLastCardTop = 0;
     let cachedWorkTitleBottom = 0;
-    let cachedClientsTop = 0;
-    let cachedFooterTop = 0;
     let hasCards = false;
     let cachedCardsCount = 0;
 
+    const lerp = (start: number, end: number, factor: number) =>
+      start + (end - start) * factor;
+
     const measureCards = () => {
-      cachedEarthH = el?.offsetHeight || 1200;
+      cachedEarthH = el.offsetHeight || 1200;
       const workHeader = document.querySelector<HTMLElement>("#work .scroll-arrow-jump") || document.querySelector<HTMLElement>("#work h2") || document.querySelector<HTMLElement>("#work");
       if (workHeader) {
         const rect = workHeader.getBoundingClientRect();
         cachedWorkTitleBottom = rect.bottom + window.scrollY;
-      }
-      const clientsEl = document.getElementById("clients") || document.querySelector(".marquee-fade");
-      if (clientsEl) {
-        const rect = clientsEl.getBoundingClientRect();
-        cachedClientsTop = rect.top + window.scrollY;
-      }
-      const footerEl = document.getElementById("contact");
-      if (footerEl) {
-        const rect = footerEl.getBoundingClientRect();
-        cachedFooterTop = rect.top + window.scrollY;
-      } else {
-        cachedFooterTop = document.documentElement.scrollHeight - window.innerHeight;
       }
       const cards = Array.from(document.querySelectorAll<HTMLElement>(".ws-card"));
       cachedCardsCount = cards.length;
@@ -153,10 +147,6 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
       const vw      = window.innerWidth;
       const vh      = window.innerHeight;
       const isMobileNow = vw < 768;
-
-      if (!cachedCard3Top || !cachedFooterTop) {
-        measureCards();
-      }
 
       // On mobile:
       // Initially in hero, Earth is 20% visible.
@@ -214,120 +204,30 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
       const stickTrigger = card3Top + cachedCard3Height / 2 - vh / 2;
       const exitTrigger  = lastTop - lastStickyTop;
 
-      // Astronaut scroll-driven descent when last card exits, and dramatic landing in footer
+      // Astronaut scroll-driven descent when last card exits (reaching 50% of screen vertically)
       if (astro) {
-        const floatLayer = astro.querySelector<HTMLElement>(".astro-layer-float");
-        const standLayer = astro.querySelector<HTMLElement>(".astro-layer-stand");
-
         if (exitTrigger > 0) {
           astro.style.transform = `translate3d(50px, -65vh, 0) translateY(-50%) rotate(8deg)`;
           astro.style.opacity = "0";
-          if (standLayer) standLayer.style.opacity = "0";
-          if (floatLayer) floatLayer.style.opacity = "1";
         } else {
           const dist = Math.abs(exitTrigger);
           const entranceDistance = vh * 0.85;
-          const entranceProgress = Math.min(1, dist / entranceDistance);
-          const easedEntrance = 1 - Math.pow(1 - entranceProgress, 3);
+          const progress = Math.min(1, dist / entranceDistance);
+          const eased = 1 - Math.pow(1 - progress, 3);
 
           const startY = -vh * 0.65;
           const startX = 60;
           const startRot = 8;
 
-          let curY = startY + (0 - startY) * easedEntrance;
-          let curX = startX + (0 - startX) * easedEntrance;
-          let curRot = startRot + (0 - startRot) * easedEntrance;
+          const curY = startY + (0 - startY) * eased;
+          const curX = startX + (0 - startX) * eased;
+          const curRot = startRot + (0 - startRot) * eased;
 
-          const clientsEl = document.getElementById("clients");
-          const footerEl = document.getElementById("contact");
-          const footerRelativeTop = footerEl ? footerEl.getBoundingClientRect().top : (cachedFooterTop ? cachedFooterTop - scrollY : vh * 2);
-          const clientsRelativeTop = clientsEl ? clientsEl.getBoundingClientRect().top : (cachedClientsTop ? cachedClientsTop - scrollY : vh * 2);
+          const postScroll = Math.max(0, dist - entranceDistance);
+          const driftY = -postScroll * 0.12;
 
-          // Size progression: starts at compact flight size (0.68) in earlier sections.
-          // After crossing "Top customers I worked for", progressively scales up to 1.0 to match the standing astronaut
-          const baseFlightScale = 0.68;
-          const targetFlightScale = 1.0;
-          const growthStart = vh * 0.60;
-          const growthEnd   = -vh * 0.20;
-          const growthP     = Math.min(1, Math.max(0, (growthStart - clientsRelativeTop) / (growthStart - growthEnd)));
-          const easedGrowth = growthP * growthP * (3 - 2 * growthP);
-          const currentFlightScale = baseFlightScale + (targetFlightScale - baseFlightScale) * easedGrowth;
-
-          // Detect footer approach for dramatic landing motion
-          const landingStart = vh * 0.92; // initiates as footer comes into view
-          const landingEnd   = vh * 0.35; // touches down firmly
-          let landingProgress = 0;
-          if (footerRelativeTop <= landingStart) {
-            landingProgress = Math.min(1, Math.max(0, (landingStart - footerRelativeTop) / (landingStart - landingEnd)));
-          }
-
-          if (landingProgress > 0) {
-            // Dramatic decelerating touchdown curve
-            const p = landingProgress;
-            // Quintic easing out for cinematic deceleration
-            const easedLand = 1 - Math.pow(1 - p, 4);
-
-            // Ground level: plants astronaut standing tall and upright on the footer ground line
-            const approxAstroH = Math.min(480, Math.max(320, vw * 0.28));
-            const groundTargetY = (vh * 0.5) - (approxAstroH * 0.5) - 20;
-
-            curY = curY + (groundTargetY - curY) * easedLand;
-            curRot = curRot + (0 - curRot) * easedLand; // Straightens to 0deg upright posture
-
-            // Jump-to-stand handoff: when standing pose touches down (p >= 0.38), floating astronaut completely vanishes
-            const isStanding = p >= 0.38;
-            if (standLayer) {
-              standLayer.style.opacity = isStanding ? "1" : "0";
-              standLayer.style.display = isStanding ? "flex" : "none";
-            }
-            if (floatLayer) {
-              floatLayer.style.opacity = isStanding ? "0" : "1";
-              floatLayer.style.display = isStanding ? "none" : "flex";
-            }
-
-            // Touchdown compression impact feel right at jump landing (0.38 to 0.72)
-            let bounceX = 1;
-            let bounceY = 1;
-            if (p >= 0.38 && p <= 0.72) {
-              const impactPhase = (p - 0.38) / 0.34;
-              const bounce = Math.sin(impactPhase * Math.PI);
-              bounceX = 1 + bounce * 0.065;
-              bounceY = 1 - bounce * 0.065;
-            }
-
-            const activeScale = isStanding ? 1.0 : currentFlightScale;
-            const finalScaleX = activeScale * bounceX;
-            const finalScaleY = activeScale * bounceY;
-
-            astro.style.transform = `translate3d(${curX}px, ${curY}px, 0) translateY(-50%) rotate(${curRot}deg) scale(${finalScaleX}, ${finalScaleY})`;
-            astro.style.opacity = "1";
-
-            const innerFloat = astro.querySelector<HTMLElement>(".astro-inner-motion");
-            if (innerFloat) {
-              if (p > 0.65) {
-                innerFloat.style.animation = "astronautStandBreath 4.5s ease-in-out infinite";
-              } else {
-                innerFloat.style.animation = "astronautFloat 7s ease-in-out infinite";
-              }
-            }
-          } else {
-            if (standLayer) {
-              standLayer.style.opacity = "0";
-              standLayer.style.display = "none";
-            }
-            if (floatLayer) {
-              floatLayer.style.opacity = "1";
-              floatLayer.style.display = "flex";
-            }
-
-            astro.style.transform = `translate3d(${curX}px, ${curY}px, 0) translateY(-50%) rotate(${curRot}deg) scale(${currentFlightScale})`;
-            astro.style.opacity = `${Math.min(1, entranceProgress * 2.2)}`;
-
-            const innerFloat = astro.querySelector<HTMLElement>(".astro-inner-motion");
-            if (innerFloat) {
-              innerFloat.style.animation = "astronautFloat 7s ease-in-out infinite";
-            }
-          }
+          astro.style.transform = `translate3d(${curX}px, ${curY + driftY}px, 0) translateY(-50%) rotate(${curRot}deg)`;
+          astro.style.opacity = `${Math.min(1, progress * 2.2)}`;
         }
       }
 
@@ -362,17 +262,51 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
       }
     };
 
+    const renderLoop = () => {
+      if (document.hidden) {
+        isRunning = false;
+        return;
+      }
+      const delta = targetScrollY - currentScrollY;
+      if (Math.abs(delta) < 0.05) {
+        currentScrollY = targetScrollY;
+      } else {
+        currentScrollY = lerp(currentScrollY, targetScrollY, 0.095);
+      }
+
+      compute(currentScrollY);
+
+      if (currentScrollY !== targetScrollY) {
+        rafId = requestAnimationFrame(renderLoop);
+      } else {
+        isRunning = false;
+      }
+    };
+
     const onScroll = () => {
-      compute(window.scrollY);
+      targetScrollY = window.scrollY;
+      if (!isRunning && !document.hidden) {
+        isRunning = true;
+        rafId = requestAnimationFrame(renderLoop);
+      }
     };
 
     const onResize = () => {
       measureCards();
+      targetScrollY = window.scrollY;
+      currentScrollY = window.scrollY;
       compute(window.scrollY);
     };
 
     const onVisibilityChange = () => {
-      compute(window.scrollY);
+      if (document.hidden) {
+        if (rafId) cancelAnimationFrame(rafId);
+        isRunning = false;
+      } else {
+        targetScrollY = window.scrollY;
+        currentScrollY = window.scrollY;
+        compute(window.scrollY);
+      }
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -387,10 +321,11 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
 
     compute(window.scrollY);
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibilityChange);
-      el?.removeEventListener("load", onLoad);
+      el.removeEventListener("load", onLoad);
     };
   }, [isLight]);
 
@@ -455,13 +390,13 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
             height={384}
             style={{
               position: "fixed",
-              top: "22vh",
-              left: "clamp(20px, 3.5vw, 60px)",
+              top: "28vh",
+              left: "calc(max(-10px, 0.8vw) - 50px)",
               width: "clamp(110px, 9vw, 170px)",
               height: "auto",
               zIndex: 0,
               pointerEvents: "none",
-              opacity: 0.92,
+              opacity: 0.95,
               filter: "drop-shadow(0 0 20px rgba(139, 92, 246, 0.35))",
               willChange: "transform",
               transformOrigin: "center center",
@@ -478,7 +413,7 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
             position: "fixed",
             top: "50vh",
             right: "clamp(24px, 4.5vw, 90px)",
-            zIndex: 15,
+            zIndex: 0,
             pointerEvents: "none",
             userSelect: "none",
             transform: "translate3d(50px, -65vh, 0) translateY(-50%) rotate(8deg)",
@@ -487,93 +422,38 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
           }}
         >
           <div
-            className="astro-inner-motion"
             style={{
               animation: "astronautFloat 7s ease-in-out infinite",
               willChange: "transform",
-              position: "relative",
-              width: "clamp(180px, 18.5vw, 295px)",
-              height: "clamp(260px, 26vw, 410px)",
             }}
           >
-            {/* 1. Floating pose layer (Active during space flight) */}
-            <div
-              className="astro-layer-float"
-              style={{
-                position: "absolute",
-                inset: 0,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <picture style={{ display: "contents" }}>
-                <source
-                  type="image/avif"
-                  srcSet={`${import.meta.env.BASE_URL}IMG/Astronaut-200.avif 200w, ${import.meta.env.BASE_URL}IMG/Astronaut-368.avif 368w`}
-                  sizes="clamp(180px, 18.5vw, 295px)"
-                />
-                <source
-                  type="image/webp"
-                  srcSet={`${import.meta.env.BASE_URL}IMG/Astronaut-200.webp 200w, ${import.meta.env.BASE_URL}IMG/Astronaut-368.webp 368w`}
-                  sizes="clamp(180px, 18.5vw, 295px)"
-                />
-                <img
-                  src={`${import.meta.env.BASE_URL}IMG/Astronaut.png`}
-                  alt="Floating Astronaut"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                  width={368}
-                  height={366}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    objectFit: "contain",
-                    filter: "drop-shadow(0 24px 45px rgba(0, 0, 0, 0.85)) drop-shadow(0 0 25px rgba(100, 160, 255, 0.25))",
-                  }}
-                />
-              </picture>
-            </div>
-
-            {/* 2. Standing upright pose layer (Active upon touchdown landing in footer) */}
-            <div
-              className="astro-layer-stand"
-              style={{
-                position: "absolute",
-                inset: 0,
-                display: "none",
-                alignItems: "center",
-                justifyContent: "center",
-                opacity: 0,
-              }}
-            >
-              <picture style={{ display: "contents" }}>
-                <source
-                  type="image/avif"
-                  srcSet={`${import.meta.env.BASE_URL}IMG/Astronat_Standing.avif`}
-                />
-                <source
-                  type="image/webp"
-                  srcSet={`${import.meta.env.BASE_URL}IMG/Astronat_Standing.webp`}
-                />
-                <img
-                  src={`${import.meta.env.BASE_URL}IMG/Astronat_Standing.png`}
-                  alt="Standing Astronaut"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                  width={224}
-                  height={480}
-                  style={{
-                    width: "82%",
-                    height: "auto",
-                    objectFit: "contain",
-                    filter: "drop-shadow(0 28px 45px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 35px rgba(100, 160, 255, 0.35))",
-                  }}
-                />
-              </picture>
-            </div>
+            <picture style={{ display: "contents" }}>
+              <source
+                type="image/avif"
+                srcSet={`${import.meta.env.BASE_URL}IMG/Astronaut-200.avif 200w, ${import.meta.env.BASE_URL}IMG/Astronaut-368.avif 368w`}
+                sizes="clamp(160px, 16.5vw, 255px)"
+              />
+              <source
+                type="image/webp"
+                srcSet={`${import.meta.env.BASE_URL}IMG/Astronaut-200.webp 200w, ${import.meta.env.BASE_URL}IMG/Astronaut-368.webp 368w`}
+                sizes="clamp(160px, 16.5vw, 255px)"
+              />
+              <img
+                src={`${import.meta.env.BASE_URL}IMG/Astronaut.png`}
+                alt="Floating Astronaut"
+                loading="lazy"
+                decoding="async"
+                fetchPriority="low"
+                width={368}
+                height={366}
+                style={{
+                  width: "clamp(160px, 16.5vw, 255px)",
+                  height: "auto",
+                  objectFit: "contain",
+                  filter: "drop-shadow(0 20px 40px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 25px rgba(100, 160, 255, 0.20))",
+                }}
+              />
+            </picture>
           </div>
         </div>
       )}
