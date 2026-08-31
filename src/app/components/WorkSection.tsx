@@ -314,8 +314,8 @@ const projects: {
     description:
       "Feedback 360 is aimed to develop a formal mechanism for confidentially giving and receiving feedback for self-developmental purposes.",
     ctas: [
-      { label: "Case Study", href: "/work/feedback-360", internal: true },
-      { label: "Design Process", href: "https://www.behance.net/gallery/98947311/Design-Execution-Process" },
+      { label: "Discovery", href: "https://www.behance.net/gallery/98921683/Feedback-360" },
+      { label: "Design Executing Process", href: "https://www.behance.net/gallery/98947311/Design-Execution-Process" },
     ],
     thumb: (
       <div className="w-full h-full overflow-hidden rounded-xl">
@@ -544,11 +544,9 @@ function ProjectCard({
 export function WorkSection({
   onPlaybookOpen,
   onCaseStudyOpen,
-  onFeedback360Open,
 }: {
   onPlaybookOpen?: () => void;
   onCaseStudyOpen?: () => void;
-  onFeedback360Open?: () => void;
 } = {}) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -581,11 +579,6 @@ export function WorkSection({
 
   const handleCtaAction = (cta: CTA) => {
     if (!cta.href) return;
-    if (cta.href.includes("feedback-360")) {
-      if (onFeedback360Open) onFeedback360Open();
-      else window.location.pathname = "/work/feedback-360";
-      return;
-    }
     if (cta.href.startsWith("/adopt") || cta.href.includes("adopt-landing")) {
       if (onPlaybookOpen) {
         onPlaybookOpen();

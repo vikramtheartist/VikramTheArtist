@@ -681,7 +681,6 @@ export default function App() {
         <WorkSection
           onPlaybookOpen={() => navigate("adopt-landing")}
           onCaseStudyOpen={() => navigate("adopt-v2")}
-          onFeedback360Open={() => navigate("feedback-360")}
         />
         <AboutSection />
         <ExperienceTimeline />
