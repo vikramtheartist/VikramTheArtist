@@ -746,7 +746,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </h2>
 
             {/* Description */}
-            <p className={`text-[14px] sm:text-[16px] leading-[1.6] max-w-[540px] mb-7 font-normal transition-colors ${
+            <p className={`text-[16px] leading-[1.5] max-w-[540px] mb-7 font-normal transition-colors ${
               isDark ? "text-slate-400" : "text-[#64748b]"
             }`}>
               I created ADOPT from first principles to help product teams and organizations understand why AI adoption stalls—and design the behavioral path from awareness to sustained use.
@@ -929,7 +929,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </h2>
 
                 {/* Sub-paragraph */}
-                <p className={`text-[15px] leading-relaxed max-w-[420px] font-normal ${
+                <p className={`text-[16px] leading-[1.5] max-w-[420px] font-normal ${
                   isDark ? "text-slate-300/80" : "text-[#64748b]"
                 }`}>
                   Even powerful products sit in limbo if they collide with familiar habits, uncertainty, and inertia.
@@ -1170,7 +1170,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 </span>
               </h2>
 
-              <p className={`text-[14px] sm:text-[15px] leading-relaxed font-normal ${
+              <p className={`text-[16px] leading-[1.5] font-normal ${
                 isDark ? "text-slate-300" : "text-[#475569]"
               }`}>
                 Even powerful products sit in limbo if they collide with familiar habits, uncertainty, and inertia.
@@ -1378,7 +1378,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   ADOPT Playbook
                 </span>
               </h2>
-              <p className={`text-[16px] sm:text-[17px] font-normal leading-relaxed mb-6 ${
+              <p className={`text-[16px] leading-[1.5] font-normal mb-6 ${
                 isDark ? "text-slate-400" : "text-[#64748b]"
               }`}>
                 A behavioral journey that moves users from discovery to advocacy. Click any card below to launch the circular 3D experience view.

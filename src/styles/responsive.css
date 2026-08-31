@@ -225,8 +225,10 @@ html, body {
     word-break: break-word !important;
   }
   .project-card-text p {
-    font-size: 13.5px !important;
-    line-height: 1.65 !important;
+    font-family: 'Segoe UI', sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 300 !important;
+    line-height: 1.45 !important;
   }
   .project-card-ctas {
     margin-top: 20px !important; /* Connected to content with exact 20px gap */
