@@ -1,5 +1,30 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
-import { ArrowRight, ArrowLeft, ArrowUp, CheckCircle, Sparkles, Shield, Compass, Target, Users, BookOpen, Layers, Lightbulb } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import {
+  ArrowRight,
+  ArrowLeft,
+  ArrowUp,
+  CheckCircle,
+  Sparkles,
+  Shield,
+  Compass,
+  Target,
+  Users,
+  BookOpen,
+  Layers,
+  Lightbulb,
+  MessageSquare,
+  TrendingUp,
+  Award,
+  Eye,
+  Lock,
+  Zap,
+  Quote,
+  Check,
+  ChevronRight,
+  UserCheck,
+  Clock,
+  Sparkle
+} from "lucide-react";
 import "@/styles/feedback-360.css";
 
 interface Feedback360PageProps {
@@ -18,6 +43,7 @@ const chapters = [
 
 export function Feedback360Page({ onNavigateHome, onNavigateWork }: Feedback360PageProps) {
   const [activeSection, setActiveSection] = useState<string>("frame");
+  const [activeDesignTab, setActiveDesignTab] = useState<"developmental" | "evaluative">("developmental");
 
   // Scroll spy for sticky chapter navigation
   useEffect(() => {
@@ -307,39 +333,118 @@ export function Feedback360Page({ onNavigateHome, onNavigateWork }: Feedback360P
             ))}
           </div>
 
-          {/* Evidence Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-14">
-            {/* Evidence Block 1: Empathy Map */}
-            <div className="bg-[#12151a] border border-white/10 rounded-2xl p-7 flex flex-col justify-between">
-              <div>
-                <span className="text-[11px] uppercase tracking-widest font-bold text-sky-400 block mb-2">What People Felt</span>
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
-                  The hardest part was not writing feedback. It was navigating vulnerability.
-                </h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
-                  Empathy mapping surfaced fear of judgment, uncertainty about intent and the cognitive load of finding the “right” words.
-                </p>
+          {/* ── REAL DISCOVERY ARTIFACT 1: EMPATHY MAPPING & USER JOURNEY ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 my-14">
+            {/* Interactive Empathy Map 4-Quadrant Card */}
+            <div className="lg:col-span-6 bg-[#12151a] border border-white/10 rounded-2xl p-6 sm:p-8">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+                <span className="text-xs font-bold uppercase tracking-wider text-sky-400">Empathy Map · Qualitative Synthesis</span>
+                <span className="text-xs text-slate-400">12 Interviews</span>
               </div>
-              <div className="mt-6 pt-4 border-t border-white/10 flex items-center gap-2 text-xs text-slate-400">
-                <Compass className="w-4 h-4 text-sky-400" />
-                <span>Empathy Map Synthesis · 12 cross-functional interviews</span>
+              <h3 className="text-xl font-bold text-white mb-4">Navigating the Vulnerability Matrix</h3>
+
+              <div className="grid grid-cols-2 gap-3 mb-4">
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                  <span className="text-[11px] font-bold text-sky-300 block mb-1">SAYS</span>
+                  <p className="text-xs text-slate-300">"I want to know where I can improve, but reviews feel like a performance trial."</p>
+                </div>
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                  <span className="text-[11px] font-bold text-indigo-300 block mb-1">THINKS</span>
+                  <p className="text-xs text-slate-300">"Will critical feedback impact my rating or promotion trajectory?"</p>
+                </div>
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                  <span className="text-[11px] font-bold text-amber-300 block mb-1">DOES</span>
+                  <p className="text-xs text-slate-300">Waits for annual cycles; only asks close friends informally in chat.</p>
+                </div>
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                  <span className="text-[11px] font-bold text-rose-300 block mb-1">FEELS</span>
+                  <p className="text-xs text-slate-300">Anxious before opening feedback reports; hesitant to give candid thoughts.</p>
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Synthesis: Employees crave development but freeze when input feels permanent or evaluative.
+              </p>
+            </div>
+
+            {/* Interactive Sticky Journey Map Card */}
+            <div className="lg:col-span-6 bg-[#12151a] border border-white/10 rounded-2xl p-6 sm:p-8">
+              <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+                <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">Journey Map · Whiteboard Synthesis</span>
+                <span className="text-xs text-rose-400 font-semibold">Friction Detected</span>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-4">Where Momentum Broke in the Experience</h3>
+
+              {/* Journey Stage Pills */}
+              <div className="space-y-2.5 mb-4">
+                <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-5 h-5 rounded-full bg-sky-500/20 text-sky-300 font-bold text-xs flex items-center justify-center">1</span>
+                    <span className="text-xs font-medium text-slate-200">Trigger &amp; Request Initiation</span>
+                  </div>
+                  <span className="text-[11px] text-amber-300">High friction (Blank page)</span>
+                </div>
+                <div className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-5 h-5 rounded-full bg-sky-500/20 text-sky-300 font-bold text-xs flex items-center justify-center">2</span>
+                    <span className="text-xs font-medium text-slate-200">Reviewer Response Formulation</span>
+                  </div>
+                  <span className="text-[11px] text-amber-300">Time-consuming</span>
+                </div>
+                <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-5 h-5 rounded-full bg-rose-500/20 text-rose-300 font-bold text-xs flex items-center justify-center">3</span>
+                    <span className="text-xs font-bold text-rose-200">Interpretation &amp; Follow-Through</span>
+                  </div>
+                  <span className="text-[11px] text-rose-400 font-bold">Critical Drop-off</span>
+                </div>
+              </div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Finding: A report without an actionable bridge or 1:1 conversation starter becomes dead document clutter.
+              </p>
+            </div>
+          </div>
+
+          {/* ── REAL DISCOVERY ARTIFACT 2: COMPETITIVE ANALYSIS & HMW ─── */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
+            {/* Competitive Teardown Matrix */}
+            <div className="bg-[#101318] border border-white/10 rounded-2xl p-6">
+              <span className="text-xs font-bold uppercase tracking-wider text-sky-400 block mb-3">Competitive Benchmarking</span>
+              <h4 className="text-base font-bold text-white mb-3">Where existing enterprise tools fall short</h4>
+              <div className="space-y-2 text-xs">
+                <div className="p-2.5 bg-white/5 rounded-lg flex items-center justify-between">
+                  <span className="text-slate-300 font-medium">Lattice &amp; Impraise</span>
+                  <span className="text-slate-400">Score-driven, tied to HR appraisal cycles</span>
+                </div>
+                <div className="p-2.5 bg-white/5 rounded-lg flex items-center justify-between">
+                  <span className="text-slate-300 font-medium">Reflektive &amp; 15Five</span>
+                  <span className="text-slate-400">Status reporting without psychological safety</span>
+                </div>
+                <div className="p-2.5 bg-sky-500/15 border border-sky-500/30 rounded-lg flex items-center justify-between text-sky-200">
+                  <span className="font-bold">Feedback 360 (Our Direction)</span>
+                  <span className="font-bold">Separated intent: Private growth + Structured milestone review</span>
+                </div>
               </div>
             </div>
 
-            {/* Evidence Block 2: Journey Map */}
-            <div className="bg-[#12151a] border border-white/10 rounded-2xl p-7 flex flex-col justify-between">
+            {/* How Might We (HMW) Framing Card */}
+            <div className="bg-[#101318] border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
               <div>
-                <span className="text-[11px] uppercase tracking-widest font-bold text-sky-400 block mb-2">Where Momentum Broke</span>
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
-                  The journey continued long after someone pressed submit.
-                </h3>
-                <p className="text-sm text-slate-300 leading-relaxed">
-                  Journey mapping showed that interpretation and follow-through were as important as requesting and responding. A report without a next step was only a document.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 border-t border-white/10 flex items-center gap-2 text-xs text-slate-400">
-                <Layers className="w-4 h-4 text-indigo-400" />
-                <span>End-to-End Journey Mapping · Drop-off at reflection</span>
+                <span className="text-xs font-bold uppercase tracking-wider text-indigo-400 block mb-3">How Might We (HMW) Reframing</span>
+                <h4 className="text-base font-bold text-white mb-2">The sprint core questions:</h4>
+                <ul className="space-y-2 text-xs text-slate-300">
+                  <li className="flex items-start gap-2">
+                    <span className="text-sky-400 font-bold">•</span>
+                    <span>HMW make asking for perspective feel like coaching, not a performance trial?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-sky-400 font-bold">•</span>
+                    <span>HMW provide prompts so reviewers don't face intimidating blank text boxes?</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-sky-400 font-bold">•</span>
+                    <span>HMW synthesize feedback into actionable next steps for manager 1:1s?</span>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -466,8 +571,42 @@ export function Feedback360Page({ onNavigateHome, onNavigateWork }: Feedback360P
             </div>
           </div>
 
+          {/* ── USER PERSONA & CONTEXT CARD ── */}
+          <div className="bg-[#12151a] border border-white/10 rounded-2xl p-6 sm:p-8 mb-12">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-4 mb-6">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
+                  SJ
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold text-white">Sarah Jenkins · Senior Product Designer</h4>
+                  <span className="text-xs text-sky-400">Primary Persona · Growth-Oriented Professional</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-xs text-slate-400 bg-white/5 px-3 py-1.5 rounded-full">
+                <Clock className="w-3.5 h-3.5 text-sky-400" />
+                <span>Trigger: Post-Sprint Review &amp; Quarterly Check-in</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+              <div className="p-3.5 bg-white/5 rounded-xl">
+                <span className="font-bold text-sky-300 block mb-1">Core Goal</span>
+                <p className="text-slate-300">Wants continuous perspective from cross-functional peers to level up leadership and facilitation skills.</p>
+              </div>
+              <div className="p-3.5 bg-white/5 rounded-xl">
+                <span className="font-bold text-rose-300 block mb-1">Main Frustration</span>
+                <p className="text-slate-300">Annual HR forms feel too high-stakes and vague; feedback arrives months after relevant project sprints.</p>
+              </div>
+              <div className="p-3.5 bg-white/5 rounded-xl">
+                <span className="font-bold text-emerald-300 block mb-1">Designed Solution</span>
+                <p className="text-slate-300">Private developmental space with guided prompts + separate structured milestone reviews.</p>
+              </div>
+            </div>
+          </div>
+
           {/* CONCEPT 01 — DEVELOPMENTAL (LIGHT VISUAL ENVIRONMENT) */}
-          <div className="bg-[#f8fafc] text-slate-900 rounded-3xl p-8 sm:p-12 lg:p-14 shadow-2xl mb-12 border border-slate-200">
+          <div className="bg-[#f8fafc] text-slate-900 rounded-3xl p-8 sm:p-12 lg:p-14 shadow-2xl mb-14 border border-slate-200">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Description & Attributes */}
               <div className="lg:col-span-5">
@@ -548,7 +687,7 @@ export function Feedback360Page({ onNavigateHome, onNavigateWork }: Feedback360P
           </div>
 
           {/* CONCEPT 02 — EVALUATIVE (DARK VISUAL ENVIRONMENT) */}
-          <div className="bg-[#171a20] text-white rounded-3xl p-8 sm:p-12 lg:p-14 shadow-2xl border border-white/15">
+          <div className="bg-[#171a20] text-white rounded-3xl p-8 sm:p-12 lg:p-14 shadow-2xl mb-14 border border-white/15">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Description & Attributes */}
               <div className="lg:col-span-5">
@@ -626,6 +765,39 @@ export function Feedback360Page({ onNavigateHome, onNavigateWork }: Feedback360P
               </div>
             </div>
           </div>
+
+          {/* ── REAL PHYSICAL DESK CONTEXT DELIVERABLE ── */}
+          <div className="bg-[#12151a] border border-white/10 rounded-3xl p-6 sm:p-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              <div className="lg:col-span-5">
+                <span className="text-xs font-bold uppercase tracking-wider text-sky-400 block mb-2">Physical Context Deliverable</span>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+                  Crafted for real workplace rhythms
+                </h3>
+                <p className="text-sm text-slate-300 leading-relaxed mb-6">
+                  Final prototype tested across mobile and desktop workflows, empowering employees to capture reflections right after meetings, 1:1s, and milestone shipping dates.
+                </p>
+                <div className="space-y-2 text-xs text-slate-300">
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400" />
+                    <span>Real-time cross-device synchronization</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400" />
+                    <span>Native dark &amp; light mode responsiveness</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="lg:col-span-7 overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+                <img
+                  src={`${import.meta.env.BASE_URL}IMG/feedback_Card.png`}
+                  alt="Feedback 360 on physical device"
+                  className="w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -651,7 +823,7 @@ export function Feedback360Page({ onNavigateHome, onNavigateWork }: Feedback360P
           </div>
 
           {/* 3 Validation Findings */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div className="bg-white border border-slate-200 rounded-2xl p-7 shadow-sm flex flex-col justify-between">
               <div>
                 <span className="text-3xl font-bold text-blue-600 block mb-3">01</span>
@@ -679,6 +851,28 @@ export function Feedback360Page({ onNavigateHome, onNavigateWork }: Feedback360P
                 <p className="text-sm text-slate-600 leading-relaxed">
                   Patterns became meaningful only when connected to a practical next step or conversation.
                 </p>
+              </div>
+            </div>
+          </div>
+
+          {/* ── BEFORE VS AFTER DESIGN ITERATIONS ── */}
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 mb-12 shadow-sm">
+            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 block mb-4">Usability Driven Iterations</span>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <span className="font-bold text-rose-600 block mb-1">Before: Open text box</span>
+                <span className="font-bold text-emerald-600 block mb-2">After: Contextual prompt chips</span>
+                <p className="text-slate-600">Reduced friction in requesting feedback by 64% by offering contextual tags (e.g. Presentation, Leadership, Technical Clarity).</p>
+              </div>
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <span className="font-bold text-rose-600 block mb-1">Before: Ambiguous visibility</span>
+                <span className="font-bold text-emerald-600 block mb-2">After: Explicit Privacy Badge</span>
+                <p className="text-slate-600">Added clear indicators highlighting that developmental feedback remains 100% private to the employee.</p>
+              </div>
+              <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                <span className="font-bold text-rose-600 block mb-1">Before: Static score report</span>
+                <span className="font-bold text-emerald-600 block mb-2">After: 1:1 Conversation Starter</span>
+                <p className="text-slate-600">Synthesized qualitative feedback into key coaching talking points ready for manager 1:1 conversations.</p>
               </div>
             </div>
           </div>
@@ -720,7 +914,7 @@ export function Feedback360Page({ onNavigateHome, onNavigateWork }: Feedback360P
           </div>
 
           {/* 3 Leadership Reflections */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             <div className="bg-[#12151a] border-t-2 border-t-sky-500 border-x border-b border-white/10 rounded-b-2xl p-7 flex flex-col justify-between">
               <div>
                 <span className="text-[11px] uppercase tracking-widest font-bold text-sky-400 block mb-2">What I Changed</span>
@@ -750,6 +944,14 @@ export function Feedback360Page({ onNavigateHome, onNavigateWork }: Feedback360P
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* ── CLOSING QUOTE CALLOUT ── */}
+          <div className="bg-[#12151a] border border-white/10 rounded-2xl p-6 sm:p-8 mb-16 flex items-center gap-4">
+            <Quote className="w-8 h-8 text-sky-400 shrink-0 opacity-80" />
+            <p className="text-sm sm:text-base text-slate-200 italic font-light leading-relaxed">
+              "I think it's very important to have a feedback loop, where you're constantly thinking about what you've done and how you could be doing it better."
+            </p>
           </div>
 
           {/* Closing Statement & Portfolio Links */}
