@@ -2219,7 +2219,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-4 sm:gap-6">
               {/* Left Headline */}
               <div className="max-w-xl">
-                <h2 className="text-[24px] sm:text-[30px] lg:text-[34px] font-bold text-white tracking-tight leading-[1.12]">
+                <h2 className="text-[24px] sm:text-[30px] lg:text-[34px] font-normal text-white tracking-tight leading-[1.12]">
                   Design for behavior.<br className="hidden sm:inline" /> Build what lasts.
                 </h2>
                 <p className={`text-sm mt-1 font-normal ${isDark ? "text-slate-400" : "text-white/80"}`}>
