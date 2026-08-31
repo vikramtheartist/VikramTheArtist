@@ -1,4 +1,5 @@
 import { ReactNode, useRef, useEffect, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import adoptThumb from "@/assets/img/Adopt_Thumb.png";
 
 /* px each stacked card peeks below the previous; BASE_TOP = where card 0 sticks */
@@ -553,6 +554,9 @@ export function WorkSection({
   const [passwordError, setPasswordError] = useState("");
   const [pendingProtectedLink, setPendingProtectedLink] = useState<string>("");
 
+  const [activeMobileSlide, setActiveMobileSlide] = useState(0);
+  const mobileSliderRef = useRef<HTMLDivElement>(null);
+
   const openPasswordModal = (link: string) => {
     setPasswordInput("");
     setPasswordError("");
@@ -573,6 +577,51 @@ export function WorkSection({
     setPasswordError("Incorrect password. Please try again.");
   };
 
+  const handleCtaAction = (cta: CTA) => {
+    if (!cta.href) return;
+    if (cta.href.startsWith("/adopt") || cta.href.includes("adopt-landing")) {
+      if (onPlaybookOpen) {
+        onPlaybookOpen();
+        if (cta.href.includes("#")) {
+          const hash = cta.href.split("#")[1];
+          setTimeout(() => {
+            const el = document.getElementById(hash);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }, 150);
+        }
+      } else {
+        window.location.href = cta.href;
+      }
+      return;
+    }
+    if (cta.href === "/playbook/adopt-v2" || cta.href.includes("adopt-v2")) {
+      if (onCaseStudyOpen) onCaseStudyOpen();
+      else window.location.pathname = "/playbook/adopt-v2";
+      return;
+    }
+    openPasswordModal(cta.href);
+  };
+
+  const handleMobileScroll = () => {
+    const el = mobileSliderRef.current;
+    if (!el) return;
+    const scrollLeft = el.scrollLeft;
+    const firstChild = el.firstElementChild as HTMLElement | null;
+    const cardWidth = firstChild ? firstChild.offsetWidth + 16 : el.clientWidth;
+    const activeIndex = Math.round(scrollLeft / cardWidth);
+    setActiveMobileSlide(Math.min(Math.max(0, activeIndex), projects.length - 1));
+  };
+
+  const scrollToMobileSlide = (index: number) => {
+    const el = mobileSliderRef.current;
+    if (!el) return;
+    const targetChild = el.children[index] as HTMLElement | undefined;
+    if (targetChild) {
+      targetChild.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    }
+    setActiveMobileSlide(index);
+  };
+
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -584,6 +633,7 @@ export function WorkSection({
     let cardTops: number[] = [];
 
     const measure = () => {
+      if (window.innerWidth < 768) return;
       const rect = section.getBoundingClientRect();
       cachedSectionTop = rect.top + window.scrollY;
       cachedSectionHeight = rect.height;
@@ -596,6 +646,7 @@ export function WorkSection({
     measure();
 
     const update = () => {
+      if (window.innerWidth < 768) return;
       ticking = false;
       const scrollY = window.scrollY;
       const vh = window.innerHeight;
@@ -721,8 +772,83 @@ export function WorkSection({
         </div>
       </div>
 
-      {/* Sticky card stack */}
-      <div className="flex flex-col">
+      {/* ── Mobile Version: Horizontal Swipe Slider (md:hidden) ── */}
+      <div className="block md:hidden relative w-full pb-6">
+        {/* Carousel Track */}
+        <div
+          ref={mobileSliderRef}
+          onScroll={handleMobileScroll}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-4 px-4 pb-3 pt-1 scrollbar-none"
+          style={{
+            WebkitOverflowScrolling: "touch",
+            scrollSnapType: "x mandatory",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+          }}
+        >
+          {projects.map((p) => (
+            <div
+              key={p.title}
+              className="w-[86vw] max-w-[340px] shrink-0 snap-center"
+            >
+              <ProjectCard
+                {...p}
+                onInternalCta={handleCtaAction}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Mobile Pagination & Navigation Bar */}
+        <div className="flex items-center justify-between px-6 mt-4">
+          {/* Pagination Indicators */}
+          <div className="flex items-center gap-2">
+            {projects.map((_, idx) => (
+              <button
+                key={idx}
+                type="button"
+                aria-label={`Go to slide ${idx + 1}`}
+                onClick={() => scrollToMobileSlide(idx)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  activeMobileSlide === idx
+                    ? "w-7 bg-white shadow-xs"
+                    : "w-2 bg-white/30 hover:bg-white/50"
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Counter & Arrow Controls */}
+          <div className="flex items-center gap-3">
+            <span className="text-xs font-mono text-white/50">
+              <span className="text-white font-medium">{activeMobileSlide + 1}</span> / {projects.length}
+            </span>
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                aria-label="Previous work"
+                disabled={activeMobileSlide === 0}
+                onClick={() => scrollToMobileSlide(activeMobileSlide - 1)}
+                className="w-8 h-8 rounded-full border border-white/15 bg-white/5 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-white active:scale-95 transition-all"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                type="button"
+                aria-label="Next work"
+                disabled={activeMobileSlide === projects.length - 1}
+                onClick={() => scrollToMobileSlide(activeMobileSlide + 1)}
+                className="w-8 h-8 rounded-full border border-white/15 bg-white/5 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-white active:scale-95 transition-all"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Desktop & Tablet Version: Sticky Card Stack (hidden md:flex) ── */}
+      <div className="hidden md:flex flex-col">
         {projects.map((p, i) => (
           <div
             key={p.title}
@@ -738,37 +864,14 @@ export function WorkSection({
           >
             <ProjectCard
               {...p}
-              onInternalCta={(cta) => {
-                if (!cta.href) return;
-                if (cta.href.startsWith("/adopt") || cta.href.includes("adopt-landing")) {
-                  if (onPlaybookOpen) {
-                    onPlaybookOpen();
-                    if (cta.href.includes("#")) {
-                      const hash = cta.href.split("#")[1];
-                      setTimeout(() => {
-                        const el = document.getElementById(hash);
-                        if (el) el.scrollIntoView({ behavior: "smooth" });
-                      }, 150);
-                    }
-                  } else {
-                    window.location.href = cta.href;
-                  }
-                  return;
-                }
-                if (cta.href === "/playbook/adopt-v2" || cta.href.includes("adopt-v2")) {
-                  if (onCaseStudyOpen) onCaseStudyOpen();
-                  else window.location.pathname = "/playbook/adopt-v2";
-                  return;
-                }
-                openPasswordModal(cta.href);
-              }}
+              onInternalCta={handleCtaAction}
             />
           </div>
         ))}
       </div>
 
       {/* Spacer — brief pause at the fully-stacked state before the next section */}
-      <div style={{ height: "80px" }} />
+      <div className="hidden md:block" style={{ height: "80px" }} />
 
       {showPasswordModal && (
         <div
