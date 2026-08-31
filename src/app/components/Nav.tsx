@@ -33,12 +33,7 @@ export function Nav({ mode = "dark", onToggleTheme, onNavigateVibeCoding }: NavP
       >
         Vibe Coding
       </a>
-      <a
-        href="#my-articles"
-        className="text-white/70 hover:text-white text-sm tracking-wide transition-colors duration-200"
-      >
-        My Articles
-      </a>
+
 
       {/* Theme toggle */}
       {onToggleTheme && (
