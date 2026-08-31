@@ -2222,9 +2222,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 <h2 className="text-[24px] sm:text-[30px] lg:text-[34px] font-normal text-white tracking-tight leading-[1.12]">
                   Design for behavior.<br className="hidden sm:inline" /> Build what lasts.
                 </h2>
-                <p className={`text-sm mt-1 font-normal ${isDark ? "text-slate-400" : "text-white/80"}`}>
-                  Let's build adoption experiences that move people—not just ships.
-                </p>
               </div>
 
               {/* Right Side: Center-Aligned Action Buttons */}
@@ -2259,8 +2256,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               </div>
             </div>
 
-            {/* Integrated Attribution & Copyright Row Inside The Card */}
-            <div className={`relative z-10 pt-3 mt-3.5 sm:mt-4 border-t flex flex-col sm:flex-row items-center justify-between gap-1.5 text-[11px] sm:text-[11.5px] ${
+            {/* Integrated Attribution & Copyright Row Inside The Card (+2px font size) */}
+            <div className={`relative z-10 pt-3 mt-3.5 sm:mt-4 border-t flex flex-col sm:flex-row items-center justify-between gap-1.5 text-[13px] sm:text-[13.5px] ${
               isDark ? "border-white/10 text-slate-400" : "border-white/20 text-white/90"
             }`}>
               <div className="flex items-center gap-1.5">
