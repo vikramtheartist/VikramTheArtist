@@ -13,23 +13,9 @@ export function Nav({ mode = "dark", onToggleTheme, onNavigateVibeCoding }: NavP
   return (
     <>
       <nav
-        className="portfolio-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-between md:justify-end gap-6 sm:gap-8 transition-all duration-300"
+        className="portfolio-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-end gap-6 sm:gap-8 transition-all duration-300 pointer-events-none md:pointer-events-auto"
         style={{ padding: "18px 24px" }}
       >
-        {/* Mobile Brand / Spacer on the left */}
-        <div className="md:hidden flex items-center">
-          <a
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            className="text-white/90 text-sm font-semibold tracking-wide font-mono"
-          >
-            VIKRAM
-          </a>
-        </div>
-
         {/* ── Desktop Navigation Links (hidden md:flex) ── */}
         <div className="hidden md:flex items-center gap-6 sm:gap-8">
           <a
@@ -120,7 +106,7 @@ export function Nav({ mode = "dark", onToggleTheme, onNavigateVibeCoding }: NavP
         </div>
 
         {/* ── Mobile Hamburger Toggle Button (md:hidden) ── */}
-        <div className="flex md:hidden items-center gap-3">
+        <div className="flex md:hidden items-center gap-3 pointer-events-auto">
           {onToggleTheme && (
             <button
               type="button"
