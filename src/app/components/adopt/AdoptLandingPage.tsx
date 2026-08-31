@@ -1515,7 +1515,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
 
             {/* Mobile Swipe Slider Layout (block md:hidden) — Cards Reduced by 40% */}
-            <div className="block md:hidden relative w-full pt-2">
+            <div className="block md:hidden relative w-[calc(100%+3rem)] -mx-6 pt-2">
               <div
                 ref={mobileStageSliderRef}
                 onScroll={handleMobileStageScroll}
@@ -1975,7 +1975,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
               {/* Slider Left/Right Arrows & Slide Counter */}
               <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
-                <div className={`text-[10.5px] sm:text-xs font-bold tracking-wider px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border backdrop-blur-md ${
+                <div className={`hidden sm:block text-[10.5px] sm:text-xs font-bold tracking-wider px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border backdrop-blur-md ${
                   isDark ? "bg-white/5 border-white/10 text-slate-300" : "bg-white/80 border-slate-200 text-slate-600"
                 }`}>
                   <span className={isDark ? "text-sky-400" : "text-[#4344fa]"}>0{showcaseSlide + 1}</span>
@@ -2211,8 +2211,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </h3>
 
                       {/* 4 Pipeline Flow Steps in Pill */}
-                      <div className={`w-full p-2.5 rounded-2xl shadow-xs flex items-center justify-between mb-3.5 ${
-                        isDark ? "bg-[#0b101e]/90 border border-white/12 text-slate-300" : "bg-white border border-[#e2e8f0] text-[#334155]"
+                      <div className={`w-full px-2.5 py-2 sm:px-3 sm:py-2.5 rounded-2xl shadow-xs flex items-center justify-between mb-4 ${
+                        isDark ? "bg-[#0b101e]/90 border border-white/12" : "bg-white border border-[#e2e8f0]"
                       }`}>
                         {[
                           { icon: "📋", label: "Plan" },
@@ -2221,13 +2221,19 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                           { icon: "🪄", label: "Generate" }
                         ].map((step, idx, arr) => (
                           <React.Fragment key={idx}>
-                            <div className={`flex items-center gap-1 px-1.5 sm:px-2.5 py-1 rounded-lg text-[10.5px] sm:text-[12px] font-bold ${
+                            <div className={`flex items-center justify-center gap-1 text-[10px] sm:text-[12px] font-bold ${
                               isDark ? "text-slate-200" : "text-[#334155]"
                             }`}>
-                              <span className="text-[12px] sm:text-[14px]">{step.icon}</span>
+                              <span className="text-[11px] sm:text-[13px]">{step.icon}</span>
                               <span>{step.label}</span>
                             </div>
-                            {idx < arr.length - 1 && <span className={isDark ? "text-slate-600 text-xs" : "text-slate-300 text-xs"}>→</span>}
+                            {idx < arr.length - 1 && (
+                              <span className={`text-[9.5px] sm:text-[11px] px-0.5 select-none ${
+                                isDark ? "text-slate-600" : "text-slate-300"
+                              }`}>
+                                →
+                              </span>
+                            )}
                           </React.Fragment>
                         ))}
                       </div>
