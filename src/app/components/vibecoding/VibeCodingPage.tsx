@@ -250,11 +250,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Info Column */}
             <div className="lg:col-span-6 space-y-6">
-              {/* Category Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase border backdrop-blur-md shadow-xs bg-white/8 border-white/15 text-[#cbd5e1]">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#38bdf8] animate-pulse" />
-                <span>01 / BEHAVIORAL INTELLIGENCE</span>
-              </div>
+
 
               <h2
                 className="text-[20px] sm:text-[26px] lg:text-[38px] font-normal text-white tracking-tight"
@@ -351,11 +347,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Info Column */}
             <div className="lg:col-span-6 space-y-6">
-              {/* Category Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-wider uppercase border backdrop-blur-md shadow-xs bg-white/8 border-white/15 text-[#cbd5e1]">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#818cf8] animate-pulse" />
-                <span>02 / COLLABORATIVE INTERACTION</span>
-              </div>
+
 
               <h2
                 className="text-[20px] sm:text-[26px] lg:text-[38px] font-normal text-white tracking-tight"
