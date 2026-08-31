@@ -317,7 +317,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
       (children[index] as HTMLElement).scrollIntoView({
         behavior: "smooth",
         block: "nearest",
-        inline: "center",
+        inline: "start",
       });
     }
   };
@@ -1519,7 +1519,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               <div
                 ref={mobileStageSliderRef}
                 onScroll={handleMobileStageScroll}
-                className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 px-[18vw] pb-4 pt-2 scrollbar-none w-full"
+                className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 pl-4 pr-12 pb-4 pt-2 scrollbar-none w-full"
                 style={{
                   WebkitOverflowScrolling: "touch",
                   scrollSnapType: "x mandatory",
@@ -1542,7 +1542,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     <div
                       key={stage.id}
                       onClick={() => setActiveStageDetail(idx)}
-                      className="w-[64vw] max-w-[230px] shrink-0 snap-center cursor-pointer flex flex-col items-center active:scale-95 transition-transform"
+                      className="w-[76vw] max-w-[270px] shrink-0 snap-start cursor-pointer flex flex-col items-center active:scale-95 transition-transform"
                     >
                       <div className="relative w-full rounded-[22px] overflow-hidden drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)] flex items-center justify-center z-10">
                         <img
@@ -1930,16 +1930,16 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         {/* ── COMBINED SHOWCASE SLIDER: APPLIED FRAMEWORK & AI ADOPTION ENGINE ── */}
         <div id="case-study" className="relative w-full mb-16 sm:mb-20 lg:mb-24 pt-2">
           {/* Top Control Bar with Segmented Tab Switcher and Left/Right Arrows */}
-          <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12 mb-6 sm:mb-8">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-10 lg:px-12 mb-5 sm:mb-8">
+            <div className="flex items-center justify-between gap-2 w-full">
               {/* Segmented Switcher Tabs */}
-              <div className={`inline-flex p-1.5 rounded-full border shadow-2xs backdrop-blur-xl ${
+              <div className={`inline-flex p-1 rounded-full border shadow-2xs backdrop-blur-xl shrink-0 ${
                 isDark ? "bg-[#0b101e]/85 border-white/12" : "bg-white/90 border-slate-200/80"
               }`}>
                 <button
                   type="button"
                   onClick={() => setShowcaseSlide(0)}
-                  className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-extrabold tracking-wide transition-all cursor-pointer ${
+                  className={`inline-flex items-center gap-1 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-[10.5px] sm:text-sm font-extrabold tracking-wide transition-all cursor-pointer whitespace-nowrap ${
                     showcaseSlide === 0
                       ? isDark
                         ? "bg-gradient-to-r from-pink-500/30 to-purple-500/30 text-pink-300 border border-pink-500/40 shadow-sm"
@@ -1949,7 +1949,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       : "text-slate-600 hover:text-slate-900 border border-transparent"
                   }`}
                 >
-                  <span className="text-xs text-pink-400">✦</span>
+                  <span className="text-[10px] text-pink-400">✦</span>
                   <span>APPLIED PLAYBOOK</span>
                   <span className="hidden md:inline text-[11px] font-normal opacity-70">• Copilot Case Study</span>
                 </button>
@@ -1957,7 +1957,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowcaseSlide(1)}
-                  className={`inline-flex items-center gap-2 px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-extrabold tracking-wide transition-all cursor-pointer ${
+                  className={`inline-flex items-center gap-1 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-[10.5px] sm:text-sm font-extrabold tracking-wide transition-all cursor-pointer whitespace-nowrap ${
                     showcaseSlide === 1
                       ? isDark
                         ? "bg-gradient-to-r from-purple-500/30 to-indigo-500/30 text-purple-300 border border-purple-500/40 shadow-sm"
@@ -1967,19 +1967,19 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       : "text-slate-600 hover:text-slate-900 border border-transparent"
                   }`}
                 >
-                  <span className="text-xs text-purple-400">✦</span>
+                  <span className="text-[10px] text-purple-400">✦</span>
                   <span>AI ADOPTION ENGINE</span>
                   <span className="hidden md:inline text-[11px] font-normal opacity-70">• AdoptIQ.ai</span>
                 </button>
               </div>
 
               {/* Slider Left/Right Arrows & Slide Counter */}
-              <div className="flex items-center gap-3 self-end sm:self-auto">
-                <div className={`text-xs font-bold tracking-wider px-3 py-1.5 rounded-full border backdrop-blur-md ${
+              <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+                <div className={`text-[10.5px] sm:text-xs font-bold tracking-wider px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border backdrop-blur-md ${
                   isDark ? "bg-white/5 border-white/10 text-slate-300" : "bg-white/80 border-slate-200 text-slate-600"
                 }`}>
                   <span className={isDark ? "text-sky-400" : "text-[#4344fa]"}>0{showcaseSlide + 1}</span>
-                  <span className="opacity-40"> / 02</span>
+                  <span className="opacity-40">/02</span>
                 </div>
 
                 {/* Left Arrow Button */}
@@ -1987,13 +1987,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   type="button"
                   onClick={() => setShowcaseSlide((prev) => (prev === 0 ? 1 : prev - 1))}
                   aria-label="Previous Slide"
-                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs hover:scale-110 active:scale-95 border ${
+                  className={`w-7 h-7 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs hover:scale-110 active:scale-95 border ${
                     isDark
                       ? "bg-[#0b101e]/90 hover:bg-[#141b36] border-white/15 text-white hover:text-sky-400 hover:border-sky-500/40"
                       : "bg-white/90 hover:bg-white border-slate-200 text-slate-700 hover:text-[#4344fa] hover:border-indigo-300"
                   }`}
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
                 </button>
 
                 {/* Right Arrow Button */}
@@ -2001,13 +2001,13 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   type="button"
                   onClick={() => setShowcaseSlide((prev) => (prev === 1 ? 0 : prev + 1))}
                   aria-label="Next Slide"
-                  className={`w-10 h-10 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs hover:scale-110 active:scale-95 border ${
+                  className={`w-7 h-7 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xs hover:scale-110 active:scale-95 border ${
                     isDark
                       ? "bg-[#0b101e]/90 hover:bg-[#141b36] border-white/15 text-white hover:text-sky-400 hover:border-sky-500/40"
                       : "bg-white/90 hover:bg-white border-slate-200 text-slate-700 hover:text-[#4344fa] hover:border-indigo-300"
                   }`}
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
                 </button>
               </div>
             </div>

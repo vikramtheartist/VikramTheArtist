@@ -617,7 +617,7 @@ export function WorkSection({
     if (!el) return;
     const targetChild = el.children[index] as HTMLElement | undefined;
     if (targetChild) {
-      targetChild.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      targetChild.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
     }
     setActiveMobileSlide(index);
   };
@@ -778,7 +778,7 @@ export function WorkSection({
         <div
           ref={mobileSliderRef}
           onScroll={handleMobileScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-3 px-[14vw] pb-3 pt-1 scrollbar-none w-full"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 pl-4 pr-12 pb-3 pt-1 scrollbar-none w-full"
           style={{
             WebkitOverflowScrolling: "touch",
             scrollSnapType: "x mandatory",
@@ -790,7 +790,7 @@ export function WorkSection({
           {projects.map((p) => (
             <div
               key={p.title}
-              className="w-[71vw] max-w-[285px] shrink-0 snap-center"
+              className="w-[82vw] max-w-[325px] shrink-0 snap-start"
             >
               <ProjectCard
                 {...p}
