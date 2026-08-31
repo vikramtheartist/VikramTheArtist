@@ -252,10 +252,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
             <div className="lg:col-span-6 space-y-6">
 
 
-              <h2
-                className="text-[20px] sm:text-[26px] lg:text-[38px] font-normal text-white tracking-tight"
-                style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
-              >
+              <h2 className="text-[20px] sm:text-[26px] lg:text-[32px] font-bold tracking-tight leading-[1.25] text-white">
                 AdoptIQ.ai
               </h2>
 
@@ -349,10 +346,7 @@ export function VibeCodingPage({ onBack, onNavigateAdopt }: VibeCodingPageProps)
             <div className="lg:col-span-6 space-y-6">
 
 
-              <h2
-                className="text-[20px] sm:text-[26px] lg:text-[38px] font-normal text-white tracking-tight"
-                style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
-              >
+              <h2 className="text-[20px] sm:text-[26px] lg:text-[32px] font-bold tracking-tight leading-[1.25] text-white">
                 PartyTogether
               </h2>
 
