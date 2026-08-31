@@ -248,31 +248,31 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
             const easedLand = 1 - Math.pow(1 - p, 4);
 
             // Ground level: plants astronaut standing tall and upright on the footer ground line
-            const approxAstroH = Math.min(330, Math.max(240, vw * 0.21));
-            const groundTargetY = (vh * 0.5) - (approxAstroH * 0.5) - 30;
+            const approxAstroH = Math.min(480, Math.max(320, vw * 0.28));
+            const groundTargetY = (vh * 0.5) - (approxAstroH * 0.5) - 20;
 
             curY = curY + (groundTargetY - curY) * easedLand;
-            curRot = curRot + (0 - curRot) * easedLand; // Straightens to 0deg upright posture!
+            curRot = curRot + (0 - curRot) * easedLand; // Straightens to 0deg upright posture
 
-            // Crossfade between floating pose and standing upright pose
-            const standOpacity = Math.min(1, Math.max(0, (p - 0.25) / 0.40));
+            // Jump-to-stand handoff: when standing pose touches down (p >= 0.38), floating astronaut completely vanishes
+            const isStanding = p >= 0.38;
             if (standLayer) {
-              standLayer.style.opacity = `${standOpacity}`;
-              standLayer.style.display = standOpacity > 0 ? "flex" : "none";
+              standLayer.style.opacity = isStanding ? "1" : "0";
+              standLayer.style.display = isStanding ? "flex" : "none";
             }
             if (floatLayer) {
-              floatLayer.style.opacity = `${1 - standOpacity}`;
-              floatLayer.style.display = standOpacity >= 1 ? "none" : "flex";
+              floatLayer.style.opacity = isStanding ? "0" : "1";
+              floatLayer.style.display = isStanding ? "none" : "flex";
             }
 
-            // Touchdown compression impact feel near landing completion (0.78 to 1.0)
+            // Touchdown compression impact feel right at jump landing (0.38 to 0.72)
             let scaleX = 1;
             let scaleY = 1;
-            if (p > 0.78) {
-              const impactPhase = (p - 0.78) / 0.22;
+            if (p >= 0.38 && p <= 0.72) {
+              const impactPhase = (p - 0.38) / 0.34;
               const bounce = Math.sin(impactPhase * Math.PI);
-              scaleX = 1 + bounce * 0.055;
-              scaleY = 1 - bounce * 0.055;
+              scaleX = 1 + bounce * 0.065;
+              scaleY = 1 - bounce * 0.065;
             }
 
             astro.style.transform = `translate3d(${curX}px, ${curY}px, 0) translateY(-50%) rotate(${curRot}deg) scale(${scaleX}, ${scaleY})`;
@@ -280,7 +280,7 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
 
             const innerFloat = astro.querySelector<HTMLElement>(".astro-inner-motion");
             if (innerFloat) {
-              if (p > 0.75) {
+              if (p > 0.65) {
                 innerFloat.style.animation = "astronautStandBreath 4.5s ease-in-out infinite";
               } else {
                 innerFloat.style.animation = "astronautFloat 7s ease-in-out infinite";
@@ -481,7 +481,6 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                transition: "opacity 0.2s linear",
               }}
             >
               <picture style={{ display: "contents" }}>
@@ -519,32 +518,31 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
               style={{
                 position: "absolute",
                 inset: 0,
-                display: "flex",
+                display: "none",
                 alignItems: "center",
                 justifyContent: "center",
                 opacity: 0,
-                transition: "opacity 0.2s linear",
               }}
             >
               <picture style={{ display: "contents" }}>
                 <source
                   type="image/avif"
-                  srcSet={`${import.meta.env.BASE_URL}IMG/Astronaut_Standing.avif`}
+                  srcSet={`${import.meta.env.BASE_URL}IMG/Astronat_Standing.avif`}
                 />
                 <source
                   type="image/webp"
-                  srcSet={`${import.meta.env.BASE_URL}IMG/Astronaut_Standing.webp`}
+                  srcSet={`${import.meta.env.BASE_URL}IMG/Astronat_Standing.webp`}
                 />
                 <img
-                  src={`${import.meta.env.BASE_URL}IMG/Astronaut_Standing.png`}
+                  src={`${import.meta.env.BASE_URL}IMG/Astronat_Standing.png`}
                   alt="Standing Astronaut"
                   loading="lazy"
                   decoding="async"
                   fetchPriority="low"
-                  width={180}
-                  height={310}
+                  width={224}
+                  height={480}
                   style={{
-                    width: "90%",
+                    width: "82%",
                     height: "auto",
                     objectFit: "contain",
                     filter: "drop-shadow(0 28px 45px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 35px rgba(100, 160, 255, 0.35))",
