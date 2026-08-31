@@ -107,6 +107,7 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
     let cachedCard3Height = 0;
     let cachedLastCardTop = 0;
     let cachedWorkTitleBottom = 0;
+    let cachedClientsTop = 0;
     let cachedFooterTop = 0;
     let hasCards = false;
     let cachedCardsCount = 0;
@@ -117,6 +118,11 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
       if (workHeader) {
         const rect = workHeader.getBoundingClientRect();
         cachedWorkTitleBottom = rect.bottom + window.scrollY;
+      }
+      const clientsEl = document.getElementById("clients") || document.querySelector(".marquee-fade");
+      if (clientsEl) {
+        const rect = clientsEl.getBoundingClientRect();
+        cachedClientsTop = rect.top + window.scrollY;
       }
       const footerEl = document.getElementById("contact");
       if (footerEl) {
@@ -232,10 +238,24 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
           let curX = startX + (0 - startX) * easedEntrance;
           let curRot = startRot + (0 - startRot) * easedEntrance;
 
+          const clientsEl = document.getElementById("clients");
+          const footerEl = document.getElementById("contact");
+          const footerRelativeTop = footerEl ? footerEl.getBoundingClientRect().top : (cachedFooterTop ? cachedFooterTop - scrollY : vh * 2);
+          const clientsRelativeTop = clientsEl ? clientsEl.getBoundingClientRect().top : (cachedClientsTop ? cachedClientsTop - scrollY : vh * 2);
+
+          // Size progression: starts at compact flight size (0.68) in earlier sections.
+          // After crossing "Top customers I worked for", progressively scales up to 1.0 to match the standing astronaut
+          const baseFlightScale = 0.68;
+          const targetFlightScale = 1.0;
+          const growthStart = vh * 0.60;
+          const growthEnd   = -vh * 0.20;
+          const growthP     = Math.min(1, Math.max(0, (growthStart - clientsRelativeTop) / (growthStart - growthEnd)));
+          const easedGrowth = growthP * growthP * (3 - 2 * growthP);
+          const currentFlightScale = baseFlightScale + (targetFlightScale - baseFlightScale) * easedGrowth;
+
           // Detect footer approach for dramatic landing motion
-          const footerRelativeTop = cachedFooterTop ? (cachedFooterTop - scrollY) : (vh * 2);
-          const landingStart = vh * 0.95; // initiates as footer comes into view
-          const landingEnd   = vh * 0.25; // touches down firmly
+          const landingStart = vh * 0.92; // initiates as footer comes into view
+          const landingEnd   = vh * 0.35; // touches down firmly
           let landingProgress = 0;
           if (footerRelativeTop <= landingStart) {
             landingProgress = Math.min(1, Math.max(0, (landingStart - footerRelativeTop) / (landingStart - landingEnd)));
@@ -266,16 +286,20 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
             }
 
             // Touchdown compression impact feel right at jump landing (0.38 to 0.72)
-            let scaleX = 1;
-            let scaleY = 1;
+            let bounceX = 1;
+            let bounceY = 1;
             if (p >= 0.38 && p <= 0.72) {
               const impactPhase = (p - 0.38) / 0.34;
               const bounce = Math.sin(impactPhase * Math.PI);
-              scaleX = 1 + bounce * 0.065;
-              scaleY = 1 - bounce * 0.065;
+              bounceX = 1 + bounce * 0.065;
+              bounceY = 1 - bounce * 0.065;
             }
 
-            astro.style.transform = `translate3d(${curX}px, ${curY}px, 0) translateY(-50%) rotate(${curRot}deg) scale(${scaleX}, ${scaleY})`;
+            const activeScale = isStanding ? 1.0 : currentFlightScale;
+            const finalScaleX = activeScale * bounceX;
+            const finalScaleY = activeScale * bounceY;
+
+            astro.style.transform = `translate3d(${curX}px, ${curY}px, 0) translateY(-50%) rotate(${curRot}deg) scale(${finalScaleX}, ${finalScaleY})`;
             astro.style.opacity = "1";
 
             const innerFloat = astro.querySelector<HTMLElement>(".astro-inner-motion");
@@ -296,7 +320,7 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
               floatLayer.style.display = "flex";
             }
 
-            astro.style.transform = `translate3d(${curX}px, ${curY}px, 0) translateY(-50%) rotate(${curRot}deg)`;
+            astro.style.transform = `translate3d(${curX}px, ${curY}px, 0) translateY(-50%) rotate(${curRot}deg) scale(${currentFlightScale})`;
             astro.style.opacity = `${Math.min(1, entranceProgress * 2.2)}`;
 
             const innerFloat = astro.querySelector<HTMLElement>(".astro-inner-motion");
