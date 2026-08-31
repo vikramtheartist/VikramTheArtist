@@ -214,13 +214,14 @@ html, body {
   }
   .project-card-text {
     flex: 1 1 auto !important;
-    padding: 18px 18px 22px 18px !important;
-    gap: 10px !important;
+    justify-content: flex-start !important;
+    padding: 20px 20px 16px 20px !important;
+    gap: 0 !important;
   }
   .project-card-title {
     font-size: 20px !important;
     line-height: 1.25 !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 8px !important;
     word-break: break-word !important;
   }
   .project-card-text p {
@@ -228,7 +229,8 @@ html, body {
     line-height: 1.65 !important;
   }
   .project-card-ctas {
-    margin-top: 14px !important;
+    margin-top: 20px !important; /* Connected to content with exact 20px gap */
+    margin-bottom: 6px !important;
     flex-direction: row !important;
     flex-wrap: wrap !important;
     gap: 8px !important;

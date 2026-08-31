@@ -778,7 +778,7 @@ export function WorkSection({
         <div
           ref={mobileSliderRef}
           onScroll={handleMobileScroll}
-          className="flex overflow-x-auto snap-x snap-mandatory gap-0 px-0 pb-3 pt-1 scrollbar-none w-full"
+          className="flex overflow-x-auto snap-x snap-mandatory gap-3 px-[14vw] pb-3 pt-1 scrollbar-none w-full"
           style={{
             WebkitOverflowScrolling: "touch",
             scrollSnapType: "x mandatory",
@@ -790,7 +790,7 @@ export function WorkSection({
           {projects.map((p) => (
             <div
               key={p.title}
-              className="w-full min-w-full shrink-0 snap-center px-0"
+              className="w-[71vw] max-w-[285px] shrink-0 snap-center"
             >
               <ProjectCard
                 {...p}
