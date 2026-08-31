@@ -36,10 +36,10 @@ export function FooterCTA() {
         {/* Subtitle */}
         <p
           style={{
-            fontFamily: "'Satoshi', sans-serif",
-            fontWeight: 400,
-            fontSize: "clamp(1rem, 1.3vw, 1.35rem)",
-            letterSpacing: "-0.3px",
+            fontFamily: "'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif",
+            fontWeight: 300,
+            fontSize: "clamp(16px, 1.4vw, 22px)",
+            lineHeight: 1.5,
             color: "var(--text-2)",
             margin: 0,
           }}

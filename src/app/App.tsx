@@ -169,10 +169,10 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
         }
 
         if (astro) {
-          // On landing, astronaut starts 60px higher (moved up by 30px twice), then scrolls away upwards and fades out
-          const upwardOffset = -60 - scrollY * 1.1;
+          // On landing, astronaut starts 90px higher (moved up 30px again to clear hero text), then scrolls away upwards
+          const upwardOffset = -90 - scrollY * 1.1;
           const astroOpacity = Math.max(0, 1 - scrollY / (vh * 0.35));
-          astro.style.transform = `translate3d(30px, ${upwardOffset}px, 0) translateY(-50%) rotate(${8 - scrollY * 0.03}deg)`;
+          astro.style.transform = `translate3d(35px, ${upwardOffset}px, 0) translateY(-50%) rotate(${8 - scrollY * 0.03}deg)`;
           astro.style.opacity = `${astroOpacity}`;
         }
         return;
