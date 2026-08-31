@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -297,6 +297,30 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
   const [passwordError, setPasswordError] = useState("");
   const [showcaseSlide, setShowcaseSlide] = useState<number>(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [activeMobileStage, setActiveMobileStage] = useState(0);
+  const mobileStageSliderRef = useRef<HTMLDivElement>(null);
+
+  const handleMobileStageScroll = () => {
+    const el = mobileStageSliderRef.current;
+    if (!el) return;
+    const scrollLeft = el.scrollLeft;
+    const itemWidth = el.scrollWidth / STAGES_DATA.length;
+    const index = Math.round(scrollLeft / itemWidth);
+    setActiveMobileStage(Math.max(0, Math.min(STAGES_DATA.length - 1, index)));
+  };
+
+  const scrollToMobileStage = (index: number) => {
+    const el = mobileStageSliderRef.current;
+    if (!el) return;
+    const children = el.children;
+    if (children && children[index]) {
+      (children[index] as HTMLElement).scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  };
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStartX(e.touches[0].clientX);
@@ -759,56 +783,56 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
         </div>
 
         {/* Floating Metrics Pill Bar */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full relative z-10 pt-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-10 lg:px-12 w-full relative z-10 pt-8">
           <div className={`p-4 sm:p-5 rounded-[28px] shadow-sm backdrop-blur-xl border transition-colors ${
             isDark ? "bg-[#0b101e]/85 border-white/12" : "bg-white/90 border-slate-200/70"
           }`}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 divide-y md:divide-y-0 md:divide-x divide-slate-200/60">
-              <div className="flex items-center gap-3.5 pl-2 pt-2 md:pt-0">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-6 md:divide-x divide-slate-200/40">
+              <div className="flex items-center gap-3 p-1.5 sm:pl-2">
+                <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border transition-transform ${
                   isDark ? "bg-sky-950/70 border-sky-500/30 text-sky-400" : "bg-[#f0f9ff]/90 border-sky-100/50 text-[#0284c7]"
                 }`}>
                   <Zap className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>5 Stages</div>
-                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Structured path</div>
+                  <div className={`text-[17px] sm:text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>5 Stages</div>
+                  <div className={`text-[11.5px] sm:text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Structured path</div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
+              <div className="flex items-center gap-3 p-1.5 sm:pl-6">
+                <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border transition-transform ${
                   isDark ? "bg-indigo-950/70 border-indigo-500/30 text-indigo-400" : "bg-[#f5f3ff]/90 border-indigo-100/50 text-[#6366f1]"
                 }`}>
                   <Bot className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>AI Ready</div>
-                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Built for GenAI</div>
+                  <div className={`text-[17px] sm:text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>AI Ready</div>
+                  <div className={`text-[11.5px] sm:text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>Built for GenAI</div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
+              <div className="flex items-center gap-3 p-1.5 sm:pl-6">
+                <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border transition-transform ${
                   isDark ? "bg-pink-950/70 border-pink-500/30 text-pink-400" : "bg-[#fdf2f8]/90 border-pink-100/50 text-[#db2777]"
                 }`}>
                   <TrendingUp className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>3.6x Growth</div>
-                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>In recurring active users</div>
+                  <div className={`text-[17px] sm:text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>3.6x Growth</div>
+                  <div className={`text-[11.5px] sm:text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>In active users</div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3.5 pl-2 md:pl-6 pt-3 md:pt-0">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border group-hover:scale-110 transition-transform ${
+              <div className="flex items-center gap-3 p-1.5 sm:pl-6">
+                <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0 shadow-2xs border transition-transform ${
                   isDark ? "bg-emerald-950/70 border-emerald-500/30 text-emerald-400" : "bg-[#ecfdf5]/90 border-emerald-100/50 text-[#059669]"
                 }`}>
                   <Sparkles className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className={`text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>Behavior-first</div>
-                  <div className={`text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>by design</div>
+                  <div className={`text-[17px] sm:text-[20px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>Behavior-first</div>
+                  <div className={`text-[11.5px] sm:text-[12px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>by design</div>
                 </div>
               </div>
             </div>
@@ -1419,9 +1443,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </div>
           </div>
 
-          {/* ── THE 5 STAGES OF THE ADOPT PLAYBOOK (5 GLASS CARDS GRID ON TRANSPARENT BG) ─ */}
+          {/* ── THE 5 STAGES OF THE ADOPT PLAYBOOK ─ */}
           <div className="relative pt-4 pb-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 lg:gap-5 relative z-10 items-stretch">
+            {/* Desktop / Tablet Grid (hidden md:grid) */}
+            <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 lg:gap-5 relative z-10 items-stretch">
               {STAGES_DATA.map((stage, idx) => {
                 const glowColors: Record<string, { light: string; core: string }> = {
                   aware: { light: "rgba(56, 189, 248, 0.65)", core: "rgba(2, 132, 199, 0.85)" },
@@ -1469,7 +1494,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
                       {/* ── GLASSY BASE CAUSTIC LIGHT GLOW (TRANSPARENT BACKGROUND) ── */}
                       <div className="relative w-[90%] flex flex-col items-center justify-center -mt-4 sm:-mt-5 pointer-events-none z-0">
-                        {/* 1. Core Colored Glass Light Contact Point (Subtle & Refined) */}
                         <div
                           className="w-[65%] h-3 sm:h-3.5 rounded-[100%] blur-[6px] transition-all duration-500 group-hover:scale-110 group-hover:blur-[8px] opacity-60 group-hover:opacity-75"
                           style={{
@@ -1477,8 +1501,6 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                             boxShadow: `0 2px 12px ${currentGlow.light}`,
                           }}
                         />
-
-                        {/* 2. Soft Ambient Caustic Bloom */}
                         <div
                           className="w-[75%] h-4 sm:h-5 rounded-[100%] blur-md -mt-2 transition-all duration-500 group-hover:scale-115 opacity-35 group-hover:opacity-55"
                           style={{
@@ -1490,6 +1512,122 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   </div>
                 );
               })}
+            </div>
+
+            {/* Mobile Swipe Slider Layout (block md:hidden) — Cards Reduced by 40% */}
+            <div className="block md:hidden relative w-full pt-2">
+              <div
+                ref={mobileStageSliderRef}
+                onScroll={handleMobileStageScroll}
+                className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 px-[18vw] pb-4 pt-2 scrollbar-none w-full"
+                style={{
+                  WebkitOverflowScrolling: "touch",
+                  scrollSnapType: "x mandatory",
+                  scrollBehavior: "smooth",
+                  scrollbarWidth: "none",
+                  msOverflowStyle: "none",
+                }}
+              >
+                {STAGES_DATA.map((stage, idx) => {
+                  const glowColors: Record<string, { light: string; core: string }> = {
+                    aware: { light: "rgba(56, 189, 248, 0.65)", core: "rgba(2, 132, 199, 0.85)" },
+                    desire: { light: "rgba(251, 113, 133, 0.65)", core: "rgba(244, 63, 94, 0.85)" },
+                    open: { light: "rgba(167, 139, 250, 0.65)", core: "rgba(139, 92, 246, 0.85)" },
+                    proficient: { light: "rgba(251, 191, 36, 0.65)", core: "rgba(245, 158, 11, 0.85)" },
+                    transform: { light: "rgba(52, 211, 153, 0.65)", core: "rgba(16, 185, 129, 0.85)" },
+                  };
+                  const currentGlow = glowColors[stage.id] || { light: "rgba(99, 102, 241, 0.6)", core: "rgba(79, 70, 229, 0.8)" };
+
+                  return (
+                    <div
+                      key={stage.id}
+                      onClick={() => setActiveStageDetail(idx)}
+                      className="w-[64vw] max-w-[230px] shrink-0 snap-center cursor-pointer flex flex-col items-center active:scale-95 transition-transform"
+                    >
+                      <div className="relative w-full rounded-[22px] overflow-hidden drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)] flex items-center justify-center z-10">
+                        <img
+                          src={isDark ? stage.cardDarkImg : stage.cardImg}
+                          alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
+                          className="w-full h-auto object-contain"
+                          style={{
+                            filter: isDark ? "contrast(0.90) brightness(0.94) saturate(0.92)" : "none",
+                          }}
+                        />
+                      </div>
+
+                      {/* Glassy Base Light Glow */}
+                      <div className="relative w-[90%] flex flex-col items-center justify-center -mt-3 pointer-events-none z-0">
+                        <div
+                          className="w-[65%] h-2.5 rounded-[100%] blur-[5px] opacity-60"
+                          style={{
+                            background: `radial-gradient(ellipse at center, ${currentGlow.core} 0%, ${currentGlow.light} 50%, transparent 80%)`,
+                            boxShadow: `0 2px 10px ${currentGlow.light}`,
+                          }}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Mobile Pagination Indicators & Arrows */}
+              <div className="flex items-center justify-between px-6 mt-2">
+                <div className="flex items-center gap-2">
+                  {STAGES_DATA.map((_, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      aria-label={`Go to stage ${idx + 1}`}
+                      onClick={() => scrollToMobileStage(idx)}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        activeMobileStage === idx
+                          ? "w-6 bg-gradient-to-r from-purple-400 to-indigo-400"
+                          : isDark
+                          ? "w-1.5 bg-white/25"
+                          : "w-1.5 bg-slate-300"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-2.5">
+                  <span className={`text-xs font-mono ${isDark ? "text-white/50" : "text-slate-500"}`}>
+                    <span className={isDark ? "text-white font-medium" : "text-slate-900 font-medium"}>{activeMobileStage + 1}</span> / {STAGES_DATA.length}
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      aria-label="Previous stage"
+                      disabled={activeMobileStage === 0}
+                      onClick={() => scrollToMobileStage(activeMobileStage - 1)}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center transition-all ${
+                        activeMobileStage === 0
+                          ? "opacity-30 cursor-not-allowed text-white/40"
+                          : isDark
+                          ? "bg-white/10 hover:bg-white/20 text-white border border-white/15 active:scale-95"
+                          : "bg-white text-slate-700 border border-slate-200 active:scale-95 shadow-xs"
+                      }`}
+                    >
+                      <ChevronLeft className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Next stage"
+                      disabled={activeMobileStage === STAGES_DATA.length - 1}
+                      onClick={() => scrollToMobileStage(activeMobileStage + 1)}
+                      className={`w-7 h-7 rounded-full flex items-center justify-center transition-all ${
+                        activeMobileStage === STAGES_DATA.length - 1
+                          ? "opacity-30 cursor-not-allowed text-white/40"
+                          : isDark
+                          ? "bg-white/10 hover:bg-white/20 text-white border border-white/15 active:scale-95"
+                          : "bg-white text-slate-700 border border-slate-200 active:scale-95 shadow-xs"
+                      }`}
+                    >
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1889,10 +2027,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             >
               {/* ── SLIDE 0: APPLIED PLAYBOOK (Scaled Copilot Adoption) ── */}
               <div className="w-full shrink-0 min-w-full">
-                <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
+                <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-10 lg:px-12">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                    {/* Left: Free-Floating 3D Copilot Playbook Visual (Shifted Left) */}
-                    <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
+                    {/* Left: Free-Floating 3D Copilot Playbook Visual (Hidden on Mobile) */}
+                    <div className="hidden lg:flex lg:col-span-6 relative items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                       <img
                         src={isDark ? copilotPlaybookDarkImg : copilotPlaybookImg}
                         alt="Scaled Copilot Adoption AI Adoption Playbook 3D Dashboard"
@@ -1900,8 +2038,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       />
                     </div>
 
-                    {/* Right: Narrative, Headlines, Metrics & Case Study CTA (Shifted Left) */}
-                    <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
+                    {/* Right: Narrative, Headlines, Metrics & Case Study CTA (Mobile Glass Card) */}
+                    <div className={`lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4 p-5 sm:p-8 lg:p-0 rounded-[32px] lg:rounded-none border lg:border-none backdrop-blur-xl lg:backdrop-blur-none shadow-xl lg:shadow-none ${
+                      isDark ? "bg-[#0b101e]/85 border-white/12" : "bg-white/90 border-slate-200/80"
+                    }`}>
                       {/* Eyebrow Badge */}
                       <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs ${
                         isDark ? "bg-pink-500/15 border border-pink-500/30 text-pink-400" : "bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777]"
@@ -1910,9 +2050,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         <span>APPLIED PLAYBOOK</span>
                       </div>
 
-                      {/* Brand Title (White in dark mode, Gradient in light mode) */}
+                      {/* Brand Title */}
                       <h2
-                        className={`text-[34px] sm:text-[42px] lg:text-[48px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
+                        className={`text-[28px] sm:text-[42px] lg:text-[48px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
                           isDark
                             ? "text-white"
                             : "text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]"
@@ -1923,74 +2063,74 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </h2>
 
                       {/* Sub-tagline */}
-                      <p className={`text-[15px] sm:text-[16px] font-semibold mb-4 tracking-tight ${
+                      <p className={`text-[14px] sm:text-[16px] font-semibold mb-3 tracking-tight ${
                         isDark ? "text-slate-400" : "text-[#64748b]"
                       }`}>
                         Enterprise scale AI adoption case study
                       </p>
 
-                      {/* Headline (Unbold, Reduced 5px) */}
-                      <h3 className={`text-[21px] sm:text-[27px] lg:text-[31px] font-normal tracking-tight leading-[1.15] mb-6 max-w-lg ${
+                      {/* Headline */}
+                      <h3 className={`text-[18px] sm:text-[27px] lg:text-[31px] font-normal tracking-tight leading-[1.2] mb-5 max-w-lg ${
                         isDark ? "text-white" : "text-[#0a0e1a]"
                       }`}>
                         How the Adopt Playbook drove awareness into repeat usage and advocacy
                       </h3>
 
                       {/* 3 Metric Cards */}
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-5">
-                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
+                      <div className="grid grid-cols-3 gap-2 w-full max-w-lg mb-4">
+                        <div className={`p-2.5 sm:p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
                           isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-pink-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#fbcfe8]"
                         }`}>
                           <div className="w-2 h-2 rounded-full bg-[#f97316]" />
-                          <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                          <div className={`text-[15px] sm:text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
                             935K → 3.4M
                           </div>
-                          <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
+                          <div className={`text-[10px] sm:text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
                             Copilot MAU
                           </div>
                         </div>
 
-                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
+                        <div className={`p-2.5 sm:p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
                           isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-sky-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#bfdbfe]"
                         }`}>
                           <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
-                          <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                          <div className={`text-[15px] sm:text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
                             33$ → 85$
                           </div>
-                          <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
-                            CAC Reduction 71%
+                          <div className={`text-[10px] sm:text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
+                            CAC Cut 71%
                           </div>
                         </div>
 
-                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
+                        <div className={`p-2.5 sm:p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
                           isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-purple-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#fbcfe8]"
                         }`}>
                           <div className="w-2 h-2 rounded-full bg-[#ec4899]" />
-                          <div className={`text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                          <div className={`text-[15px] sm:text-[19px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
                             500K → 1.5M
                           </div>
-                          <div className={`text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
+                          <div className={`text-[10px] sm:text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
                             Telemetry MAU
                           </div>
                         </div>
                       </div>
 
                       {/* Featured Key Outcome Card (24% more Active Copilot days) */}
-                      <div className={`w-full max-w-lg p-3.5 sm:p-4 rounded-[22px] shadow-xs flex items-center gap-3.5 sm:gap-4 mb-7 transition-colors ${
+                      <div className={`w-full max-w-lg p-3 sm:p-4 rounded-[20px] shadow-xs flex items-center gap-3 sm:gap-4 mb-5 transition-colors ${
                         isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-purple-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#ddd6fe]"
                       }`}>
-                        <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-2xs ${
+                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 shadow-2xs ${
                           isDark ? "bg-purple-950/70 border border-purple-500/30 text-purple-400" : "bg-gradient-to-tr from-[#ede9fe] to-[#f5f3ff] border border-[#ddd6fe] text-[#7c3aed]"
                         }`}>
-                          <TrendingUp className="w-6 h-6 stroke-[2.5]" />
+                          <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 stroke-[2.5]" />
                         </div>
                         <div className="flex flex-col text-left">
-                          <span className={`text-[20px] sm:text-[22px] font-black tracking-tight leading-tight ${
+                          <span className={`text-[17px] sm:text-[22px] font-black tracking-tight leading-tight ${
                             isDark ? "text-white" : "text-[#0f172a]"
                           }`}>
                             24% more
                           </span>
-                          <span className={`text-[12.5px] sm:text-[13px] font-medium leading-snug ${
+                          <span className={`text-[11.5px] sm:text-[13px] font-medium leading-snug ${
                             isDark ? "text-slate-300" : "text-[#475569]"
                           }`}>
                             Active Copilot daily & weekly MAU members
@@ -1999,7 +2139,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
 
                       {/* CTA Button: Protected Figma Case Study */}
-                      <div className="pt-1 pb-3">
+                      <div className="pt-1 pb-1">
                         <button
                           onClick={() => {
                             setPasswordInput("");
@@ -2021,10 +2161,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
               {/* ── SLIDE 1: AI ADOPTION ENGINE (AdoptIQ.ai) ── */}
               <div className="w-full shrink-0 min-w-full">
-                <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-12">
+                <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-10 lg:px-12">
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
-                    {/* Left: Free-Floating 3D SaaS Dashboard Visual (Shifted Left) */}
-                    <div className="lg:col-span-6 relative flex items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
+                    {/* Left: Free-Floating 3D SaaS Dashboard Visual (Hidden on Mobile) */}
+                    <div className="hidden lg:flex lg:col-span-6 relative items-center justify-center lg:justify-start lg:-translate-x-6 pointer-events-auto select-none">
                       <img
                         src={isDark ? adoptIqDarkImg : adoptIqImg}
                         alt="AdoptIQ.ai 3D Dashboard Engine at Work"
@@ -2032,8 +2172,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       />
                     </div>
 
-                    {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA (Shifted Left) */}
-                    <div className="lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4">
+                    {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA (Mobile Glass Card) */}
+                    <div className={`lg:col-span-6 flex flex-col items-start text-left pl-0 lg:-translate-x-4 p-5 sm:p-8 lg:p-0 rounded-[32px] lg:rounded-none border lg:border-none backdrop-blur-xl lg:backdrop-blur-none shadow-xl lg:shadow-none ${
+                      isDark ? "bg-[#0b101e]/85 border-white/12" : "bg-white/90 border-slate-200/80"
+                    }`}>
                       {/* Eyebrow Badge */}
                       <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs ${
                         isDark ? "bg-purple-500/15 border border-purple-500/30 text-purple-400" : "bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed]"
@@ -2042,9 +2184,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         <span>AI ADOPTION ENGINE</span>
                       </div>
 
-                      {/* Brand Title (White in dark mode, Gradient in light mode) */}
+                      {/* Brand Title */}
                       <h2
-                        className={`text-[34px] sm:text-[42px] lg:text-[48px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
+                        className={`text-[28px] sm:text-[42px] lg:text-[48px] font-black tracking-[-0.035em] leading-[1.04] mb-2 ${
                           isDark
                             ? "text-white"
                             : "text-transparent bg-clip-text bg-gradient-to-r from-[#38bdf8] via-[#a855f7] to-[#ec4899]"
@@ -2055,21 +2197,21 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </h2>
 
                       {/* Sub-tagline */}
-                      <p className={`text-[15px] sm:text-[16px] font-semibold mb-4 tracking-tight ${
+                      <p className={`text-[14px] sm:text-[16px] font-semibold mb-3 tracking-tight ${
                         isDark ? "text-slate-400" : "text-[#64748b]"
                       }`}>
                         Independently designed and vibe-coded by Vikram
                       </p>
 
-                      {/* Headline (Unbold, Reduced 5px) */}
-                      <h3 className={`text-[21px] sm:text-[27px] lg:text-[31px] font-normal tracking-tight leading-[1.15] mb-6 max-w-lg ${
+                      {/* Headline */}
+                      <h3 className={`text-[18px] sm:text-[27px] lg:text-[31px] font-normal tracking-tight leading-[1.2] mb-5 max-w-lg ${
                         isDark ? "text-white" : "text-[#0a0e1a]"
                       }`}>
                         Turn your adoption problem into a clear UX action plan.
                       </h3>
 
                       {/* 4 Pipeline Flow Steps in Pill */}
-                      <div className={`w-full max-w-lg p-2.5 rounded-2xl shadow-xs flex items-center justify-between mb-5 ${
+                      <div className={`w-full max-w-lg p-2.5 rounded-2xl shadow-xs flex items-center justify-between mb-4 ${
                         isDark ? "bg-[#0b101e]/90 border border-white/12 text-slate-300" : "bg-white border border-[#e2e8f0] text-[#334155]"
                       }`}>
                         {[
@@ -2079,10 +2221,10 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                           { icon: "🪄", label: "Generate" }
                         ].map((step, idx, arr) => (
                           <React.Fragment key={idx}>
-                            <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[12px] font-bold ${
+                            <div className={`flex items-center gap-1 px-1.5 sm:px-2.5 py-1 rounded-lg text-[11px] sm:text-[12px] font-bold ${
                               isDark ? "text-slate-200" : "text-[#334155]"
                             }`}>
-                              <span className="text-[14px]">{step.icon}</span>
+                              <span className="text-[13px] sm:text-[14px]">{step.icon}</span>
                               <span>{step.label}</span>
                             </div>
                             {idx < arr.length - 1 && <span className={isDark ? "text-slate-600 text-xs" : "text-slate-300 text-xs"}>→</span>}
@@ -2091,37 +2233,37 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
 
                       {/* 3 Core Value Pillars */}
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full max-w-lg mb-7">
-                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 w-full max-w-lg mb-5">
+                        <div className={`p-3 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
                           isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
                         }`}>
-                          <span className="text-xl">🧠</span>
+                          <span className="text-lg">🧠</span>
                           <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
                             Sentiment-to-Behavior Diagnosis
                           </span>
                         </div>
 
-                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
+                        <div className={`p-3 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
                           isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
                         }`}>
-                          <span className="text-xl">🪄</span>
+                          <span className="text-lg">🪄</span>
                           <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
                             Predictive Contextual UX Interventions
                           </span>
                         </div>
 
-                        <div className={`p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1.5 transition-colors ${
+                        <div className={`p-3 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
                           isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-indigo-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#c7d2fe]"
                         }`}>
-                          <span className="text-xl">👥</span>
+                          <span className="text-lg">👥</span>
                           <span className={`text-[11px] font-bold leading-snug ${isDark ? "text-white" : "text-[#0f172a]"}`}>
                             Effort-Free Roadmap Alignment
                           </span>
                         </div>
                       </div>
 
-                      {/* CTA Button: Cobalt/Indigo Gradient Pill */}
-                      <div className="pt-1 pb-3">
+                      {/* CTA Button */}
+                      <div className="pt-1 pb-1">
                         <a
                           href="https://adoptiqai.vercel.app/"
                           target="_blank"
