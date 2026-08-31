@@ -146,13 +146,35 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
       const vh      = window.innerHeight;
       const isMobileNow = vw < 768;
 
-      // On mobile: Earth always sticks at the bottom, exactly 20% visible from the bottom edge
+      // On mobile:
+      // Initially in hero, Earth is 20% visible.
+      // When hero disappears on scroll, Earth goes down and just 10% is visible from the bottom,
+      // and astronaut scrolls away upwards off the screen.
       if (isMobileNow) {
         const scale = 0.90;
         const scaledH = (el.offsetHeight || 1200) * scale;
-        const mobileCenterY = vh + (scaledH / 2) - (scaledH * 0.20);
+
+        // Progress of hero exiting screen (0 to 1)
+        const heroExitDist = Math.max(1, vh * 0.45);
+        const heroProgress = Math.min(1, Math.max(0, scrollY / heroExitDist));
+        const eased = heroProgress * heroProgress * (3 - 2 * heroProgress);
+
+        // Visibility smoothly transitions from 20% (0.20) down to 10% (0.10)
+        const currentVisibility = 0.20 - eased * 0.10;
+        const mobileCenterY = vh + (scaledH / 2) - (scaledH * currentVisibility);
         setPos(mobileCenterY, vw / 2, scale);
-        if (planet1) planet1.style.transform = `scale(${scale})`;
+
+        if (planet1) {
+          planet1.style.transform = `scale(${scale})`;
+        }
+
+        if (astro) {
+          // Astronaut scrolls away from the screen upwards and fades out
+          const upwardOffset = scrollY * 1.1;
+          const astroOpacity = Math.max(0, 1 - scrollY / (vh * 0.35));
+          astro.style.transform = `translate3d(30px, ${-upwardOffset}px, 0) translateY(-50%) rotate(${8 - scrollY * 0.03}deg)`;
+          astro.style.opacity = `${astroOpacity}`;
+        }
         return;
       }
 
