@@ -14,12 +14,14 @@ const CaseStudyAdopt = lazy(() => import("./components/CaseStudyAdopt").then(m =
 const CaseStudyAdoptV2 = lazy(() => import("./components/playbook/CaseStudyAdoptV2").then(m => ({ default: m.CaseStudyAdoptV2 })));
 const AdoptLandingPage = lazy(() => import("./components/adopt/AdoptLandingPage").then(m => ({ default: m.AdoptLandingPage })));
 const VibeCodingPage = lazy(() => import("./components/vibecoding/VibeCodingPage").then(m => ({ default: m.VibeCodingPage })));
+const Feedback360Page = lazy(() => import("./components/feedback/Feedback360Page").then(m => ({ default: m.Feedback360Page })));
 
-type Route = "home" | "adopt" | "adopt-v2" | "adopt-landing" | "vibe-coding";
+type Route = "home" | "adopt" | "adopt-v2" | "adopt-landing" | "vibe-coding" | "feedback-360";
 type ThemeMode = "dark" | "light";
 
 const routeFromPath = (): Route => {
   const p = window.location.pathname.replace(/\/$/, "");
+  if (p.endsWith("/work/feedback-360") || p.endsWith("/feedback-360")) return "feedback-360";
   if (p.endsWith("/adopt-landing") || p.endsWith("/adopt")) return "adopt-landing";
   if (p.endsWith("/playbook/adopt-v2")) return "adopt-v2";
   if (p.endsWith("/playbook/adopt")) return "adopt";
@@ -584,7 +586,8 @@ export default function App() {
   const navigate = useCallback((next: Route) => {
     if (next === route) return;
     const path =
-      next === "adopt-landing" ? "/adopt-landing"
+      next === "feedback-360" ? "/work/feedback-360"
+      : next === "adopt-landing" ? "/adopt-landing"
       : next === "adopt" ? "/playbook/adopt"
       : next === "adopt-v2" ? "/playbook/adopt-v2"
       : next === "vibe-coding" ? "/vibe-coding"
@@ -604,6 +607,21 @@ export default function App() {
     });
   }, []);
 
+  if (route === "feedback-360") {
+    return (
+      <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
+        <Feedback360Page
+          onNavigateHome={() => navigate("home")}
+          onNavigateWork={() => {
+            navigate("home");
+            setTimeout(() => {
+              document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
+            }, 100);
+          }}
+        />
+      </Suspense>
+    );
+  }
   if (route === "vibe-coding") {
     return (
       <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
@@ -663,6 +681,7 @@ export default function App() {
         <WorkSection
           onPlaybookOpen={() => navigate("adopt-landing")}
           onCaseStudyOpen={() => navigate("adopt-v2")}
+          onFeedback360Open={() => navigate("feedback-360")}
         />
         <AboutSection />
         <ExperienceTimeline />
