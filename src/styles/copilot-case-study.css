@@ -1,0 +1,491 @@
+/* ── COPILOT CASE STUDY STYLES (ADOPT DESIGN SYSTEM) ────────────────── */
+
+:root {
+  --copilot-bg: #08090b;
+  --copilot-bg-card: rgba(17, 20, 26, 0.75);
+  --copilot-bg-card-hover: rgba(22, 27, 36, 0.9);
+  --copilot-stroke: rgba(255, 255, 255, 0.08);
+  --copilot-stroke-hover: rgba(255, 255, 255, 0.16);
+  --copilot-text: #f6f7fb;
+  --copilot-muted: #9da6b4;
+  --copilot-muted-2: #747d8c;
+  --copilot-green: #4df2b5;
+  --copilot-blue: #5e8cff;
+  --copilot-pink: #ec67d7;
+  --copilot-violet: #9a70ff;
+  --copilot-amber: #ffd36b;
+  --copilot-radius: 22px;
+  --copilot-shadow: 0 18px 70px rgba(0, 0, 0, 0.34);
+}
+
+.copilot-page {
+  background-color: var(--copilot-bg);
+  background-image:
+    radial-gradient(circle at 86% 2%, rgba(154, 112, 255, 0.09), transparent 28%),
+    radial-gradient(circle at 18% 28%, rgba(77, 242, 181, 0.05), transparent 24%),
+    radial-gradient(circle at 50% 60%, rgba(94, 140, 255, 0.04), transparent 30%),
+    linear-gradient(#08090b, #08090b);
+  color: var(--copilot-text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+.copilot-page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent 75%);
+  z-index: 0;
+}
+
+.copilot-wrap {
+  width: min(1200px, calc(100% - 48px));
+  margin-inline: auto;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .copilot-wrap {
+    width: min(1200px, calc(100% - 28px));
+  }
+}
+
+/* ── TYPOGRAPHY ──────────────────────────────────────────────────────── */
+.copilot-page h1,
+.copilot-page h2,
+.copilot-page h3 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: #f8fafc;
+}
+
+.copilot-page h1 {
+  font-size: clamp(38px, 6.2vw, 76px);
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+}
+
+.copilot-page h2 {
+  font-size: clamp(28px, 3.8vw, 48px);
+  line-height: 1.08;
+}
+
+.copilot-page h3 {
+  font-size: clamp(18px, 2.2vw, 26px);
+  line-height: 1.22;
+}
+
+.copilot-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--copilot-muted-2);
+  font-weight: 700;
+  display: block;
+}
+
+.copilot-lede {
+  font-size: clamp(16px, 1.8vw, 21px);
+  line-height: 1.5;
+  color: #c6ccd6;
+}
+
+/* ── CARDS & SURFACES ────────────────────────────────────────────────── */
+.copilot-card {
+  border: 1px solid var(--copilot-stroke);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
+  background-color: var(--copilot-bg-card);
+  backdrop-filter: blur(16px);
+  border-radius: var(--copilot-radius);
+  padding: 24px;
+  box-shadow: var(--copilot-shadow);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.copilot-card:hover {
+  border-color: var(--copilot-stroke-hover);
+}
+
+.copilot-card.accent-emerald {
+  background:
+    radial-gradient(circle at 80% 0%, rgba(77, 242, 181, 0.12), transparent 38%),
+    linear-gradient(180deg, rgba(77, 242, 181, 0.06), rgba(8, 22, 18, 0.75));
+  border-color: rgba(77, 242, 181, 0.2);
+}
+
+.copilot-card.accent-violet {
+  background:
+    radial-gradient(circle at 85% 10%, rgba(236, 103, 215, 0.12), transparent 36%),
+    linear-gradient(180deg, rgba(154, 112, 255, 0.08), rgba(22, 12, 28, 0.75));
+  border-color: rgba(154, 112, 255, 0.2);
+}
+
+.copilot-card.accent-blue {
+  background:
+    radial-gradient(circle at 80% 10%, rgba(94, 140, 255, 0.12), transparent 36%),
+    linear-gradient(180deg, rgba(94, 140, 255, 0.08), rgba(12, 16, 26, 0.75));
+  border-color: rgba(94, 140, 255, 0.2);
+}
+
+/* ── STICKY CHAPTER NAVIGATION ───────────────────────────────────────── */
+.copilot-sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: rgba(8, 9, 11, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  height: 58px;
+  display: flex;
+  align-items: center;
+}
+
+.copilot-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--copilot-muted);
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.copilot-nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.copilot-nav-link.active {
+  color: #fff;
+  background: rgba(77, 242, 181, 0.09);
+  border-color: rgba(77, 242, 181, 0.25);
+}
+
+.copilot-nav-link.active .nav-num {
+  color: var(--copilot-green);
+}
+
+/* ── ORB INSTRUMENT ANIMATION ────────────────────────────────────────── */
+.copilot-instrument {
+  min-height: 440px;
+  border-radius: 28px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--copilot-stroke);
+  background:
+    radial-gradient(circle at 65% 30%, rgba(236, 103, 215, 0.18), transparent 32%),
+    radial-gradient(circle at 35% 75%, rgba(94, 140, 255, 0.16), transparent 34%),
+    linear-gradient(145deg, #151326, #17101b 48%, #0b1113);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+}
+
+.copilot-instrument::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  box-shadow: 0 0 0 38px rgba(255, 255, 255, 0.015), 0 0 0 76px rgba(255, 255, 255, 0.009);
+}
+
+.copilot-orb {
+  position: absolute;
+  width: 175px;
+  height: 175px;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 35% 30%, #ffffff 0 2%, #b99cff 8%, #6d58d7 28%, #34243e 58%, #101218 78%);
+  box-shadow: 0 0 80px rgba(154, 112, 255, 0.35), inset -25px -25px 50px rgba(0, 0, 0, 0.35);
+  animation: copilotOrbFloat 6s ease-in-out infinite;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 22px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  font-size: 14px;
+  color: #f5eaff;
+  user-select: none;
+}
+
+@keyframes copilotOrbFloat {
+  0%, 100% {
+    transform: translate(-50%, -50%);
+  }
+  50% {
+    transform: translate(-50%, -54%);
+  }
+}
+
+.copilot-orbit-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.copilot-orbit-dot.d1 {
+  left: 18%;
+  top: 30%;
+  background: var(--copilot-green);
+  box-shadow: 0 0 18px var(--copilot-green);
+}
+
+.copilot-orbit-dot.d2 {
+  right: 18%;
+  top: 25%;
+  background: var(--copilot-pink);
+  box-shadow: 0 0 18px var(--copilot-pink);
+}
+
+.copilot-orbit-dot.d3 {
+  left: 30%;
+  bottom: 18%;
+  background: var(--copilot-blue);
+  box-shadow: 0 0 18px var(--copilot-blue);
+}
+
+/* ── OPERATING SYSTEM MATRIX ─────────────────────────────────────────── */
+.copilot-os-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+@media (max-width: 1024px) {
+  .copilot-os-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .copilot-os-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.copilot-os-node {
+  padding: 20px 16px;
+  border-radius: 16px;
+  background: rgba(13, 16, 21, 0.85);
+  border: 1px solid var(--copilot-stroke);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 160px;
+  transition: all 0.2s ease;
+}
+
+.copilot-os-node:hover {
+  border-color: var(--copilot-stroke-hover);
+  background: rgba(18, 22, 30, 0.95);
+}
+
+.copilot-os-node.focus {
+  border-color: rgba(236, 103, 215, 0.35);
+  background: linear-gradient(180deg, rgba(236, 103, 215, 0.08), rgba(20, 14, 26, 0.9));
+}
+
+/* ── HEALTH DIAGNOSTIC METER ─────────────────────────────────────────── */
+.health-card {
+  border: 1px solid var(--copilot-stroke);
+  background: #0e1116;
+  border-radius: 18px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.health-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--copilot-stroke-hover);
+}
+
+.health-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--health-color, #fff);
+  opacity: 0.85;
+}
+
+.health-track {
+  height: 7px;
+  background: #1a1f27;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 14px 0 12px;
+}
+
+.health-track span {
+  display: block;
+  height: 100%;
+  width: var(--score);
+  background: var(--health-color, #fff);
+  border-radius: inherit;
+  transition: width 1s ease-out;
+}
+
+/* ── RANKED INITIATIVE ACCORDION / ROWS ──────────────────────────────── */
+.ranked-init-row {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+  transition: all 0.2s ease;
+}
+
+.ranked-init-row:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
+}
+
+@media (max-width: 640px) {
+  .ranked-init-row {
+    grid-template-columns: 40px 1fr;
+  }
+  .ranked-init-side {
+    grid-column: 2;
+    align-items: flex-start !important;
+  }
+}
+
+/* ── PROMPT LIBRARY INTERACTIVE CARD ─────────────────────────────────── */
+.prompt-lib-shell {
+  background: #0d1015;
+  border: 1px solid var(--copilot-stroke);
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.prompt-tab-pill {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--copilot-stroke);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--copilot-muted);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.prompt-tab-pill:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.prompt-tab-pill.active {
+  color: #fff;
+  border-color: rgba(94, 140, 255, 0.35);
+  background: rgba(94, 140, 255, 0.12);
+}
+
+/* ── VISUAL FRAME LIGHTBOX ZOOM ──────────────────────────────────────── */
+.visual-frame-container {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--copilot-stroke);
+  background: #0b0e13;
+  position: relative;
+  cursor: zoom-in;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.visual-frame-container:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.visual-frame-container img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.visual-frame-container:hover img {
+  transform: scale(1.02);
+}
+
+/* ── FLYWHEEL TRACK ──────────────────────────────────────────────────── */
+.flywheel-step-card {
+  padding: 16px;
+  border-radius: 16px;
+  background: #0e1117;
+  border: 1px solid var(--copilot-stroke);
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.flywheel-step-card:hover {
+  border-color: var(--copilot-stroke-hover);
+  transform: translateY(-2px);
+}
+
+/* ── IMAGE MODAL LIGHTBOX ────────────────────────────────────────────── */
+.copilot-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(5, 6, 8, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: copilotFadeIn 0.2s ease-out;
+}
+
+.copilot-modal-content {
+  max-width: 1280px;
+  max-height: 92vh;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #0e1116;
+  position: relative;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8);
+}
+
+.copilot-modal-content img {
+  width: 100%;
+  height: auto;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+}
+
+@keyframes copilotFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
