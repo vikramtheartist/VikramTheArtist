@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════
-   COPILOT CASE STUDY — ADOPT DESIGN SYSTEM (DARK & LIGHT THEMES)
+   COPILOT CASE STUDY — ADOPT DESIGN SYSTEM (HIGH ACCESSIBILITY & CONTRAST)
    ═══════════════════════════════════════════════════════════════════ */
 
 /* ── COLOR TOKENS ────────────────────────────────────────────────── */
@@ -16,34 +16,34 @@
   --adopt-primary-grad: linear-gradient(135deg, #3d4dfc 0%, #633bfa 100%);
   --adopt-hero-btn-grad: linear-gradient(180deg, #5b54fa 0%, #433cf7 55%, #352fed 100%);
 
-  /* Light Theme (Default in root) */
+  /* Light Theme */
   --cs-bg: #f8fafc;
   --cs-bg-subtle: #f1f5f9;
-  --cs-card-bg: rgba(255, 255, 255, 0.94);
-  --cs-card-bg-hover: rgba(255, 255, 255, 1);
-  --cs-stroke: rgba(226, 232, 240, 0.9);
-  --cs-stroke-hover: rgba(199, 210, 254, 0.8);
-  --cs-text-head: #0b0f19;
+  --cs-card-bg: #ffffff;
+  --cs-card-bg-hover: #ffffff;
+  --cs-stroke: #e2e8f0;
+  --cs-stroke-hover: #cbd5e1;
+  --cs-text-head: #0f172a;
   --cs-text-sub: #1e293b;
-  --cs-text-body: #475569;
+  --cs-text-body: #334155;
   --cs-text-muted: #64748b;
-  --cs-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 20px 40px -15px rgba(79, 70, 229, 0.05);
+  --cs-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 20px 40px -15px rgba(79, 70, 229, 0.05);
   --cs-radius: 24px;
 }
 
 /* ── Dark Theme Overrides ────────────────────────────────────────── */
 .copilot-theme-dark {
   --cs-bg: #030712;
-  --cs-bg-subtle: #090e17;
-  --cs-card-bg: rgba(15, 20, 30, 0.85);
-  --cs-card-bg-hover: rgba(20, 27, 40, 0.95);
-  --cs-stroke: rgba(255, 255, 255, 0.08);
-  --cs-stroke-hover: rgba(255, 255, 255, 0.18);
-  --cs-text-head: #f8fafc;
-  --cs-text-sub: #e2e8f0;
+  --cs-bg-subtle: #0b0f19;
+  --cs-card-bg: #0d131f;
+  --cs-card-bg-hover: #111827;
+  --cs-stroke: rgba(255, 255, 255, 0.12);
+  --cs-stroke-hover: rgba(255, 255, 255, 0.22);
+  --cs-text-head: #ffffff;
+  --cs-text-sub: #f1f5f9;
   --cs-text-body: #cbd5e1;
   --cs-text-muted: #94a3b8;
-  --cs-shadow: 0 18px 70px rgba(0, 0, 0, 0.45);
+  --cs-shadow: 0 18px 70px rgba(0, 0, 0, 0.55);
 }
 
 /* ── PAGE CONTAINER ──────────────────────────────────────────────── */
@@ -55,7 +55,7 @@
   position: relative;
   overflow-x: hidden;
   line-height: 1.5;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Light background mesh */
@@ -70,9 +70,9 @@
 /* Dark background mesh */
 .copilot-page-wrapper.copilot-theme-dark {
   background-image:
-    radial-gradient(circle at 86% 2%, rgba(139, 92, 246, 0.12), transparent 30%),
-    radial-gradient(circle at 18% 28%, rgba(16, 185, 129, 0.07), transparent 26%),
-    radial-gradient(circle at 50% 60%, rgba(67, 68, 250, 0.08), transparent 34%),
+    radial-gradient(circle at 86% 2%, rgba(139, 92, 246, 0.14), transparent 30%),
+    radial-gradient(circle at 18% 28%, rgba(16, 185, 129, 0.08), transparent 26%),
+    radial-gradient(circle at 50% 60%, rgba(67, 68, 250, 0.1), transparent 34%),
     linear-gradient(#030712, #030712);
 }
 
@@ -85,8 +85,8 @@
     linear-gradient(currentColor 1px, transparent 1px),
     linear-gradient(90deg, currentColor 1px, transparent 1px);
   background-size: 64px 64px;
-  opacity: 0.025;
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 80%);
+  opacity: 0.03;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent 85%);
   z-index: 0;
 }
 
@@ -121,12 +121,12 @@
 
 .copilot-page-wrapper h2 {
   font-size: clamp(28px, 3.8vw, 48px);
-  line-height: 1.08;
+  line-height: 1.1;
 }
 
 .copilot-page-wrapper h3 {
   font-size: clamp(18px, 2.2vw, 26px);
-  line-height: 1.22;
+  line-height: 1.25;
 }
 
 .copilot-eyebrow {
@@ -141,7 +141,7 @@
 
 .copilot-lede {
   font-size: clamp(16px, 1.8vw, 21px);
-  line-height: 1.5;
+  line-height: 1.55;
   color: var(--cs-text-sub);
 }
 
@@ -150,7 +150,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 5px 14px;
+  padding: 6px 14px;
   border-radius: 9999px;
   font-size: 11px;
   font-weight: 700;
@@ -160,16 +160,51 @@
 }
 
 .copilot-theme-light .adopt-pill-badge {
-  background: rgba(238, 242, 255, 0.85);
-  color: #4f46e5;
-  border: 1px solid rgba(199, 210, 254, 0.7);
-  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.04);
+  background: #eef2ff;
+  color: #4338ca;
+  border: 1px solid #c7d2fe;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.06);
 }
 
 .copilot-theme-dark .adopt-pill-badge {
-  background: rgba(79, 70, 229, 0.12);
-  color: #a5b4fc;
-  border: 1px solid rgba(99, 102, 241, 0.28);
+  background: rgba(99, 102, 241, 0.18);
+  color: #c7d2fe;
+  border: 1px solid rgba(129, 140, 248, 0.35);
+}
+
+/* ── PROOF TRIAD PILLS (HIGH CONTRAST & ACCESSIBLE) ───────────────── */
+.proof-triad-pill {
+  padding: 14px 18px;
+  border-radius: 9999px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.copilot-theme-light .proof-triad-pill.neutral {
+  background: #f1f5f9;
+  color: #1e293b;
+  border: 1.5px solid #cbd5e1;
+}
+
+.copilot-theme-dark .proof-triad-pill.neutral {
+  background: #111827;
+  color: #f3f4f6;
+  border: 1.5px solid #374151;
+}
+
+.copilot-theme-light .proof-triad-pill.active {
+  background: #dcfce7;
+  color: #14532d;
+  border: 1.5px solid #86efac;
+}
+
+.copilot-theme-dark .proof-triad-pill.active {
+  background: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+  border: 1.5px solid rgba(52, 211, 153, 0.45);
 }
 
 /* ── ADOPT BUTTONS ───────────────────────────────────────────────── */
@@ -230,28 +265,28 @@
 }
 
 .copilot-theme-light .adopt-hero-btn-secondary {
-  background: rgba(255, 255, 255, 0.95);
+  background: #ffffff;
   color: #1e293b;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.03);
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.04);
 }
 
 .copilot-theme-light .adopt-hero-btn-secondary:hover {
-  background: #ffffff;
-  border-color: #cbd5e1;
+  background: #f8fafc;
+  border-color: #94a3b8;
   transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
 }
 
 .copilot-theme-dark .adopt-hero-btn-secondary {
-  background: rgba(255, 255, 255, 0.06);
-  color: #f1f5f9;
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
 .copilot-theme-dark .adopt-hero-btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-1px);
 }
 
@@ -259,8 +294,6 @@
 .copilot-card {
   border: 1px solid var(--cs-stroke);
   background-color: var(--cs-card-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   border-radius: var(--cs-radius);
   padding: 24px;
   box-shadow: var(--cs-shadow);
@@ -272,92 +305,21 @@
 }
 
 .copilot-theme-light .copilot-card {
-  background: rgba(255, 255, 255, 0.92);
+  background: #ffffff;
+  border-color: #e2e8f0;
 }
 
 .copilot-theme-dark .copilot-card {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
-  background-color: rgba(14, 18, 26, 0.85);
+  background: #0d131f;
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Stage-specific accents */
-.copilot-card.accent-aware {
-  border-color: rgba(2, 132, 199, 0.3);
-}
-.copilot-card.accent-desire {
-  border-color: rgba(244, 63, 94, 0.3);
-}
-.copilot-card.accent-open {
-  border-color: rgba(139, 92, 246, 0.3);
-}
-.copilot-card.accent-proficient {
-  border-color: rgba(245, 158, 11, 0.3);
-}
-.copilot-card.accent-transform {
-  border-color: rgba(16, 185, 129, 0.3);
-}
-
-/* ── STICKY CHAPTER NAVIGATION ───────────────────────────────────── */
-.copilot-sticky-nav {
-  position: sticky;
-  top: 64px;
-  z-index: 30;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--cs-stroke);
-  height: 54px;
-  display: flex;
-  align-items: center;
-  transition: background-color 0.3s ease;
-}
-
-.copilot-theme-light .copilot-sticky-nav {
-  background: rgba(255, 255, 255, 0.88);
-}
-
-.copilot-theme-dark .copilot-sticky-nav {
-  background: rgba(3, 7, 18, 0.88);
-}
-
-.copilot-nav-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--cs-text-muted);
-  padding: 5px 12px;
-  border-radius: 9999px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  white-space: nowrap;
-  border: 1px solid transparent;
-  background: transparent;
-}
-
-.copilot-nav-link:hover {
-  color: var(--cs-text-head);
-}
-
-.copilot-theme-light .copilot-nav-link:hover {
-  background: rgba(0, 0, 0, 0.04);
-}
-
-.copilot-theme-dark .copilot-nav-link:hover {
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.copilot-nav-link.active {
-  color: var(--adopt-primary);
-  background: rgba(67, 68, 250, 0.08);
-  border-color: rgba(67, 68, 250, 0.25);
-}
-
-.copilot-theme-dark .copilot-nav-link.active {
-  color: #a5b4fc;
-  background: rgba(99, 102, 241, 0.15);
-  border-color: rgba(99, 102, 241, 0.35);
-}
+/* Stage-specific card borders */
+.copilot-card.accent-aware { border-color: rgba(2, 132, 199, 0.35); }
+.copilot-card.accent-desire { border-color: rgba(244, 63, 94, 0.35); }
+.copilot-card.accent-open { border-color: rgba(139, 92, 246, 0.35); }
+.copilot-card.accent-proficient { border-color: rgba(245, 158, 11, 0.35); }
+.copilot-card.accent-transform { border-color: rgba(16, 185, 129, 0.35); }
 
 /* ── ORB INSTRUMENT ANIMATION ────────────────────────────────────── */
 .copilot-instrument {
@@ -389,7 +351,7 @@
   inset: 10%;
   border: 1px solid var(--cs-stroke);
   border-radius: 50%;
-  box-shadow: 0 0 0 34px rgba(67, 68, 250, 0.02), 0 0 0 68px rgba(67, 68, 250, 0.01);
+  box-shadow: 0 0 0 34px rgba(67, 68, 250, 0.03), 0 0 0 68px rgba(67, 68, 250, 0.015);
 }
 
 .copilot-orb {
@@ -455,7 +417,7 @@
 .health-card {
   border: 1px solid var(--cs-stroke);
   border-radius: 20px;
-  padding: 20px;
+  padding: 22px;
   position: relative;
   overflow: hidden;
   transition: all 0.25s ease;
@@ -463,11 +425,11 @@
 
 .copilot-theme-light .health-card {
   background: #ffffff;
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);
 }
 
 .copilot-theme-dark .health-card {
-  background: rgba(14, 18, 26, 0.9);
+  background: #0d131f;
 }
 
 .health-card:hover {
@@ -483,7 +445,7 @@
   bottom: 0;
   height: 4px;
   background: var(--health-color, #4344fa);
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 .health-track {
@@ -523,13 +485,13 @@
 }
 
 .copilot-theme-dark .prompt-lib-shell {
-  background: rgba(13, 17, 25, 0.9);
+  background: #0d131f;
 }
 
 .prompt-tab-pill {
   font-size: 12px;
-  font-weight: 600;
-  padding: 6px 14px;
+  font-weight: 700;
+  padding: 7px 16px;
   border-radius: 9999px;
   border: 1px solid var(--cs-stroke);
   transition: all 0.2s ease;
@@ -538,35 +500,37 @@
 
 .copilot-theme-light .prompt-tab-pill {
   background: #f1f5f9;
-  color: #64748b;
+  color: #475569;
 }
 
 .copilot-theme-light .prompt-tab-pill:hover {
   background: #e2e8f0;
-  color: #1e293b;
+  color: #0f172a;
 }
 
 .copilot-theme-light .prompt-tab-pill.active {
   background: #4344fa;
   color: #ffffff;
   border-color: #4344fa;
-  box-shadow: 0 3px 10px rgba(67, 68, 250, 0.3);
+  box-shadow: 0 3px 10px rgba(67, 68, 250, 0.35);
 }
 
 .copilot-theme-dark .prompt-tab-pill {
-  background: rgba(255, 255, 255, 0.04);
-  color: #94a3b8;
+  background: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
 }
 
 .copilot-theme-dark .prompt-tab-pill:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  background: #334155;
 }
 
 .copilot-theme-dark .prompt-tab-pill.active {
-  color: #fff;
-  border-color: rgba(99, 102, 241, 0.4);
-  background: rgba(99, 102, 241, 0.2);
+  color: #ffffff;
+  border-color: #818cf8;
+  background: #4f46e5;
+  box-shadow: 0 3px 12px rgba(79, 70, 229, 0.45);
 }
 
 /* ── VISUAL FRAME LIGHTBOX ZOOM ──────────────────────────────────── */
@@ -581,7 +545,7 @@
 
 .copilot-theme-light .visual-frame-container {
   background: #f8fafc;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
 }
 
 .copilot-theme-dark .visual-frame-container {
@@ -607,8 +571,8 @@
 
 /* ── FLYWHEEL TRACK ──────────────────────────────────────────────── */
 .flywheel-step-card {
-  padding: 16px;
-  border-radius: 18px;
+  padding: 18px;
+  border-radius: 20px;
   border: 1px solid var(--cs-stroke);
   text-align: left;
   transition: all 0.2s ease;
@@ -616,11 +580,11 @@
 
 .copilot-theme-light .flywheel-step-card {
   background: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
 }
 
 .copilot-theme-dark .flywheel-step-card {
-  background: rgba(15, 20, 30, 0.9);
+  background: #0d131f;
 }
 
 .flywheel-step-card:hover {
@@ -633,7 +597,7 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: rgba(3, 7, 18, 0.92);
+  background: rgba(3, 7, 18, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   display: flex;
