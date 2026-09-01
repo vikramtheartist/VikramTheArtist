@@ -594,9 +594,9 @@ export function WorkSection({
       }
       return;
     }
-    if (cta.href === "/playbook/adopt-v2" || cta.href.includes("adopt-v2")) {
+    if (cta.href === "/scale-copilot" || cta.href?.includes("scale-copilot") || cta.href === "/playbook/adopt-v2" || cta.href?.includes("adopt-v2")) {
       if (onCaseStudyOpen) onCaseStudyOpen();
-      else window.location.pathname = "/playbook/adopt-v2";
+      else window.location.pathname = "/scale-copilot";
       return;
     }
     openPasswordModal(cta.href);
