@@ -179,7 +179,7 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
 
         // Visibility smoothly transitions from 20% (0.20) down to 10% (0.10)
         const currentVisibility = 0.20 - eased * 0.10;
-        const mobileCenterY = vh + (scaledH / 2) - (scaledH * currentVisibility) - 50;
+        const mobileCenterY = vh + (scaledH / 2) - (scaledH * currentVisibility) + 10;
         setPos(mobileCenterY, vw / 2, scale);
 
         if (planet1) {

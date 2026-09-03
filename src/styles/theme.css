@@ -47,7 +47,7 @@
 /* ── Theme tokens ─────────────────────────────────────────────── */
 :root {
   --bg-page:        #000213;
-  --bg-page-gradient: linear-gradient(180deg, #000213 0%, #070125 100%);
+  --bg-page-gradient: radial-gradient(ellipse 130% 90% at 50% 95%, #070125 0%, #000213 100%);
   --bg-page-bloom:  rgba(60,120,255,0.10);
   --text-1:         #ffffff;
   --text-2:         rgba(255,255,255,0.78);
@@ -100,21 +100,21 @@ body {
   will-change: opacity;
 }
 
-/* Gradient 1: #000213 -> #070125 (Deep purple-navy) */
+/* Gradient 1: #070125 at bottom Earth -> #000213 at top */
 .cosmic-grad-1 {
-  background: linear-gradient(180deg, #000213 0%, #070125 100%);
+  background: radial-gradient(ellipse 130% 90% at 50% 95%, #070125 0%, #000213 100%);
   animation: cosmicGradientCycle1 24s ease-in-out infinite;
 }
 
-/* Gradient 2: #000213 -> #1B0125 (Deep magenta-violet) */
+/* Gradient 2: #1B0125 at bottom Earth -> #000213 at top */
 .cosmic-grad-2 {
-  background: linear-gradient(180deg, #000213 0%, #1B0125 100%);
+  background: radial-gradient(ellipse 130% 90% at 50% 95%, #1B0125 0%, #000213 100%);
   animation: cosmicGradientCycle2 24s ease-in-out infinite;
 }
 
-/* Gradient 3: #000213 -> #010925 (Deep indigo-blue) */
+/* Gradient 3: #010925 at bottom Earth -> #000213 at top */
 .cosmic-grad-3 {
-  background: linear-gradient(180deg, #000213 0%, #010925 100%);
+  background: radial-gradient(ellipse 130% 90% at 50% 95%, #010925 0%, #000213 100%);
   animation: cosmicGradientCycle3 24s ease-in-out infinite;
 }
 

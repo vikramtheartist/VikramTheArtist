@@ -256,10 +256,10 @@ export function Hero() {
                   borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
                 <span>,</span>
               </span>
-              <span className="block md:inline" aria-hidden="true">
+              <span className="block md:inline whitespace-nowrap" aria-hidden="true">
                 <span className="hidden md:inline"> </span>{"I am Vikram "}
+                <span style={{ WebkitTextFillColor: "initial", verticalAlign: "baseline" }}>✌🏻</span>
               </span>
-              <span style={{ WebkitTextFillColor: "initial", verticalAlign: "baseline" }}>✌🏻</span>
             </h1>
           </div>
           <div className="hero-subtitle-block" style={{ marginTop: '34px', marginBottom: 0, width: '100%' }}>

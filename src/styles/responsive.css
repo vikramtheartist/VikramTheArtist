@@ -109,6 +109,7 @@ html, body {
     padding: 60px 0 0 !important;
     margin: auto 0 !important;
     width: 100% !important;
+    transform: translateY(-70px) !important;
   }
 }
 
@@ -171,7 +172,7 @@ html, body {
 
 @media (max-width: 767px) {
   #work {
-    margin-top: -200px !important;
+    margin-top: -230px !important;
     padding-top: 40px !important;
   }
 }
