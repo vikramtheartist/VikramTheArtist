@@ -236,30 +236,34 @@ export function Hero() {
 
         <div className="hero-title-block">
           <div className="hero-heading-container">
-            <h1 aria-label="Hi, I am Vikram" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: 'clamp(1.95rem, 6.5vw, 4.25rem)', lineHeight: 1.18, margin: 0 }}>
-              <span
-                style={{
-                  background: "linear-gradient(90deg, #E3C3FF 0%, #7C86FF 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                <span className="block md:inline" aria-hidden="true" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
-                  {displayed}
-                  <span style={{ display: "inline-block", width: "3px", height: "0.85em",
-                    background: "#E3C3FF", marginLeft: "3px", verticalAlign: "middle",
-                    borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
-                  <span>,</span>
-                </span>
-                <span className="block md:inline" aria-hidden="true">
-                  <span className="hidden md:inline"> </span>{"I am Vikram "}
-                </span>
+            <h1
+              aria-label="Hi, I am Vikram"
+              className="h-grad-bright"
+              style={{
+                fontFamily: "'Lato', sans-serif",
+                fontWeight: 300,
+                fontSize: 'clamp(1.95rem, 6.5vw, 4.25rem)',
+                lineHeight: 1.18,
+                margin: 0,
+                opacity: 0.8,
+                display: "inline-block",
+              }}
+            >
+              <span className="block md:inline" aria-hidden="true" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
+                {displayed}
+                <span style={{ display: "inline-block", width: "3px", height: "0.85em",
+                  background: "#ffffff", marginLeft: "3px", verticalAlign: "middle",
+                  borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
+                <span>,</span>
+              </span>
+              <span className="block md:inline" aria-hidden="true">
+                <span className="hidden md:inline"> </span>{"I am Vikram "}
               </span>
               <span style={{ WebkitTextFillColor: "initial", verticalAlign: "baseline" }}>✌🏻</span>
             </h1>
           </div>
           <div className="hero-subtitle-block" style={{ marginTop: '34px', marginBottom: 0, width: '100%' }}>
-            <p className="hero-subtitle" style={{ fontFamily: "'Georgia', serif", fontWeight: 400, fontSize: "clamp(18px, 2.05vw, 36px)", lineHeight: 1.35, color: '#E6E6E6', margin: 0 }}>
+            <p className="hero-subtitle" style={{ fontFamily: "'Georgia', serif", fontWeight: 400, fontSize: "clamp(16px, 1.95vw, 34px)", lineHeight: 1.35, color: '#E6E6E6', margin: 0 }}>
               Product Designer at Microsoft. <span className="block sm:inline">Designing AI-first products.</span>
             </p>
             <p style={{ fontFamily: "'Segoe UI', sans-serif", fontWeight: 300, fontSize: 'clamp(16px, 1.4vw, 22px)', lineHeight: 1.4, color: 'var(--text-2)', margin: '10px 0 0 0' }}>
