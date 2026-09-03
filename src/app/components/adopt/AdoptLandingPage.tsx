@@ -24,8 +24,15 @@ import {
   ShieldCheck,
   Mountain,
   Lock,
-  X
+  X,
+  GraduationCap,
+  Megaphone,
+  Rocket,
+  Target,
+  RotateCw,
+  GitFork
 } from "lucide-react";
+import StrategicShiftDiagram from "./StrategicShiftDiagram";
 import "../../../styles/adopt-landing.css";
 import adoptIqImg from "../../../assets/img/AdoptIQ.png";
 import adoptIqDarkImg from "../../../assets/img/AdoptIQ_Dark.png";
@@ -739,7 +746,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             </h1>
 
             {/* Sub-headline */}
-            <h2 className={`text-[20px] sm:text-[26px] lg:text-[32px] font-bold tracking-tight leading-[1.25] mb-4 transition-colors ${
+            <h2 className={`text-[20px] sm:text-[26px] lg:text-[32px] font-normal tracking-tight leading-[1.25] mb-4 transition-colors ${
               isDark ? "text-white" : "text-[#1e293b]"
             }`}>
               The behavioral playbook I built to scale AI adoption.
@@ -766,9 +773,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
 
               <button
                 onClick={() => {
-                  setPasswordInput("");
-                  setPasswordError("");
-                  setShowPasswordModal(true);
+                  setShowcaseSlide(0);
+                  scrollTo("case-study");
                 }}
                 className={`rounded-full px-5 sm:px-6 py-2.5 sm:py-3 font-semibold text-[14px] sm:text-[15px] cursor-pointer hover:scale-105 active:scale-95 transition-all shadow-sm ${
                   isDark
@@ -776,7 +782,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     : "adopt-hero-btn-secondary"
                 }`}
               >
-                <span>Protected Playbook</span>
+                <span>Applied Use-case</span>
               </button>
             </div>
           </div>
@@ -1365,7 +1371,7 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 ))}
               </div>
 
-              <div className={`text-[20px] sm:text-[26px] lg:text-[32px] font-bold tracking-tight leading-[1.25] mb-1.5 transition-colors ${
+              <div className={`text-[20px] sm:text-[26px] lg:text-[32px] font-normal tracking-tight leading-[1.25] mb-1.5 transition-colors ${
                 isDark ? "text-white" : "text-[#1e293b]"
               }`}>
                 The 5 Stages of the
@@ -1444,9 +1450,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
 
           {/* ── THE 5 STAGES OF THE ADOPT PLAYBOOK ─ */}
-          <div className="relative pt-4 pb-8">
-            {/* Desktop / Tablet Grid (hidden md:grid) */}
-            <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 lg:gap-5 relative z-10 items-stretch">
+          <div className="relative pt-4 pb-8 max-w-[1180px] mx-auto">
+            {/* Desktop / Tablet Grid (hidden md:grid) — Scaled 20% Smaller */}
+            <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5 lg:gap-4 relative z-10 items-stretch">
               {STAGES_DATA.map((stage, idx) => {
                 const glowColors: Record<string, { light: string; core: string }> = {
                   aware: { light: "rgba(56, 189, 248, 0.65)", core: "rgba(2, 132, 199, 0.85)" },
@@ -1480,8 +1486,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                   >
                     {/* 3D Rollover Motion Inner Container */}
                     <div className="stage-rollover-card-inner relative w-full flex flex-col items-center">
-                      {/* Glass Card (Scaled 10% smaller) */}
-                      <div className="relative w-[90%] rounded-[26px] sm:rounded-[30px] overflow-hidden group-hover:drop-shadow-[0_15px_30px_rgba(67,68,250,0.18)] transition-all duration-300 flex items-center justify-center z-10">
+                      {/* Glass Card (Scaled 20% smaller) */}
+                      <div className="relative w-[78%] max-w-[205px] rounded-[22px] sm:rounded-[26px] overflow-hidden group-hover:drop-shadow-[0_15px_30px_rgba(67,68,250,0.18)] transition-all duration-300 flex items-center justify-center z-10">
                         <img
                           src={isDark ? stage.cardDarkImg : stage.cardImg}
                           alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
@@ -1493,16 +1499,16 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
 
                       {/* ── GLASSY BASE CAUSTIC LIGHT GLOW (TRANSPARENT BACKGROUND) ── */}
-                      <div className="relative w-[90%] flex flex-col items-center justify-center -mt-4 sm:-mt-5 pointer-events-none z-0">
+                      <div className="relative w-[78%] max-w-[205px] flex flex-col items-center justify-center -mt-3 sm:-mt-4 pointer-events-none z-0">
                         <div
-                          className="w-[65%] h-3 sm:h-3.5 rounded-[100%] blur-[6px] transition-all duration-500 group-hover:scale-110 group-hover:blur-[8px] opacity-60 group-hover:opacity-75"
+                          className="w-[65%] h-2.5 sm:h-3 rounded-[100%] blur-[5px] transition-all duration-500 group-hover:scale-110 group-hover:blur-[7px] opacity-60 group-hover:opacity-75"
                           style={{
                             background: `radial-gradient(ellipse at center, ${currentGlow.core} 0%, ${currentGlow.light} 50%, transparent 80%)`,
-                            boxShadow: `0 2px 12px ${currentGlow.light}`,
+                            boxShadow: `0 2px 10px ${currentGlow.light}`,
                           }}
                         />
                         <div
-                          className="w-[75%] h-4 sm:h-5 rounded-[100%] blur-md -mt-2 transition-all duration-500 group-hover:scale-115 opacity-35 group-hover:opacity-55"
+                          className="w-[75%] h-3.5 sm:h-4 rounded-[100%] blur-md -mt-1.5 transition-all duration-500 group-hover:scale-115 opacity-35 group-hover:opacity-55"
                           style={{
                             background: `radial-gradient(ellipse at center, ${currentGlow.light} 0%, transparent 70%)`,
                           }}
@@ -1514,12 +1520,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
               })}
             </div>
 
-            {/* Mobile Swipe Slider Layout (block md:hidden) — Cards Reduced by 40% */}
+            {/* Mobile Swipe Slider Layout (block md:hidden) — Scaled 20% Smaller */}
             <div className="block md:hidden relative w-[calc(100%+3rem)] -mx-6 pt-2">
               <div
                 ref={mobileStageSliderRef}
                 onScroll={handleMobileStageScroll}
-                className="flex overflow-x-auto snap-x snap-mandatory gap-3.5 pl-4 pr-12 pb-4 pt-2 scrollbar-none w-full"
+                className="flex overflow-x-auto snap-x snap-mandatory gap-3 pl-4 pr-12 pb-4 pt-2 scrollbar-none w-full"
                 style={{
                   WebkitOverflowScrolling: "touch",
                   scrollSnapType: "x mandatory",
@@ -1542,9 +1548,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                     <div
                       key={stage.id}
                       onClick={() => setActiveStageDetail(idx)}
-                      className="w-[76vw] max-w-[270px] shrink-0 snap-start cursor-pointer flex flex-col items-center active:scale-95 transition-transform"
+                      className="w-[60vw] max-w-[215px] shrink-0 snap-start cursor-pointer flex flex-col items-center active:scale-95 transition-transform"
                     >
-                      <div className="relative w-full rounded-[22px] overflow-hidden drop-shadow-[0_12px_24px_rgba(0,0,0,0.35)] flex items-center justify-center z-10">
+                      <div className="relative w-full rounded-[20px] overflow-hidden drop-shadow-[0_10px_20px_rgba(0,0,0,0.35)] flex items-center justify-center z-10">
                         <img
                           src={isDark ? stage.cardDarkImg : stage.cardImg}
                           alt={`ADOPT Stage ${stage.num}: ${stage.title} - ${stage.question}`}
@@ -1556,12 +1562,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </div>
 
                       {/* Glassy Base Light Glow */}
-                      <div className="relative w-[90%] flex flex-col items-center justify-center -mt-3 pointer-events-none z-0">
+                      <div className="relative w-[85%] flex flex-col items-center justify-center -mt-2.5 pointer-events-none z-0">
                         <div
-                          className="w-[65%] h-2.5 rounded-[100%] blur-[5px] opacity-60"
+                          className="w-[65%] h-2 rounded-[100%] blur-[4px] opacity-60"
                           style={{
                             background: `radial-gradient(ellipse at center, ${currentGlow.core} 0%, ${currentGlow.light} 50%, transparent 80%)`,
-                            boxShadow: `0 2px 10px ${currentGlow.light}`,
+                            boxShadow: `0 2px 8px ${currentGlow.light}`,
                           }}
                         />
                       </div>
@@ -1635,228 +1641,226 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           {activeStageDetail !== null && (
             <div
               className={`fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 lg:p-10 animate-fade-in ${
-                isDark ? "bg-black/75 backdrop-blur-md" : "bg-white/20"
+                isDark ? "bg-black/80 backdrop-blur-md" : "bg-white/20"
               }`}
               onClick={() => setActiveStageDetail(null)}
             >
-              {/* Frosted Glass Floating Card Container (Only Card Area is Blurred) */}
+              {/* Frosted Glass Floating Card Container */}
               <div
-                className={`relative w-full max-w-[1400px] max-h-[92vh] overflow-y-auto adopt-custom-scrollbar p-6 sm:p-10 lg:p-12 text-left z-10 ${
-                  isDark ? "bg-[#050814]/92 backdrop-blur-3xl border border-white/15 rounded-[36px] sm:rounded-[44px] shadow-[0_35px_80px_-15px_rgba(0,0,0,0.8)]" : "frosted-glass-modal"
+                className={`relative w-full max-w-[960px] max-h-[90vh] overflow-y-auto adopt-custom-scrollbar p-6 sm:p-9 lg:p-10 text-left z-10 ${
+                  isDark ? "bg-[#050814]/94 backdrop-blur-3xl border border-white/15 rounded-[32px] sm:rounded-[40px] shadow-[0_35px_80px_-15px_rgba(0,0,0,0.85)]" : "frosted-glass-modal"
                 }`}
                 onClick={(e) => e.stopPropagation()}
               >
-                {/* Modal Top Bar: Minimalist Frosted Glass Close Button */}
-                <div className="flex items-center justify-between pb-3 mb-4 relative z-20">
-                  <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[11px] font-extrabold tracking-wider uppercase ${
-                    isDark ? "bg-white/10 border border-white/15" : "frosted-glass-pill"
-                  }`} style={{ color: STAGES_DATA[activeStageDetail].color }}>
-                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }} />
-                    <span>STAGE DEEP DIVE • {STAGES_DATA[activeStageDetail].pillar}</span>
+                {/* Modal Top Bar: Pillar badge on left, Close button on standard right */}
+                <div className="flex items-center justify-between gap-4 pb-4 mb-5 border-b border-white/10 relative z-20">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <div
+                      className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-extrabold tracking-wider uppercase ${
+                        isDark ? "bg-white/10 border border-white/15" : "frosted-glass-pill"
+                      }`}
+                      style={{ color: STAGES_DATA[activeStageDetail].color }}
+                    >
+                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }} />
+                      <span>STAGE DEEP DIVE • {STAGES_DATA[activeStageDetail].pillar}</span>
+                    </div>
+                    <div className={`px-3 py-1 rounded-full text-[11px] font-semibold tracking-wide ${
+                      isDark ? "bg-white/5 text-slate-400 border border-white/10" : "bg-slate-100 text-slate-600"
+                    }`}>
+                      Stage {STAGES_DATA[activeStageDetail].num} of 05
+                    </div>
                   </div>
 
+                  {/* Standard Right Corner Close Button */}
                   <button
                     onClick={() => setActiveStageDetail(null)}
-                    className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer ${
-                      isDark ? "bg-white/10 hover:bg-white/20 text-white border border-white/15" : "frosted-glass-pill text-slate-700 hover:text-slate-950"
+                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer shrink-0 ${
+                      isDark
+                        ? "bg-white/10 hover:bg-white/20 text-white border border-white/15"
+                        : "frosted-glass-pill text-slate-700 hover:text-slate-950"
                     }`}
                     aria-label="Close details"
+                    title="Close details"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
 
-                {/* ── Main Split Content: Left Circular 3D Ring + Center/Right Rich Details ── */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
-                  {/* Left Column: Pure 3D Revolving Character Carousel */}
-                  <div className="lg:col-span-5 flex flex-col items-center justify-center relative p-0 sm:p-2 bg-transparent border-0">
-                    {/* Compact 3D Viewport */}
-                    <div className="adopt-3d-compact-viewport">
-                      {/* Dynamic Colored Ground Caustic Shadow */}
-                      <div
-                        className="adopt-3d-compact-ground-shadow"
-                        style={{
-                          background: `radial-gradient(ellipse at center, ${STAGES_DATA[activeStageDetail].color}40 0%, ${STAGES_DATA[activeStageDetail].color}15 40%, transparent 70%)`,
-                        }}
-                      />
-
-                      {/* Left / Right Arrow Controls */}
+                {/* 5 Stage Horizontal Stepper Tabs Bar */}
+                <div className="flex items-center gap-1.5 sm:gap-2 p-1.5 rounded-2xl bg-white/[0.04] border border-white/8 mb-6 overflow-x-auto adopt-custom-scrollbar">
+                  {STAGES_DATA.map((st, i) => {
+                    const isActive = i === activeStageDetail;
+                    return (
                       <button
-                        onClick={() =>
-                          setActiveStageDetail((prev) =>
-                            prev === null || prev === 0
-                              ? STAGES_DATA.length - 1
-                              : prev - 1
-                          )
-                        }
-                        className={`absolute left-1 sm:left-2 z-40 w-10 h-10 rounded-full shadow-md flex items-center justify-center transition-all cursor-pointer hover:scale-110 active:scale-95 ${
-                          isDark ? "bg-[#0b101e]/90 text-white border border-white/20 hover:text-sky-400" : "bg-white/90 text-slate-700 border border-white hover:text-[#4344fa]"
+                        key={st.id}
+                        onClick={() => setActiveStageDetail(i)}
+                        className={`flex-1 min-w-[100px] sm:min-w-0 py-2 px-3 rounded-xl text-[12px] font-bold tracking-tight transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                          isActive
+                            ? "shadow-md text-white scale-[1.02]"
+                            : "text-slate-400 hover:text-slate-200 hover:bg-white/5"
                         }`}
-                        aria-label="Previous Stage"
-                      >
-                        <ArrowRight className="w-4 h-4 rotate-180" />
-                      </button>
-
-                      <button
-                        onClick={() =>
-                          setActiveStageDetail((prev) =>
-                            prev === null || prev === STAGES_DATA.length - 1
-                              ? 0
-                              : prev + 1
-                          )
-                        }
-                        className={`absolute right-1 sm:right-2 z-40 w-10 h-10 rounded-full shadow-md flex items-center justify-center transition-all cursor-pointer hover:scale-110 active:scale-95 ${
-                          isDark ? "bg-[#0b101e]/90 text-white border border-white/20 hover:text-sky-400" : "bg-white/90 text-slate-700 border border-white hover:text-[#4344fa]"
-                        }`}
-                        aria-label="Next Stage"
-                      >
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
-
-                      {/* Rotating 3D Character Ring */}
-                      <div
-                        className="adopt-3d-compact-ring"
                         style={{
-                          transform: `rotateX(-9deg) rotateY(${-activeStageDetail * 72}deg)`,
+                          backgroundColor: isActive ? st.color : "transparent",
                         }}
                       >
-                        {STAGES_DATA.map((stage, idx) => {
-                          const diff = (idx - activeStageDetail + 5) % 5;
-                          const normalizedDiff = diff > 2 ? diff - 5 : diff;
-                          const isActive = normalizedDiff === 0;
-                          const isNeighbor = Math.abs(normalizedDiff) === 1;
+                        <span className="opacity-75">{st.num}</span>
+                        <span>{st.title}</span>
+                      </button>
+                    );
+                  })}
+                </div>
 
-                          return (
-                            <div
-                              key={stage.id}
-                              onClick={() => setActiveStageDetail(idx)}
-                              className={`adopt-3d-compact-card-wrapper cursor-pointer flex flex-col items-center justify-center ${
-                                isActive ? "z-30" : isNeighbor ? "z-20" : "z-10"
-                              }`}
-                              style={{
-                                transform: `rotateY(${idx * 72}deg) translateZ(210px) scale(${
-                                  isActive ? 1.22 : isNeighbor ? 0.88 : 0.68
-                                })`,
-                                opacity: isActive ? 1 : isNeighbor ? 0.75 : 0.28,
-                                filter: isActive
-                                  ? "drop-shadow(0 18px 30px rgba(0,0,0,0.4))"
-                                  : isNeighbor
-                                  ? "drop-shadow(0 8px 16px rgba(0,0,0,0.2)) blur(0.5px)"
-                                  : "blur(2px)",
-                              }}
-                            >
-                              {/* Pure 3D Character Illustration Floating in Space */}
-                              <div className="w-full h-full flex flex-col items-center justify-center relative select-none">
-                                {/* Floor Contact Shadow */}
-                                {isActive && (
-                                  <div className="absolute bottom-3 w-28 h-6 bg-slate-950/40 rounded-full blur-md -z-10" />
-                                )}
-                                <img
-                                  src={isDark && stage.modalDarkImg ? stage.modalDarkImg : stage.modalImg}
-                                  alt={`${stage.title} Character`}
-                                  className={`w-auto h-full max-h-full object-contain transition-transform duration-500 ${
-                                    isActive
-                                      ? "scale-105 drop-shadow-2xl"
-                                      : "scale-90 hover:scale-95"
-                                  }`}
-                                />
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
+                {/* ── Main Modal Content: Clean & Centered ── */}
+                <div className="relative z-10">
+                  {/* Header: Title & Tagline */}
+                  <div className="w-full mb-6">
+                    <div className="flex items-baseline gap-3 mb-2">
+                      <span
+                        className="text-[34px] sm:text-[44px] font-black tracking-tight leading-none"
+                        style={{ color: STAGES_DATA[activeStageDetail].color }}
+                      >
+                        {STAGES_DATA[activeStageDetail].title}
+                      </span>
+                      <span className="text-slate-400 text-sm sm:text-base font-normal">
+                        {STAGES_DATA[activeStageDetail].question}
+                      </span>
+                    </div>
+
+                    {/* Bold Tagline */}
+                    <h3 className={`text-[19px] sm:text-[22px] font-bold tracking-tight leading-tight ${
+                      isDark ? "text-white" : "text-[#0f172a]"
+                    }`}>
+                      {STAGES_DATA[activeStageDetail].tagline}
+                    </h3>
+                  </div>
+
+                  {/* Explanatory Body Concept */}
+                  <p className={`text-[15px] sm:text-[16px] leading-relaxed mb-6 font-medium ${
+                    isDark ? "text-slate-200" : "text-[#1e293b]"
+                  }`}>
+                    {STAGES_DATA[activeStageDetail].body}
+                  </p>
+
+                  {/* Quote Box with Frosted Glass Styling */}
+                  <div className={`w-full p-5 rounded-[22px] mb-6 ${
+                    isDark ? "bg-white/5 border border-white/10 text-white" : "frosted-glass-card text-[#0f172a]"
+                  }`}>
+                    <div className="text-[16px] sm:text-[18px] font-serif italic leading-snug">
+                      “{STAGES_DATA[activeStageDetail].quote}”
+                      <span className={`not-italic text-sm font-sans font-semibold ml-3 ${
+                        isDark ? "text-slate-400" : "text-[#64748b]"
+                      }`}>
+                        — {STAGES_DATA[activeStageDetail].author}
+                      </span>
                     </div>
                   </div>
 
-                  {/* Center & Right Section: Rich Stage Details in Frosted Glass UI */}
-                  <div className="lg:col-span-7 flex flex-col items-start justify-between">
-                    {/* Header: Title & Tagline */}
-                    <div className="w-full mb-6">
-                      <div className="flex items-center gap-3 mb-2">
-                        <span
-                          className="text-[44px] sm:text-[56px] font-black tracking-tight leading-none"
-                          style={{ color: STAGES_DATA[activeStageDetail].color }}
+                  {/* ── "THROUGH" Tactics & Channels Grid ── */}
+                  <div className="w-full mb-6">
+                    <div className={`text-[12px] font-black tracking-widest uppercase mb-3.5 ${
+                      isDark ? "text-slate-400" : "text-[#475569]"
+                    }`}>
+                      T H R O U G H
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                      {STAGES_DATA[activeStageDetail].through.map((item, i) => (
+                        <div
+                          key={i}
+                          className={`p-4.5 rounded-[20px] hover:-translate-y-0.5 transition-all flex flex-col items-start text-left ${
+                            isDark ? "bg-white/5 border border-white/10 hover:bg-white/8 text-white" : "frosted-glass-card text-[#0f172a]"
+                          }`}
                         >
-                          {STAGES_DATA[activeStageDetail].title}
-                        </span>
-                      </div>
-
-                      {/* Bold Tagline */}
-                      <h3 className={`text-[20px] sm:text-[24px] font-black tracking-tight leading-tight max-w-xl ${
-                        isDark ? "text-white" : "text-[#0f172a]"
-                      }`}>
-                        {STAGES_DATA[activeStageDetail].tagline}
-                      </h3>
-                    </div>
-
-                    {/* Explanatory Body Concept */}
-                    <p className={`text-[15px] sm:text-[16px] leading-relaxed mb-6 font-medium max-w-3xl ${
-                      isDark ? "text-slate-200" : "text-[#1e293b]"
-                    }`}>
-                      {STAGES_DATA[activeStageDetail].body}
-                    </p>
-
-                    {/* Quote Box with Frosted Glass Styling */}
-                    <div className={`w-full p-5 rounded-[22px] mb-7 ${
-                      isDark ? "bg-white/5 border border-white/10 text-white" : "frosted-glass-card text-[#0f172a]"
-                    }`}>
-                      <div className="text-[17px] sm:text-[19px] font-serif italic leading-snug">
-                        “{STAGES_DATA[activeStageDetail].quote}”
-                        <span className={`not-italic text-sm font-sans font-semibold ml-3 ${
-                          isDark ? "text-slate-400" : "text-[#64748b]"
-                        }`}>
-                          — {STAGES_DATA[activeStageDetail].author}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* ── "THROUGH" Tactics & Channels Grid ── */}
-                    <div className="w-full mb-7">
-                      <div className={`text-[12px] font-black tracking-widest uppercase mb-3.5 ${
-                        isDark ? "text-slate-400" : "text-[#475569]"
-                      }`}>
-                        T H R O U G H
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                        {STAGES_DATA[activeStageDetail].through.map((item, i) => (
-                          <div
-                            key={i}
-                            className={`p-4.5 rounded-[20px] hover:-translate-y-0.5 transition-all flex flex-col items-start text-left ${
-                              isDark ? "bg-white/5 border border-white/10 hover:bg-white/8 text-white" : "frosted-glass-card text-[#0f172a]"
-                            }`}
-                          >
-                            <div className="flex items-center gap-2 mb-1.5">
-                              <div
-                                className="w-2 h-2 rounded-full shrink-0 shadow-2xs"
-                                style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }}
-                              />
-                              <h4 className={`text-[14px] font-bold ${isDark ? "text-white" : "text-[#0f172a]"}`}>
-                                {item.title}
-                              </h4>
-                            </div>
-                            <p className={`text-[13px] leading-relaxed font-normal ${
-                              isDark ? "text-slate-300" : "text-[#475569]"
-                            }`}>
-                              {item.desc}
-                            </p>
+                          <div className="flex items-center gap-2 mb-1.5">
+                            <div
+                              className="w-2 h-2 rounded-full shrink-0 shadow-2xs"
+                              style={{ backgroundColor: STAGES_DATA[activeStageDetail].color }}
+                            />
+                            <h4 className={`text-[14px] font-bold ${isDark ? "text-white" : "text-[#0f172a]"}`}>
+                              {item.title}
+                            </h4>
                           </div>
-                        ))}
-                      </div>
+                          <p className={`text-[13px] leading-relaxed font-normal ${
+                            isDark ? "text-slate-300" : "text-[#475569]"
+                          }`}>
+                            {item.desc}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Key Principles Frosted Glass Footer Bar */}
+                  <div className={`w-full p-4.5 rounded-[22px] text-[13px] sm:text-[14px] leading-relaxed mb-6 ${
+                    isDark ? "bg-white/5 border border-white/10 text-white" : "frosted-glass-card text-[#0f172a]"
+                  }`}>
+                    <strong
+                      className="font-extrabold mr-1.5"
+                      style={{ color: STAGES_DATA[activeStageDetail].color }}
+                    >
+                      Key Principles:
+                    </strong>
+                    <span className={isDark ? "text-slate-200" : "text-[#334155]"}>{STAGES_DATA[activeStageDetail].keyPrinciples}</span>
+                  </div>
+
+                  {/* Bottom Footer Navigation Bar: Previous Stage & Next Stage */}
+                  <div className="pt-4 border-t border-white/10 flex items-center justify-between gap-4">
+                    <button
+                      onClick={() =>
+                        setActiveStageDetail((prev) =>
+                          prev === null || prev === 0 ? STAGES_DATA.length - 1 : prev - 1
+                        )
+                      }
+                      className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold transition-all hover:scale-105 active:scale-95 cursor-pointer ${
+                        isDark
+                          ? "bg-white/8 hover:bg-white/15 text-slate-300 border border-white/12"
+                          : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                      }`}
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                      <span>
+                        Previous:{" "}
+                        <strong className="text-white">
+                          {STAGES_DATA[(activeStageDetail + 4) % 5].title}
+                        </strong>
+                      </span>
+                    </button>
+
+                    {/* Mobile 5 Dots Indicator */}
+                    <div className="flex sm:hidden items-center gap-1.5">
+                      {STAGES_DATA.map((st, i) => (
+                        <button
+                          key={st.id}
+                          onClick={() => setActiveStageDetail(i)}
+                          className={`w-2.5 h-2.5 rounded-full transition-all ${
+                            i === activeStageDetail ? "scale-125" : "opacity-40"
+                          }`}
+                          style={{ backgroundColor: st.color }}
+                          aria-label={`Go to Stage ${st.num}`}
+                        />
+                      ))}
                     </div>
 
-                    {/* Key Principles Frosted Glass Footer Bar */}
-                    <div className={`w-full p-4.5 rounded-[22px] text-[13px] sm:text-[14px] leading-relaxed ${
-                      isDark ? "bg-white/5 border border-white/10 text-white" : "frosted-glass-card text-[#0f172a]"
-                    }`}>
-                      <strong
-                        className="font-extrabold mr-1.5"
-                        style={{ color: STAGES_DATA[activeStageDetail].color }}
-                      >
-                        Key Principles:
-                      </strong>
-                      <span className={isDark ? "text-slate-200" : "text-[#334155]"}>{STAGES_DATA[activeStageDetail].keyPrinciples}</span>
-                    </div>
+                    <button
+                      onClick={() =>
+                        setActiveStageDetail((prev) =>
+                          prev === null || prev === STAGES_DATA.length - 1 ? 0 : prev + 1
+                        )
+                      }
+                      className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold transition-all hover:scale-105 active:scale-95 cursor-pointer ${
+                        isDark
+                          ? "bg-white/8 hover:bg-white/15 text-slate-300 border border-white/12"
+                          : "bg-slate-100 hover:bg-slate-200 text-slate-700"
+                      }`}
+                    >
+                      <span>
+                        Next:{" "}
+                        <strong className="text-white">
+                          {STAGES_DATA[(activeStageDetail + 1) % 5].title}
+                        </strong>
+                      </span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -1898,15 +1902,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             {/* Right 5 Steps Connected by Dotted Path */}
             <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-5 gap-3 relative">
               {[
-                { icon: "📣", title: "Signal", desc: "Spot early signals for action.", color: "text-[#38bdf8]" },
-                { icon: "❤️", title: "Emotional Pull", desc: "Tap into emotional motivation.", color: "text-[#f43f5e]" },
-                { icon: "🚀", title: "First Action", desc: "Make the first step easy.", color: "text-[#8b5cf6]" },
-                { icon: "👑", title: "Reinforcement", desc: "Help habits and confidence grow.", color: "text-[#f59e0b]" },
-                { icon: "🌟", title: "Identity Shift", desc: "Turn users into advocates.", color: "text-[#10b981]" }
+                { title: "Signal", desc: "Spot early signals for action.", color: "text-[#38bdf8]" },
+                { title: "Emotional Pull", desc: "Tap into emotional motivation.", color: "text-[#f43f5e]" },
+                { title: "First Action", desc: "Make the first step easy.", color: "text-[#8b5cf6]" },
+                { title: "Reinforcement", desc: "Help habits and confidence grow.", color: "text-[#f59e0b]" },
+                { title: "Identity Shift", desc: "Turn users into advocates.", color: "text-[#10b981]" }
               ].map((step, idx) => (
                 <div key={idx} className="flex flex-col items-start p-1.5 relative">
                   <div className="flex items-center gap-1.5 mb-1">
-                    <span className="text-[14px]">{step.icon}</span>
                     <span className={`text-[12px] font-bold ${isDark ? "text-white" : "text-[#0f172a]"}`}>{step.title}</span>
                   </div>
                   <span className={`text-[11px] leading-tight ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>{step.desc}</span>
@@ -2274,6 +2277,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
             />
           </div>
         </div>
+
+        {/* ── SECTION: STRATEGIC SHIFT (Traditional Adoption vs. Behavioral Approach) ── */}
+        <StrategicShiftDiagram isDark={isDark} />
 
         {/* ── CLOSING CTA FOOTER CARD (Flush with Bottom Edge of UI) ── */}
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-12 w-full mt-auto mb-0">
