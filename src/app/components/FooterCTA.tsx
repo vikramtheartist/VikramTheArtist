@@ -46,7 +46,7 @@ export function FooterCTA() {
         >
           Here&apos;s my{" "}
           <a
-            href="https://drive.google.com/file/d/1EYrHJ66MsqNI-ezlXRDx3x-l3R1hI11h/view?usp=sharing"
+            href="https://drive.google.com/file/d/1ksC8bHO8TmkG-wXNkcX1iVoBfTK7vnLo/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             style={{
