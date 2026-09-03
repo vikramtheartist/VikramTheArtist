@@ -99,6 +99,21 @@ function SparkleItem({ sparkle }: { sparkle: Sparkle }) {
 export function SpaceSparkles({ mode }: { mode: "dark" | "light" }) {
   const [sparkles, setSparkles] = useState<Sparkle[]>([]);
 
+  const spawnSparkle = useCallback((x: number, y: number) => {
+    const newSparkle: Sparkle = {
+      id: Date.now() + Math.random(),
+      x,
+      y,
+      size: Math.floor(Math.random() * 8) + 40, // 20% smaller initial birth size (40px-48px)
+      rotation: Math.random() * 30 - 15,
+      animType: Math.random() > 0.5 ? "A" : "B",
+      floatDuration: Math.random() * 1.8 + 3.8, // Faster floating & flowing circulation (3.8s to 5.6s)
+      floatDelay: Math.random() * 1.2,
+    };
+
+    setSparkles((prev) => [...prev.slice(-40), newSparkle]);
+  }, []);
+
   const handleGlobalClick = useCallback(
     (e: MouseEvent) => {
       // Only active in dark mode
@@ -109,24 +124,41 @@ export function SpaceSparkles({ mode }: { mode: "dark" | "light" }) {
         return;
       }
 
-      const x = e.clientX;
-      const y = e.clientY;
-
-      const newSparkle: Sparkle = {
-        id: Date.now() + Math.random(),
-        x,
-        y,
-        size: Math.floor(Math.random() * 8) + 40, // 20% smaller initial birth size (40px-48px)
-        rotation: Math.random() * 30 - 15,
-        animType: Math.random() > 0.5 ? "A" : "B",
-        floatDuration: Math.random() * 1.8 + 3.8, // Faster floating & flowing circulation (3.8s to 5.6s)
-        floatDelay: Math.random() * 1.2,
-      };
-
-      setSparkles((prev) => [...prev.slice(-40), newSparkle]);
+      spawnSparkle(e.clientX, e.clientY);
     },
-    [mode]
+    [mode, spawnSparkle]
   );
+
+  // One-time initial hover hint: Once the landing page loads, when cursor moves over space,
+  // trigger the sparkle animation once automatically to hint the interactive click feature.
+  useEffect(() => {
+    if (mode === "light") return;
+
+    let hasTriggered = false;
+
+    const onInitialHover = (e: MouseEvent) => {
+      if (hasTriggered) return;
+
+      const target = e.target as HTMLElement | null;
+      if (target?.closest?.("[data-no-sparkle], .no-sparkle, .scroll-to-explore-btn, a, button, input, textarea, select")) {
+        return;
+      }
+
+      hasTriggered = true;
+      spawnSparkle(e.clientX, e.clientY);
+      window.removeEventListener("mousemove", onInitialHover);
+    };
+
+    // Small delay after mount to ensure smooth initial page entrance before listening for mousemove
+    const timer = setTimeout(() => {
+      window.addEventListener("mousemove", onInitialHover, { passive: true });
+    }, 400);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("mousemove", onInitialHover);
+    };
+  }, [mode, spawnSparkle]);
 
   useEffect(() => {
     window.addEventListener("click", handleGlobalClick);
