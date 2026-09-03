@@ -2038,10 +2038,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       />
                     </div>
 
-                    {/* Right: Narrative, Headlines, Metrics & Case Study CTA (Mobile Glass Card) */}
-                    <div className={`lg:col-span-6 flex flex-col items-start text-left p-6 sm:p-8 lg:p-0 rounded-[28px] sm:rounded-[32px] lg:rounded-none border lg:border-none backdrop-blur-xl lg:backdrop-blur-none shadow-xl lg:shadow-none w-full ${
-                      isDark ? "bg-[#0b101e]/85 border-white/12" : "bg-white/90 border-slate-200/80"
-                    }`}>
+                    {/* Right: Narrative, Headlines, Metrics & Case Study CTA */}
+                    <div className="lg:col-span-6 flex flex-col items-start text-left w-full">
                       {/* Eyebrow Badge */}
                       <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs ${
                         isDark ? "bg-pink-500/15 border border-pink-500/30 text-pink-400" : "bg-[#fdf2f8] border border-[#fbcfe8] text-[#db2777]"
@@ -2070,53 +2068,14 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       </p>
 
                       {/* Headline */}
-                      <h3 className={`text-[16px] sm:text-[22px] lg:text-[28px] font-normal tracking-tight leading-[1.3] mb-4.5 w-full ${
+                      <h3 className={`text-[16px] sm:text-[22px] lg:text-[28px] font-normal tracking-tight leading-[1.3] mb-6 w-full ${
                         isDark ? "text-white" : "text-[#0a0e1a]"
                       }`}>
                         How the Adopt Playbook drove awareness into repeat usage and advocacy
                       </h3>
 
-                      {/* 3 Metric Cards */}
-                      <div className="grid grid-cols-3 gap-2 sm:gap-2.5 w-full mb-3.5">
-                        <div className={`p-2.5 sm:p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
-                          isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-pink-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#fbcfe8]"
-                        }`}>
-                          <div className="w-2 h-2 rounded-full bg-[#f97316]" />
-                          <div className={`text-[14px] sm:text-[18px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
-                            935K → 3.4M
-                          </div>
-                          <div className={`text-[10px] sm:text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
-                            Copilot MAU
-                          </div>
-                        </div>
-
-                        <div className={`p-2.5 sm:p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
-                          isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-sky-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#bfdbfe]"
-                        }`}>
-                          <div className="w-2 h-2 rounded-full bg-[#3b82f6]" />
-                          <div className={`text-[14px] sm:text-[18px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
-                            33$ → 85$
-                          </div>
-                          <div className={`text-[10px] sm:text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
-                            CAC Cut 71%
-                          </div>
-                        </div>
-
-                        <div className={`p-2.5 sm:p-3.5 rounded-2xl shadow-2xs flex flex-col items-start gap-1 transition-colors ${
-                          isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-purple-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#fbcfe8]"
-                        }`}>
-                          <div className="w-2 h-2 rounded-full bg-[#ec4899]" />
-                          <div className={`text-[14px] sm:text-[18px] font-black leading-tight ${isDark ? "text-white" : "text-[#0f172a]"}`}>
-                            500K → 1.5M
-                          </div>
-                          <div className={`text-[10px] sm:text-[11px] font-medium ${isDark ? "text-slate-400" : "text-[#64748b]"}`}>
-                            Telemetry MAU
-                          </div>
-                        </div>
-                      </div>
-
                       {/* Featured Key Outcome Card */}
-                      <div className={`w-full p-3 sm:p-4 rounded-[20px] shadow-xs flex items-center gap-3 sm:gap-4 mb-4.5 transition-colors ${
+                      <div className={`w-full p-3.5 sm:p-4 rounded-[20px] shadow-xs flex items-center gap-3 sm:gap-4 mb-6 transition-colors ${
                         isDark ? "bg-[#0b101e]/90 border border-white/12 hover:border-purple-500/40" : "bg-white border border-[#e2e8f0] hover:border-[#ddd6fe]"
                       }`}>
                         <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0 shadow-2xs ${
@@ -2172,10 +2131,8 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                       />
                     </div>
 
-                    {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA (Mobile Glass Card) */}
-                    <div className={`lg:col-span-6 flex flex-col items-start text-left p-6 sm:p-8 lg:p-0 rounded-[28px] sm:rounded-[32px] lg:rounded-none border lg:border-none backdrop-blur-xl lg:backdrop-blur-none shadow-xl lg:shadow-none w-full ${
-                      isDark ? "bg-[#0b101e]/85 border-white/12" : "bg-white/90 border-slate-200/80"
-                    }`}>
+                    {/* Right: Brand Title, Headline, Value Cards, Pipeline Pill & CTA */}
+                    <div className="lg:col-span-6 flex flex-col items-start text-left w-full">
                       {/* Eyebrow Badge */}
                       <div className={`inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[11px] font-extrabold tracking-wider uppercase mb-3 shadow-2xs ${
                         isDark ? "bg-purple-500/15 border border-purple-500/30 text-purple-400" : "bg-[#f5f3ff] border border-[#e0e7ff] text-[#7c3aed]"
@@ -2332,35 +2289,12 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                 : "linear-gradient(105deg, #7888f8 0%, #9ca7fc 24%, #b79dfb 48%, #d896ea 74%, #f794ca 100%)",
             }}
           >
-            {/* Elegant Soft Curved Wave Lines in Background */}
-            <svg
-              className="absolute inset-0 w-full h-full pointer-events-none opacity-40 select-none"
-              viewBox="0 0 1200 160"
-              fill="none"
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M-50 90 C 280 150, 680 20, 1250 110"
-                stroke={isDark ? "#a855f7" : "white"}
-                strokeWidth="1.5"
-                strokeOpacity={isDark ? "0.45" : "0.65"}
-                fill="none"
-              />
-              <path
-                d="M-50 130 C 380 30, 780 160, 1250 50"
-                stroke={isDark ? "#38bdf8" : "white"}
-                strokeWidth="1.2"
-                strokeOpacity={isDark ? "0.35" : "0.45"}
-                fill="none"
-              />
-            </svg>
-
-            {/* Glowing Atmosphere Nodes */}
-            <div className={`absolute top-0 right-1/4 w-64 h-64 rounded-full blur-2xl pointer-events-none ${
-              isDark ? "bg-purple-500/20" : "bg-white/15"
+            {/* Ambient Atmosphere Glows */}
+            <div className={`absolute top-0 right-1/4 w-72 h-72 rounded-full blur-3xl pointer-events-none ${
+              isDark ? "bg-purple-600/15" : "bg-white/20"
             }`} />
-            <div className={`absolute bottom-0 left-1/3 w-64 h-64 rounded-full blur-2xl pointer-events-none ${
-              isDark ? "bg-pink-500/20" : "bg-pink-300/20"
+            <div className={`absolute bottom-0 left-1/3 w-72 h-72 rounded-full blur-3xl pointer-events-none ${
+              isDark ? "bg-pink-600/15" : "bg-pink-300/25"
             }`} />
 
             {/* Main Action Content Row */}

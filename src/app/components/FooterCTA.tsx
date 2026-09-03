@@ -77,7 +77,7 @@ export function FooterCTA() {
         style={{
           position: "relative",
           zIndex: 1,
-          marginTop: "80px",
+          marginTop: "130px",
           borderTop: "1px solid var(--border-soft)",
           paddingTop: "24px",
           display: "flex",

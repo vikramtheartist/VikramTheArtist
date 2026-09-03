@@ -236,17 +236,26 @@ export function Hero() {
 
         <div className="hero-title-block">
           <div className="hero-heading-container">
-            <h1 aria-label="Hi, I am Vikram" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: 'clamp(1.95rem, 6.5vw, 4.25rem)', lineHeight: 1.18, color: '#C5DC4B', margin: 0 }}>
-              <span className="block md:inline" aria-hidden="true" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
-                {displayed}
-                <span style={{ display: "inline-block", width: "3px", height: "0.85em",
-                  background: "var(--text-3)", marginLeft: "3px", verticalAlign: "middle",
-                  borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
-                <span>,</span>
+            <h1 aria-label="Hi, I am Vikram" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 300, fontSize: 'clamp(1.95rem, 6.5vw, 4.25rem)', lineHeight: 1.18, margin: 0 }}>
+              <span
+                style={{
+                  background: "linear-gradient(90deg, #E3C3FF 0%, #7C86FF 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                }}
+              >
+                <span className="block md:inline" aria-hidden="true" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
+                  {displayed}
+                  <span style={{ display: "inline-block", width: "3px", height: "0.85em",
+                    background: "#E3C3FF", marginLeft: "3px", verticalAlign: "middle",
+                    borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
+                  <span>,</span>
+                </span>
+                <span className="block md:inline" aria-hidden="true">
+                  <span className="hidden md:inline"> </span>{"I am Vikram "}
+                </span>
               </span>
-              <span className="block md:inline" aria-hidden="true">
-                <span className="hidden md:inline"> </span>{"I am Vikram ✌🏻"}
-              </span>
+              <span style={{ WebkitTextFillColor: "initial", verticalAlign: "baseline" }}>✌🏻</span>
             </h1>
           </div>
           <div className="hero-subtitle-block" style={{ marginTop: '34px', marginBottom: 0, width: '100%' }}>

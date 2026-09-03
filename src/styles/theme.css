@@ -740,6 +740,15 @@ body {
   }
 }
 
+@keyframes astronautStandBreath {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1, 1);
+  }
+  50% {
+    transform: translate3d(0, -5px, 0) scale(1.008, 0.992);
+  }
+}
+
 @keyframes spaceFeatherFloatA {
   0% {
     transform: translate3d(0, 0, 0) rotate(0deg);

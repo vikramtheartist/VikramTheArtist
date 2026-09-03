@@ -16,29 +16,29 @@
   --adopt-primary-grad: linear-gradient(135deg, #3d4dfc 0%, #633bfa 100%);
   --adopt-hero-btn-grad: linear-gradient(180deg, #5b54fa 0%, #433cf7 55%, #352fed 100%);
 
-  /* Light Theme */
+  /* ── Light Theme ─────────────────────────────────────────────────── */
   --cs-bg: #f8fafc;
   --cs-bg-subtle: #f1f5f9;
   --cs-card-bg: #ffffff;
   --cs-card-bg-hover: #ffffff;
-  --cs-stroke: #e2e8f0;
-  --cs-stroke-hover: #cbd5e1;
+  --cs-stroke: #cbd5e1;
+  --cs-stroke-hover: #94a3b8;
   --cs-text-head: #0f172a;
   --cs-text-sub: #1e293b;
   --cs-text-body: #334155;
-  --cs-text-muted: #64748b;
+  --cs-text-muted: #475569;
   --cs-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08), 0 20px 40px -15px rgba(79, 70, 229, 0.05);
-  --cs-radius: 24px;
+  --cs-radius: 20px;
 }
 
 /* ── Dark Theme Overrides ────────────────────────────────────────── */
 .copilot-theme-dark {
-  --cs-bg: #030712;
-  --cs-bg-subtle: #0b0f19;
-  --cs-card-bg: #0d131f;
-  --cs-card-bg-hover: #111827;
-  --cs-stroke: rgba(255, 255, 255, 0.12);
-  --cs-stroke-hover: rgba(255, 255, 255, 0.22);
+  --cs-bg: #040712;
+  --cs-bg-subtle: #080c18;
+  --cs-card-bg: #0b0f1d;
+  --cs-card-bg-hover: #101626;
+  --cs-stroke: rgba(255, 255, 255, 0.14);
+  --cs-stroke-hover: rgba(255, 255, 255, 0.28);
   --cs-text-head: #ffffff;
   --cs-text-sub: #f1f5f9;
   --cs-text-body: #cbd5e1;
@@ -54,26 +54,26 @@
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
-  line-height: 1.5;
+  line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Light background mesh */
 .copilot-page-wrapper.copilot-theme-light {
   background-image:
-    radial-gradient(circle at 86% 2%, rgba(139, 92, 246, 0.08), transparent 32%),
-    radial-gradient(circle at 18% 28%, rgba(2, 132, 199, 0.06), transparent 28%),
-    radial-gradient(circle at 75% 65%, rgba(244, 63, 94, 0.05), transparent 30%),
-    linear-gradient(180deg, #f3f8fe 0%, #f8f5ff 16%, #fdf3f8 32%, #f2f7ff 48%, #fbf4fc 64%, #f3f8ff 80%, #f8f5fe 100%);
+    radial-gradient(circle at 86% 2%, rgba(139, 92, 246, 0.06), transparent 32%),
+    radial-gradient(circle at 18% 28%, rgba(2, 132, 199, 0.05), transparent 28%),
+    radial-gradient(circle at 75% 65%, rgba(244, 63, 94, 0.04), transparent 30%),
+    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 50%, #f8fafc 100%);
 }
 
 /* Dark background mesh */
 .copilot-page-wrapper.copilot-theme-dark {
   background-image:
-    radial-gradient(circle at 86% 2%, rgba(139, 92, 246, 0.14), transparent 30%),
-    radial-gradient(circle at 18% 28%, rgba(16, 185, 129, 0.08), transparent 26%),
-    radial-gradient(circle at 50% 60%, rgba(67, 68, 250, 0.1), transparent 34%),
-    linear-gradient(#030712, #030712);
+    radial-gradient(circle at 86% 2%, rgba(139, 92, 246, 0.12), transparent 30%),
+    radial-gradient(circle at 18% 28%, rgba(16, 185, 129, 0.06), transparent 26%),
+    radial-gradient(circle at 50% 60%, rgba(67, 68, 250, 0.08), transparent 34%),
+    linear-gradient(#040712, #040712);
 }
 
 .copilot-page-wrapper::before {
@@ -85,13 +85,13 @@
     linear-gradient(currentColor 1px, transparent 1px),
     linear-gradient(90deg, currentColor 1px, transparent 1px);
   background-size: 64px 64px;
-  opacity: 0.03;
+  opacity: 0.02;
   mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent 85%);
   z-index: 0;
 }
 
 .copilot-wrap {
-  width: min(1220px, calc(100% - 48px));
+  width: min(1240px, calc(100% - 48px));
   margin-inline: auto;
   position: relative;
   z-index: 1;
@@ -99,7 +99,7 @@
 
 @media (max-width: 640px) {
   .copilot-wrap {
-    width: min(1220px, calc(100% - 28px));
+    width: min(1240px, calc(100% - 28px));
   }
 }
 
@@ -107,9 +107,9 @@
 .copilot-page-wrapper h1,
 .copilot-page-wrapper h2,
 .copilot-page-wrapper h3 {
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.025em;
   color: var(--cs-text-head);
 }
 
