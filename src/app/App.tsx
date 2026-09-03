@@ -437,41 +437,6 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
 
   return (
     <>
-      {/* Space Background — cosmic stars and distant ringed planets behind Earth in dark mode */}
-      {!isLight && (
-        <picture style={{ display: "contents" }}>
-          <source
-            type="image/avif"
-            srcSet={`${import.meta.env.BASE_URL}IMG/Space-768.avif 768w, ${import.meta.env.BASE_URL}IMG/Space-1440.avif 1440w, ${import.meta.env.BASE_URL}IMG/Space-2560.avif 2560w`}
-            sizes="100vw"
-          />
-          <source
-            type="image/webp"
-            srcSet={`${import.meta.env.BASE_URL}IMG/Space-768.webp 768w, ${import.meta.env.BASE_URL}IMG/Space-1440.webp 1440w, ${import.meta.env.BASE_URL}IMG/Space-2560.webp 2560w`}
-            sizes="100vw"
-          />
-          <img
-            src={`${import.meta.env.BASE_URL}IMG/Space.png`}
-            alt=""
-            decoding="async"
-            fetchPriority="low"
-            width={2560}
-            height={1710}
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100vw",
-              height: "100vh",
-              objectFit: "cover",
-              objectPosition: "center",
-              zIndex: 0,
-              pointerEvents: "none",
-              opacity: 1,
-            }}
-          />
-        </picture>
-      )}
 
       {/* Small Left Planet (Planet 1) positioned above Earth horizon */}
       {!isLight && (
@@ -664,7 +629,7 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
             height: "auto",
             zIndex: 0,
             pointerEvents: "none",
-            opacity: isLight ? 0 : 0.85,
+            opacity: isLight ? 0 : 0.68,
             willChange: "transform",
             transform: "translate3d(50vw, calc(75vh + 530px), 0) translate(-50%, -50%)",
           }}
@@ -824,6 +789,13 @@ export default function App() {
         position: "relative",
       }}
     >
+      {/* Dynamic Animated Cosmic Gradient Background (Cycles smoothly between 3 palettes) */}
+      <div className="cosmic-gradient-bg hide-in-light fade-with-theme">
+        <div className="cosmic-gradient-layer cosmic-grad-1" />
+        <div className="cosmic-gradient-layer cosmic-grad-2" />
+        <div className="cosmic-gradient-layer cosmic-grad-3" />
+      </div>
+
       <EarthParallax mode="dark" />
       <SpaceSparkles mode="dark" />
       <Nav mode="dark" onNavigateVibeCoding={() => navigate("vibe-coding")} />

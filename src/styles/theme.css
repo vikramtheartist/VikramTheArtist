@@ -46,7 +46,8 @@
 
 /* ── Theme tokens ─────────────────────────────────────────────── */
 :root {
-  --bg-page:        #070a16;
+  --bg-page:        #000213;
+  --bg-page-gradient: linear-gradient(180deg, #000213 0%, #070125 100%);
   --bg-page-bloom:  rgba(60,120,255,0.10);
   --text-1:         #ffffff;
   --text-2:         rgba(255,255,255,0.78);
@@ -61,6 +62,7 @@
 }
 [data-theme="light"] {
   --bg-page:        #fafbfd;
+  --bg-page-gradient: none;
   --bg-page-bloom:  rgba(255,200,120,0.20);
   --text-1:         #0a1018;
   --text-2:         rgba(10,16,24,0.82);
@@ -80,6 +82,76 @@ html, body {
 body {
   background-color: var(--bg-page);
   color: var(--text-1);
+}
+
+/* ── Dynamic Animated Cosmic Gradient Background ───────────── */
+.cosmic-gradient-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  background-color: #000213;
+}
+
+.cosmic-gradient-layer {
+  position: absolute;
+  inset: 0;
+  will-change: opacity;
+}
+
+/* Gradient 1: #000213 -> #070125 (Deep purple-navy) */
+.cosmic-grad-1 {
+  background: linear-gradient(180deg, #000213 0%, #070125 100%);
+  animation: cosmicGradientCycle1 24s ease-in-out infinite;
+}
+
+/* Gradient 2: #000213 -> #1B0125 (Deep magenta-violet) */
+.cosmic-grad-2 {
+  background: linear-gradient(180deg, #000213 0%, #1B0125 100%);
+  animation: cosmicGradientCycle2 24s ease-in-out infinite;
+}
+
+/* Gradient 3: #000213 -> #010925 (Deep indigo-blue) */
+.cosmic-grad-3 {
+  background: linear-gradient(180deg, #000213 0%, #010925 100%);
+  animation: cosmicGradientCycle3 24s ease-in-out infinite;
+}
+
+@keyframes cosmicGradientCycle1 {
+  0%, 100% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0;
+  }
+}
+
+@keyframes cosmicGradientCycle2 {
+  0%, 100% {
+    opacity: 0;
+  }
+  33.33% {
+    opacity: 1;
+  }
+  58% {
+    opacity: 0;
+  }
+}
+
+@keyframes cosmicGradientCycle3 {
+  0%, 42% {
+    opacity: 0;
+  }
+  66.66% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 0;
+  }
 }
 
 /* Smooth-fade visual class — hide cosmic visuals in light mode */
