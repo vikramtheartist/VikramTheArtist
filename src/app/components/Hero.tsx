@@ -242,32 +242,32 @@ export function Hero() {
               style={{
                 fontFamily: "'Lato', sans-serif",
                 fontWeight: 300,
-                fontSize: 'clamp(1.95rem, 6.5vw, 4.25rem)',
-                lineHeight: 1.18,
+                fontSize: 'clamp(2.35rem, 7.2vw, 4.25rem)',
+                lineHeight: 1.16,
                 margin: 0,
-                opacity: 0.8,
+                opacity: 0.9,
                 display: "inline-block",
               }}
             >
-              <span className="block md:inline" aria-hidden="true" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 100 }}>
+              <span className="block md:inline" aria-hidden="true" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 200, color: "#ffffff" }}>
                 {displayed}
-                <span style={{ display: "inline-block", width: "3px", height: "0.85em",
-                  background: "#ffffff", marginLeft: "3px", verticalAlign: "middle",
+                <span style={{ display: "inline-block", width: "2px", height: "0.85em",
+                  background: "#ffffff", marginLeft: "2px", verticalAlign: "middle",
                   borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
                 <span>,</span>
               </span>
-              <span className="block md:inline whitespace-nowrap" aria-hidden="true">
-                <span className="hidden md:inline"> </span>{"I am Vikram "}
+              <span className="block md:inline whitespace-nowrap mt-0.5 md:mt-0 md:ml-3" aria-hidden="true" style={{ color: "rgba(255, 255, 255, 0.62)", fontWeight: 300 }}>
+                {"I am Vikram "}
                 <span style={{ WebkitTextFillColor: "initial", verticalAlign: "baseline" }}>✌🏻</span>
               </span>
             </h1>
           </div>
-          <div className="hero-subtitle-block" style={{ marginTop: '34px', marginBottom: 0, width: '100%' }}>
-            <p className="hero-subtitle" style={{ fontFamily: "'Georgia', serif", fontWeight: 400, fontSize: "clamp(16px, 1.95vw, 34px)", lineHeight: 1.35, color: '#E6E6E6', margin: 0 }}>
-              Product Designer at Microsoft. <span className="block sm:inline">Designing AI-first products.</span>
+          <div className="hero-subtitle-block" style={{ marginTop: '26px', marginBottom: 0, width: '100%' }}>
+            <p className="hero-subtitle" style={{ fontFamily: "'Georgia', serif", fontWeight: 400, fontSize: "clamp(18px, 2.1vw, 34px)", lineHeight: 1.35, color: '#FFFFFF', margin: 0 }}>
+              Product Designer at Microsoft,<br className="block sm:hidden" /> <span className="inline">Designing AI-first products</span>
             </p>
-            <p style={{ fontFamily: "'Segoe UI', sans-serif", fontWeight: 300, fontSize: 'clamp(16px, 1.4vw, 22px)', lineHeight: 1.4, color: 'var(--text-2)', margin: '10px 0 0 0' }}>
-              Previously at Google and McKinsey.
+            <p style={{ fontFamily: "'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif", fontWeight: 300, fontSize: 'clamp(14px, 1.4vw, 22px)', lineHeight: 1.4, color: 'rgba(255, 255, 255, 0.65)', margin: '10px 0 0 0' }}>
+              Previously at Google and Mckinsey
             </p>
           </div>
         </div>

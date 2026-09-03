@@ -695,7 +695,7 @@ export function WorkSection({
           className="text-center h-grad-bright transition-opacity duration-200 group-hover:opacity-95"
           style={{
             fontFamily: "'Poppins', sans-serif",
-            fontSize: "clamp(2.25rem, 5.5vw, 3.125rem)",
+            fontSize: "clamp(1.75rem, 5.5vw, 3.125rem)",
             lineHeight: 1.15,
             fontWeight: 300,
             marginBottom: "0px",

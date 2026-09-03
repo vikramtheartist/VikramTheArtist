@@ -459,6 +459,7 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
             fetchPriority="high"
             width={384}
             height={384}
+            className="planet1-element"
             style={{
               position: "fixed",
               top: "28vh",
@@ -480,6 +481,7 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
       {!isLight && (
         <div
           ref={astroRef}
+          className="astro-wrapper hidden md:block"
           style={{
             position: "fixed",
             top: "50vh",
