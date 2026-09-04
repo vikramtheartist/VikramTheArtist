@@ -16,13 +16,14 @@ const AdoptLandingPage = lazy(() => import("./components/adopt/AdoptLandingPage"
 const VibeCodingPage = lazy(() => import("./components/vibecoding/VibeCodingPage").then(m => ({ default: m.VibeCodingPage })));
 const Feedback360Page = lazy(() => import("./components/feedback/Feedback360Page").then(m => ({ default: m.Feedback360Page })));
 
-type Route = "home" | "adopt" | "scale-copilot" | "adopt-v2" | "adopt-landing" | "vibe-coding" | "feedback-360";
+type Route = "home" | "adopt" | "scale-copilot" | "scale-copilot-engage" | "adopt-v2" | "adopt-landing" | "vibe-coding" | "feedback-360";
 type ThemeMode = "dark" | "light";
 
 const routeFromPath = (): Route => {
   const p = window.location.pathname.replace(/\/$/, "");
   if (p.endsWith("/work/feedback-360") || p.endsWith("/feedback-360")) return "feedback-360";
   if (p.endsWith("/adopt-landing") || p.endsWith("/adopt")) return "adopt-landing";
+  if (p.endsWith("/scale-copilot-engage") || p.endsWith("/work/scale-copilot-engage")) return "scale-copilot-engage";
   if (p.endsWith("/scale-copilot") || p.endsWith("/playbook/scale-copilot") || p.endsWith("/work/scale-copilot") || p.endsWith("/playbook/adopt-v2")) return "scale-copilot";
   if (p.endsWith("/playbook/adopt")) return "adopt";
   if (p.endsWith("/vibe-coding")) return "vibe-coding";
@@ -707,6 +708,7 @@ export default function App() {
       next === "feedback-360" ? "/work/feedback-360"
       : next === "adopt-landing" ? "/adopt-landing"
       : next === "adopt" ? "/playbook/adopt"
+      : next === "scale-copilot-engage" ? "/scale-copilot-engage"
       : next === "scale-copilot" || next === "adopt-v2" ? "/scale-copilot"
       : next === "vibe-coding" ? "/vibe-coding"
       : "/";
@@ -777,6 +779,13 @@ export default function App() {
     return (
       <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
         <CaseStudyAdoptV2 onBack={() => navigate("home")} />
+      </Suspense>
+    );
+  }
+  if (route === "scale-copilot-engage") {
+    return (
+      <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
+        <CaseStudyAdoptV2 story="engage" onBack={() => navigate("home")} />
       </Suspense>
     );
   }
