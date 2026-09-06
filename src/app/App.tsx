@@ -1251,51 +1251,6 @@ function LightSkyParallax() {
   );
 }
 
-/* ── Top Viewport Content Fade Overlay (Smoothly dissolves scrolled content before menu) ── */
-function TopNavFade({ mode = "dark" }: { mode?: "dark" | "light" }) {
-  const [opacity, setOpacity] = useState(0);
-  const isLight = mode === "light";
-
-  useEffect(() => {
-    let rafId = 0;
-    const onScroll = () => {
-      if (rafId) return;
-      rafId = requestAnimationFrame(() => {
-        rafId = 0;
-        const s = window.scrollY;
-        // Smoothly fade in over the first 60px of scroll
-        const targetOp = Math.min(Math.max(s / 60, 0), 1);
-        setOpacity(targetOp);
-      });
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, []);
-
-  return (
-    <div
-      aria-hidden="true"
-      className="fixed top-0 left-0 right-0 pointer-events-none"
-      style={{
-        zIndex: 40,
-        height: "clamp(85px, 11vh, 120px)",
-        opacity,
-        transition: "opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
-        background: "var(--glass-bg)",
-        backdropFilter: opacity > 0.05 ? "var(--glass-filter)" : "none",
-        WebkitBackdropFilter: opacity > 0.05 ? "var(--glass-filter)" : "none",
-        maskImage: "linear-gradient(to bottom, black 0%, black 50%, transparent 100%)",
-        WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 50%, transparent 100%)",
-        animation: "glassFlow 12s ease-in-out infinite",
-        backgroundSize: "200% 200%",
-      }}
-    />
-  );
-}
 
 const initialThemeMode = (): ThemeMode => {
   if (typeof window !== "undefined") {
@@ -1446,7 +1401,6 @@ export default function App() {
       {!isLight && <EarthParallax mode="dark" />}
       {!isLight && <SpaceSparkles mode="dark" />}
 
-      <TopNavFade mode={themeMode} />
       <Nav
         mode={themeMode}
         onToggleTheme={toggleThemeMode}
