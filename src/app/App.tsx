@@ -4,6 +4,7 @@ import { Hero } from "./components/Hero";
 import { WorkSection } from "./components/WorkSection";
 import { AboutSection } from "./components/AboutSection";
 import { ExperienceTimeline } from "./components/ExperienceTimeline";
+import "../styles/animations.css";
 import { ClientsSection } from "./components/ClientsSection";
 import { SkillsSection } from "./components/SkillsSection";
 import { FooterCTA } from "./components/FooterCTA";
@@ -12,15 +13,17 @@ import { SpaceSparkles } from "./components/SpaceSparkles";
 
 const CaseStudyAdopt = lazy(() => import("./components/CaseStudyAdopt").then(m => ({ default: m.CaseStudyAdopt })));
 const CaseStudyAdoptV2 = lazy(() => import("./components/playbook/CaseStudyAdoptV2").then(m => ({ default: m.CaseStudyAdoptV2 })));
+const CaseStudyDataSecurity = lazy(() => import("./components/playbook/CaseStudyDataSecurity").then(m => ({ default: m.CaseStudyDataSecurity })));
 const AdoptLandingPage = lazy(() => import("./components/adopt/AdoptLandingPage").then(m => ({ default: m.AdoptLandingPage })));
 const VibeCodingPage = lazy(() => import("./components/vibecoding/VibeCodingPage").then(m => ({ default: m.VibeCodingPage })));
 const Feedback360Page = lazy(() => import("./components/feedback/Feedback360Page").then(m => ({ default: m.Feedback360Page })));
 
-type Route = "home" | "adopt" | "scale-copilot" | "scale-copilot-engage" | "adopt-v2" | "adopt-landing" | "vibe-coding" | "feedback-360";
+type Route = "home" | "adopt" | "scale-copilot" | "scale-copilot-engage" | "adopt-v2" | "adopt-landing" | "vibe-coding" | "feedback-360" | "data-security";
 type ThemeMode = "dark" | "light";
 
 const routeFromPath = (): Route => {
   const p = window.location.pathname.replace(/\/$/, "");
+  if (p.endsWith("/data-security") || p.endsWith("/work/data-security") || p.endsWith("/playbook/data-security")) return "data-security";
   if (p.endsWith("/work/feedback-360") || p.endsWith("/feedback-360")) return "feedback-360";
   if (p.endsWith("/adopt-landing") || p.endsWith("/adopt")) return "adopt-landing";
   if (p.endsWith("/scale-copilot-engage") || p.endsWith("/work/scale-copilot-engage")) return "scale-copilot-engage";
@@ -35,7 +38,7 @@ const initialAdoptTheme = (): ThemeMode => {
     const saved = localStorage.getItem("adopt_theme_mode") || localStorage.getItem("theme_mode");
     if (saved === "light" || saved === "dark") return saved;
   }
-  return "dark";
+  return "light";
 };
 
 /*
@@ -684,9 +687,627 @@ function EarthParallax({ mode = "dark" }: { mode?: ThemeMode }) {
   );
 }
 
+/* ── Light Mode Cinematic Sky Parallax & Zoomout ────────────── */
+function LightSkyParallax() {
+  const imgRef = useRef<HTMLImageElement>(null);
+  const earthCloudRef = useRef<HTMLImageElement>(null);
+  const footerLightRef = useRef<HTMLImageElement>(null);
+  const astroRef = useRef<HTMLDivElement>(null);
+  const cloudsGroupRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const img = imgRef.current;
+    const earthCloud = earthCloudRef.current;
+    const footerLight = footerLightRef.current;
+    const astro = astroRef.current;
+    const cloudsGroup = cloudsGroupRef.current;
+    if (!img) return;
+
+    if (document.documentElement.dataset.perf === "lite") {
+      img.style.transform = "none";
+      if (earthCloud) earthCloud.style.display = "none";
+      if (footerLight) footerLight.style.display = "none";
+      return;
+    }
+
+    let rafId = 0;
+    let targetScroll = window.scrollY;
+    let currentScroll = window.scrollY;
+    let isRunning = false;
+
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let currentMouseX = 0;
+    let currentMouseY = 0;
+
+    const update = () => {
+      currentScroll += (targetScroll - currentScroll) * 0.14;
+      if (Math.abs(targetScroll - currentScroll) < 0.1) {
+        currentScroll = targetScroll;
+      }
+
+      currentMouseX += (targetMouseX - currentMouseX) * 0.08;
+      currentMouseY += (targetMouseY - currentMouseY) * 0.08;
+
+      const s = currentScroll;
+
+      // Measure the last card in My Work ("Notification Experience Design")
+      // Transition is delayed through all preceding cards; it starts only as the last card in My Work is reached/cleared
+      const cards = Array.from(document.querySelectorAll<HTMLElement>(".ws-card"));
+      let workExitProgress = 0;
+
+      if (cards.length > 0) {
+        const lastCard = cards[cards.length - 1];
+        const rect = lastCard.getBoundingClientRect();
+        // The last card is in position when rect.top <= 180px.
+        // As user scrolls past the last card, transition activates smoothly over 420px of scroll
+        const triggerPoint = 180;
+        if (rect.top <= triggerPoint) {
+          workExitProgress = Math.min(Math.max((triggerPoint - rect.top) / 420, 0), 1);
+        }
+      } else {
+        // Fallback if cards not yet rendered: start transition around s = 1800px
+        workExitProgress = Math.min(Math.max((s - 1800) / 420, 0), 1);
+      }
+
+      const easedTransition = 1 - Math.pow(1 - workExitProgress, 2.4);
+
+      // 1. Hero Background Sky: Stays fully crisp & active through Hero and all My Work cards;
+      // Only after the last card ("Notification Experience Design") does it slowly blur out and fade
+      const heroBlur = easedTransition * 18;
+      const heroScale = 1.06 - Math.min(s / 1800, 1) * 0.06;
+      const heroPanY = -Math.min(s / 1800, 1) * 28 + currentMouseY * 8;
+      const heroPanX = currentMouseX * 10;
+      const heroOpacity = Math.max(0, 1 - easedTransition * 0.95);
+
+      if (img) {
+        img.style.transform = `translate3d(${heroPanX.toFixed(2)}px, ${heroPanY.toFixed(2)}px, 0) scale(${heroScale.toFixed(4)})`;
+        img.style.filter = heroBlur > 0.1 ? `blur(${heroBlur.toFixed(1)}px)` : "none";
+        img.style.opacity = heroOpacity.toFixed(3);
+      }
+
+      // Check About Section for fading out moving clouds container
+      let aboutProgress = 0;
+      const aboutEl = document.getElementById("about");
+      if (aboutEl) {
+        const rect = aboutEl.getBoundingClientRect();
+        const triggerPoint = window.innerHeight * 0.82;
+        if (rect.top <= triggerPoint) {
+          aboutProgress = Math.min(Math.max((triggerPoint - rect.top) / 300, 0), 1);
+        }
+      }
+
+      // Check Skills Section: Only after user scrolls to Skills section, Cloud with Earth fades out and Footer Light fades in
+      let skillsProgress = 0;
+      const skillsEl = document.getElementById("skills");
+      if (skillsEl) {
+        const rect = skillsEl.getBoundingClientRect();
+        const triggerPoint = window.innerHeight * 0.40;
+        if (rect.top <= triggerPoint) {
+          skillsProgress = Math.min(Math.max((triggerPoint - rect.top) / 320, 0), 1);
+        }
+      }
+      const easedSkills = 1 - Math.pow(1 - skillsProgress, 2.4);
+
+      // 2. Cloud with Earth Scene: Fades in after last card in My Work, and fades out as user scrolls into Skills section
+      if (earthCloud) {
+        const baseEarthOpacity = Math.min(1, easedTransition * 1.15);
+        const finalEarthOpacity = Math.max(0, baseEarthOpacity * (1 - easedSkills * 1.05));
+        // Clamped scroll progression to ensure translation never exceeds scale margin
+        const earthScrollProgress = Math.min(Math.max((s - 1800) / 1500, 0), 1);
+        const earthDescentY = (1 - easedTransition) * 35 - earthScrollProgress * 15 + currentMouseY * 12;
+        const earthDescentX = currentMouseX * 14;
+        const earthScale = 1.12 - easedTransition * 0.04;
+
+        earthCloud.style.transform = `translate3d(${earthDescentX.toFixed(2)}px, ${earthDescentY.toFixed(2)}px, 0) scale(${earthScale.toFixed(4)})`;
+        earthCloud.style.opacity = finalEarthOpacity.toFixed(3);
+        earthCloud.style.filter = "none";
+        earthCloud.style.display = finalEarthOpacity <= 0.005 ? "none" : "block";
+      }
+
+      // 3. Footer Light Scene: Fades in at Skills section and continues through the footer
+      if (footerLight) {
+        const footerOpacity = Math.min(1, easedSkills * 1.15);
+        const footerPanY = -easedSkills * 20 + currentMouseY * 12;
+        const footerPanX = currentMouseX * 14;
+        const footerScale = 1.08 - easedSkills * 0.04;
+
+        footerLight.style.transform = `translate3d(${footerPanX.toFixed(2)}px, ${footerPanY.toFixed(2)}px, 0) scale(${footerScale.toFixed(4)})`;
+        footerLight.style.opacity = footerOpacity.toFixed(3);
+        footerLight.style.display = footerOpacity <= 0.005 ? "none" : "block";
+      }
+
+      // 4. Clouds Group: Visible during hero & work sections; smoothly fades out and completely disappears when entering About section until footer
+      if (cloudsGroup) {
+        const cloudOpacity = Math.max(0, 1 - aboutProgress * 1.25);
+        cloudsGroup.style.opacity = cloudOpacity.toFixed(3);
+        cloudsGroup.style.display = cloudOpacity <= 0.01 ? "none" : "block";
+        cloudsGroup.style.filter = aboutProgress > 0.05 ? `blur(${(aboutProgress * 8).toFixed(1)}px)` : "none";
+      }
+
+      // 5. Skater Astronaut (Midground): Authentic S-Curved Slalom Skating Path + Interactive Cursor Movement
+      // Trajectory: Starts bottom -> carves RIGHT past board rail -> sweeps LEFT past shoulder -> hooks UP-RIGHT toward horizon sun
+      const t = Math.min(s / 650, 1.25);
+      const easedT = t < 1 ? 1 - Math.pow(1 - t, 2.0) : t;
+
+      // S-curve wave parameters
+      const carveFrequency = 1.7 * Math.PI;
+      const waveAmp = 68 * Math.max(1 - t * 0.35, 0.45);
+      const carveWave = Math.sin(t * carveFrequency) * waveAmp;
+
+      // Cursor movement tracking effect (dynamic board float & tilt based on mouse position)
+      const cursorX = currentMouseX * 36;
+      const cursorY = currentMouseY * 24;
+      const cursorTilt = currentMouseX * 5.5 + currentMouseY * 2.0;
+
+      // Combined 3D perspective S-curve trajectory + cursor parallax
+      const moveX = -easedT * 140 + carveWave + cursorX;
+      const moveY = -easedT * 310 + cursorY;
+      const scale = Math.max(1 - easedT * 0.65, 0.35);
+
+      // Derivative-based dynamic board banking: starts at 0deg at rest, banks into turns naturally
+      const bankingAmp = 7.8 * Math.max(1 - t * 0.35, 0.45);
+      const bankingTilt = Math.cos(t * carveFrequency) * bankingAmp * Math.min(t * 4.0, 1);
+      const tilt = bankingTilt + easedT * 1.5 + cursorTilt;
+      // Graceful sunset fade-away dissolution only after the 2nd card in My Work comes into view (s: 1350px -> 1750px)
+      const fadeProgress = Math.max(0, Math.min((s - 1350) / 400, 1));
+      const astroOpacity = Number((1 - Math.pow(fadeProgress, 1.4)).toFixed(3));
+
+      if (astro) {
+        astro.style.transform = `translate3d(${moveX.toFixed(2)}px, ${moveY.toFixed(2)}px, 0) scale(${scale.toFixed(4)}) rotate(${tilt.toFixed(2)}deg)`;
+        astro.style.opacity = String(astroOpacity);
+      }
+
+      const isScrollMoving = Math.abs(targetScroll - currentScroll) >= 0.1;
+      const isMouseMoving = Math.abs(targetMouseX - currentMouseX) >= 0.001 || Math.abs(targetMouseY - currentMouseY) >= 0.001;
+
+      if (isScrollMoving || isMouseMoving) {
+        rafId = requestAnimationFrame(update);
+      } else {
+        isRunning = false;
+      }
+    };
+
+    const onScroll = () => {
+      targetScroll = window.scrollY;
+      if (!isRunning) {
+        isRunning = true;
+        rafId = requestAnimationFrame(update);
+      }
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 2;
+      targetMouseX = Math.max(-1, Math.min(1, (e.clientX - cx) / cx));
+      targetMouseY = Math.max(-1, Math.min(1, (e.clientY - cy) / cy));
+      if (!isRunning) {
+        isRunning = true;
+        rafId = requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    update();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("mousemove", onMouseMove);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  return (
+    <div
+      className="fixed top-0 left-0 right-0 w-full pointer-events-none overflow-hidden"
+      style={{
+        zIndex: 0,
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
+      {/* 1. Background Sky (Hero) */}
+      <img
+        ref={imgRef}
+        src={`${import.meta.env.BASE_URL}IMG/Landing_background.png`}
+        alt=""
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
+        className="w-full h-full select-none absolute inset-0"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "top center",
+          transformOrigin: "center 30%",
+          willChange: "transform, filter, opacity",
+        }}
+      />
+
+      {/* 2. Cloud with Earth Scene (Fades in after My Work cards, fades out at Skills) */}
+      <img
+        ref={earthCloudRef}
+        src={`${import.meta.env.BASE_URL}IMG/Cloud with earth.png`}
+        alt=""
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
+        className="w-full h-full select-none absolute inset-0"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center center",
+          transformOrigin: "center center",
+          opacity: 0,
+          display: "none",
+          willChange: "transform, filter, opacity",
+        }}
+      />
+
+      {/* 3. Footer Light Scene (Fades in at Skills section through footer) */}
+      <img
+        ref={footerLightRef}
+        src={`${import.meta.env.BASE_URL}IMG/Footer Light.png`}
+        alt=""
+        loading="eager"
+        fetchPriority="high"
+        decoding="async"
+        className="w-full h-full select-none absolute inset-0"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center center",
+          transformOrigin: "center center",
+          opacity: 0,
+          display: "none",
+          willChange: "transform, opacity",
+        }}
+      />
+
+      {/* Floating & Passing Panoramic Clouds Container */}
+      <div
+        ref={cloudsGroupRef}
+        className="absolute inset-0 pointer-events-none"
+        style={{ willChange: "opacity, filter" }}
+      >
+        
+        {/* ── BACKGROUND PASSING CLOUDS (Behind Astronaut, z-index 4 - 6) ── */}
+        
+        {/* 1. Cloud 3 - Deep Horizon Drift */}
+        <div
+          className="pointer-events-none z-4 hidden sm:block absolute top-0 left-0"
+          style={{
+            top: "clamp(410px, calc(38vh + 50px), 570px)",
+            width: "clamp(270px, 27vw, 440px)",
+            maxWidth: "460px",
+            animation: "featherDriftLtoR 125s linear infinite",
+            animationDelay: "-0s",
+            willChange: "transform",
+            filter: "drop-shadow(0 15px 30px rgba(0, 20, 50, 0.06))",
+          }}
+        >
+          <div style={{ animation: "featherFloatA 16s ease-in-out infinite", willChange: "transform" }}>
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/Clouds_3.png`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="w-full h-auto object-contain select-none opacity-80"
+            />
+          </div>
+        </div>
+
+        {/* 2. Cloud 2 - Mid Horizon Drift */}
+        <div
+          className="pointer-events-none z-5 hidden sm:block absolute top-0 left-0"
+          style={{
+            top: "clamp(470px, calc(44vh + 50px), 630px)",
+            width: "clamp(250px, 25vw, 400px)",
+            maxWidth: "420px",
+            animation: "featherDriftLtoR 125s linear infinite",
+            animationDelay: "-31.25s",
+            willChange: "transform",
+            filter: "drop-shadow(0 15px 30px rgba(0, 20, 50, 0.07))",
+          }}
+        >
+          <div style={{ animation: "featherFloatB 19s ease-in-out infinite", willChange: "transform" }}>
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/Clouds_2.png`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="w-full h-auto object-contain select-none opacity-85"
+            />
+          </div>
+        </div>
+
+        {/* 3. Cloud 3 - Center Ramp Horizon Drift */}
+        <div
+          className="pointer-events-none z-5 hidden sm:block absolute top-0 left-0"
+          style={{
+            top: "clamp(530px, calc(50vh + 50px), 710px)",
+            width: "clamp(290px, 29vw, 460px)",
+            maxWidth: "480px",
+            animation: "featherDriftLtoR 125s linear infinite",
+            animationDelay: "-62.5s",
+            willChange: "transform",
+            filter: "drop-shadow(0 15px 30px rgba(0, 20, 50, 0.08))",
+          }}
+        >
+          <div style={{ animation: "featherFloatC 18s ease-in-out infinite", willChange: "transform" }}>
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/Clouds_3.png`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="w-full h-auto object-contain select-none opacity-82"
+            />
+          </div>
+        </div>
+
+        {/* 4. Cloud 2 - Upper Sky Floating Feather */}
+        <div
+          className="pointer-events-none z-6 hidden sm:block absolute top-0 left-0"
+          style={{
+            top: "clamp(390px, calc(36vh + 50px), 530px)",
+            width: "clamp(240px, 24vw, 380px)",
+            maxWidth: "400px",
+            animation: "featherDriftLtoR 125s linear infinite",
+            animationDelay: "-93.75s",
+            willChange: "transform",
+            filter: "drop-shadow(0 15px 30px rgba(0, 20, 50, 0.07))",
+          }}
+        >
+          <div style={{ animation: "featherFloatD 15s ease-in-out infinite", willChange: "transform" }}>
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/Clouds_2.png`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="w-full h-auto object-contain select-none opacity-88"
+            />
+          </div>
+        </div>
+
+        {/* 5. Cloud 5 - Mid Sky Atmospheric Drift */}
+        <div
+          className="pointer-events-none z-5 hidden sm:block absolute top-0 left-0"
+          style={{
+            top: "clamp(550px, calc(42vh + 150px), 710px)",
+            width: "clamp(260px, 26vw, 420px)",
+            maxWidth: "440px",
+            animation: "featherDriftLtoR 120s linear infinite",
+            animationDelay: "-48s",
+            willChange: "transform",
+            filter: "drop-shadow(0 15px 30px rgba(0, 20, 50, 0.07))",
+          }}
+        >
+          <div style={{ animation: "featherFloatA 17.5s ease-in-out infinite", willChange: "transform" }}>
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/Cloud_5.png`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="w-full h-auto object-contain select-none opacity-85"
+            />
+          </div>
+        </div>
+
+        {/* ── MIDGROUND: Skateboard Astronaut (z-index 10) ── */}
+        <div
+          ref={astroRef}
+          className="pointer-events-none z-10 hidden sm:block absolute"
+          style={{
+            right: "clamp(160px, calc(5vw + 150px), 210px)",
+            top: "clamp(340px, 46vh, 520px)",
+            width: "clamp(252px, 25.2vw, 384px)",
+            maxWidth: "410px",
+            transformOrigin: "bottom center",
+            willChange: "transform, opacity",
+            filter: "drop-shadow(0 20px 35px rgba(20, 35, 60, 0.22))",
+          }}
+        >
+          <div
+            className="w-full h-auto"
+            style={{
+              animation: "skaterFeatherBalance 8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite",
+              transformOrigin: "bottom center",
+              willChange: "transform",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+              transformStyle: "preserve-3d",
+            }}
+          >
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/Astronaut_Skateboard_Light.png`}
+              alt="Astronaut on skateboard"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="w-full h-auto object-contain select-none"
+              style={{
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+                transform: "translateZ(0)",
+              }}
+            />
+          </div>
+        </div>
+
+        {/* ── FOREGROUND PASSING CLOUDS (In Front of Astronaut, z-index 18 - 22) ── */}
+        
+        {/* 6. Cloud 1 - Lower Foreground Feather Drift */}
+        <div
+          className="pointer-events-none z-18 hidden sm:block absolute top-0 left-0"
+          style={{
+            top: "clamp(610px, calc(58vh + 50px), 810px)",
+            width: "clamp(260px, 26vw, 410px)",
+            maxWidth: "440px",
+            animation: "featherDriftLtoR 108s linear infinite",
+            animationDelay: "-13.5s",
+            willChange: "transform",
+            filter: "drop-shadow(0 15px 30px rgba(0, 20, 50, 0.10))",
+          }}
+        >
+          <div style={{ animation: "featherFloatA 17s ease-in-out infinite", willChange: "transform" }}>
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/Clouds_1.png`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="w-full h-auto object-contain select-none opacity-92"
+            />
+          </div>
+        </div>
+
+        {/* 7. Cloud 4 - Mid Foreground Floating Feather */}
+        <div
+          className="pointer-events-none z-20 hidden sm:block absolute top-0 left-0"
+          style={{
+            top: "clamp(520px, calc(51vh + 50px), 720px)",
+            width: "clamp(210px, 21vw, 320px)",
+            maxWidth: "340px",
+            animation: "featherDriftLtoR 108s linear infinite",
+            animationDelay: "-40.5s",
+            willChange: "transform",
+            filter: "drop-shadow(0 15px 30px rgba(0, 20, 50, 0.08))",
+          }}
+        >
+          <div style={{ animation: "featherFloatD 15s ease-in-out infinite", willChange: "transform" }}>
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/Clouds_4.png`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="w-full h-auto object-contain select-none opacity-90"
+            />
+          </div>
+        </div>
+
+
+        {/* 9. Cloud 1 - Over Board Tail Foreground */}
+        <div
+          className="pointer-events-none z-21 hidden sm:block absolute top-0 left-0"
+          style={{
+            top: "clamp(630px, calc(60vh + 50px), 840px)",
+            width: "clamp(280px, 28vw, 440px)",
+            maxWidth: "460px",
+            animation: "featherDriftLtoR 108s linear infinite",
+            animationDelay: "-78s",
+            willChange: "transform",
+            filter: "drop-shadow(0 15px 30px rgba(0, 20, 50, 0.10))",
+          }}
+        >
+          <div style={{ animation: "featherFloatB 18s ease-in-out infinite", willChange: "transform" }}>
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/Clouds_1.png`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="w-full h-auto object-contain select-none opacity-94"
+            />
+          </div>
+        </div>
+
+        {/* 10. Cloud 4 - Lower Front Foreground Feather */}
+        <div
+          className="pointer-events-none z-22 hidden sm:block absolute top-0 left-0"
+          style={{
+            top: "clamp(550px, calc(54vh + 50px), 760px)",
+            width: "clamp(220px, 22vw, 340px)",
+            maxWidth: "360px",
+            animation: "featherDriftLtoR 108s linear infinite",
+            animationDelay: "-96s",
+            willChange: "transform",
+            filter: "drop-shadow(0 15px 30px rgba(0, 20, 50, 0.08))",
+          }}
+        >
+          <div style={{ animation: "featherFloatC 16s ease-in-out infinite", willChange: "transform" }}>
+            <img
+              src={`${import.meta.env.BASE_URL}IMG/Clouds_4.png`}
+              alt=""
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="w-full h-auto object-contain select-none opacity-90"
+            />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}
+
+/* ── Top Viewport Content Fade Overlay (Smoothly dissolves scrolled content before menu) ── */
+function TopNavFade({ mode = "dark" }: { mode?: "dark" | "light" }) {
+  const [opacity, setOpacity] = useState(0);
+  const isLight = mode === "light";
+
+  useEffect(() => {
+    let rafId = 0;
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        const s = window.scrollY;
+        // Smoothly fade in over the first 60px of scroll
+        const targetOp = Math.min(Math.max(s / 60, 0), 1);
+        setOpacity(targetOp);
+      });
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  return (
+    <div
+      aria-hidden="true"
+      className="fixed top-0 left-0 right-0 pointer-events-none"
+      style={{
+        zIndex: 40,
+        height: "clamp(85px, 11vh, 120px)",
+        opacity,
+        transition: "opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
+        background: "var(--glass-bg)",
+        backdropFilter: opacity > 0.05 ? "var(--glass-filter)" : "none",
+        WebkitBackdropFilter: opacity > 0.05 ? "var(--glass-filter)" : "none",
+        maskImage: "linear-gradient(to bottom, black 0%, black 50%, transparent 100%)",
+        WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 50%, transparent 100%)",
+        animation: "glassFlow 12s ease-in-out infinite",
+        backgroundSize: "200% 200%",
+      }}
+    />
+  );
+}
+
+const initialThemeMode = (): ThemeMode => {
+  if (typeof window !== "undefined") {
+    const saved = localStorage.getItem("theme_mode") || localStorage.getItem("adopt_theme_mode");
+    if (saved === "light" || saved === "dark") return saved;
+  }
+  return "dark";
+};
+
 export default function App() {
   const [route, setRoute] = useState<Route>(() => routeFromPath());
-  const [adoptMode, setAdoptMode] = useState<ThemeMode>(() => initialAdoptTheme());
+  const [themeMode, setThemeMode] = useState<ThemeMode>(() => initialThemeMode());
 
   usePerfMode();
 
@@ -696,16 +1317,17 @@ export default function App() {
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
-  // Set data-theme on document: homepage and case studies always dark, Adopt landing supports both
+  // Set data-theme on document: home page and Adopt landing support both light/dark, others default to dark
   useEffect(() => {
-    const activeTheme = route === "adopt-landing" ? adoptMode : "dark";
+    const activeTheme = (route === "home" || route === "adopt-landing") ? themeMode : "dark";
     document.documentElement.setAttribute("data-theme", activeTheme);
-  }, [route, adoptMode]);
+  }, [route, themeMode]);
 
   const navigate = useCallback((next: Route) => {
     if (next === route) return;
     const path =
       next === "feedback-360" ? "/work/feedback-360"
+      : next === "data-security" ? "/data-security"
       : next === "adopt-landing" ? "/adopt-landing"
       : next === "adopt" ? "/playbook/adopt"
       : next === "scale-copilot-engage" ? "/scale-copilot-engage"
@@ -717,10 +1339,11 @@ export default function App() {
     window.scrollTo(0, 0);
   }, [route]);
 
-  const toggleAdoptMode = useCallback(() => {
-    setAdoptMode((prev) => {
+  const toggleThemeMode = useCallback(() => {
+    setThemeMode((prev) => {
       const next = prev === "dark" ? "light" : "dark";
       if (typeof window !== "undefined") {
+        localStorage.setItem("theme_mode", next);
         localStorage.setItem("adopt_theme_mode", next);
       }
       return next;
@@ -742,6 +1365,13 @@ export default function App() {
       </Suspense>
     );
   }
+  if (route === "data-security") {
+    return (
+      <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
+        <CaseStudyDataSecurity onBack={() => navigate("home")} />
+      </Suspense>
+    );
+  }
   if (route === "vibe-coding") {
     return (
       <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
@@ -756,14 +1386,14 @@ export default function App() {
     return (
       <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
         <AdoptLandingPage
-          mode={adoptMode}
-          onToggleTheme={toggleAdoptMode}
+          mode={themeMode}
+          onToggleTheme={toggleThemeMode}
           onBack={() => navigate("home")}
           onExplorePlaybook={() => {
             const el = document.getElementById("playbook-stages");
             if (el) el.scrollIntoView({ behavior: "smooth" });
           }}
-          onViewCaseStudy={() => navigate("scale-copilot")}
+          onViewCaseStudy={() => navigate("scale-copilot-engage")}
         />
       </Suspense>
     );
@@ -790,9 +1420,11 @@ export default function App() {
     );
   }
 
+  const isLight = themeMode === "light";
+
   return (
     <div
-      className="min-h-screen font-sans"
+      className={`min-h-screen font-sans transition-colors duration-300 ${isLight ? "light" : ""}`}
       style={{
         background: "var(--bg-page)",
         color: "var(--text-1)",
@@ -800,21 +1432,32 @@ export default function App() {
         position: "relative",
       }}
     >
-      {/* Dynamic Animated Cosmic Gradient Background (Cycles smoothly between 3 palettes) */}
-      <div className="cosmic-gradient-bg hide-in-light fade-with-theme">
-        <div className="cosmic-gradient-layer cosmic-grad-1" />
-        <div className="cosmic-gradient-layer cosmic-grad-2" />
-        <div className="cosmic-gradient-layer cosmic-grad-3" />
-      </div>
+      {/* Dynamic Animated Cosmic Gradient Background (Dark mode only) */}
+      {!isLight && (
+        <div className="cosmic-gradient-bg hide-in-light fade-with-theme">
+          <div className="cosmic-gradient-layer cosmic-grad-1" />
+          <div className="cosmic-gradient-layer cosmic-grad-2" />
+          <div className="cosmic-gradient-layer cosmic-grad-3" />
+        </div>
+      )}
 
-      <EarthParallax mode="dark" />
-      <SpaceSparkles mode="dark" />
-      <Nav mode="dark" onNavigateVibeCoding={() => navigate("vibe-coding")} />
+      {/* Light Mode Full-Bleed Daylight Sky Backdrop with Zoomout Parallax */}
+      {isLight && <LightSkyParallax />}
+
+      {!isLight && <EarthParallax mode="dark" />}
+      {!isLight && <SpaceSparkles mode="dark" />}
+
+      <TopNavFade mode={themeMode} />
+      <Nav
+        mode={themeMode}
+        onToggleTheme={toggleThemeMode}
+        onNavigateVibeCoding={() => navigate("vibe-coding")}
+      />
       <main className="portfolio-main" style={{ position: "relative", zIndex: 1 }}>
-        <Hero />
+        <Hero mode={themeMode} />
         <WorkSection
           onPlaybookOpen={() => navigate("adopt-landing")}
-          onCaseStudyOpen={() => navigate("scale-copilot")}
+          onCaseStudyOpen={() => navigate("scale-copilot-engage")}
         />
         <AboutSection />
         <ExperienceTimeline />
