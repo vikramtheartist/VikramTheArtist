@@ -302,8 +302,8 @@ export function Hero({ mode = "dark" }: HeroProps) {
             <div className="hero-heading-container flex flex-col items-start text-left">
               {/* Greeting */}
               <p
-                className="font-bold text-[#475569] mb-3 sm:mb-4 flex items-center gap-1.5"
-                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: "clamp(20px, 1.8vw, 24px)", lineHeight: 1.3 }}
+                className="text-[#475569] mb-3 sm:mb-4 flex items-center gap-1.5"
+                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400, fontSize: "clamp(20px, 1.8vw, 24px)", lineHeight: 1.3 }}
               >
                 <span>Hi, I'm Vikram</span>
               </p>
