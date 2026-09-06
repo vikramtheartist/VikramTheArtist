@@ -349,7 +349,11 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
     if (passwordInput === PLAYBOOK_PASSWORD) {
       setShowPasswordModal(false);
       setPasswordError("");
-      window.open(PLAYBOOK_LINK, "_blank", "noopener,noreferrer");
+      if (onViewCaseStudy) {
+        onViewCaseStudy();
+      } else {
+        window.location.pathname = "/scale-copilot-engage";
+      }
       return;
     }
     setPasswordError("Incorrect password. Please try again.");
@@ -2100,15 +2104,17 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
                         </div>
                       </div>
 
-                      {/* CTA Button: Protected Figma Case Study */}
+                      {/* CTA Button: Scaling Copilot Case Study */}
                       <div className="w-full pt-1">
                         <button
                           onClick={() => {
-                            setPasswordInput("");
-                            setPasswordError("");
-                            setShowPasswordModal(true);
+                            if (onViewCaseStudy) {
+                              onViewCaseStudy();
+                            } else {
+                              window.location.pathname = "/scale-copilot-engage";
+                            }
                           }}
-                          className="adopt-hero-btn-primary group w-full sm:w-auto justify-between px-6 py-3.5"
+                          className="adopt-hero-btn-primary group w-full sm:w-auto justify-between px-6 py-3.5 cursor-pointer"
                         >
                           <span>View Copilot Case Study</span>
                           <span className="adopt-btn-circle-arrow">

@@ -24,7 +24,7 @@ function GradCapIcon() {
 
 function MicrosoftLogo() {
   return (
-    <svg width="30" height="30" viewBox="0 0 30 30" style={{ display: "block" }}>
+    <svg width="33" height="33" viewBox="0 0 30 30" style={{ display: "block" }}>
       <rect x="0"    y="0"    width="13.5" height="13.5" fill="#f25022" />
       <rect x="16.5" y="0"    width="13.5" height="13.5" fill="#7fba00" />
       <rect x="0"    y="16.5" width="13.5" height="13.5" fill="#00a4ef" />
@@ -34,27 +34,52 @@ function MicrosoftLogo() {
 }
 
 function OracleLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/Oracle.png`} alt="Oracle" loading="lazy" decoding="async" fetchPriority="low" width={89} height={12} style={{ height: "11px", width: "auto", objectFit: "contain" }} />;
+  return (
+    <>
+      <img src={`${import.meta.env.BASE_URL}IMG/Oracle.png`} alt="Oracle" loading="lazy" decoding="async" fetchPriority="low" width={89} height={12} className="hide-in-light-inline" style={{ height: "12.6px", width: "auto", objectFit: "contain" }} />
+      <img src={`${import.meta.env.BASE_URL}IMG/Oracle_Light.png`} alt="Oracle" loading="lazy" decoding="async" fetchPriority="low" className="show-in-light-inline" style={{ height: "12.6px", width: "auto", objectFit: "contain" }} />
+    </>
+  );
 }
 
 function GoogleLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/Google.png`} alt="Google" loading="lazy" decoding="async" fetchPriority="low" width={90} height={31} style={{ height: "28px", width: "auto", objectFit: "contain" }} />;
+  return <img src={`${import.meta.env.BASE_URL}IMG/Google.png`} alt="Google" loading="lazy" decoding="async" fetchPriority="low" width={90} height={31} style={{ height: "31px", width: "auto", objectFit: "contain" }} />;
 }
 
 function McKinseyLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/McKinsey.png`} alt="McKinsey & Company" loading="lazy" decoding="async" fetchPriority="low" width={112} height={33} style={{ height: "28px", width: "auto", objectFit: "contain" }} />;
+  return (
+    <>
+      <img src={`${import.meta.env.BASE_URL}IMG/McKinsey.png`} alt="McKinsey & Company" loading="lazy" decoding="async" fetchPriority="low" width={112} height={33} className="hide-in-light-inline" style={{ height: "32px", width: "auto", objectFit: "contain" }} />
+      <img src={`${import.meta.env.BASE_URL}IMG/McKinsey_Light.png`} alt="McKinsey & Company" loading="lazy" decoding="async" fetchPriority="low" className="show-in-light-inline" style={{ height: "32px", width: "auto", objectFit: "contain" }} />
+    </>
+  );
 }
 
 function CognizantLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/Cognizant.png`} alt="Cognizant" loading="lazy" decoding="async" fetchPriority="low" width={94} height={29} style={{ height: "28px", width: "auto", objectFit: "contain" }} />;
+  return (
+    <>
+      <img src={`${import.meta.env.BASE_URL}IMG/Cognizant.png`} alt="Cognizant" loading="lazy" decoding="async" fetchPriority="low" width={94} height={29} className="hide-in-light-inline" style={{ height: "25.5px", width: "auto", objectFit: "contain" }} />
+      <img src={`${import.meta.env.BASE_URL}IMG/Cognizant_Light.png`} alt="Cognizant" loading="lazy" decoding="async" fetchPriority="low" className="show-in-light-inline" style={{ height: "25.5px", width: "auto", objectFit: "contain" }} />
+    </>
+  );
 }
 
 function TCSLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/TCS.png`} alt="TCS" loading="lazy" decoding="async" fetchPriority="low" width={26} height={16} style={{ height: "18px", width: "auto", objectFit: "contain" }} />;
+  return (
+    <>
+      <img src={`${import.meta.env.BASE_URL}IMG/TCS.png`} alt="TCS" loading="lazy" decoding="async" fetchPriority="low" width={26} height={16} className="hide-in-light-inline" style={{ height: "18px", width: "auto", objectFit: "contain" }} />
+      <img src={`${import.meta.env.BASE_URL}IMG/TCS_light.png`} alt="TCS" loading="lazy" decoding="async" fetchPriority="low" className="show-in-light-inline" style={{ height: "18px", width: "auto", objectFit: "contain" }} />
+    </>
+  );
 }
 
 function AllscriptsLogo() {
-  return <img src={`${import.meta.env.BASE_URL}IMG/Allscripts.png`} alt="Allscripts" loading="lazy" decoding="async" fetchPriority="low" width={67} height={17} style={{ height: "19px", width: "auto", objectFit: "contain" }} />;
+  return (
+    <>
+      <img src={`${import.meta.env.BASE_URL}IMG/Allscripts.png`} alt="Allscripts" loading="lazy" decoding="async" fetchPriority="low" width={67} height={17} className="hide-in-light-inline" style={{ height: "19px", width: "auto", objectFit: "contain" }} />
+      <img src={`${import.meta.env.BASE_URL}IMG/Allscripts_Light.png`} alt="Allscripts" loading="lazy" decoding="async" fetchPriority="low" className="show-in-light-inline" style={{ height: "19px", width: "auto", objectFit: "contain" }} />
+    </>
+  );
 }
 
 function LionbridgeLogo() {
@@ -188,24 +213,9 @@ const entries: Entry[] = [
 
 function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
   const [hovered, setHovered] = useState(false);
-  const [expanded, setExpanded] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const entryRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const el = entryRef.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); observer.disconnect(); } },
-      { threshold: 0.12 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   const isWork = entry.type === "work";
   const hasDesc = (entry.descriptions?.length ?? 0) > 0;
-  const isOpened = hovered || expanded;
+  const isOpened = hovered;
 
   /* Match .shine-inner button material from theme.css */
   const dotShadow = isOpened
@@ -240,19 +250,18 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
 
   return (
     <div
-      ref={entryRef}
-      className={`tl-entry tl-s${index}`}
+      className={`tl-entry tl-s${index} ${hovered ? "is-hovered" : ""}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onClick={() => {
-        if (hasDesc) setExpanded((v) => !v);
-      }}
+      onPointerEnter={() => setHovered(true)}
+      onPointerLeave={() => setHovered(false)}
+      onClick={() => setHovered(!hovered)}
       style={{
         padding: "14px 20px",
+        borderRadius: "14px",
+        position: "relative",
         cursor: hasDesc ? "pointer" : "default",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(22px)",
-        transition: "opacity 0.65s ease, transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+        transition: "background 0.25s ease",
       }}
     >
       {/* ── Main row ── */}
@@ -262,12 +271,10 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
         <div className="tl-left-col" style={{
           flex: "0 0 calc(50% - 23px)",
           display: "flex", flexDirection: "column",
-          alignItems: "flex-end", paddingRight: "18px", gap: "5px",
+          alignItems: "flex-end", paddingRight: "18px", gap: "2px",
         }}>
-          <div style={{
-            transition: "transform 0.35s ease, opacity 0.35s ease",
-            transform: isOpened ? "scale(1.07) translateX(-2px)" : "scale(1)",
-            opacity: isOpened ? 1 : 0.72,
+          <div className="tl-logo-box" style={{
+            opacity: 1,
             display: "flex", justifyContent: "flex-end",
           }}>
             {entry.logo}
@@ -275,6 +282,7 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
 
           <span style={{
             fontSize: entry.company === "Microsoft" ? "14px" : "12px", letterSpacing: "0.03em", whiteSpace: "nowrap",
+            lineHeight: 1.2,
             color: entry.company === "Microsoft" ? "var(--text-2)" : isOpened ? "var(--text-2)" : "var(--text-4)",
             transition: "color 0.35s",
           }}>
@@ -298,7 +306,7 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
 
         {/* Center: dot — liquid glass sphere */}
         <div className="tl-dot-col" style={{ flexShrink: 0, width: "46px", zIndex: 2 }}>
-          <div style={{
+          <div className="tl-dot-sphere" style={{
             width: "46px", height: "46px", borderRadius: "50%",
             display: "flex", alignItems: "center", justifyContent: "center",
             position: "relative", overflow: "hidden",
@@ -308,8 +316,6 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
             border: "1px solid rgba(255,255,255,0.05)",
             color: "white",
             boxShadow: dotShadow,
-            transition: "box-shadow 0.4s ease, transform 0.35s ease, background 0.4s ease",
-            transform: isOpened ? "scale(1.15)" : "scale(1)",
           }}>
             {/* Icon */}
             <div style={{ position: "relative", zIndex: 1 }}>
@@ -323,9 +329,9 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
           {isWork ? (
             <>
               <div style={{
-                fontSize: "18px", fontWeight: 400, lineHeight: 1.3,
+                fontSize: "18px", fontWeight: 500, lineHeight: 1.3,
                 fontFamily: "'Satoshi', sans-serif", letterSpacing: "0.005em",
-                color: entry.isCurrent ? "var(--text-1)" : "var(--text-3)",
+                color: "var(--text-1)",
                 transition: "color 0.35s",
               }}>
                 {entry.role}
@@ -346,9 +352,9 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
           ) : (
             <>
               <div style={{
-                fontSize: "15px", fontWeight: 500,
+                fontSize: "16px", fontWeight: 500,
                 fontFamily: "'Satoshi', sans-serif",
-                color: isOpened ? "var(--text-1)" : "var(--text-3)",
+                color: "var(--text-1)",
                 transition: "color 0.35s",
               }}>
                 {entry.company}
@@ -363,33 +369,29 @@ function TimelineEntry({ entry, index }: { entry: Entry; index: number }) {
 
       {/* ── Expandable description ── */}
       {hasDesc && (
-        <div style={{
-          display: "flex",
-          maxHeight: isOpened ? "400px" : "0",
-          opacity: isOpened ? 1 : 0,
-          overflow: "hidden",
-          transition: "max-height 0.55s cubic-bezier(0.4,0,0.2,1), opacity 0.4s ease",
-        }}>
-          {/* Spacer aligns content under right column on desktop */}
-          <div className="tl-desc-spacer" style={{ flex: "0 0 calc(50% + 2px)", flexShrink: 0 }} />
-          <div className="tl-desc-content" style={{ flex: 1, paddingLeft: "18px" }}>
-            <ul style={{ margin: 0, padding: "10px 0 6px", listStyle: "none" }}>
-              {entry.descriptions!.map((d, i) => (
-                <li key={i} style={{
-                  display: "flex", alignItems: "flex-start", gap: "9px",
-                  marginBottom: "8px",
-                  color: "var(--text-2)", fontSize: "15.5px",
-                  lineHeight: 1.7, fontFamily: "'Satoshi', sans-serif",
-                }}>
-                  <span style={{
-                    flexShrink: 0, marginTop: "9px",
-                    width: "4px", height: "4px", borderRadius: "50%",
-                    background: entry.accentColor, display: "block",
-                  }} />
-                  {d}
-                </li>
-              ))}
-            </ul>
+        <div className="tl-desc-wrapper">
+          <div className="tl-desc-inner" style={{ display: "flex" }}>
+            {/* Spacer aligns content under right column on desktop */}
+            <div className="tl-desc-spacer" style={{ flex: "0 0 calc(50% + 2px)", flexShrink: 0 }} />
+            <div className="tl-desc-content" style={{ flex: 1, paddingLeft: "18px" }}>
+              <ul style={{ margin: 0, padding: "10px 0 6px", listStyle: "none" }}>
+                {entry.descriptions!.map((d, i) => (
+                  <li key={i} style={{
+                    display: "flex", alignItems: "flex-start", gap: "9px",
+                    marginBottom: "8px",
+                    color: "var(--text-2)", fontSize: "17.5px",
+                    lineHeight: 1.7, fontFamily: "'Satoshi', sans-serif",
+                  }}>
+                    <span style={{
+                      flexShrink: 0, marginTop: "10px",
+                      width: "4.5px", height: "4.5px", borderRadius: "50%",
+                      background: entry.accentColor, display: "block",
+                    }} />
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       )}
@@ -409,22 +411,46 @@ export function ExperienceTimeline() {
         }
         .tl-blink-dot { animation: tl-blink 1.8s ease-in-out infinite; }
 
+        .tl-entry {
+          transition: background 0.25s ease;
+        }
+        .tl-entry:hover,
+        .tl-entry.is-hovered {
+          background: rgba(255, 255, 255, 0.025);
+        }
+
+        .tl-desc-wrapper {
+          display: grid;
+          grid-template-rows: 0fr;
+          opacity: 0;
+          transition: grid-template-rows 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+        }
+        .tl-desc-inner {
+          overflow: hidden;
+        }
+        .tl-entry:hover .tl-desc-wrapper,
+        .tl-entry.is-hovered .tl-desc-wrapper {
+          grid-template-rows: 1fr;
+          opacity: 1;
+        }
+        .tl-entry .tl-logo-box {
+          transition: transform 0.35s ease;
+        }
+        .tl-entry:hover .tl-logo-box,
+        .tl-entry.is-hovered .tl-logo-box {
+          transform: scale(1.07) translateX(-2px);
+        }
+        .tl-entry .tl-dot-sphere {
+          transition: box-shadow 0.35s ease, transform 0.35s ease, background 0.35s ease;
+        }
+        .tl-entry:hover .tl-dot-sphere,
+        .tl-entry.is-hovered .tl-dot-sphere {
+          transform: scale(1.15);
+        }
       `}</style>
 
-      {/* Decorative concentric rings */}
-      <div style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%,-50%)", pointerEvents: "none", zIndex: 0 }}>
-        {[380, 280, 195, 115].map((r) => (
-          <div key={r} style={{
-            position: "absolute", left: "50%", top: "50%",
-            transform: "translate(-50%,-50%)",
-            width: `${r * 2}px`, height: `${r * 2}px`,
-            borderRadius: "50%", border: "1px solid var(--border-soft)",
-          }} />
-        ))}
-      </div>
-
       {/* Heading */}
-      <h2 className="text-center mb-16 h-grad-muted" style={{ fontFamily: "'Poppins', sans-serif", fontSize: "2.5rem", lineHeight: 1, position: "relative", zIndex: 1, fontWeight: 300 }}>
+      <h2 className="text-center mb-16 h-grad-muted" style={{ fontFamily: "Georgia, serif", fontSize: "2.5rem", lineHeight: 1, position: "relative", zIndex: 1, fontWeight: 300 }}>
         <span>My </span><span>experience</span>
       </h2>
 
@@ -439,6 +465,7 @@ export function ExperienceTimeline() {
           transform: "translateX(-50%)",
           background: "linear-gradient(to bottom, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.14) 12%, rgba(255,255,255,0.14) 88%, rgba(255,255,255,0.03) 100%)",
           zIndex: 0,
+          pointerEvents: "none",
         }} />
 
         <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>

@@ -185,11 +185,17 @@ const GRAPHEMES = (GREETINGS || ["Hi"]).map((w) => {
   return Array.from(w);
 });
 
-export function Hero() {
+interface HeroProps {
+  mode?: "dark" | "light";
+}
+
+export function Hero({ mode = "dark" }: HeroProps) {
+  const isLight = mode === "light";
   const [displayed, setDisplayed] = useState("Hi");
   const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
+    if (isLight) return;
     let wIdx = 0;
     let charIdx = (GRAPHEMES[0] && GRAPHEMES[0].length) ? GRAPHEMES[0].length : 2;
     let deleting = false;
@@ -225,52 +231,196 @@ export function Hero() {
       clearTimeout(timer);
       clearInterval(cursorTimer);
     };
-  }, []);
+  }, [isLight]);
+
+  const handleExploreClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const target = document.getElementById("work");
+    if (!target) return;
+
+    const startY = window.scrollY;
+    const targetY = Math.max(0, target.getBoundingClientRect().top + window.scrollY - 20);
+    const distance = targetY - startY;
+    if (Math.abs(distance) < 2) return;
+
+    const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      window.scrollTo({ top: targetY, behavior: "auto" });
+      if (window.history.pushState) window.history.pushState(null, "", "#work");
+      return;
+    }
+
+    const duration = 1400; // 1.4s cinematic scroll
+    let startTime: number | null = null;
+    let isCancelled = false;
+
+    const cancel = () => {
+      isCancelled = true;
+    };
+    window.addEventListener("wheel", cancel, { passive: true, once: true });
+    window.addEventListener("touchmove", cancel, { passive: true, once: true });
+
+    // Smooth ease-in-out quartic curve
+    const easeInOutQuart = (t: number) =>
+      t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+
+    const scrollStep = (timestamp: number) => {
+      if (isCancelled) return;
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = easeInOutQuart(progress);
+
+      window.scrollTo(0, startY + distance * ease);
+
+      if (progress < 1) {
+        requestAnimationFrame(scrollStep);
+      } else {
+        if (window.history.pushState) {
+          window.history.pushState(null, "", "#work");
+        }
+      }
+    };
+
+    requestAnimationFrame(scrollStep);
+  };
 
   return (
     <>
-      <div className="hide-in-light fade-with-theme"><StarCanvas /></div>
+      {!isLight && (
+        <div className="hide-in-light fade-with-theme"><StarCanvas /></div>
+      )}
 
-      <section className="hero-section relative flex flex-col" style={{ zIndex: 4 }}>
-        <div className="hide-in-light fade-with-theme"><ShootingStars /></div>
+      <section className="hero-section relative flex flex-col" style={{ zIndex: 4, minHeight: isLight ? "82vh" : undefined }}>
+        {!isLight && (
+          <div className="hide-in-light fade-with-theme"><ShootingStars /></div>
+        )}
 
-        <div className="hero-title-block">
-          <div className="hero-heading-container">
-            <h1
-              aria-label="Hi, I am Vikram"
-              className="h-grad-bright"
-              style={{
-                fontFamily: "'Lato', sans-serif",
-                fontWeight: 300,
-                fontSize: 'clamp(2.35rem, 7.2vw, 4.25rem)',
-                lineHeight: 1.16,
-                margin: 0,
-                opacity: 0.9,
-                display: "inline-block",
-              }}
-            >
-              <span className="block md:inline" aria-hidden="true" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 200, color: "#ffffff" }}>
-                {displayed}
-                <span style={{ display: "inline-block", width: "2px", height: "0.85em",
-                  background: "#ffffff", marginLeft: "2px", verticalAlign: "middle",
-                  borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
-                <span>,</span>
-              </span>
-              <span className="block md:inline whitespace-nowrap mt-0.5 md:mt-0 md:ml-3" aria-hidden="true" style={{ color: "rgba(255, 255, 255, 0.62)", fontWeight: 300 }}>
-                {"I am Vikram "}
-                <span style={{ WebkitTextFillColor: "initial", verticalAlign: "baseline" }}>✌🏻</span>
-              </span>
-            </h1>
+        {isLight ? (
+          /* ── LIGHT MODE HERO NARRATIVE (Matches Reference Mockup) ── */
+          <div className="hero-title-block max-w-[780px] pt-12 sm:pt-16 md:pt-24 lg:pt-28 relative z-20 text-left items-start" style={{ transform: "translateY(50px)" }}>
+            <div className="hero-heading-container flex flex-col items-start text-left">
+              {/* Greeting */}
+              <p
+                className="font-bold text-[#475569] mb-3 sm:mb-4 flex items-center gap-1.5"
+                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: "clamp(20px, 1.8vw, 24px)", lineHeight: 1.3 }}
+              >
+                <span>Hi, I'm Vikram</span>
+              </p>
+
+              {/* Main Editorial Serif Heading */}
+              <h1
+                className="leading-[1.08] tracking-[-0.03em]"
+                style={{
+                  fontFamily: "Georgia, serif",
+                  fontWeight: 900,
+                  fontSize: "clamp(1.85rem, 3.6vw, 3.15rem)",
+                  margin: "0 0 0 0",
+                }}
+              >
+                <span
+                  className="block whitespace-normal sm:whitespace-nowrap text-[#070e24]"
+                  style={{
+                    color: "#070e24",
+                  }}
+                >
+                  I design AI-first products
+                </span>
+                <span
+                  className="block whitespace-normal sm:whitespace-nowrap text-[#070e24]"
+                  style={{
+                    color: "#070e24",
+                  }}
+                >
+                  that feel human.
+                </span>
+              </h1>
+            </div>
+
+            <div className="hero-subtitle-block flex flex-col items-start text-left" style={{ marginTop: '2px', marginBottom: 0, width: '100%' }}>
+              {/* Subtitle */}
+              <p
+                className="font-bold text-[#475569] max-w-3xl sm:whitespace-nowrap"
+                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: "clamp(19px, 1.55vw, 22.5px)", lineHeight: 1.4, margin: "0 0 28px 0" }}
+              >
+                Product Designer at Microsoft. Previously at Google and McKinsey.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-5 sm:gap-7">
+                <a
+                  href="#work"
+                  onClick={handleExploreClick}
+                  className="primary-button btn-primary adopt-hero-btn-primary group"
+                  style={{ textDecoration: "none" }}
+                >
+                  <span>Explore my work</span>
+                  <span className="btn-primary-circle-arrow adopt-btn-circle-arrow">
+                    <svg
+                      className="w-3.5 h-3.5 text-[#3e38f5] stroke-[2.5]"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M12 5v14M19 12l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </a>
+
+                <a
+                  href="#about"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-[#070e24] hover:text-[#3e38f5] transition-colors cursor-pointer group"
+                >
+                  <span className="border-b border-[#070e24] pb-0.5 group-hover:border-[#3e38f5]">About my journey</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
           </div>
-          <div className="hero-subtitle-block" style={{ marginTop: '26px', marginBottom: 0, width: '100%' }}>
-            <p className="hero-subtitle" style={{ fontFamily: "'Georgia', serif", fontWeight: 400, fontSize: "clamp(18px, 2.1vw, 34px)", lineHeight: 1.35, color: '#FFFFFF', margin: 0 }}>
-              Product Designer at Microsoft,<br className="block sm:hidden" /> <span className="inline">Designing AI-first products</span>
-            </p>
-            <p style={{ fontFamily: "'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif", fontWeight: 300, fontSize: 'clamp(14px, 1.4vw, 22px)', lineHeight: 1.4, color: 'rgba(255, 255, 255, 0.65)', margin: '10px 0 0 0' }}>
-              Previously at Google and Mckinsey
-            </p>
+        ) : (
+          /* ── DARK MODE HERO NARRATIVE ── */
+          <div className="hero-title-block">
+            <div className="hero-heading-container">
+              <h1
+                aria-label="Hi, I am Vikram"
+                className="h-grad-bright"
+                style={{
+                  fontFamily: "'Lato', sans-serif",
+                  fontWeight: 300,
+                  fontSize: 'clamp(2.35rem, 7.2vw, 4.25rem)',
+                  lineHeight: 1.16,
+                  margin: 0,
+                  opacity: 0.9,
+                  display: "inline-block",
+                }}
+              >
+                <span className="block md:inline" aria-hidden="true" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 200, color: "#ffffff" }}>
+                  {displayed}
+                  <span style={{ display: "inline-block", width: "2px", height: "0.85em",
+                    background: "#ffffff", marginLeft: "2px", verticalAlign: "middle",
+                    borderRadius: "1px", opacity: showCursor ? 1 : 0, transition: "opacity 0.1s" }} />
+                  <span>,</span>
+                </span>
+                <span className="block md:inline whitespace-nowrap mt-0.5 md:mt-0 md:ml-3" aria-hidden="true" style={{ color: "rgba(255, 255, 255, 0.62)", fontWeight: 300 }}>
+                  {"I am Vikram "}
+                  <span style={{ WebkitTextFillColor: "initial", verticalAlign: "baseline" }}>✌🏻</span>
+                </span>
+              </h1>
+            </div>
+            <div className="hero-subtitle-block" style={{ marginTop: '26px', marginBottom: 0, width: '100%' }}>
+              <p className="hero-subtitle" style={{ fontFamily: "'Georgia', serif", fontWeight: 400, fontSize: "clamp(18px, 2.1vw, 34px)", lineHeight: 1.35, color: '#FFFFFF', margin: 0 }}>
+                Product Designer at Microsoft,<br className="block sm:hidden" /> <span className="inline">Designing AI-first products</span>
+              </p>
+              <p style={{ fontFamily: "'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif", fontWeight: 300, fontSize: 'clamp(14px, 1.4vw, 22px)', lineHeight: 1.4, color: 'rgba(255, 255, 255, 0.65)', margin: '10px 0 0 0' }}>
+                Previously at Google and Mckinsey
+              </p>
+            </div>
           </div>
-        </div>
+        )}
       </section>
     </>
   );

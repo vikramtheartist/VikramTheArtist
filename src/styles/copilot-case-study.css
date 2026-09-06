@@ -47,15 +47,23 @@
 }
 
 /* ── PAGE CONTAINER ──────────────────────────────────────────────── */
-.copilot-page-wrapper {
+.copilot-page-wrapper,
+.copilot-case-study {
   background-color: var(--cs-bg);
   color: var(--cs-text-head);
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
   line-height: 1.6;
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.copilot-case-study header.sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 50 !important;
 }
 
 /* Light background mesh */
@@ -91,15 +99,23 @@
 }
 
 .copilot-wrap {
-  width: min(1240px, calc(100% - 48px));
+  width: 100%;
+  max-width: 1440px;
+  padding-inline: 48px;
   margin-inline: auto;
   position: relative;
   z-index: 1;
 }
 
+@media (max-width: 1024px) {
+  .copilot-wrap {
+    padding-inline: 32px;
+  }
+}
+
 @media (max-width: 640px) {
   .copilot-wrap {
-    width: min(1240px, calc(100% - 28px));
+    padding-inline: 16px;
   }
 }
 

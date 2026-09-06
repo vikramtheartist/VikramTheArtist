@@ -233,7 +233,7 @@ export function ClientsSection() {
 
   return (
     <section ref={sectionRef} id="clients" className="relative py-14">
-      <h2 className="text-center mb-12" style={{ fontFamily: "'Poppins', sans-serif", fontSize: "2.5rem", lineHeight: 1 }}>
+      <h2 className="text-center mb-12" style={{ fontFamily: "Georgia, serif", fontSize: "2.5rem", lineHeight: 1 }}>
         <span style={{
           fontWeight: 300,
           background: "linear-gradient(180deg, #a8a8b8 0%, #727282 50%, #3a3a48 100%)",

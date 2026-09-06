@@ -84,6 +84,103 @@ body {
   color: var(--text-1);
 }
 
+/* ── Light Mode Editorial Hero (Left-Aligned, matches reference mockup) ── */
+[data-theme="light"] .hero-section,
+.light .hero-section {
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+
+[data-theme="light"] .hero-title-block,
+.light .hero-title-block {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  margin: 0 !important;
+  max-width: 780px !important;
+}
+
+[data-theme="light"] .hero-heading-container,
+.light .hero-heading-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  text-align: left !important;
+  min-height: auto !important;
+  width: 100% !important;
+}
+
+[data-theme="light"] .hero-subtitle-block,
+.light .hero-subtitle-block {
+  margin-top: 14px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+  width: 100% !important;
+}
+
+/* ── Feather-like Continuous Left-to-Right Passing Cloud Animations ── */
+@keyframes featherDriftLtoR {
+  0% {
+    transform: translate3d(-40vw, 0, 0);
+  }
+  100% {
+    transform: translate3d(130vw, 0, 0);
+  }
+}
+
+@keyframes featherFloatA {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(0, -9px, 0) rotate(0.6deg);
+  }
+  66% {
+    transform: translate3d(0, 6px, 0) rotate(-0.4deg);
+  }
+}
+
+@keyframes featherFloatB {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(0, 8px, 0) rotate(-0.7deg);
+  }
+  66% {
+    transform: translate3d(0, -8px, 0) rotate(0.5deg);
+  }
+}
+
+@keyframes featherFloatC {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(0, -10px, 0) rotate(0.4deg);
+  }
+  66% {
+    transform: translate3d(0, 5px, 0) rotate(-0.6deg);
+  }
+}
+
+@keyframes featherFloatD {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(0, 7px, 0) rotate(0.6deg);
+  }
+  66% {
+    transform: translate3d(0, -6px, 0) rotate(-0.4deg);
+  }
+}
+
 /* ── Dynamic Animated Cosmic Gradient Background ───────────── */
 .cosmic-gradient-bg {
   position: fixed;
@@ -155,7 +252,14 @@ body {
 }
 
 /* Smooth-fade visual class — hide cosmic visuals in light mode */
-[data-theme="light"] .hide-in-light { opacity: 0; pointer-events: none; }
+.show-in-light { display: none !important; }
+[data-theme="light"] .show-in-light { display: block !important; }
+[data-theme="light"] .hide-in-light { display: none !important; }
+
+.show-in-light-inline { display: none !important; }
+[data-theme="light"] .show-in-light-inline { display: inline-block !important; }
+.hide-in-light-inline { display: inline-block !important; }
+[data-theme="light"] .hide-in-light-inline { display: none !important; }
 .fade-with-theme { transition: opacity 0.5s ease; }
 
 /* Hero subtitle — explicit dark color in light mode for readability */
@@ -293,32 +397,86 @@ body {
   color: #475569 !important;
 }
 
-/* Project cards (.project-card has inline styles — override in light) */
-[data-theme="light"] .project-card {
-  background: rgba(255,255,255,0.85) !important;
-  backdrop-filter: blur(14px) saturate(1.2) brightness(1.02) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(1.2) brightness(1.02) !important;
-  box-shadow:
-    inset 0 0 0 1px rgba(15,20,30,0.08),
-    0 12px 32px rgba(15,20,30,0.08),
-    inset 0 1.5px 1px rgba(255,255,255,0.85),
-    inset 0 -2px 5px rgba(15,20,30,0.04) !important;
+/* Light Mode Left-Aligned Hero Layout (Matches Reference Design) */
+[data-theme="light"] .hero-title-block {
+  align-items: flex-start !important;
+  text-align: left !important;
+  max-width: 780px !important;
+  margin-right: auto !important;
+  margin-left: 0 !important;
+  padding-top: clamp(150px, calc(12vw + 50px), 200px) !important;
 }
+
+[data-theme="light"] .hero-heading-container {
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  min-height: auto !important;
+  text-align: left !important;
+}
+
+/* Project cards: Adopt Landing Page Glassmorphism Effect */
+[data-theme="light"] .project-card {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(24px) saturate(1.4) brightness(1.02) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.4) brightness(1.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  border-radius: 36px !important;
+  box-shadow:
+    0 16px 40px -8px rgba(99, 102, 241, 0.14),
+    0 4px 18px rgba(15, 23, 42, 0.04),
+    inset 0 1.5px 1px rgba(255, 255, 255, 1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+[data-theme="light"] .project-card:hover {
+  box-shadow:
+    0 24px 50px -8px rgba(99, 102, 241, 0.24),
+    0 8px 24px rgba(15, 23, 42, 0.06),
+    inset 0 1.5px 1px rgba(255, 255, 255, 1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8) !important;
+}
+
 [data-theme="light"] .project-card .project-card-title,
 [data-theme="light"] .project-card h3 {
-  color: var(--text-1) !important;
+  color: #0f172a !important;
+  font-weight: 700 !important;
 }
 [data-theme="light"] .project-card p {
-  color: var(--text-2) !important;
+  color: #475569 !important;
+}
+
+/* Light mode CTA buttons inside project cards */
+[data-theme="light"] .shine-inner {
+  background: #0b132b !important;
+  color: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(11, 19, 43, 0.15) !important;
+}
+[data-theme="light"] .shine-wrap:hover .shine-inner {
+  background: #1a2647 !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(11, 19, 43, 0.22) !important;
 }
 
 /* Nav links — adapt color in light mode */
+.portfolio-nav,
+.portfolio-nav.is-scrolled,
+[data-theme="light"] .portfolio-nav,
+[data-theme="light"] .portfolio-nav.is-scrolled {
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
 [data-theme="light"] nav a.text-white\/70 {
-  color: var(--text-2) !important;
+  color: #334155 !important;
 }
 [data-theme="light"] nav a.hover\:text-white:hover,
 [data-theme="light"] nav a:hover {
-  color: var(--text-1) !important;
+  color: #0f172a !important;
 }
 
 /* Timeline spine */
@@ -391,6 +549,129 @@ body {
 [data-theme="light"] .text-white\/30 { color: var(--text-4) !important; }
 [data-theme="light"] .text-white\/20 { color: var(--text-4) !important; }
 [data-theme="light"] .hover\:text-white:hover { color: var(--text-1) !important; }
+
+/* Preserve white text on dark buttons in light mode */
+[data-theme="light"] .hero-btn-dark,
+[data-theme="light"] .hero-btn-dark *,
+[data-theme="light"] a.hero-btn-dark,
+[data-theme="light"] a.hero-btn-dark span {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+  fill: none;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   PRIMARY BUTTON SYSTEM ("Primary button" / .primary-button / .btn-primary)
+   Whenever "Implement primary button" is requested, this design is used.
+   ══════════════════════════════════════════════════════════════════ */
+.primary-button,
+.btn-primary,
+.adopt-hero-btn-primary {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 14px !important;
+  background: linear-gradient(180deg, #5b54fa 0%, #433cf7 55%, #352fed 100%) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  padding: 8px 8px 8px 24px !important;
+  border-radius: 9999px !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.45),
+    0 10px 25px -4px rgba(67, 60, 247, 0.45),
+    0 4px 10px rgba(67, 60, 247, 0.2) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
+
+.primary-button span:first-child,
+.btn-primary span:first-child,
+.adopt-hero-btn-primary span:first-child {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.primary-button:hover,
+.btn-primary:hover,
+.adopt-hero-btn-primary:hover {
+  transform: translateY(-1.5px) !important;
+  background: linear-gradient(180deg, #6861fa 0%, #4e47f7 55%, #3e38f0 100%) !important;
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.55),
+    0 14px 30px -3px rgba(67, 60, 247, 0.55),
+    0 6px 14px rgba(67, 60, 247, 0.3) !important;
+}
+
+.btn-primary-circle-arrow,
+.btn-circle-arrow,
+.adopt-btn-circle-arrow {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 9999px !important;
+  background: #ffffff !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+  flex-shrink: 0 !important;
+  transition: transform 0.2s ease !important;
+}
+
+.btn-primary-circle-arrow svg,
+.btn-circle-arrow svg,
+.adopt-btn-circle-arrow svg {
+  color: #3e38f5 !important;
+  stroke: #3e38f5 !important;
+}
+
+.primary-button:hover .btn-primary-circle-arrow,
+.primary-button:hover .btn-circle-arrow,
+.primary-button:hover .adopt-btn-circle-arrow,
+.btn-primary:hover .btn-primary-circle-arrow,
+.btn-primary:hover .btn-circle-arrow,
+.btn-primary:hover .adopt-btn-circle-arrow,
+.adopt-hero-btn-primary:hover .btn-primary-circle-arrow,
+.adopt-hero-btn-primary:hover .btn-circle-arrow,
+.adopt-hero-btn-primary:hover .adopt-btn-circle-arrow {
+  transform: translateX(2px) !important;
+}
+
+/* ── Work Section Scroll / Entrance Motion ─────────────────────── */
+.work-reveal-header {
+  opacity: 0;
+  transform: translateY(32px);
+  filter: blur(4px);
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.work-reveal-header.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+.work-reveal-card {
+  opacity: 0;
+  transform: translateY(46px);
+  filter: blur(5px);
+  transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.work-reveal-card.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
 
 /* ── Liquid glass pill button ──────────────────────────────────── */
 .shine-wrap {
@@ -504,45 +785,66 @@ body {
   transform: translateX(0) scale(1);
 }
 
-/* ── Light theme overrides for glass buttons ──────────────────── */
-[data-theme="light"] .shine-inner {
-  background: rgba(255,255,255,0.85);
-  border: 1px solid rgba(15,20,30,0.14);
-  color: rgba(15,20,30,0.72) !important;
-  box-shadow: none;
+/* ── Light theme overrides for buttons / CTA pills across entire page ──────────────────── */
+[data-theme="light"] .shine-inner,
+[data-theme="light"] .project-card-ctas .shine-inner,
+[data-theme="light"] .ws-more-btn .shine-inner,
+[data-theme="light"] button.shine-inner,
+[data-theme="light"] a.shine-inner {
+  background: #070e24 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(7, 14, 36, 0.18) !important;
 }
+
+[data-theme="light"] .shine-inner *,
+[data-theme="light"] .shine-inner span,
+[data-theme="light"] .project-card-ctas .shine-inner *,
+[data-theme="light"] .project-card-ctas .shine-inner span,
+[data-theme="light"] .ws-more-btn .shine-inner *,
+[data-theme="light"] .ws-more-btn .shine-inner span {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+[data-theme="light"] .shine-inner svg,
+[data-theme="light"] .shine-inner svg path,
+[data-theme="light"] .project-card-ctas .shine-inner svg,
+[data-theme="light"] .project-card-ctas .shine-inner svg path,
+[data-theme="light"] .ws-more-btn .shine-inner svg,
+[data-theme="light"] .ws-more-btn .shine-inner svg path {
+  stroke: #ffffff !important;
+  color: #ffffff !important;
+}
+
 [data-theme="light"] .shine-wrap:hover .shine-inner,
-[data-theme="light"] .shine-wrap:focus-within .shine-inner {
-  background:
-    radial-gradient(ellipse 80% 60% at 50% -10%,
-      rgba(255,255,255,1) 0%,
-      rgba(255,255,255,0.7) 30%,
-      transparent 62%
-    ),
-    radial-gradient(ellipse 78% 42% at 50% 112%,
-      rgba(120,140,180,0.22) 0%,
-      transparent 58%
-    ),
-    linear-gradient(180deg,
-      rgba(255,255,255,0.96) 0%,
-      rgba(248,250,255,0.98) 38%,
-      rgba(232,236,246,1) 72%,
-      rgba(240,244,252,1) 100%
-    );
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,1),
-    inset 0 4px 10px -4px rgba(255,255,255,0.75),
-    inset 0 -6px 14px -8px rgba(120,140,180,0.26),
-    inset 0 -2px 10px rgba(15,20,30,0.06),
-    0 5px 14px rgba(15,20,30,0.12),
-    0 2px 4px rgba(15,20,30,0.08);
+[data-theme="light"] .shine-wrap:focus-within .shine-inner,
+[data-theme="light"] .project-card-ctas .shine-wrap:hover .shine-inner,
+[data-theme="light"] .project-card-ctas .shine-wrap:focus-within .shine-inner,
+[data-theme="light"] .ws-more-btn .shine-wrap:hover .shine-inner,
+[data-theme="light"] .ws-more-btn .shine-wrap:focus-within .shine-inner {
+  background: #1e293b !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(7, 14, 36, 0.28) !important;
 }
-/* Tailwind text-white/* utilities override the light text color — fix it */
-[data-theme="light"] .shine-inner.text-white\/70,
-[data-theme="light"] .shine-inner.text-white\/75,
-[data-theme="light"] .shine-inner.text-white\/65,
-[data-theme="light"] .shine-inner:hover {
-  color: #1a2030 !important;
+
+[data-theme="light"] .shine-wrap:hover .shine-inner *,
+[data-theme="light"] .shine-wrap:hover .shine-inner span,
+[data-theme="light"] .project-card-ctas .shine-wrap:hover .shine-inner *,
+[data-theme="light"] .project-card-ctas .shine-wrap:hover .shine-inner span,
+[data-theme="light"] .ws-more-btn .shine-wrap:hover .shine-inner *,
+[data-theme="light"] .ws-more-btn .shine-wrap:hover .shine-inner span {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+[data-theme="light"] .shine-inner.opacity-60,
+[data-theme="light"] .shine-wrap.opacity-60 .shine-inner {
+  opacity: 0.65 !important;
 }
 
 /* ── Skill pills — same base as buttons, glass shine on hover ──── */
@@ -551,6 +853,7 @@ body {
   align-items: center;
   justify-content: center;
   white-space: nowrap;
+  font-weight: 700;
   border-radius: 9999px;
   border: 1px solid rgba(255,255,255,0.13);
   background: rgba(10,12,22,0.70);
@@ -818,6 +1121,25 @@ body {
   }
   50% {
     transform: translate3d(0, -5px, 0) scale(1.008, 0.992);
+  }
+}
+
+/* World-class butter-smooth skater feather floating & gentle curved balance */
+@keyframes skaterFeatherBalance {
+  0% {
+    transform: translate3d(0px, 0px, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(6.5px, -3.5px, 0) rotate(1.6deg);
+  }
+  50% {
+    transform: translate3d(0px, -6.5px, 0) rotate(0deg);
+  }
+  75% {
+    transform: translate3d(-6.5px, -3.5px, 0) rotate(-1.6deg);
+  }
+  100% {
+    transform: translate3d(0px, 0px, 0) rotate(0deg);
   }
 }
 

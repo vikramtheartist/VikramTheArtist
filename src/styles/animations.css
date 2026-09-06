@@ -1,0 +1,18 @@
+@keyframes glassFlow {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+:root {
+  --glass-bg: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+  --glass-filter: blur(12px) saturate(180%);
+}
+
+.portfolio-nav {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-filter) !important;
+  -webkit-backdrop-filter: var(--glass-filter) !important;
+  animation: glassFlow 12s ease-in-out infinite;
+  background-size: 200% 200%;
+}

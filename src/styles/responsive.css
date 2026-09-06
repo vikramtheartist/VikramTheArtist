@@ -40,7 +40,7 @@ html, body {
   }
 }
 
-/* ── Navigation: Fixed Frosted Glass Bar & Safe Areas ─────────── */
+/* ── Navigation: Fixed Transparent Bar & Safe Areas ─────────── */
 @media (max-width: 767px) {
   nav.portfolio-nav,
   nav {

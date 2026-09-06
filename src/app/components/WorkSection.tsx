@@ -25,7 +25,7 @@ const projects: {
       "Built ADOPT playbook, applied it to scale Copilot adoption, and evolved it into AdoptIQ.ai. an AI-powered adoption engine.",
     ctas: [
       { label: "Playbook", href: "/adopt", internal: true },
-      { label: "View Copilot Use Case", href: PLAYBOOK_LINK, internal: true },
+      { label: "View Copilot Use Case", href: "/scale-copilot-engage", internal: true },
       { label: "AdoptIQ.ai", href: "https://adoptiqai.vercel.app/" },
     ],
     thumb: (
@@ -523,6 +523,11 @@ export function WorkSection({
     if (passwordInput === PLAYBOOK_PASSWORD) {
       setShowPasswordModal(false);
       setPasswordError("");
+      if (pendingProtectedLink === "/scale-copilot-engage" || pendingProtectedLink.includes("scale-copilot")) {
+        if (onCaseStudyOpen) onCaseStudyOpen();
+        else window.location.pathname = "/scale-copilot-engage";
+        return;
+      }
       if (pendingProtectedLink) {
         window.open(pendingProtectedLink, "_blank", "noopener,noreferrer");
       }
@@ -548,9 +553,15 @@ export function WorkSection({
       }
       return;
     }
-    if (cta.href === "/scale-copilot" || cta.href?.includes("scale-copilot") || cta.href === "/playbook/adopt-v2" || cta.href?.includes("adopt-v2")) {
+    if (
+      cta.href === "/scale-copilot-engage" ||
+      cta.href?.includes("scale-copilot") ||
+      cta.href === "/playbook/adopt-v2" ||
+      cta.href?.includes("adopt-v2") ||
+      cta.label === "View Copilot Use Case"
+    ) {
       if (onCaseStudyOpen) onCaseStudyOpen();
-      else window.location.pathname = "/scale-copilot";
+      else window.location.pathname = "/scale-copilot-engage";
       return;
     }
     openPasswordModal(cta.href);
@@ -650,6 +661,39 @@ export function WorkSection({
     };
   }, []);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    // Observe elements to reveal on scroll / smooth entrance
+    const revealElements = section.querySelectorAll<HTMLElement>(".work-reveal-header, .work-reveal-card");
+    
+    if (typeof window !== "undefined" && "IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-revealed");
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: "0px 0px -40px 0px",
+          threshold: 0.05,
+        }
+      );
+
+      revealElements.forEach((el) => observer.observe(el));
+
+      return () => {
+        observer.disconnect();
+      };
+    } else {
+      revealElements.forEach((el) => el.classList.add("is-revealed"));
+    }
+  }, []);
+
   return (
     <section
       ref={sectionRef}
@@ -676,10 +720,20 @@ export function WorkSection({
         }
       `}</style>
 
-      {/* Clickable Heading + Jumping Arrow */}
+      {/* Light Mode Work Header */}
+      <div className="work-reveal-header hidden [data-theme='light']_:block mb-10 text-left w-full">
+        <p className="text-xs font-medium uppercase tracking-[0.16em] text-[#64748b] mb-2" style={{ letterSpacing: "0.16em", fontFamily: "'Inter', sans-serif" }}>
+          SELECTED WORK
+        </p>
+        <h2 className="text-[clamp(2.2rem,4vw,3.25rem)] font-normal text-[#070e24] tracking-tight leading-tight" style={{ fontFamily: "Georgia, serif" }}>
+          Ideas made tangible.
+        </h2>
+      </div>
+
+      {/* Dark Mode Clickable Heading + Jumping Arrow */}
       <div
         data-no-sparkle="true"
-        className="no-sparkle work-header-block flex flex-col items-center justify-center cursor-pointer select-none mb-8 sm:mb-12 group"
+        className="work-reveal-header [data-theme='light']_:hidden no-sparkle work-header-block flex flex-col items-center justify-center cursor-pointer select-none mb-8 sm:mb-12 group"
         onClick={(e) => {
           e.stopPropagation();
           const firstCard = document.querySelector(".ws-card");
@@ -694,7 +748,7 @@ export function WorkSection({
         <h2
           className="text-center h-grad-bright transition-opacity duration-200 group-hover:opacity-95"
           style={{
-            fontFamily: "'Poppins', sans-serif",
+            fontFamily: "Georgia, serif",
             fontSize: "clamp(1.75rem, 5.5vw, 3.125rem)",
             lineHeight: 1.15,
             fontWeight: 300,
@@ -741,15 +795,20 @@ export function WorkSection({
             msOverflowStyle: "none",
           }}
         >
-          {projects.map((p) => (
+          {projects.map((p, i) => (
             <div
               key={p.title}
               className="w-[82vw] max-w-[325px] shrink-0 snap-start"
             >
-              <ProjectCard
-                {...p}
-                onInternalCta={handleCtaAction}
-              />
+              <div
+                className="work-reveal-card"
+                style={{ transitionDelay: `${0.06 + i * 0.1}s` }}
+              >
+                <ProjectCard
+                  {...p}
+                  onInternalCta={handleCtaAction}
+                />
+              </div>
             </div>
           ))}
         </div>
@@ -817,10 +876,15 @@ export function WorkSection({
               transition: "transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
             }}
           >
-            <ProjectCard
-              {...p}
-              onInternalCta={handleCtaAction}
-            />
+            <div
+              className="work-reveal-card"
+              style={{ transitionDelay: `${0.08 + i * 0.12}s` }}
+            >
+              <ProjectCard
+                {...p}
+                onInternalCta={handleCtaAction}
+              />
+            </div>
           </div>
         ))}
       </div>

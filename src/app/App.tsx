@@ -1302,7 +1302,7 @@ const initialThemeMode = (): ThemeMode => {
     const saved = localStorage.getItem("theme_mode") || localStorage.getItem("adopt_theme_mode");
     if (saved === "light" || saved === "dark") return saved;
   }
-  return "dark";
+  return "light";
 };
 
 export default function App() {
@@ -1317,11 +1317,10 @@ export default function App() {
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
-  // Set data-theme on document: home page and Adopt landing support both light/dark, others default to dark
+  // Apply the selected theme mode globally
   useEffect(() => {
-    const activeTheme = (route === "home" || route === "adopt-landing") ? themeMode : "dark";
-    document.documentElement.setAttribute("data-theme", activeTheme);
-  }, [route, themeMode]);
+    document.documentElement.setAttribute("data-theme", themeMode);
+  }, [themeMode]);
 
   const navigate = useCallback((next: Route) => {
     if (next === route) return;

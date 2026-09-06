@@ -18,8 +18,8 @@ const skills = [
 
 export function SkillsSection() {
   return (
-    <section className="relative py-12 w-full">
-      <h2 className="text-center mb-12" style={{ fontFamily: "'Poppins', sans-serif", fontSize: "2.5rem", lineHeight: 1 }}>
+    <section id="skills" className="relative w-full" style={{ paddingTop: "48px", paddingBottom: "148px" }}>
+      <h2 className="text-center mb-12" style={{ fontFamily: "Georgia, serif", fontSize: "2.5rem", lineHeight: 1 }}>
         <span style={{
           fontWeight: 300,
           background: "linear-gradient(180deg, #c8c8d8 0%, #8888a0 45%, #484858 100%)",
@@ -35,11 +35,12 @@ export function SkillsSection() {
             href={`https://www.google.com/search?q=${encodeURIComponent(skill)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="skill-tag"
+            className="skill-tag font-bold"
             style={{
               padding: "8px 20px",
               fontSize: "clamp(0.71rem, 0.86vw, 0.9rem)",
               fontFamily: "'Satoshi', sans-serif",
+              fontWeight: 700,
               letterSpacing: "-0.3px",
               textDecoration: "none",
             }}
@@ -48,11 +49,12 @@ export function SkillsSection() {
           </a>
         ))}
         <span
-          className="skill-tag cursor-pointer"
+          className="skill-tag cursor-pointer font-bold"
           style={{
             padding: "8px 20px",
             fontSize: "clamp(0.71rem, 0.86vw, 0.9rem)",
             fontFamily: "'Satoshi', sans-serif",
+            fontWeight: 700,
             color: "#c9a96e",
           }}
         >
