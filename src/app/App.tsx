@@ -1330,6 +1330,8 @@ export default function App() {
     return (
       <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
         <VibeCodingPage
+          mode={themeMode}
+          onToggleTheme={toggleThemeMode}
           onBack={() => navigate("home")}
           onNavigateAdopt={() => navigate("adopt-landing")}
         />
