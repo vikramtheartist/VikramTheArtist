@@ -297,16 +297,7 @@ export function FooterCTA() {
             margin: 0,
           }}
         >
-          Here&apos;s my{" "}
-          <a
-            href="https://drive.google.com/file/d/1gexpxviNXsTsOfx1RBZwYVW2caqICJGl/view?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="footer-link"
-          >
-            resume
-          </a>
-          . Get in touch on{" "}
+          Get in touch on{" "}
           <a
             href="https://www.linkedin.com/in/vikramtheartist"
             target="_blank"
@@ -317,6 +308,9 @@ export function FooterCTA() {
           </a>
           !
         </p>
+
+        {/* AMA Engine Slot in Footer */}
+        <div id="footer-ama-slot" className="relative z-20 mt-7 sm:mt-8 w-full max-w-[740px] mx-auto px-4" />
       </div>
 
       {/* Bottom bar */}
@@ -324,7 +318,7 @@ export function FooterCTA() {
         style={{
           position: "relative",
           zIndex: 1,
-          marginTop: "210px",
+          marginTop: "120px",
           borderTop: "1px solid var(--border-soft)",
           paddingTop: "24px",
           display: "flex",

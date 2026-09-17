@@ -33,6 +33,7 @@ import {
   GitFork
 } from "lucide-react";
 import StrategicShiftDiagram from "./StrategicShiftDiagram";
+import AdoptionRealitySection from "./AdoptionRealitySection";
 import "../../../styles/adopt-landing.css";
 import adoptIqImg from "../../../assets/img/AdoptIQ.png";
 import adoptIqDarkImg from "../../../assets/img/AdoptIQ_Dark.png";
@@ -1330,6 +1331,9 @@ export const AdoptLandingPage: React.FC<AdoptLandingPageProps> = ({
           </div>
         </div>
       </section>
+
+      {/* ── SECTION 2.5: THE REALITY OF ADOPTION ──────────────────────────── */}
+      <AdoptionRealitySection isDark={isDark} />
 
       {/* ── SECTION 3: THE 5 STAGES OF THE ADOPT PLAYBOOK ─────────────────── */}
       <section

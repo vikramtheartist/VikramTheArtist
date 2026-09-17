@@ -16,16 +16,14 @@ import {
   X,
   FileText,
   Users,
+  Mail,
   Compass,
   MessageSquare,
   BarChart3,
   Bot,
-  UserCheck,
-  Quote,
   Lock,
   Sun,
   Moon,
-  GraduationCap,
   Megaphone,
   BarChart2,
   Rocket,
@@ -35,7 +33,6 @@ import {
   Layers2,
   Play,
   Filter,
-  Share2,
   HelpCircle,
   AlertCircle,
   Database,
@@ -317,10 +314,9 @@ export function CaseStudyAdoptV2({
       decision: "Priority 01 · Primary break · Redesign discovery system",
       decisionBadge: isDark ? "bg-rose-950/60 border-rose-700/60 text-rose-300" : "bg-rose-50 border-rose-300 text-rose-700",
       initiatives: [
-        { code: "A", icon: Compass, label: "Admin Center launch banner", desc: "Place high-visibility launch cues inside Viva Engage, Teams, and Microsoft 365 admin centers." },
-        { code: "B", icon: Sparkles, label: "One-click community launch", desc: "Enable administrators to create or convert a verified Copilot Adoption Community in a single click." },
-        { code: "C", icon: FileText, label: "Engage & Teams discovery cards", desc: "Surface contextual Copilot community cards directly inside first-run and Discover feeds." },
-        { code: "D", icon: Users, label: "Suggested Members audience routing", desc: "Automate audience targeting to proactively invite licensed Copilot users and active team champions." },
+        { code: "A", icon: Compass, label: "Admin Center launch banner", targetAudience: "Admin", desc: "Place high-visibility launch cues inside Viva Engage, Teams, and Microsoft 365 admin centers." },
+        { code: "B", icon: Sparkles, label: "Inproduct banners", targetAudience: "Members", desc: "Introduce discovery cards and high-visibility banners across relevant product sections to give members direct visibility and easy access to join." },
+        { code: "C", icon: Mail, label: "Leadership communication like e-mailers", targetAudience: "Members", desc: "Deploy an executive leadership mailer introducing the community, communicating strategic value, and providing a direct path to scale Copilot adoption organization-wide." },
       ],
     },
     desire: {
@@ -346,17 +342,16 @@ export function CaseStudyAdoptV2({
       breaking: "The experience explained what the community was, but not quickly enough how it could help someone perform a real task, learn a relevant scenario, or solve a daily problem.",
       whyItMatters: [
         "Moves the value proposition before the commitment to join rather than after",
-        "Role-based Copilot scenarios make AI practice tangible to everyday knowledge workers",
-        "Peer proof converts passive curiosity into intentional community participation",
+        "Guided tour walkthroughs tailor benefits and prompt use cases directly to user roles",
+        "Organizational impact stories and member testimonials convert passive curiosity into intentional participation",
       ],
       downstreamDependency: "Bridges awareness into qualified, motivated visits and joining intent.",
       decision: "Priority 02 · Secondary barrier · Front-load value",
       decisionBadge: isDark ? "bg-amber-950/60 border-amber-700/60 text-amber-300" : "bg-amber-50 border-amber-300 text-amber-700",
       initiatives: [
-        { code: "A", icon: Heart, label: "Benefit-led community preview", desc: "Explain the tangible benefits, peer exchanges, and practical time savings before asking people to join." },
-        { code: "B", icon: UserCheck, label: "Role-based Copilot scenarios", desc: "Provide relevant scenario previews tailored to functional workflows (HR, Sales, Finance, Engineering)." },
-        { code: "C", icon: Quote, label: "Visible expert presence & peer proof", desc: "Highlight recognized internal champions and authentic success stories to build immediate trust." },
-        { code: "D", icon: Sparkles, label: "Preview of Suggested Content", desc: "Display curated prompt recipes and weekly discussion topics so prospective members see immediate value." },
+        { code: "A", icon: Layout, label: "Landing page", targetAudience: "Both Admin & Members", desc: "A dedicated page that clearly explains community benefits, member stories, and use cases—designed to spark interest and encourage exploration." },
+        { code: "B", icon: Sliders, label: "Take a tour sliders", targetAudience: "Members", desc: "Guided walkthroughs that highlight a unique benefit tailored to the user's role." },
+        { code: "C", icon: Sparkles, label: "Preview of Suggested Content", targetAudience: "Members", desc: "Display curated prompt recipes and weekly discussion topics so prospective members see immediate value." },
       ],
     },
     open: {
@@ -389,10 +384,9 @@ export function CaseStudyAdoptV2({
       decision: "Priority 03 · Support · Maintain activation flow",
       decisionBadge: isDark ? "bg-slate-900 border-slate-700 text-slate-300" : "bg-slate-100 border-slate-300 text-slate-700",
       initiatives: [
-        { code: "A", icon: FileText, label: "Admin first-run checklist", desc: "Guide admins to pin resources, add members, review suggested content, and publish the first post." },
-        { code: "B", icon: Sparkles, label: "Weekly suggested content", desc: "Microsoft-curated prompt recipes, weekly discussion topics, and suggested content ready to publish with one click." },
-        { code: "C", icon: Compass, label: "Member guided tours · Future scope", desc: "Explain top questions, composer templates, and what changed since the member's last visit." },
-        { code: "D", icon: Bot, label: "Contextual onboarding · Future scope", desc: "Explore AI onboarding bots, SSO pre-configuration, in-product help, and ambient assistance." },
+        { code: "A", icon: FileText, label: "Admin first-run checklist", targetAudience: "Admin", desc: "Guide admins to pin resources, add members, review suggested content, and publish the first post." },
+        { code: "B", icon: Sparkles, label: "Weekly suggested content", targetAudience: "Admin", desc: "Microsoft-curated prompt recipes, weekly discussion topics, and suggested content ready to publish with one click." },
+        { code: "C", icon: Compass, label: "Member guided tours · Future scope", targetAudience: "Members", desc: "Explain top questions, composer templates, and what changed since the member's last visit." },
       ],
     },
     proficient: {
@@ -425,10 +419,9 @@ export function CaseStudyAdoptV2({
       decision: "Priority 04 · Reinforce · Sustained practice",
       decisionBadge: isDark ? "bg-emerald-950/60 border-emerald-700/60 text-emerald-300" : "bg-emerald-50 border-emerald-300 text-emerald-700",
       initiatives: [
-        { code: "A", icon: MessageSquare, label: "Prompt-first threads", desc: "Publish a recurring Prompt of the Week with a preloaded Try in Copilot action that turns reading into practice." },
-        { code: "B", icon: BarChart3, label: "Usage analytics", desc: "Give admins reach, engagement, response, and post-level signals to understand what sustains participation." },
-        { code: "C", icon: Bot, label: "Agentic Framework", desc: "Use a Copilot-powered agentic framework to recommend role-relevant content ideas and help admins publish faster." },
-        { code: "D", icon: GraduationCap, label: "Continuous learning & coaching · Future scope", desc: "Explore interactive skill builders, prompt labs, feedback prompts, and personalized learning pathways." },
+        { code: "A", icon: MessageSquare, label: "Prompt-first threads", targetAudience: "Members", desc: "Publish a recurring Prompt of the Week with a preloaded Try in Copilot action that turns reading into practice." },
+        { code: "B", icon: BarChart3, label: "Usage analytics", targetAudience: "Admin", desc: "Give admins reach, engagement, response, and post-level signals to understand what sustains participation." },
+        { code: "C", icon: Bot, label: "Agentic Framework", targetAudience: "Members", desc: "Use a Copilot-powered agentic framework to recommend role-relevant content ideas, prompt suggestions, and guidance for members." },
       ],
     },
     transform: {
@@ -461,15 +454,28 @@ export function CaseStudyAdoptV2({
       decision: "Priority 05 · Scale · Collective intelligence",
       decisionBadge: isDark ? "bg-teal-950/60 border-teal-700/60 text-teal-300" : "bg-teal-50 border-teal-300 text-teal-700",
       initiatives: [
-        { code: "A", icon: Award, label: "Recognition & rewards", desc: "Use behavior-based badges, earned profile recognition, and Top Members to make helpful contributors visible." },
-        { code: "B", icon: UserCheck, label: "Champion programs · Future scope", desc: "Formalize pathways for trusted contributors to mentor members and shape community practice." },
-        { code: "C", icon: Share2, label: "Member-led stories · Future scope", desc: "Explore user-led success stories, idea submission, spotlights, and community-driven content." },
-        { code: "D", icon: BarChart2, label: "Copilot impact reports · Future scope", desc: "Generate reports that connect recognized community contributions to reusable knowledge and outcomes." },
+        { code: "A", icon: Award, label: "Recognition & rewards", targetAudience: "Members", desc: "Use behavior-based badges, earned profile recognition, and Top Members to make helpful contributors visible." },
       ],
     },
   };
 
   const currentHealthData = engageHealthStagesData[healthSelectedStage];
+
+  const getAudienceBadgeClass = (audience?: string) => {
+    if (audience === "Admin") {
+      return isDark
+        ? "bg-sky-500/15 text-sky-300 border-sky-500/30"
+        : "bg-sky-50 text-sky-700 border-sky-200";
+    }
+    if (audience === "Both Admin & Members" || audience === "Both Admin & Member") {
+      return isDark
+        ? "bg-purple-500/15 text-purple-300 border-purple-500/30"
+        : "bg-purple-50 text-purple-700 border-purple-200";
+    }
+    return isDark
+      ? "bg-emerald-500/15 text-emerald-300 border-emerald-500/30"
+      : "bg-emerald-50 text-emerald-700 border-emerald-200";
+  };
 
   if (!isUnlocked) {
     return (
@@ -1488,7 +1494,11 @@ export function CaseStudyAdoptV2({
               return (
                 <button
                   key={stage.id}
-                  onClick={() => setHealthSelectedStage(stageKey)}
+                  onClick={() => {
+                    setHealthSelectedStage(stageKey);
+                    setOpenInitiative("A");
+                    setHealthMainTab("initiatives");
+                  }}
                   className={`p-5 rounded-[22px] text-left transition-all duration-200 relative flex flex-col justify-between cursor-pointer min-h-[135px] backdrop-blur-xl ${
                     isDark ? "bg-[#0b101e]/85" : "bg-white/95 shadow-sm"
                   } ${
@@ -1513,7 +1523,10 @@ export function CaseStudyAdoptV2({
                 >
                   {/* Floating Pill Badges */}
                   {stage.id === "aware" && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-rose-600 text-white font-['Inter',sans-serif] font-bold text-[10px] tracking-wider uppercase shadow-md whitespace-nowrap">
+                    <div
+                      className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-rose-600 !text-white font-['Inter',sans-serif] font-bold text-[10px] tracking-wider uppercase shadow-md whitespace-nowrap"
+                      style={{ color: "#ffffff", WebkitTextFillColor: "#ffffff" }}
+                    >
                       PRIMARY · P0 BREAK
                     </div>
                   )}
@@ -1726,11 +1739,18 @@ export function CaseStudyAdoptV2({
                               <span>{item.code}</span>
                             </div>
                             <div className="flex-1 min-w-0">
-                              <strong className={`text-sm sm:text-base font-bold block mb-1 ${
-                                isDark ? "text-white" : "text-[#0b0f19]"
-                              }`}>
-                                {item.label}
-                              </strong>
+                              <div className="flex flex-wrap items-center gap-2 mb-1">
+                                <strong className={`text-sm sm:text-base font-bold ${
+                                  isDark ? "text-white" : "text-[#0b0f19]"
+                                }`}>
+                                  {item.label}
+                                </strong>
+                                {item.targetAudience && (
+                                  <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold tracking-wide border ${getAudienceBadgeClass(item.targetAudience)}`}>
+                                    {item.targetAudience}
+                                  </span>
+                                )}
+                              </div>
                               <p className={`text-xs sm:text-sm leading-relaxed font-normal ${
                                 isDark ? "text-slate-300" : "text-slate-600"
                               }`}>
@@ -1771,12 +1791,13 @@ export function CaseStudyAdoptV2({
                 return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Aware%201.png`;
               }
               if (currentHealthData.id === "desire") {
-                if (activeInit.code === "C") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Desire%202.png`;
+                if (activeInit.code === "C") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Desire%204.png`;
+                if (activeInit.code === "B") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Desire%202.png`;
                 return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Desire%201.png`;
               }
               if (currentHealthData.id === "open") {
                 if (activeInit.code === "B") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Proficient%202.png`;
-                if (activeInit.code === "C" || activeInit.code === "D") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Open%201.png`;
+                if (activeInit.code === "C") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Open%201.png`;
                 return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Open%202.png`;
               }
               if (currentHealthData.id === "proficient") {
@@ -1790,33 +1811,28 @@ export function CaseStudyAdoptV2({
             const engageDecisions: Record<string, Array<{ step: string; title: string; desc: string }>> = {
               aware: [
                 { step: "01", title: "ADMIN SURFACING", desc: "Place launch recommendations in Engage, Teams, and Microsoft 365 admin centers." },
-                { step: "02", title: "1-CLICK LAUNCH", desc: "Enable admins to create an official Copilot space their enterprise can trust instantly." },
-                { step: "03", title: "DISCOVERY CUES", desc: "Embed Copilot community recommendations in first-run Discover Communities feeds." },
-                { step: "04", title: "AUDIENCE ROUTING", desc: "Directly target licensed Copilot users with suggested membership invitations." },
+                { step: "02", title: "INPRODUCT BANNERS", desc: "Introduce discovery cards and high-visibility banners across relevant sections to maximize member entry." },
+                { step: "03", title: "LEADERSHIP E-MAILERS", desc: "Broadcast an executive Outlook mailer detailing community benefits, habit loops, and direct join paths." },
               ],
               desire: [
-                { step: "01", title: "BENEFIT-LED PREVIEW", desc: "Explain the tangible value and productivity gains before asking people to join." },
-                { step: "02", title: "ROLE SCENARIOS", desc: "Demonstrate concrete Copilot prompt use cases tailored to functional job roles." },
-                { step: "03", title: "CHAMPION PROOF", desc: "Highlight recognized internal champions and peer workflow testimonials." },
-                { step: "04", title: "CONTENT PREVIEWS", desc: "Preview prompt recipes and discussion topics to establish immediate utility." },
+                { step: "01", title: "LANDING PAGE", desc: "A dedicated page explaining community benefits, member stories, and use cases to spark interest." },
+                { step: "02", title: "TAKE A TOUR SLIDERS", desc: "Guided in-product walkthroughs and tips carousels that highlight benefits tailored to the user's role." },
+                { step: "03", title: "SUGGESTED CONTENT", desc: "Display curated prompt recipes and weekly discussion topics so prospective members see immediate value." },
               ],
               open: [
                 { step: "01", title: "ADMIN FIRST-RUN CHECKLIST", desc: "Guide admins to pin resources, add members, review suggestions, and post." },
                 { step: "02", title: "WEEKLY SUGGESTED CONTENT", desc: "Publish curated Copilot prompt recipes and weekly discussion topics in a single click." },
-                { step: "03", title: "COMPOSER STARTERS", desc: "Offer templates to ask questions, share tips, or tell a Copilot story." },
-                { step: "04", title: "GUIDED TOUR ROADMAP", desc: "Plan contextual tours for top questions, posting, and catch-up as future scope." },
+                { step: "03", title: "MEMBER GUIDED TOURS", desc: "Plan contextual tours for top questions, composer templates, and catch-up as future scope." },
               ],
               proficient: [
                 { step: "01", title: "PROMPT-FIRST THREAD", desc: "Publish a recurring prompt with use case, full prompt, author, and discussion together." },
-                { step: "02", title: "TRY IN COPILOT", desc: "Preload shared prompts in Copilot so members move directly from reading to doing." },
-                { step: "03", title: "USAGE ANALYTICS", desc: "Expose reach, engagement, comments, shares, click-through, and post performance." },
-                { step: "04", title: "AI SUPPORT ROADMAP", desc: "Plan role-relevant content suggestions and advanced learning paths as future scope." },
+                { step: "02", title: "USAGE ANALYTICS", desc: "Expose reach, engagement, comments, shares, click-through, and post performance." },
+                { step: "03", title: "AGENTIC FRAMEWORK", desc: "Use Copilot AI agents to recommend role-relevant content ideas and assist members." },
               ],
               transform: [
-                { step: "01", title: "BEHAVIOR BADGES", desc: "Recognize asking, answering, first posts, active contribution, and support." },
-                { step: "02", title: "PROFILE RECOGNITION", desc: "Carry earned badges onto member profiles so helpful behavior remains visible." },
-                { step: "03", title: "TOP MEMBERS", desc: "Surface a lightweight leaderboard that helps newcomers identify active contributors." },
-                { step: "04", title: "ADVOCACY ROADMAP", desc: "Extend into champion programs, user-led stories, spotlights, and impact reports." },
+                { step: "01", title: "BEHAVIOR BADGES", desc: "Award badges for active contributions, peer problem-solving, and verified prompt answers." },
+                { step: "02", title: "PROFILE RECOGNITION", desc: "Display earned credentials and recognition across user profiles and community bios." },
+                { step: "03", title: "TOP MEMBERS", desc: "Highlight champions and top contributors to inspire widespread adoption and collective intelligence." },
               ],
             };
 
@@ -1833,12 +1849,17 @@ export function CaseStudyAdoptV2({
                   isDark ? "border-slate-800/80" : "border-slate-200"
                 }`}>
                   <div>
-                    <div className="flex items-center gap-2 mb-1.5">
+                    <div className="flex flex-wrap items-center gap-2 mb-1.5">
                       <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase ${
                         currentHealthData.priorityBadge
                       }`}>
                         {currentHealthData.name} · Initiative {activeInit.code}
                       </span>
+                      {activeInit.targetAudience && (
+                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold border ${getAudienceBadgeClass(activeInit.targetAudience)}`}>
+                          {activeInit.targetAudience}
+                        </span>
+                      )}
                       <span className={`text-xs font-mono ${isDark ? "text-slate-500" : "text-slate-400"}`}>
                         ({activeInitIndex + 1}/{currentHealthData.initiatives.length})
                       </span>
@@ -1866,16 +1887,19 @@ export function CaseStudyAdoptV2({
                         <button
                           key={item.code}
                           onClick={() => setOpenInitiative(item.code as any)}
+                          style={isSelected ? { color: "#ffffff", WebkitTextFillColor: "#ffffff" } : undefined}
                           className={`w-8 h-8 rounded-lg text-xs font-bold font-mono transition-all cursor-pointer flex items-center justify-center ${
                             isSelected
-                              ? "bg-[#4338ca] text-white shadow-md scale-105"
+                              ? "bg-[#4338ca] !text-white shadow-md scale-105"
                               : isDark
                               ? "bg-[#0a1224] border border-slate-700 text-slate-300 hover:text-white hover:bg-[#131f38]"
                               : "bg-white border border-slate-200 text-slate-700 hover:bg-slate-50"
                           }`}
                           title={item.label}
                         >
-                          {item.code}
+                          <span style={isSelected ? { color: "#ffffff", WebkitTextFillColor: "#ffffff" } : undefined} className={isSelected ? "!text-white" : ""}>
+                            {item.code}
+                          </span>
                         </button>
                       );
                     })}
@@ -1974,11 +1998,11 @@ export function CaseStudyAdoptV2({
                     <span className={`text-[10px] font-mono uppercase ${
                       isDark ? "text-slate-500" : "text-slate-400"
                     }`}>
-                      4 UX Pillars
+                      {currentDecisions.length} UX Pillars
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
+                  <div className={`grid grid-cols-1 sm:grid-cols-2 ${currentDecisions.length === 2 ? "lg:grid-cols-2" : currentDecisions.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"} gap-4 pt-1`}>
                     {currentDecisions.map((dec) => (
                       <div key={dec.step} className={`p-3.5 rounded-[16px] border text-xs space-y-1 ${
                         isDark ? "bg-[#0b101e]/80 border-white/10 text-slate-300" : "bg-white border-slate-200 text-slate-700 shadow-2xs"

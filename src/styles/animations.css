@@ -364,24 +364,53 @@
   z-index: 80;
   width: clamp(280px, 26vw, 390px);
   height: 68px;
-  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.3s ease;
-  will-change: opacity, transform;
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.55s ease;
+  will-change: opacity, transform, filter;
 }
 
 .ama-docked-container.ama-docked-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0px);
   pointer-events: auto;
   visibility: visible;
 }
 
 .ama-docked-container.ama-docked-hidden {
   opacity: 0 !important;
-  transform: translateY(10px) !important;
+  transform: translate3d(-24px, -14px, 0) scale(0.92) !important;
+  filter: blur(3px) !important;
   pointer-events: none !important;
   visibility: hidden !important;
+}
+
+/* ── Footer Expanded AMA Engine Cluster ── */
+.ama-footer-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.ama-footer-cluster.ama-footer-cluster-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0px);
+  pointer-events: auto;
+}
+
+.ama-footer-cluster.ama-footer-cluster-hidden {
+  opacity: 0 !important;
+  transform: translateY(18px) scale(0.95) !important;
+  filter: blur(4px) !important;
+  pointer-events: none !important;
 }
 
 .ama-docked-container .command-bar {
@@ -458,25 +487,6 @@
     font-size: 15px !important;
   }
 
-  .ama-hero-cluster.ama-hero-cluster-active.ama-hero-cluster-visible {
-    left: auto;
-    right: 12px;
-    bottom: 108px;
-    width: clamp(280px, 26vw, 390px);
-    padding-left: 0;
-    padding-right: 0;
-    z-index: 81;
-  }
-
-  .ama-hero-cluster.ama-hero-cluster-active.ama-hero-cluster-visible .ama-suggestion-row {
-    width: 100%;
-    justify-content: flex-end;
-  }
-
-  .ama-hero-cluster.ama-hero-cluster-active.ama-hero-cluster-visible .ama-hero-bar-box,
-  .ama-hero-cluster.ama-hero-cluster-active.ama-hero-cluster-visible > .text-center {
-    display: none;
-  }
 }
 
 /* ── Ask Gemini Side Panel Styles & Animations ── */

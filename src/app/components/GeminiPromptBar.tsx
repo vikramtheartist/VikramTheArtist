@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   ArrowUp,
   Mic,
@@ -634,6 +635,44 @@ export function GeminiPromptBar({
   }, [internalDocked, isDockedProp]);
 
   const docked = isDockedProp !== undefined ? isDockedProp : internalDocked;
+
+  // Track footer visibility so docked pill smoothly transitions and expands into footer slot
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
+  const [footerSlot, setFooterSlot] = useState<HTMLElement | null>(null);
+  const footerInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const updateSlot = () => {
+      const slot = document.getElementById("footer-ama-slot");
+      if (slot) setFooterSlot(slot);
+    };
+    updateSlot();
+
+    const contactEl = document.getElementById("contact");
+    if (!contactEl) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting);
+      },
+      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    observer.observe(contactEl);
+
+    const onScroll = () => {
+      updateSlot();
+      const rect = contactEl.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight && rect.bottom > 80;
+      setIsFooterVisible(inView);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const dockedInputRef = useRef<HTMLInputElement>(null);
@@ -1391,7 +1430,7 @@ export function GeminiPromptBar({
         className={`ama-hero-cluster ${isInline ? "ama-inline-cluster" : ""} ${
           isActive ? "ama-hero-cluster-active" : ""
         } ${
-          (isInline || ((!isHeroScrolled && !docked) || (docked && isFocused))) && !isOpen
+          (isInline || (!isHeroScrolled && !docked && !isFooterVisible)) && !isOpen
             ? "ama-hero-cluster-visible"
             : "ama-hero-cluster-hidden"
         }`}
@@ -1534,10 +1573,10 @@ export function GeminiPromptBar({
         </div>
       </div>
 
-      {/* ── 2. TOP DOCKED SEARCH BAR (Appears at the top with the menu before "My work") ── */}
+      {/* ── 2. DOCKED SEARCH BAR (Appears at bottom right after leaving the hero) ── */}
       <div
         className={`ama-docked-container ${
-          docked && !isOpen ? "ama-docked-visible" : "ama-docked-hidden"
+          docked && !isFooterVisible && !isOpen ? "ama-docked-visible" : "ama-docked-hidden"
         }`}
       >
         <div className="command-bar-wrapper w-full h-full relative">
@@ -1610,6 +1649,168 @@ export function GeminiPromptBar({
           </div>
         </div>
       </div>
+
+      {/* ── 3. EXPANDED FOOTER AMA ENGINE (Rendered directly into Footer CTA) ── */}
+      {footerSlot &&
+        createPortal(
+          <div
+            className={`ama-footer-cluster ${
+              isFooterVisible
+                ? "ama-footer-cluster-visible"
+                : "ama-footer-cluster-hidden"
+            }`}
+          >
+            {/* Expanded Command Bar Box */}
+            <div className="ama-hero-bar-box w-full max-w-[700px] mx-auto">
+              <div className="command-bar-wrapper w-full h-full relative">
+                {/* Gentle ambient glow */}
+                <div
+                  className="absolute -inset-1.5 rounded-full opacity-60 blur-xl transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    background: isLight
+                      ? "radial-gradient(ellipse at center, rgba(147, 197, 253, 0.45) 0%, rgba(192, 132, 252, 0.3) 50%, transparent 75%)"
+                      : "radial-gradient(ellipse at center, rgba(99, 102, 241, 0.35) 0%, rgba(168, 85, 247, 0.25) 50%, transparent 75%)",
+                  }}
+                  aria-hidden="true"
+                />
+
+                {/* Command Bar */}
+                <div
+                  className={`command-bar ${isFocused || isActive ? "command-bar--focused" : ""}`}
+                  style={{
+                    boxShadow: isLight
+                      ? "0 12px 32px -4px rgba(15, 23, 42, 0.08), 0 2px 8px rgba(15, 23, 42, 0.03)"
+                      : "0 14px 40px -4px rgba(0, 0, 0, 0.65), 0 0 24px rgba(139, 92, 246, 0.25)",
+                  }}
+                  onClick={() => {
+                    footerInputRef.current?.focus({ preventScroll: true });
+                  }}
+                >
+                  {/* Formatted Placeholder & Input */}
+                  <div className="relative flex-1 flex items-center min-w-0 h-full">
+                    {!inputVal && (
+                      <div className="pointer-events-none absolute left-0 right-0 flex items-center text-[15px] sm:text-[16px] tracking-tight select-none z-10 overflow-hidden text-ellipsis whitespace-nowrap font-normal command-bar-placeholder-text">
+                        <span
+                          className="mr-1.5 shrink-0"
+                          style={{ color: isLight ? "#475569" : "#cbd5e1" }}
+                        >
+                          Hi, I’m Vikram.
+                        </span>
+                        <span
+                          className="truncate"
+                          style={{ color: isLight ? "#64748b" : "#94a3b8" }}
+                        >
+                          Ask me anything.
+                        </span>
+                      </div>
+                    )}
+
+                    <input
+                      ref={footerInputRef}
+                      type="text"
+                      value={inputVal}
+                      onChange={(e) => setInputVal(e.target.value)}
+                      onFocus={() => setIsFocused(true)}
+                      onBlur={() => setIsFocused(false)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          handleSend();
+                        }
+                      }}
+                      className="w-full bg-transparent border-none outline-none text-[15px] sm:text-[16px] font-normal relative z-20"
+                      style={{
+                        color: isLight ? "#070e24" : "#f8fafc",
+                        caretColor: isLight ? "#7c3aed" : "#a855f7",
+                      }}
+                      aria-label="Ask Vikram anything"
+                    />
+                  </div>
+
+                  {/* Action buttons: Voice mic and submit arrow */}
+                  <div className="flex items-center gap-1.5 sm:gap-2 relative z-20 shrink-0">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleMicClick();
+                      }}
+                      title={isListening ? "Stop listening" : "Ask with voice"}
+                      aria-label={isListening ? "Stop listening" : "Ask with voice"}
+                      className={`mic-button p-1.5 sm:p-2 rounded-full transition-all duration-200 cursor-pointer ${
+                        isListening
+                          ? "bg-red-500/20 text-red-500 scale-110 shadow-lg"
+                          : "text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 hover:scale-105 active:scale-95"
+                      }`}
+                      style={{
+                        boxShadow: isListening ? "0 0 0 4px rgba(239, 68, 68, 0.3)" : undefined,
+                      }}
+                    >
+                      <Mic size={18} strokeWidth={2} />
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSend();
+                      }}
+                      disabled={!inputVal.trim() || isLoading}
+                      title="Send query"
+                      aria-label="Run query"
+                      className="submit-button"
+                    >
+                      <ArrowUp size={20} strokeWidth={2} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Curated Suggestion Chips */}
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mt-3 pointer-events-auto relative z-20">
+              {SUGGESTION_CHIPS.slice(0, 3).map((chip) => (
+                <button
+                  key={`footer-chip-${chip}`}
+                  type="button"
+                  onPointerDown={(e) => {
+                    e.preventDefault();
+                    handleSend(chip);
+                  }}
+                  onClick={(e) => {
+                    if (e.detail === 0) {
+                      handleSend(chip);
+                    }
+                  }}
+                  className="gemini-suggestion-chip px-3.5 sm:px-4 py-1.5 rounded-full cursor-pointer select-none text-xs sm:text-[12.5px] font-normal tracking-tight transition-all hover:scale-105 active:scale-95"
+                  style={{
+                    background: isLight ? "rgba(255, 255, 255, 0.55)" : "rgba(255, 255, 255, 0.08)",
+                    backdropFilter: "blur(14px)",
+                    WebkitBackdropFilter: "blur(14px)",
+                    color: isLight ? "#334155" : "rgba(241, 245, 249, 0.9)",
+                    border: isLight ? "1px solid rgba(255, 255, 255, 0.75)" : "1px solid rgba(255, 255, 255, 0.14)",
+                    boxShadow: isLight
+                      ? "0 2px 10px rgba(0, 0, 0, 0.03), inset 0 1px 1px rgba(255, 255, 255, 0.8)"
+                      : "0 2px 12px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.08)",
+                  }}
+                >
+                  {chip}
+                </button>
+              ))}
+            </div>
+
+            {/* Subtitle helper text below footer AMA engine */}
+            <div
+              className="text-center text-[11px] sm:text-xs font-normal tracking-wide mt-2 select-none transition-colors relative z-20"
+              style={{
+                color: isLight ? "rgba(71, 85, 105, 0.85)" : "rgba(148, 163, 184, 0.75)",
+              }}
+            >
+              AI companion • Grounded in my work &amp; stories
+            </div>
+          </div>,
+          footerSlot
+        )}
     </>
   );
 }
