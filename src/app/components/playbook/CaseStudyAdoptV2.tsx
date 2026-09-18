@@ -46,6 +46,53 @@ import {
 import "../../../styles/adopt-landing.css";
 import "@/styles/copilot-case-study.css";
 
+const ScrollVideo = ({ src, className }: { src: string; className?: string }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          videoRef.current?.play().then(() => setIsPlaying(true)).catch(() => {});
+        } else {
+          videoRef.current?.pause();
+          setIsPlaying(false);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <>
+      <video
+        ref={videoRef}
+        src={src}
+        loop
+        muted
+        playsInline
+        className={className}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      />
+      {!isPlaying && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300">
+          <div className="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center border border-white/20 text-white shadow-lg">
+            <Play className="w-5 h-5 ml-1" />
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
 const PLAYBOOK_PASSWORD = "designtoimproveworld";
 
 interface CaseStudyAdoptV2Props {
@@ -351,7 +398,6 @@ export function CaseStudyAdoptV2({
       initiatives: [
         { code: "A", icon: Layout, label: "Landing page", targetAudience: "Both Admin & Members", desc: "A dedicated page that clearly explains community benefits, member stories, and use cases—designed to spark interest and encourage exploration." },
         { code: "B", icon: Sliders, label: "Take a tour sliders", targetAudience: "Members", desc: "Guided walkthroughs that highlight a unique benefit tailored to the user's role." },
-        { code: "C", icon: Sparkles, label: "Preview of Suggested Content", targetAudience: "Members", desc: "Display curated prompt recipes and weekly discussion topics so prospective members see immediate value." },
       ],
     },
     open: {
@@ -1420,25 +1466,11 @@ export function CaseStudyAdoptV2({
 
           {/* Principal Design Decision Card */}
           <div
-            className="project-card px-5 py-3.5 sm:px-6 sm:py-4 lg:px-7 lg:py-4 rounded-[18px] sm:rounded-[22px] overflow-hidden transition-all duration-300 mb-6"
-            style={{
-              background: isDark ? "rgba(0,0,0,0.45)" : "rgba(255, 255, 255, 0.85)",
-              backdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
-              WebkitBackdropFilter: "blur(14px) saturate(1.8) brightness(1.06)",
-              boxShadow: isDark
-                ? [
-                    "inset 0 0 0 1px rgba(255,255,255,0.16)",
-                    "0 8px 32px rgba(0,0,0,0.40)",
-                    "inset 0 1.5px 1px rgba(255,255,255,0.52)",
-                    "inset 0 -2px 5px rgba(0,0,0,0.28)",
-                  ].join(", ")
-                : [
-                    "inset 0 0 0 1px rgba(255,255,255,0.9)",
-                    "0 10px 30px -5px rgba(15, 23, 42, 0.08)",
-                    "0 20px 40px -15px rgba(79, 70, 229, 0.06)",
-                  ].join(", "),
-              border: isDark ? "1px solid rgba(255,255,255,0.12)" : "1px solid rgba(226, 232, 240, 0.9)",
-            }}
+            className={`p-6 sm:p-7 rounded-[28px] border shadow-sm backdrop-blur-xl transition-all duration-300 mb-6 ${
+              isDark
+                ? "bg-[#0b101e]/85 border-white/12 text-white"
+                : "bg-white/95 border-slate-200/90 text-[#0b0f19]"
+            }`}
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 items-center">
               
@@ -1791,7 +1823,6 @@ export function CaseStudyAdoptV2({
                 return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Aware%201.png`;
               }
               if (currentHealthData.id === "desire") {
-                if (activeInit.code === "C") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Desire%204.png`;
                 if (activeInit.code === "B") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Desire%202.png`;
                 return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Desire%201.png`;
               }
@@ -1803,7 +1834,7 @@ export function CaseStudyAdoptV2({
               if (currentHealthData.id === "proficient") {
                 if (activeInit.code === "B") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Proficient%203.png`;
                 if (activeInit.code === "C") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Proficient%201.png`;
-                return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Proficient%202.png`;
+                return `${import.meta.env.BASE_URL}IMG/copilot-case-study/PFT%20Demo.mp4`;
               }
               return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Transform.png`;
             };
@@ -1817,7 +1848,6 @@ export function CaseStudyAdoptV2({
               desire: [
                 { step: "01", title: "LANDING PAGE", desc: "A dedicated page explaining community benefits, member stories, and use cases to spark interest." },
                 { step: "02", title: "TAKE A TOUR SLIDERS", desc: "Guided in-product walkthroughs and tips carousels that highlight benefits tailored to the user's role." },
-                { step: "03", title: "SUGGESTED CONTENT", desc: "Display curated prompt recipes and weekly discussion topics so prospective members see immediate value." },
               ],
               open: [
                 { step: "01", title: "ADMIN FIRST-RUN CHECKLIST", desc: "Guide admins to pin resources, add members, review suggestions, and post." },
@@ -1975,11 +2005,22 @@ export function CaseStudyAdoptV2({
                   <div className={`w-full flex justify-center rounded-xl overflow-hidden p-2 sm:p-4 ${
                     isDark ? "bg-[#02050e]" : "bg-white border border-slate-100"
                   }`}>
-                    <img
-                      src={artifactImg}
-                      alt={activeInit.label}
-                      className="w-full h-auto max-h-[560px] object-contain rounded-lg group-hover:scale-[1.01] transition-transform duration-300 shadow-lg"
-                    />
+                    {(artifactImg.endsWith('.mp4') || artifactImg.endsWith('.mov')) ? (
+                      <video
+                        src={artifactImg}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-auto max-h-[560px] object-contain rounded-lg group-hover:scale-[1.01] transition-transform duration-300 shadow-lg"
+                      />
+                    ) : (
+                      <img
+                        src={artifactImg}
+                        alt={activeInit.label}
+                        className="w-full h-auto max-h-[560px] object-contain rounded-lg group-hover:scale-[1.01] transition-transform duration-300 shadow-lg"
+                      />
+                    )}
                   </div>
                 </div>
 
@@ -2142,7 +2183,7 @@ export function CaseStudyAdoptV2({
           {/* Two Detailed Intervention Stories */}
           <div className="space-y-8">
             
-            {/* INTERVENTION 01 — AWARE */}
+            {/* INTERVENTION 01 — AWARE & DESIRE */}
             <div className={`p-6 sm:p-8 rounded-[28px] border shadow-sm backdrop-blur-xl space-y-6 ${
               isDark ? "bg-[#0b101e]/85 border-white/12" : "bg-white/95 border-slate-200"
             }`}>
@@ -2150,13 +2191,18 @@ export function CaseStudyAdoptV2({
                 isDark ? "border-slate-800/80" : "border-slate-200"
               }`}>
                 <div>
-                  <span className={`text-[11px] font-mono font-bold uppercase tracking-wider block mb-1 ${
-                    isDark ? "text-rose-400" : "text-rose-600"
-                  }`}>
-                    AWARE INTERVENTION
-                  </span>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`text-[11px] font-mono font-bold uppercase tracking-wider block ${
+                      isDark ? "text-rose-400" : "text-rose-600"
+                    }`}>
+                      AWARE & DESIRE INTERVENTIONS
+                    </span>
+                    <span className={`px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider ${
+                      isDark ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30" : "bg-indigo-50 text-indigo-700 border border-indigo-200"
+                    }`}>TARGET: ADMIN</span>
+                  </div>
                   <h3 className={`text-xl sm:text-2xl font-bold ${isDark ? "text-white" : "text-[#0b0f19]"}`}>
-                    Make the community difficult to miss.
+                    Make the community difficult to miss and its value clear.
                   </h3>
                 </div>
                 <span className={`px-3 py-1 rounded-full border text-xs font-mono self-start sm:self-auto ${
@@ -2164,7 +2210,7 @@ export function CaseStudyAdoptV2({
                     ? "bg-rose-950/60 border-rose-500/30 text-rose-300"
                     : "bg-rose-50 border-rose-200 text-rose-700"
                 }`}>
-                  Cross-Surface Discovery System
+                  Discovery & Relevance System
                 </span>
               </div>
 
@@ -2179,7 +2225,7 @@ export function CaseStudyAdoptV2({
                     <p className={`text-sm font-semibold leading-relaxed ${
                       isDark ? "text-slate-200" : "text-slate-800"
                     }`}>
-                      Employees and administrators could not act on an adoption resource they did not know existed.
+                      Employees could not act on an adoption resource they did not know existed, and awareness alone did not create intent without understanding relevance.
                     </p>
                   </div>
 
@@ -2192,7 +2238,7 @@ export function CaseStudyAdoptV2({
                     <p className={`text-xs sm:text-sm leading-relaxed font-normal ${
                       isDark ? "text-slate-300" : "text-slate-600"
                     }`}>
-                      We connected communications, admin entry points and product surfaces into one discovery system.
+                      Admins click on cross-surface banners to launch a landing page that surfaces practical scenarios, creating desire before joining the community.
                     </p>
                   </div>
 
@@ -2202,7 +2248,7 @@ export function CaseStudyAdoptV2({
                     <strong className={`block mb-0.5 font-bold ${isDark ? "text-white" : "text-[#0b0f19]"}`}>
                       Key Takeaway:
                     </strong>
-                    Discovery became a coordinated system—not a single campaign.
+                    Discovery became a coordinated system moving the value proposition before commitment.
                   </div>
                 </div>
 
@@ -2215,21 +2261,22 @@ export function CaseStudyAdoptV2({
                     }`}
                     onClick={() =>
                       openLightbox(
-                        `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Aware%201.png`,
-                        "Awareness System · Admin Launch Banner & Discovery",
-                        "Cross-surface entry points in Microsoft Viva Engage"
+                        `${import.meta.env.BASE_URL}IMG/copilot-case-study/Setup%20Checklist.mov`,
+                        "Awareness & Desire System",
+                        "Cross-surface entry points and value-led landing page flow"
                       )
                     }
                   >
-                    <img
-                      src={`${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Aware%201.png`}
-                      alt="Awareness Entry Points"
-                      className="w-full h-auto rounded-lg object-contain group-hover:scale-[1.01] transition-transform duration-300"
-                    />
-                    <div className={`flex items-center justify-between text-[11px] pt-2 px-1 font-mono ${
+                    <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center group-hover:scale-[1.01] transition-transform duration-300">
+                      <ScrollVideo
+                        src={`${import.meta.env.BASE_URL}IMG/copilot-case-study/Setup%20Checklist.mov`}
+                        className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                      />
+                    </div>
+                    <div className={`flex items-center justify-between text-[11px] pt-3 px-1 font-mono ${
                       isDark ? "text-rose-400" : "text-rose-600"
                     }`}>
-                      <span>Admin Surfacing &amp; Discovery System</span>
+                      <span>Admin Surfacing & Landing Page Flow</span>
                       <span>Click to expand ↗</span>
                     </div>
                   </div>
@@ -2237,7 +2284,7 @@ export function CaseStudyAdoptV2({
               </div>
             </div>
 
-            {/* INTERVENTION 02 — DESIRE */}
+            {/* INTERVENTION 02 — PROFICIENT */}
             <div className={`p-6 sm:p-8 rounded-[28px] border shadow-sm backdrop-blur-xl space-y-6 ${
               isDark ? "bg-[#0b101e]/85 border-white/12" : "bg-white/95 border-slate-200"
             }`}>
@@ -2245,21 +2292,26 @@ export function CaseStudyAdoptV2({
                 isDark ? "border-slate-800/80" : "border-slate-200"
               }`}>
                 <div>
-                  <span className={`text-[11px] font-mono font-bold uppercase tracking-wider block mb-1 ${
-                    isDark ? "text-amber-400" : "text-amber-600"
-                  }`}>
-                    DESIRE INTERVENTION
-                  </span>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className={`text-[11px] font-mono font-bold uppercase tracking-wider block ${
+                      isDark ? "text-emerald-400" : "text-emerald-600"
+                    }`}>
+                      PROFICIENT INTERVENTION
+                    </span>
+                    <span className={`px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider ${
+                      isDark ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" : "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                    }`}>TARGET: MEMBERS</span>
+                  </div>
                   <h3 className={`text-xl sm:text-2xl font-bold ${isDark ? "text-white" : "text-[#0b0f19]"}`}>
-                    Make the value clear before asking people to join.
+                    Turn reading into immediate practice.
                   </h3>
                 </div>
                 <span className={`px-3 py-1 rounded-full border text-xs font-mono self-start sm:self-auto ${
                   isDark
-                    ? "bg-amber-950/60 border-amber-500/30 text-amber-300"
-                    : "bg-amber-50 border-amber-200 text-amber-700"
+                    ? "bg-emerald-950/60 border-emerald-500/30 text-emerald-300"
+                    : "bg-emerald-50 border-emerald-200 text-emerald-700"
                 }`}>
-                  Pre-Commitment Relevance
+                  Prompt-First Threads
                 </span>
               </div>
 
@@ -2274,20 +2326,20 @@ export function CaseStudyAdoptV2({
                     <p className={`text-sm font-semibold leading-relaxed ${
                       isDark ? "text-slate-200" : "text-slate-800"
                     }`}>
-                      Awareness alone did not create intent. Employees needed to understand why the community was relevant to their role and work.
+                      Members were discovering powerful new prompts but rarely executing them, leading to a critical disconnect between passive learning and active habit formation.
                     </p>
                   </div>
 
                   <div>
                     <span className={`text-[10.5px] font-mono uppercase font-bold block mb-1 ${
-                      isDark ? "text-amber-400" : "text-amber-600"
+                      isDark ? "text-emerald-400" : "text-emerald-600"
                     }`}>
                       ONE-SENTENCE RESPONSE
                     </span>
                     <p className={`text-xs sm:text-sm leading-relaxed font-normal ${
                       isDark ? "text-slate-300" : "text-slate-600"
                     }`}>
-                      We surfaced practical scenarios, relevant content and expert support before commitment.
+                      We engineered Prompt-first threads—empowering members to effortlessly create, share, and instantly launch published prompts with a single click.
                     </p>
                   </div>
 
@@ -2297,7 +2349,7 @@ export function CaseStudyAdoptV2({
                     <strong className={`block mb-0.5 font-bold ${isDark ? "text-white" : "text-[#0b0f19]"}`}>
                       Key Takeaway:
                     </strong>
-                    We moved the value proposition before the commitment—not after it.
+                    Removing the friction from discovery to execution is the ultimate catalyst for sustained Copilot practice.
                   </div>
                 </div>
 
@@ -2305,26 +2357,27 @@ export function CaseStudyAdoptV2({
                   <div
                     className={`rounded-2xl overflow-hidden border p-3 cursor-pointer group transition-all shadow-xl ${
                       isDark
-                        ? "border-slate-800 bg-[#02050e] hover:border-amber-500/40"
-                        : "border-slate-200 bg-white hover:border-amber-400 shadow-md"
+                        ? "border-slate-800 bg-[#02050e] hover:border-emerald-500/40"
+                        : "border-slate-200 bg-white hover:border-emerald-400 shadow-md"
                     }`}
                     onClick={() =>
                       openLightbox(
-                        `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Desire%201.png`,
-                        "Desire System · Value-Led Landing & Role Scenarios",
-                        "Communicating tangible Copilot value before joining"
+                        `${import.meta.env.BASE_URL}IMG/copilot-case-study/PFT%20Demo.mp4`,
+                        "Prompt-first Threads",
+                        "Single-click execution from community to Copilot"
                       )
                     }
                   >
-                    <img
-                      src={`${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Desire%201.png`}
-                      alt="Desire & Value Previews"
-                      className="w-full h-auto rounded-lg object-contain group-hover:scale-[1.01] transition-transform duration-300"
-                    />
-                    <div className={`flex items-center justify-between text-[11px] pt-2 px-1 font-mono ${
-                      isDark ? "text-amber-400" : "text-amber-600"
+                    <div className="relative w-full aspect-[4/3] rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center group-hover:scale-[1.01] transition-transform duration-300">
+                      <ScrollVideo
+                        src={`${import.meta.env.BASE_URL}IMG/copilot-case-study/PFT%20Demo.mp4`}
+                        className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                      />
+                    </div>
+                    <div className={`flex items-center justify-between text-[11px] pt-3 px-1 font-mono ${
+                      isDark ? "text-emerald-400" : "text-emerald-600"
                     }`}>
-                      <span>Value-Led Landing &amp; Role Scenarios</span>
+                      <span>Community Prompt Execution</span>
                       <span>Click to expand ↗</span>
                     </div>
                   </div>
@@ -2765,11 +2818,20 @@ export function CaseStudyAdoptV2({
             <div className={`flex-1 overflow-auto p-4 flex items-center justify-center ${
               isDark ? "bg-[#000000]" : "bg-slate-100"
             }`}>
-              <img
-                src={lightbox.imgUrl}
-                alt={lightbox.title}
-                className="w-full h-auto max-h-[75vh] object-contain rounded-lg shadow-lg"
-              />
+              {(lightbox.imgUrl.endsWith('.mp4') || lightbox.imgUrl.endsWith('.mov')) ? (
+                <video
+                  src={lightbox.imgUrl}
+                  controls
+                  autoPlay
+                  className="w-full h-auto max-h-[75vh] object-contain rounded-lg shadow-lg"
+                />
+              ) : (
+                <img
+                  src={lightbox.imgUrl}
+                  alt={lightbox.title}
+                  className="w-full h-auto max-h-[75vh] object-contain rounded-lg shadow-lg"
+                />
+              )}
             </div>
           </div>
         </div>
