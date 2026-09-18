@@ -1827,7 +1827,7 @@ export function CaseStudyAdoptV2({
                 return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Desire%201.png`;
               }
               if (currentHealthData.id === "open") {
-                if (activeInit.code === "B") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Proficient%202.png`;
+                if (activeInit.code === "B") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Suggested%20Con.mp4`;
                 if (activeInit.code === "C") return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Open%201.png`;
                 return `${import.meta.env.BASE_URL}IMG/copilot-case-study/Engage%20Communities/Open%202.png`;
               }
