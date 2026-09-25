@@ -17,13 +17,15 @@ const CaseStudyAdoptV2 = lazy(() => import("./components/playbook/CaseStudyAdopt
 const AdoptLandingPage = lazy(() => import("./components/adopt/AdoptLandingPage").then(m => ({ default: m.AdoptLandingPage })));
 const VibeCodingPage = lazy(() => import("./components/vibecoding/VibeCodingPage").then(m => ({ default: m.VibeCodingPage })));
 const Feedback360Page = lazy(() => import("./components/feedback/Feedback360Page").then(m => ({ default: m.Feedback360Page })));
+const AggregateAnalyticsPage = lazy(() => import("./components/analytics/AggregateAnalyticsPage").then(m => ({ default: m.AggregateAnalyticsPage })));
 
-type Route = "home" | "about" | "adopt" | "scale-copilot" | "scale-copilot-engage" | "adopt-v2" | "adopt-landing" | "vibe-coding" | "feedback-360";
+type Route = "home" | "about" | "adopt" | "scale-copilot" | "scale-copilot-engage" | "adopt-v2" | "adopt-landing" | "vibe-coding" | "feedback-360" | "aggregate-analytics";
 type ThemeMode = "dark" | "light";
 
 const routeFromPath = (): Route => {
   const p = window.location.pathname.replace(/\/$/, "");
   if (p.endsWith("/about")) return "about";
+  if (p.endsWith("/work/aggregate-analytics") || p.endsWith("/aggregate-analytics")) return "aggregate-analytics";
   if (p.endsWith("/work/feedback-360") || p.endsWith("/feedback-360")) return "feedback-360";
   if (p.endsWith("/adopt-landing") || p.endsWith("/adopt")) return "adopt-landing";
   if (p.endsWith("/scale-copilot-engage") || p.endsWith("/work/scale-copilot-engage")) return "scale-copilot-engage";
@@ -1613,6 +1615,7 @@ export default function App() {
     if (next === route) return;
     const path =
       next === "feedback-360" ? "/work/feedback-360"
+      : next === "aggregate-analytics" ? "/work/aggregate-analytics"
       : next === "data-security" ? "/data-security"
       : next === "adopt-landing" ? "/adopt-landing"
       : next === "adopt" ? "/playbook/adopt"
@@ -1693,6 +1696,15 @@ export default function App() {
     );
 
   }
+
+  if (route === "aggregate-analytics") {
+    return (
+      <Suspense fallback={<div className="min-h-screen" style={{ background: "#f7f8fc" }} />}>
+        <AggregateAnalyticsPage onBack={() => navigate("home")} />
+      </Suspense>
+    );
+  }
+
   if (route === "vibe-coding") {
     return (
       <Suspense fallback={<div className="min-h-screen" style={{ background: "var(--bg-page)" }} />}>
@@ -1783,6 +1795,7 @@ export default function App() {
         <WorkSection
           onPlaybookOpen={() => navigate("adopt-landing")}
           onCaseStudyOpen={() => navigate("scale-copilot-engage")}
+          onAnalyticsOpen={() => navigate("aggregate-analytics")}
         />
         <AboutSection />
         <ExperienceTimeline />

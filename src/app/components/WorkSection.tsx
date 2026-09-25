@@ -84,13 +84,14 @@ const projects: {
     ),
   },
   {
-    title: "Engage Analytics",
+    title: "Communication Plans",
     description:
-      "Built experiences that help communicators plan and execute campaigns in Viva Engage. Designed Aggregate Analytics to measure campaign performance through audience, engagement, and sentiment insights.",
+      "Designed a shared system for communicators, leaders, and delegates to plan, prepare, publish, and measure complex organisational communications across Microsoft 365.",
     ctas: [
       {
-        label: "Coming soon",
-        disabled: true,
+        label: "View Communication Plans",
+        href: "/work/aggregate-analytics",
+        internal: true,
       },
     ],
     thumb: (
@@ -653,9 +654,11 @@ function ProjectCard({
 export function WorkSection({
   onPlaybookOpen,
   onCaseStudyOpen,
+  onAnalyticsOpen,
 }: {
   onPlaybookOpen?: () => void;
   onCaseStudyOpen?: () => void;
+  onAnalyticsOpen?: () => void;
 } = {}) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
@@ -688,6 +691,11 @@ export function WorkSection({
 
   const handleCtaAction = (cta: CTA) => {
     if (!cta.href) return;
+    if (cta.href === "/work/aggregate-analytics" || cta.href === "/aggregate-analytics") {
+      if (onAnalyticsOpen) onAnalyticsOpen();
+      else window.location.pathname = "/work/aggregate-analytics";
+      return;
+    }
     if (cta.href.startsWith("/adopt") || cta.href.includes("adopt-landing")) {
       if (onPlaybookOpen) {
         onPlaybookOpen();

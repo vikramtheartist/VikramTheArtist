@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Communication Plans — UX Case Study</title>
+<meta name="description" content="Communication Plans — a UX case study about turning organisational complexity into coordinated communication.">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap');
+
+:root{
+  --ink:#171b28;
+  --muted:#687083;
+  --soft:#f5f6fa;
+  --paper:#fbfbfd;
+  --line:#e3e6ee;
+  --blue:#4b6ff5;
+  --violet:#8173ed;
+  --cyan:#78d8ef;
+  --green:#3b9a70;
+  --dark:#11151f;
+  --dark2:#181d29;
+  --max:1180px;
+  --serif:'Playfair Display', Georgia, serif;
+  --sans:'DM Sans', Inter, Arial, sans-serif;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:var(--paper);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font:inherit}
+
+.container{width:min(var(--max),calc(100% - 64px));margin:auto}
+.section{padding:120px 0}
+.eyebrow{
+  font-size:12px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  font-weight:700;
+  color:#697184;
+}
+.serif{font-family:var(--serif);font-weight:500}
+.lead{
+  color:var(--muted);
+  font-size:19px;
+  line-height:1.65;
+  max-width:680px;
+}
+.rule{height:1px;background:var(--line)}
+
+.nav{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1050px,calc(100% - 32px));
+  z-index:20;
+  padding:11px 14px 11px 18px;
+  border:1px solid rgba(226,229,237,.88);
+  background:rgba(255,255,255,.78);
+  backdrop-filter:blur(18px);
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  box-shadow:0 10px 35px rgba(36,45,75,.06);
+}
+.nav-brand{font-weight:700;font-size:14px}
+.nav-links{display:flex;gap:22px;font-size:12px;color:#707789}
+.nav-links a:hover{color:var(--ink)}
+
+.hero{
+  min-height:94vh;
+  padding:170px 0 90px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 75% 35%,rgba(129,115,237,.15),transparent 27%),
+    radial-gradient(circle at 18% 55%,rgba(120,216,239,.13),transparent 28%),
+    var(--paper);
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  width:620px;height:620px;
+  right:-220px;top:-160px;
+  border:1px solid rgba(129,115,237,.11);
+  border-radius:50%;
+}
+.hero-grid{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:70px;
+  align-items:center;
+}
+.hero h1{
+  margin:18px 0 25px;
+  font-size:clamp(58px,7.4vw,94px);
+  line-height:.96;
+  letter-spacing:-.055em;
+  max-width:900px;
+}
+.hero h1 em{font-family:var(--serif);font-weight:500;font-style:normal;color:#536b9e}
+.hero-copy{font-size:20px;line-height:1.6;color:var(--muted);max-width:680px}
+.meta{
+  margin-top:38px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  max-width:820px;
+}
+.meta-item{padding-top:13px;border-top:1px solid var(--line)}
+.meta-label{font-size:10px;text-transform:uppercase;letter-spacing:.11em;color:#8991a1;font-weight:700}
+.meta-value{font-size:14px;font-weight:600;margin-top:7px}
+.hero-orb{
+  height:470px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.orb-ring{
+  position:absolute;
+  border:1px solid rgba(93,106,176,.14);
+  border-radius:50%;
+}
+.orb-ring.r1{width:340px;height:340px}
+.orb-ring.r2{width:450px;height:450px}
+.orb-ring.r3{width:570px;height:570px}
+.hero-product{
+  width:390px;
+  border:1px solid #dfe3ec;
+  background:rgba(255,255,255,.9);
+  border-radius:20px;
+  padding:18px;
+  box-shadow:0 30px 80px rgba(49,61,100,.13);
+  position:relative;
+  z-index:2;
+  transform:rotate(-2deg);
+}
+.product-top{display:flex;align-items:center;gap:10px;border-bottom:1px solid #edf0f4;padding-bottom:12px}
+.avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#6d82bd,#9276df);display:grid;place-items:center;color:#fff;font-size:10px;font-weight:700}
+.product-top strong{font-size:12px}.product-top span{font-size:10px;color:#8991a1}
+.product-body{padding:15px 4px}
+.product-body h4{font-size:13px;margin:0 0 8px}
+.product-body p{font-size:10px;line-height:1.5;color:#737b8c;margin:0 0 16px}
+.product-image{height:160px;border-radius:12px;background:linear-gradient(135deg,#202c4e,#4c68a5 55%,#d9b9a1);position:relative;overflow:hidden}
+.product-image:after{content:"";position:absolute;width:120px;height:190px;right:34px;bottom:-34px;border-radius:55% 55% 12% 12%;background:linear-gradient(160deg,#222936,#11151c)}
+.product-image:before{content:"SPACE / COMMUNICATION";position:absolute;left:18px;top:25px;color:#fff;font-size:10px;font-weight:700;letter-spacing:.08em}
+.hero-note{position:absolute;right:0;bottom:45px;background:#fff;border:1px solid #e4e7ee;border-radius:14px;padding:12px 14px;font-size:11px;box-shadow:0 15px 40px rgba(44,55,90,.1);z-index:3}
+.hero-note b{display:block;margin-bottom:4px}.hero-note span{color:#7c8494}
+
+.context{padding-top:90px}
+.context-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:80px}
+.context h2,.problem h2,.challenge h2,.research h2,.shift h2,.decisions h2,.analytics h2,.preview h2,.reflection h2{
+  margin:16px 0 22px;
+  font-size:clamp(40px,5vw,66px);
+  line-height:1.03;
+  letter-spacing:-.045em;
+}
+.lifecycle{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  margin-top:45px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.life{
+  padding:24px 18px 24px 0;
+  position:relative;
+}
+.life:not(:last-child):after{
+  content:"→";position:absolute;right:17px;top:28px;color:#b0b5c1
+}
+.life-num{font-size:11px;color:#7e8798;font-weight:700}
+.life h3{font-size:17px;margin:9px 0 6px}.life p{font-size:13px;line-height:1.55;color:var(--muted);margin:0}
+
+.cascade-section{
+  padding:118px 0 92px;
+  background:
+    radial-gradient(circle at 73% 42%,rgba(117,105,226,.12),transparent 29%),
+    radial-gradient(circle at 82% 66%,rgba(105,207,238,.10),transparent 32%),
+    linear-gradient(180deg,#fbfbfd 0%,#f3f6fb 55%,#fbfbfd 100%);
+  overflow:hidden;
+}
+.cascade-story-head{max-width:1180px;margin:0 auto 30px;padding:0 20px}
+.cascade-story-head h2{margin:13px 0 0;font-size:clamp(43px,5.3vw,72px);line-height:.99;letter-spacing:-.052em}
+.cascade-story-head h2 em{font-family:var(--serif);font-weight:500;color:#6672a0}
+.cascade-story-head p{max-width:720px;margin:24px 0 0;color:#646d7d;font-size:17px;line-height:1.7}
+.cascade-storyboard{max-width:1180px;margin:auto;display:grid;grid-template-columns:35% 65%;min-height:690px;position:relative}
+.cascade-copy{position:relative;padding:82px 24px 0 20px;z-index:30}
+.scene-copy{position:absolute;left:20px;top:82px;width:min(320px,calc(100% - 32px));opacity:0 !important;visibility:hidden;transform:translateY(16px);pointer-events:none;transition:opacity .65s ease,transform .65s ease,visibility 0s linear .65s}
+.scene-copy-1{opacity:1;transform:none}
+.scene-number{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid #dfe3eb;border-radius:50%;font-size:10px;font-weight:700;color:#737c8d;margin-bottom:18px}
+.scene-icon{font-size:19px;margin-bottom:10px}
+.scene-copy h3{font-size:clamp(29px,2.7vw,40px);line-height:1.03;letter-spacing:-.045em;margin:0 0 14px}
+.scene-copy p{font-size:14px;line-height:1.62;color:#697284;margin:0}
+.scene-copy p strong{color:#303746}.scene-caption{display:inline-block;margin-top:22px;font-size:9px;letter-spacing:.14em;font-weight:700;color:#858e9f}
+.cascade-storyboard[data-scene="1"] .scene-copy-1,
+.cascade-storyboard[data-scene="2"] .scene-copy-2,
+.cascade-storyboard[data-scene="3"] .scene-copy-3{opacity:1 !important;visibility:visible;transform:none;transition-delay:0s}
+.cascade-visual{position:relative;height:690px;overflow:visible}
+.cascade-progress{position:absolute;top:18px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:7px;z-index:40}
+.progress-dot{width:7px;height:7px;border-radius:50%;background:#d7dce6;transition:.45s}.progress-dot.active{background:#665fd0;box-shadow:0 0 0 5px rgba(102,95,208,.10)}.progress-line{width:42px;height:1px;background:#d9dee7}
+
+.ripple-field{position:absolute;inset:0;pointer-events:none;z-index:1}.ripple{position:absolute;left:54%;top:45%;border:1px solid rgba(108,104,197,.17);border-radius:50%;transform:translate(-50%,-50%) scale(.18);opacity:0}.r1{width:280px;height:280px}.r2{width:410px;height:410px}.r3{width:550px;height:550px}.r4{width:690px;height:690px}
+.cascade-storyboard[data-scene="2"] .ripple{animation:bigRipple 4.2s cubic-bezier(.15,.72,.2,1) both}.cascade-storyboard[data-scene="2"] .r2{animation-delay:.18s}.cascade-storyboard[data-scene="2"] .r3{animation-delay:.36s}.cascade-storyboard[data-scene="2"] .r4{animation-delay:.54s}
+@keyframes bigRipple{0%{opacity:0;transform:translate(-50%,-50%) scale(.18)}14%{opacity:.72}60%{opacity:.26}100%{opacity:0;transform:translate(-50%,-50%) scale(1)}}
+
+.back-product{position:absolute;z-index:2;width:280px;height:185px;background:rgba(255,255,255,.76);border:1px solid rgba(213,218,229,.9);border-radius:15px;box-shadow:0 25px 65px rgba(48,59,98,.10);overflow:hidden;opacity:0;transition:opacity .9s,transform 1.2s}
+.back-email{left:59%;top:23%;transform:translate(-50%,-50%) rotate(8deg) scale(.82)}.back-sheet{left:39%;top:30%;transform:translate(-50%,-50%) rotate(-10deg) scale(.82)}.back-word{left:74%;top:39%;transform:translate(-50%,-50%) rotate(12deg) scale(.82)}
+.back-product-bar{height:30px;padding:0 9px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #e7eaf0;color:#667082;font-size:7px}.back-product-bar span:last-child{margin-left:auto;color:#9aa1ae}.mini-logo{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;color:#fff;font-size:9px;font-weight:800}
+.back-product-content{padding:12px}.mini-line{height:5px;border-radius:4px;background:#e5e8ef;margin-bottom:7px}.w80{width:80%}.w70{width:70%}.w60{width:60%}.mini-mail-card{margin:10px 0;padding:9px;border:1px solid #e3e6ed;border-radius:8px;background:#fff;display:flex;flex-direction:column;gap:3px;font-size:7px;color:#303744}.mini-mail-card span{font-size:6px;color:#8a92a1}.sheet-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;padding:10px;background:#e9edf2}.sheet-grid i{height:20px;background:#fff;border:1px solid #edf0f4}.sheet-note{padding:8px 10px;font-size:6px;color:#7e8796}
+.cascade-storyboard[data-scene="2"] .back-product{opacity:.68}.cascade-storyboard[data-scene="3"] .back-product{opacity:1}
+.cascade-storyboard[data-scene="3"] .back-email{transform:translate(-50%,-50%) rotate(-3deg) scale(.72);left:49%;top:16%}.cascade-storyboard[data-scene="3"] .back-sheet{transform:translate(-50%,-50%) rotate(3deg) scale(.72);left:62%;top:16%}.cascade-storyboard[data-scene="3"] .back-word{transform:translate(-50%,-50%) rotate(-1deg) scale(.72);left:75%;top:16%}
+
+.cascade-core{position:absolute;left:50%;top:45%;width:330px;transform:translate(-50%,-50%);z-index:8;opacity:0;transition:opacity 1.2s ease,transform 1.25s cubic-bezier(.16,.76,.2,1)}
+/* Keep the original leadership post visible through the cascade: the three smaller posts are consequences of it, not replacements for it. */
+.cascade-storyboard[data-scene="2"] .single-post{opacity:1;transform:translate(-50%,-50%)}
+.cascade-storyboard[data-scene="3"] .single-post{opacity:0;transform:translate(-50%,-50%) scale(.94)}
+.cascade-storyboard[data-scene="1"] .single-post{opacity:1;transform:translate(-50%,-50%)}
+.cascade-core.source-post-image{width:430px}
+.source-post-image img{display:block;width:100%;border:1px solid #dce1ea;border-radius:18px;background:#fff;box-shadow:0 30px 80px rgba(48,59,98,.16)}
+.cascade-card{border:1px solid #dce1ea;background:rgba(255,255,255,.97);border-radius:18px;padding:12px;box-shadow:0 30px 80px rgba(48,59,98,.16)}.cascade-card .product-top{padding:4px 4px 9px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #edf0f4}.cascade-card .product-top strong{font-size:9px}.cascade-card .product-top span{font-size:8px;color:#8a92a1}.cascade-card .product-body{padding:12px 4px 6px}.post-kicker{font-size:7px;text-transform:uppercase;letter-spacing:.1em;color:#8b93a2;font-weight:700;margin-bottom:6px}.cascade-card h4{font-size:14px;line-height:1.2;margin:0 0 5px}.cascade-card p{font-size:8px;line-height:1.45;color:#747d8d;margin:0 0 9px}.cascade-card .product-image{height:145px}.post-meta{display:flex;gap:8px;padding:8px 4px 1px;color:#8a92a1;font-size:6px;border-top:1px solid #edf0f4}.posted-state{position:absolute;left:50%;bottom:-24px;transform:translateX(-50%);padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.92);border:1px solid #e0e4eb;font-size:8px;color:#667083}.posted-dot{display:inline-block;width:6px;height:6px;background:#5ab77e;border-radius:50%;margin-right:5px}
+
+.cascade-posts{position:absolute;inset:0;z-index:9;opacity:0;pointer-events:none;transition:opacity 1.15s ease}
+.cascade-storyboard[data-scene="2"] .cascade-posts{opacity:1}
+.cascade-post{position:absolute;width:245px;padding:12px 13px;border:1px solid #dfe3eb;border-radius:13px;background:rgba(255,255,255,.96);box-shadow:0 18px 45px rgba(48,60,98,.11);opacity:0;transform:translateY(12px) scale(.95);transition:opacity 1s,transform 1.2s cubic-bezier(.16,.75,.2,1)}
+.cascade-storyboard[data-scene="2"] .cascade-post{opacity:1;transform:none}.post-a{right:-2%;top:20%;transition-delay:.15s}.post-b{right:-5%;top:43%;transition-delay:.38s}.post-c{right:-2%;top:66%;transition-delay:.61s}
+.post-mini-top{display:flex;align-items:center;gap:7px;font-size:9px}.post-avatar,.avatar{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#746dcc;color:#fff;font-size:8px;font-weight:800}.post-avatar.blue{background:#466eae}.post-avatar.purple{background:#7654aa}.post-status{margin-left:auto;font-size:7px;color:#8a92a1}.cascade-post p{font-size:8px;color:#737c8b;margin:9px 0 0;line-height:1.45}
+
+.spill-badge{position:absolute;z-index:7;left:50%;top:45%;display:flex;align-items:center;gap:5px;padding:7px 10px;background:rgba(255,255,255,.95);border:1px solid #dfe3eb;border-radius:999px;box-shadow:0 14px 38px rgba(48,60,98,.12);color:#242a36;font-size:9px;font-weight:600;opacity:0;transform:translate(-50%,-50%) scale(.55);transition:opacity .8s,transform 1.25s cubic-bezier(.16,.72,.18,1)}
+.app-icon,.badge-icon{width:20px;height:20px;display:grid;place-items:center;border-radius:6px;font-size:9px;font-weight:800}.outlook{background:linear-gradient(135deg,#2379dd,#7449c7);color:#fff}.word{background:#2d73bd;color:#fff}.excel{background:#238c52;color:#fff}.badge-icon{background:#f1f3f7;color:#626b7b}
+.b-outlook{--tx:-205px;--ty:-185px;--r:-12deg}.b-word{--tx:-55px;--ty:-225px;--r:8deg}.b-excel{--tx:235px;--ty:-135px;--r:14deg}.b-leaders{--tx:-265px;--ty:-80px;--r:-9deg}.b-conversations{--tx:-290px;--ty:10px;--r:5deg}.b-audiences{--tx:-255px;--ty:115px;--r:-7deg}.b-followups{--tx:260px;--ty:-35px;--r:9deg}.b-schedules{--tx:275px;--ty:95px;--r:-6deg}.b-delegates{--tx:210px;--ty:175px;--r:8deg}.b-reporting{--tx:-20px;--ty:190px;--r:-5deg}
+.cascade-storyboard[data-scene="2"] .spill-badge{opacity:1;transform:translate(-50%,-50%) translate(var(--tx),var(--ty)) rotate(var(--r)) scale(.96)}
+.cascade-storyboard[data-scene="3"] .spill-badge{opacity:0;transform:translate(-50%,-50%) translate(0,0) scale(.6)}
+
+.organized-scene{position:absolute;left:50%;top:42%;width:610px;transform:translate(-50%,-50%) scale(.95);z-index:12;opacity:0;transition:opacity 1s,transform 1.3s cubic-bezier(.16,.76,.2,1)}
+.cascade-storyboard[data-scene="3"] .organized-scene{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.organized-products{position:absolute;left:50%;top:-72px;transform:translateX(-50%);display:flex;gap:8px;align-items:center;padding:8px 11px;border:1px solid #dfe3eb;border-radius:12px;background:rgba(255,255,255,.9);box-shadow:0 12px 35px rgba(48,60,98,.08)}
+.org-kicker{font-size:7px;letter-spacing:.13em;color:#8d95a4;font-weight:700}.organized-products .org-kicker{margin-right:3px}.org-product{display:flex;align-items:center;gap:5px;padding:5px 8px;border:1px solid #e7eaf0;border-radius:8px;background:#fff;font-size:8px;font-weight:600}.org-product .mini-logo{width:17px;height:17px;font-size:8px}
+.organized-posts{display:flex;gap:8px;justify-content:center;margin-bottom:12px}.organized-posts>.org-kicker{display:none}.org-post{width:160px;padding:9px;border:1px solid #dfe3eb;border-radius:10px;background:rgba(255,255,255,.94);display:grid;grid-template-columns:24px 1fr;column-gap:7px;align-items:center}.org-post b{font-size:9px}.org-post small{grid-column:2;font-size:7px;color:#8991a0;margin-top:2px}
+.organized-badges{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid #dfe3eb;border-radius:13px;background:rgba(255,255,255,.94);overflow:hidden;box-shadow:0 15px 45px rgba(48,60,98,.08)}.org-column{padding:14px 12px;min-height:80px}.org-column:not(:last-child){border-right:1px solid #e4e7ed}.org-item{margin-top:9px;font-size:8px;font-weight:600;color:#333a48}.org-item:first-letter{color:#6b63c9}
+.coordination-question{position:absolute;left:50%;top:calc(50% + 205px);transform:translateX(-50%) translateY(10px);white-space:nowrap;font-size:13px;font-weight:700;color:#596173;opacity:0;transition:opacity .8s,transform .8s}.cascade-storyboard[data-scene="3"] .coordination-question{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.cascade-bottom{grid-column:1 / -1;margin-top:-3px;text-align:center;z-index:50}.scene-connector{display:flex;align-items:center;justify-content:center;gap:13px;color:#9299a8;font-size:9px}.scene-connector i{font-style:normal;color:#bbbfd0}.scene-connector strong{color:#575e70}.cascade-replay{border:1px solid #dfe3ea;background:#fff;border-radius:999px;padding:8px 13px;font-size:10px;cursor:pointer;box-shadow:0 8px 25px rgba(50,62,100,.06);margin-top:10px}
+
+@media(max-width:900px){
+  .cascade-storyboard{display:block;min-height:900px}.cascade-copy{height:230px;padding:25px 20px 0}.scene-copy{left:20px;top:25px;width:min(580px,calc(100% - 30px))}.cascade-visual{height:640px}.cascade-bottom{position:absolute;bottom:0;left:0;right:0}.cascade-storyboard{max-width:720px}.organized-scene{width:90%}
+}
+@media(max-width:560px){
+  .cascade-section{padding-top:88px}.cascade-story-head{padding:0 14px}.cascade-copy{padding-left:14px;height:250px}.scene-copy{left:14px}.scene-copy h3{font-size:30px}.scene-copy p{font-size:13px}.cascade-visual{height:650px}.cascade-core{width:245px}.cascade-card .product-image{height:130px}.back-product{width:205px;height:140px}.cascade-post{width:185px}.post-a{right:0;top:18%}.post-b{right:2%;top:40%}.post-c{right:0;top:62%}.spill-badge{font-size:7px;padding:5px 7px}.app-icon,.badge-icon{width:17px;height:17px;font-size:8px}.organized-scene{width:94%}.organized-products{top:-60px;gap:3px;padding:6px}.org-product{padding:4px 5px;font-size:7px}.organized-posts{gap:4px}.org-post{width:90px;padding:7px;grid-template-columns:20px 1fr}.org-post b{font-size:7px}.org-post small{font-size:6px}.organized-badges{grid-template-columns:repeat(2,1fr)}.org-column{padding:10px 8px}.org-column:nth-child(2){border-right:0}.org-column:nth-child(-n+2){border-bottom:1px solid #e4e7ed}.coordination-question{top:calc(50% + 170px);font-size:10px}.scene-connector{gap:6px;font-size:7px}}
+.problem{
+  background:var(--dark);
+  color:#fff;
+  padding:125px 0 135px;
+}
+.problem .eyebrow{color:#9ba4b6}
+.problem h2{max-width:850px}
+.problem-copy{color:#aeb6c6;max-width:760px;font-size:18px;line-height:1.65}
+.question-grid{
+  margin-top:70px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid #303642;
+  border-bottom:1px solid #303642;
+}
+.question{
+  padding:38px 32px 38px 0;
+  min-height:180px;
+}
+.question:not(:last-child){border-right:1px solid #303642;padding-right:32px;margin-right:32px}
+.question .big{font-size:54px;letter-spacing:-.05em;color:#8f86f5;font-weight:600}
+.question h3{font-size:18px;margin:18px 0 7px}.question p{color:#9fa8b8;font-size:13px;line-height:1.55;margin:0}
+.problem-punch{
+  padding-top:110px;
+  max-width:900px;
+}
+.problem-punch .small{font-size:12px;color:#8f98aa;text-transform:uppercase;letter-spacing:.12em;font-weight:700}
+.problem-punch h3{
+  font-size:clamp(46px,6vw,78px);
+  line-height:1;
+  letter-spacing:-.055em;
+  margin:22px 0 0;
+}
+.problem-punch h3 span{color:#9b91ff;font-family:var(--serif);font-weight:500}
+
+.challenge{background:#f3f4f7}
+.challenge-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:90px}
+.challenge-questions{display:grid;gap:0;margin-top:32px;border-top:1px solid #dfe2e9}
+.cq{padding:24px 0;border-bottom:1px solid #dfe2e9;display:grid;grid-template-columns:55px 1fr;gap:16px}
+.cq strong{color:#7c72dc;font-size:14px}.cq h3{margin:0;font-size:17px}.cq p{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.5}
+
+.research{background:#fff}
+.research-intro{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:end}
+.methods{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:65px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.method{padding:26px 25px 28px 0}.method:not(:last-child){border-right:1px solid var(--line);padding-right:28px;margin-right:28px}
+.method-num{font-size:11px;color:#8991a1}.method h3{font-size:18px;margin:12px 0 8px}.method p{font-size:13px;line-height:1.55;color:var(--muted);margin:0}
+
+.findings{
+  margin-top:75px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+.finding{
+  padding:26px 28px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fafbfc;
+}
+.finding .num{font-size:11px;color:#7d73db;font-weight:700}.finding h3{font-size:18px;margin:12px 0 9px}.finding p{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+.finding .implication{margin-top:18px;padding-top:15px;border-top:1px solid #e7e9ef;font-size:13px;color:#404758}
+.finding .implication b{color:var(--ink)}
+
+.shift{
+  background:linear-gradient(180deg,#f6f7fb,#fff);
+  text-align:center;
+}
+.shift p{max-width:700px;margin:0 auto;color:var(--muted);font-size:18px;line-height:1.65}
+.hierarchy{
+  max-width:880px;margin:65px auto 0;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border:1px solid #dfe3ea;border-radius:22px;overflow:hidden;background:#fff;
+  box-shadow:0 20px 60px rgba(43,54,88,.07);
+}
+.h-step{padding:30px 25px;text-align:left;min-height:175px}
+.h-step:not(:last-child){border-right:1px solid #e5e7ed}
+.h-step .num{font-size:11px;color:#7b73d9;font-weight:700}.h-step h3{font-size:21px;margin:14px 0 7px}.h-step p{font-size:13px;line-height:1.5;color:var(--muted);margin:0}
+.ai-strip{max-width:880px;margin:14px auto 0;padding:20px 25px;border:1px solid #dfe3ea;border-radius:16px;background:linear-gradient(90deg,#fff,#f4f1ff);display:flex;justify-content:space-between;gap:20px;text-align:left;align-items:center}
+.ai-strip strong{font-size:15px}.ai-strip span{font-size:12px;color:var(--muted)}
+
+.decisions{background:#fff}
+.decision{padding:75px 0;border-top:1px solid var(--line)}
+.decision-grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:70px;align-items:center}
+.decision h3{font-size:clamp(30px,4vw,47px);letter-spacing:-.04em;line-height:1.05;margin:14px 0 15px}
+.decision p{color:var(--muted);font-size:16px;line-height:1.65;max-width:420px}
+.design-tag{display:inline-block;margin-top:22px;padding:7px 10px;border-radius:999px;background:#f0efff;color:#655bc4;font-size:11px;font-weight:700}
+.screen{
+  min-height:390px;
+  border:1px solid #dce1ea;
+  border-radius:20px;
+  background:linear-gradient(145deg,#f8f9fc,#eef1f7);
+  box-shadow:0 28px 70px rgba(47,58,91,.1);
+  padding:18px;
+  position:relative;
+  overflow:hidden;
+}
+.screen-top{height:28px;display:flex;gap:6px;align-items:center}.dot{width:7px;height:7px;border-radius:50%;background:#c9cfdb}
+.screen-window{height:calc(100% - 40px);border-radius:13px;background:#fff;border:1px solid #e2e5eb;padding:20px}
+.screen:has(.decision-video){min-height:0}
+.decision-video-window{height:auto;aspect-ratio:16/9;padding:0;overflow:hidden;background:#111722}
+.decision-video{display:block;width:100%;height:100%;object-fit:contain;background:#111722}
+.placeholder-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8b93a2;font-weight:700}
+.placeholder-title{font-size:23px;font-weight:600;margin-top:8px}
+.mock-lines{display:grid;gap:10px;margin-top:25px}.mock-line{height:10px;border-radius:5px;background:#e9ecf2}.mock-line.short{width:55%}.mock-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}.mock-box{height:80px;border:1px solid #e5e8ef;border-radius:12px;background:#fbfcfe;padding:12px}.mock-box b{font-size:17px}.mock-box span{display:block;font-size:9px;color:#8a92a1;margin-top:7px}.mock-chart{height:100px;margin-top:15px;border-bottom:1px solid #e1e5ed;position:relative}.bars{position:absolute;bottom:0;left:5%;right:5%;height:85%;display:flex;align-items:flex-end;gap:9px}.bar{flex:1;border-radius:4px 4px 0 0;background:linear-gradient(#7c74e8,#b8b2f7);height:var(--h)}
+.screen-note{position:absolute;right:25px;bottom:25px;background:#fff;border:1px solid #e0e4ec;border-radius:11px;padding:9px 11px;font-size:10px;box-shadow:0 12px 30px rgba(45,55,90,.1)}
+
+.solution-tabs{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,7fr);margin-top:52px;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:#f7f8fb;box-shadow:0 28px 70px rgba(47,58,91,.08)}
+.solution-tab-list{display:grid;grid-template-rows:repeat(3,1fr);background:#f7f8fb}
+.solution-tab{display:grid;grid-template-columns:42px 1fr;gap:14px;align-content:center;padding:25px 28px;border:0;border-bottom:1px solid var(--line);color:var(--ink);background:transparent;text-align:left;cursor:pointer;transition:background .25s ease,color .25s ease}
+.solution-tab:last-child{border-bottom:0}.solution-tab:hover{background:#fff}.solution-tab.active{background:#fff;box-shadow:inset 3px 0 0 var(--violet)}
+.solution-tab>span{display:grid;width:30px;height:30px;place-items:center;border:1px solid #d9ddea;border-radius:50%;color:#766ddd;font-size:10px;font-weight:700}.solution-tab.active>span{color:#fff;border-color:var(--violet);background:var(--violet)}
+.solution-tab strong{display:block;margin-bottom:6px;font-size:18px}.solution-tab small{display:block;color:var(--muted);font-size:11px;line-height:1.45}
+.solution-tab-panels{position:relative;min-height:540px;background:#fff}
+.solution-panel{position:absolute;inset:0;display:grid;grid-template-rows:auto 1fr;visibility:hidden;opacity:0;transform:translateY(8px);transition:opacity .35s ease,transform .35s ease,visibility 0s linear .35s}
+.solution-panel[hidden]{display:none!important}
+.solution-panel.active{position:relative;visibility:visible;opacity:1;transform:none;transition-delay:0s}
+.solution-panel-copy{padding:32px 34px 22px}.solution-panel-copy .eyebrow{color:#7167d7}.solution-panel-copy h3{margin:12px 0 10px;font-size:clamp(29px,3vw,42px);letter-spacing:-.04em;line-height:1.05}.solution-panel-copy p{max-width:620px;margin:0;color:var(--muted);font-size:14px;line-height:1.6}.solution-panel-copy .design-tag{margin-top:14px}
+.solution-panel .screen{min-height:0;margin:0 28px 28px;padding:14px;border-radius:17px;box-shadow:none}
+.solution-panel .screen-top{height:22px}.solution-panel .decision-video-window{aspect-ratio:16/9}
+
+.workflow-solution{overflow:hidden;background:radial-gradient(circle at 12% 82%,rgba(74,202,232,.1),transparent 27%),radial-gradient(circle at 84% 18%,rgba(116,101,240,.1),transparent 30%),#fbfcff}
+.workflow-heading{text-align:center}.workflow-heading .eyebrow{justify-content:center}.workflow-heading h2{max-width:980px;margin:14px auto 12px;font-family:var(--serif);font-size:clamp(42px,5.5vw,70px);font-weight:600;letter-spacing:-.05em;line-height:1}.workflow-heading p{max-width:760px;margin:0 auto;color:var(--muted);font-size:18px;line-height:1.65}
+.workflow-shell{position:relative;margin-top:62px;padding:38px;border:1px solid #e0e5f0;border-radius:30px;background:linear-gradient(135deg,rgba(247,253,255,.94),rgba(247,244,255,.94));box-shadow:0 34px 90px rgba(48,61,102,.1)}
+.workflow-track{display:grid;grid-template-columns:1.14fr .9fr 112px 1.14fr;gap:22px;align-items:center}
+.workflow-card{position:relative;min-height:500px;padding:22px;border:1px solid rgba(197,207,231,.75);border-radius:23px;background:rgba(255,255,255,.72);box-shadow:0 18px 45px rgba(57,69,112,.08);backdrop-filter:blur(18px);transition:transform .35s ease,box-shadow .35s ease}
+.workflow-card:hover{transform:translateY(-5px);box-shadow:0 28px 65px rgba(57,69,112,.14)}
+.workflow-card-head{display:flex;align-items:center;gap:14px}.workflow-card-icon{display:grid;width:54px;height:54px;flex:0 0 auto;place-items:center;border-radius:16px;color:#fff;background:linear-gradient(145deg,#22bff0,#1757df);box-shadow:0 10px 24px rgba(32,113,222,.25);font-size:25px;font-weight:800}.workflow-publish .workflow-card-icon{background:linear-gradient(145deg,#b563f5,#6433e8)}.workflow-measure .workflow-card-icon{background:linear-gradient(145deg,#25bdf0,#1455e2)}
+.workflow-card-head h3{margin:0;font-size:27px;letter-spacing:-.03em;text-transform:uppercase}.workflow-card-head p{margin:4px 0 0;color:#6576ca;font-size:11px;line-height:1.45}
+.plan-system{position:relative;height:285px;margin-top:22px}.plan-links{position:absolute;inset:18px 15px 12px;width:calc(100% - 30px);height:calc(100% - 30px)}.plan-links line{stroke:#4388ef;stroke-width:1.6;stroke-dasharray:4 5;animation:workflowDash 8s linear infinite}
+.plan-node{position:absolute;z-index:2;width:105px;padding:10px 8px;border:1px solid #e2e7f1;border-radius:14px;background:rgba(255,255,255,.96);box-shadow:0 10px 25px rgba(50,70,110,.1);text-align:center;transition:transform .3s ease}.plan-node:hover{transform:scale(1.04)}.plan-node i{display:block;margin-bottom:4px;color:#296be5;font-style:normal;font-size:20px}.plan-node strong{display:block;font-size:10px}.plan-node small{display:block;margin-top:2px;color:#737c8e;font-size:7px}.plan-leaders{top:0;left:5%}.plan-delegates{top:0;right:3%}.plan-drafts{top:104px;left:0}.plan-audiences{top:104px;right:0}.plan-schedules{bottom:0;left:50%;transform:translateX(-50%)}.plan-schedules:hover{transform:translateX(-50%) scale(1.04)}
+.plan-hub{position:absolute;top:95px;left:50%;z-index:3;display:grid;width:115px;height:88px;place-items:center;padding:10px;border:1px solid #dce5f3;border-radius:18px;background:#fff;box-shadow:0 15px 35px rgba(41,77,138,.14);text-align:center;transform:translateX(-50%)}.plan-hub i{display:block;color:#1469df;font-style:normal;font-size:27px}.plan-hub strong{font-size:11px;line-height:1.15}
+.workflow-chips{display:flex;gap:7px;margin-top:12px}.workflow-chip{display:flex;flex:1;align-items:center;justify-content:center;gap:5px;padding:8px 5px;border:1px solid #e0e5ef;border-radius:10px;background:#fff;color:#4d5668;font-size:8px;font-weight:700}.workflow-chip i{color:#7054e7;font-style:normal;font-size:13px}
+.publish-stack{position:relative;height:285px;margin-top:34px}.publish-post{position:absolute;left:50%;width:78%;min-height:118px;padding:16px;border:1px solid #dfe5f0;border-radius:16px;background:#fff;box-shadow:0 15px 32px rgba(52,66,105,.1);transform:translateX(-50%)}.publish-post:nth-child(1){top:0;opacity:.38;transform:translateX(-50%) translateY(-4px) scale(.86)}.publish-post:nth-child(2){top:28px;opacity:.62;transform:translateX(-50%) scale(.93)}.publish-post:nth-child(3){top:62px}.publish-post b{position:absolute;top:10px;right:10px;padding:4px 7px;border-radius:7px;color:#4b3bbb;background:#ebe7ff;font-size:7px}.post-author{display:flex;align-items:center;gap:8px}.post-author i{width:34px;height:28px;border-radius:7px;background:linear-gradient(135deg,#bfd0ea,#829dd3)}.post-copy{display:grid;gap:6px;margin-top:12px}.post-copy i{display:block;height:5px;border-radius:4px;background:#d8dee9}.post-copy i:nth-child(2){width:72%}.publish-channels{position:absolute;right:15px;bottom:14px;left:15px;display:flex;align-items:center;gap:8px}.publish-channels i{display:grid;width:29px;height:29px;place-items:center;border-radius:8px;color:#fff;background:#5b5ae7;font-style:normal;font-size:10px}.publish-channels i:nth-child(2){background:#1688de}.publish-channels i:nth-child(3){background:#21a77b}.publish-channels i:last-child{margin-left:auto;color:#586174;background:#eef1f6}
+.publish-caption{margin:2px 0 0;text-align:center;color:#6d78cf;font-size:12px;line-height:1.5}
+.workflow-question{position:relative;z-index:4;text-align:center}.workflow-question::before,.workflow-question::after{position:absolute;top:44px;width:36px;height:4px;border-radius:4px;background:linear-gradient(90deg,#74a9fa,#6958ef);content:"";animation:workflowPulse 2.2s ease-in-out infinite}.workflow-question::before{right:calc(100% + 4px)}.workflow-question::after{left:calc(100% + 4px)}.question-orb{display:grid;width:74px;height:74px;margin:0 auto 13px;place-items:center;border-radius:50%;color:#fff;background:radial-gradient(circle at 30% 24%,#61d1f2,#6558ef 60%,#4133cb);box-shadow:0 15px 35px rgba(86,76,227,.32);font-size:38px;font-weight:800}.workflow-question p{margin:0;padding:10px 8px;border:1px solid #dce2ee;border-radius:12px;background:#fff;box-shadow:0 10px 26px rgba(55,67,104,.08);font-size:9px;font-weight:800;line-height:1.35}
+.measure-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px}.measure-metric{padding:12px 7px;border:1px solid #e1e6ef;border-radius:12px;background:#fff;text-align:center}.measure-metric i{display:block;color:#2169e8;font-style:normal;font-size:18px}.measure-metric strong{display:block;margin-top:5px;font-size:17px}.measure-metric small{display:block;color:#727c8e;font-size:7px}.measure-metric:nth-child(2) i{color:#8d42e8}.measure-metric:nth-child(3) i{color:#16b96e}
+.measure-trend{height:115px;margin-top:12px;padding:8px;border-radius:14px;background:linear-gradient(180deg,#fff,#f5faff)}.measure-trend svg{width:100%;height:100%}.measure-trend .gridline{stroke:#dfe5ef;stroke-width:1;stroke-dasharray:3 4}.measure-trend .line-a{fill:none;stroke:#2467ee;stroke-width:3}.measure-trend .line-b{fill:none;stroke:#a840ef;stroke-width:3}.measure-trend .area{fill:url(#measureArea);opacity:.38}
+.measure-details{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}.measure-detail{min-height:132px;padding:11px;border:1px solid #dfe5ef;border-radius:13px;background:#fff}.measure-detail h4{margin:0 0 10px;font-size:9px}.mini-column-chart{display:flex;height:82px;align-items:flex-end;gap:6px}.mini-column-chart i{flex:1;border-radius:3px 3px 0 0;background:linear-gradient(#59bce9,#3267e9)}.mini-column-chart i:nth-child(1){height:35%}.mini-column-chart i:nth-child(2){height:55%}.mini-column-chart i:nth-child(3){height:49%}.mini-column-chart i:nth-child(4){height:72%}.mini-column-chart i:nth-child(5){height:88%}.mini-post-list{display:grid;gap:7px}.mini-post-list div{display:grid;grid-template-columns:18px 1fr;gap:5px;align-items:center}.mini-post-list i{height:18px;border-radius:4px;background:linear-gradient(135deg,#9f68ef,#625be8)}.mini-post-list span{height:5px;border-radius:4px;background:#bdc9df}.mini-post-list div:nth-child(2) span{width:82%}.mini-post-list div:nth-child(3) span{width:68%}.mini-post-list div:nth-child(4) span{width:48%}
+@keyframes workflowPulse{50%{opacity:.45;transform:scaleX(.82)}}@keyframes workflowDash{to{stroke-dashoffset:-36}}
+
+.analytics{
+  background:var(--dark);
+  color:#fff;
+  padding:125px 0;
+}
+.analytics .eyebrow{color:#9ba4b6}
+.analytics h2{max-width:850px}
+.analytics-intro{color:#aeb6c6;max-width:690px;font-size:18px;line-height:1.65}
+.analytics-ui{
+  margin-top:60px;
+  background:#171c27;
+  border:1px solid #2c3340;
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 35px 90px rgba(0,0,0,.25);
+}
+.analytics-header{display:flex;justify-content:space-between;align-items:center;padding:5px 4px 18px;border-bottom:1px solid #303642}
+.analytics-header strong{font-size:15px}.analytics-header span{font-size:11px;color:#929baa}
+.analytics-summary{display:grid;grid-template-columns:1.25fr .75fr;gap:15px;margin-top:15px}
+.ai-card,.metric-card,.chart-card{border:1px solid #303642;background:#1d2330;border-radius:16px}
+.ai-card{padding:20px}.ai-card small{color:#9e8ff5;font-size:10px;text-transform:uppercase;letter-spacing:.1em;font-weight:700}.ai-card h3{font-size:22px;margin:10px 0}.ai-card p{color:#aab2c1;font-size:12px;line-height:1.55;max-width:580px}.signal{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.signal span{padding:7px 9px;background:#282f3e;border-radius:999px;font-size:10px;color:#c6ccd8}
+.metrics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.metric-card{padding:18px}.metric-card strong{font-size:27px}.metric-card span{display:block;color:#929baa;font-size:10px;margin-top:5px}
+.chart-card{margin-top:15px;padding:20px}.chart-head{display:flex;justify-content:space-between;align-items:center}.chart-head strong{font-size:13px}.chart-head span{font-size:10px;color:#8f98a8}.dark-bars{height:130px;display:flex;align-items:flex-end;gap:12px;padding:20px 12px 0}.dark-bars i{flex:1;background:linear-gradient(180deg,#8b80ef,#4f68bd);height:var(--h);border-radius:5px 5px 0 0}
+
+.analytics-story{padding:125px 0;color:var(--ink);background:linear-gradient(180deg,#fbfbfd 0%,#f4f6fb 48%,#fbfbfd 100%)}
+.analytics-story .eyebrow{color:#697184}.analytics-story h2{max-width:900px}
+.analytics-story-head{display:grid;grid-template-columns:.78fr 1.22fr;gap:80px;align-items:end}
+.analytics-story-head p{margin:0;color:var(--muted);font-size:18px;line-height:1.7}
+.analytics-story-head strong{display:block;margin-top:18px;color:var(--ink);font-size:20px;line-height:1.45}
+.analytics-beat{margin-top:90px}
+.analytics-beat-label{display:block;margin-bottom:14px;color:#7167d7;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+.analytics-question-beat{display:grid;grid-template-columns:.62fr 1.38fr;gap:55px;align-items:center}
+.analytics-question-copy h3,.analytics-research-copy h3,.analytics-principle-copy h3{margin:0 0 16px;font-size:clamp(30px,4vw,48px);letter-spacing:-.045em;line-height:1.04}
+.analytics-question-copy p,.analytics-research-copy p,.analytics-principle-copy p{margin:0;color:var(--muted);font-size:16px;line-height:1.68}
+.analytics-visual{margin:0;overflow:hidden;border:1px solid #dfe3ec;border-radius:22px;background:#fff;box-shadow:0 28px 75px rgba(47,58,91,.1)}
+.analytics-visual img{display:block;width:100%;height:auto}
+.analytics-research-beat{display:grid;grid-template-columns:.72fr 1.28fr;gap:55px;align-items:start}
+.analytics-signals{margin:30px 0 0;padding:0;border-top:1px solid var(--line);list-style:none}
+.analytics-signals li{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:15px 0;border-bottom:1px solid var(--line);color:#333a49;font-size:13px;line-height:1.5}
+.analytics-signals span{display:grid;width:23px;height:23px;place-items:center;border-radius:50%;color:#fff;background:#7167d7;font-size:9px;font-weight:700}
+.analytics-principle-beat{padding-top:85px;border-top:1px solid var(--line)}
+.analytics-principle-copy{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:end;margin-bottom:36px}
+.analytics-principle-copy p strong{color:var(--ink)}
+.analytics-principle-note{display:flex;align-items:center;gap:12px;margin-top:20px;color:#7167d7;font-size:12px;font-weight:700}
+.analytics-principle-note i{width:34px;height:1px;background:#b7b2ee}
+
+.reconstructed-visual{position:relative;overflow:hidden;border:1px solid #dfe3ec;border-radius:22px;background:#fff;box-shadow:0 28px 75px rgba(47,58,91,.1)}
+.plan-question-visual{min-height:470px;background:radial-gradient(circle at 75% 80%,rgba(66,197,233,.65),transparent 34%),radial-gradient(circle at 48% 88%,rgba(101,118,236,.55),transparent 32%),linear-gradient(135deg,#fff 5%,#edf5ff 52%,#f4edff)}
+.plan-carousel{position:absolute;top:92px;left:50%;display:flex;width:118%;align-items:center;justify-content:center;gap:28px;transform:translateX(-50%)}
+.plan-card{width:230px;min-height:230px;overflow:hidden;border:1px solid rgba(214,219,231,.95);border-radius:16px;background:rgba(255,255,255,.72);box-shadow:0 16px 40px rgba(54,65,105,.08);opacity:.28;transform:scale(.92)}
+.plan-card.active{width:272px;opacity:1;transform:none;box-shadow:0 22px 55px rgba(54,65,105,.16)}
+.plan-card-cover{height:82px;background:linear-gradient(135deg,#816ec6,#d5b7de 52%,#566caa)}.plan-card.active .plan-card-cover{background:linear-gradient(135deg,#081c61,#3476d1 55%,#89a5de)}
+.plan-card-logo{display:grid;width:47px;height:47px;margin:-24px auto 0;place-items:center;border:6px solid #fff;border-radius:50%;color:#fff;background:linear-gradient(135deg,#33bfe7,#365ee0);font-size:18px;font-weight:800;box-shadow:0 8px 20px rgba(41,59,107,.18)}
+.plan-card-copy{padding:13px 16px 16px}.plan-card-meta{display:flex;justify-content:space-between;color:#8a91a1;font-size:8px}.plan-card-meta span:first-child{padding:2px 6px;border:1px solid #ff9f9f;border-radius:999px;color:#f34c4c}.plan-card h4{margin:16px 0 7px;font-size:13px;line-height:1.25}.plan-card p{margin:0;color:#737b8b;font-size:9px;line-height:1.45}.plan-card-owner{display:flex;align-items:center;gap:8px;margin-top:14px;color:#626a78;font-size:8px}.plan-card-avatar{width:23px;height:23px;border-radius:50%;background:linear-gradient(135deg,#d8b088,#503529)}
+.plan-question{position:absolute;right:0;bottom:52px;left:0;text-align:center}.plan-question strong{font-family:var(--serif);font-size:clamp(31px,4vw,48px);font-weight:600;color:#454e66;letter-spacing:-.04em}.plan-question strong u{text-decoration-thickness:2px;text-underline-offset:7px}.plan-question-pill{display:inline-flex;align-items:center;gap:10px;margin:18px 0 0 80px;padding:8px 18px;border-radius:999px;background:rgba(225,219,255,.8);font-size:16px;font-weight:700}.plan-question-pill b{font-size:25px}
+
+.analytics-research-beat{display:block}.analytics-research-copy{max-width:800px;margin-bottom:35px}
+.research-insight-visual{padding:34px;background:linear-gradient(135deg,#f8fdff,#f5f2ff 56%,#fff)}
+.research-insight-header{text-align:center}.research-insight-header h3{margin:0;font-family:var(--serif);font-size:clamp(31px,4vw,48px);color:#46506a}.research-insight-header p{margin:8px 0 0;color:#717887;font-size:16px}
+.research-insight-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:48px}
+.research-insight-card{position:relative;min-height:355px;padding:18px 20px 24px;border:1px solid #dce1ea;border-radius:17px;background:rgba(255,255,255,.78);box-shadow:0 12px 32px rgba(55,65,99,.06)}
+.research-insight-number{position:absolute;top:15px;left:15px;display:grid;width:32px;height:32px;place-items:center;border-radius:50%;color:#fff;background:#675cf1;font-weight:700;box-shadow:0 5px 14px rgba(94,82,229,.26)}
+.research-icon{position:relative;display:grid;width:132px;height:125px;margin:6px auto 18px;place-items:center;border-radius:50%;background:radial-gradient(circle,#f2efff,#eefaff 72%,transparent 73%)}
+.summary-shape{width:82px;padding:15px;border-radius:12px;background:#fff;box-shadow:0 10px 25px rgba(72,78,125,.13)}.summary-shape i{display:block;width:100%;height:5px;margin:7px 0;border-radius:5px;background:#b8aaf3}.summary-shape i:nth-child(2){width:72%}.summary-shape::after{position:absolute;color:#6c5df0;font-size:24px;content:"✦";transform:translate(56px,-52px)}
+.funnel-shape{display:flex;align-items:center;flex-direction:column;gap:5px}.funnel-shape i{display:block;height:20px;border-radius:5px;background:linear-gradient(90deg,#38cce7,#7259ec)}.funnel-shape i:nth-child(1){width:68px}.funnel-shape i:nth-child(2){width:84px}.funnel-shape i:nth-child(3){width:101px}
+.chart-shape{position:relative;width:105px;height:82px;padding:12px;border-radius:11px;background:#fff;box-shadow:0 10px 25px rgba(72,78,125,.13)}.chart-bars{display:flex;height:45px;align-items:flex-end;gap:7px;border-bottom:2px solid #8075ee;border-left:2px solid #8075ee}.chart-bars i{width:12px;background:linear-gradient(#b0a4f7,#6259e7)}.chart-bars i:nth-child(1){height:38%}.chart-bars i:nth-child(2){height:70%}.chart-bars i:nth-child(3){height:56%}.chart-bars i:nth-child(4){height:86%}
+.target-shape{position:relative;width:96px;height:96px;border:11px solid #cfcbfb;border-radius:50%;box-shadow:inset 0 0 0 12px #f4f2ff,inset 0 0 0 23px #8e82ec}.target-shape::before{position:absolute;top:-16px;right:-7px;width:50px;height:8px;background:#6156e3;content:"";transform:rotate(-42deg);transform-origin:right}.target-shape::after{position:absolute;right:-12px;bottom:-8px;display:grid;width:34px;height:34px;place-items:center;border-radius:50%;color:#fff;background:#66dccd;content:"✓";font-weight:800}
+.research-insight-card h4{margin:0 0 17px;font-size:17px;line-height:1.25}.research-insight-card h4::after{display:block;width:30px;height:2px;margin-top:13px;background:#8d7df2;content:""}.research-insight-card p{margin:0;color:#606879;font-size:12px;line-height:1.65}
+
+.principle-reconstruction{display:grid;grid-template-columns:1.58fr .92fr;min-height:620px;background:linear-gradient(135deg,#fff,#f2f8ff 56%,#f5efff)}
+.principle-map{position:relative;padding:34px 42px 42px}.principle-map>h3{margin:0;color:#46506a;font-family:var(--serif);font-size:clamp(34px,4vw,52px)}.principle-layers{position:relative;display:grid;gap:58px;margin:110px 0 0 104px}.principle-layers::before{position:absolute;top:-5px;bottom:-8px;left:-54px;width:3px;background:#6d63f1;content:""}.principle-layers::after{position:absolute;bottom:-10px;left:-62px;width:16px;height:16px;border-right:3px solid #6d63f1;border-bottom:3px solid #6d63f1;content:"";transform:rotate(45deg)}
+.ai-vertical{position:absolute;top:198px;left:26px;color:#101521;font-size:17px;font-weight:800;letter-spacing:.03em;transform:rotate(-90deg) translateX(-100%);transform-origin:top left}.ai-vertical::after{margin-left:12px;color:#5147db;content:"✦"}
+.principle-layer{display:grid;grid-template-columns:54px 1fr;gap:18px;align-items:center}.principle-layer>span{display:grid;width:46px;height:46px;place-items:center;border:1px solid #6b61ef;border-radius:50%;color:#594fe3;font-size:22px}.principle-layer strong{display:block;font-size:18px;text-transform:uppercase}.principle-layer p{margin:5px 0 0;color:#202633;font-size:17px}
+.analytics-mock{position:relative;margin:18px 18px 18px 0;overflow:hidden;border:1px solid #d6dbe6;border-radius:15px;background:#fff;box-shadow:0 20px 50px rgba(45,56,91,.12)}.analytics-mock-image{display:block;width:100%;height:100%;object-fit:contain}.mock-browser{display:flex;height:27px;align-items:center;gap:5px;padding:0 10px;border-bottom:1px solid #e5e8ee;background:#f3f4f7}.mock-browser i{width:6px;height:6px;border-radius:50%;background:#aeb5c1}.mock-browser span{width:55%;height:9px;margin-left:8px;border-radius:5px;background:#fff}
+.mock-app{display:grid;grid-template-columns:70px 1fr;height:calc(100% - 27px)}.mock-sidebar{padding:14px 8px;border-right:1px solid #eceef3;background:#fafbfc}.mock-sidebar b{display:block;margin-bottom:18px;font-size:7px}.mock-sidebar i{display:block;width:80%;height:5px;margin:9px 0;border-radius:3px;background:#dfe3ea}.mock-dashboard{padding:14px;background:#f5f6f8}.mock-dashboard>strong{font-size:9px}.mock-summary{margin-top:10px;padding:10px;border-left:3px solid #55a3e4;border-radius:5px;background:#eaf5fc}.mock-summary b{display:block;font-size:7px}.mock-summary p{margin:5px 0 0;color:#657082;font-size:5px;line-height:1.4}.mock-kpis{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.mock-module{min-height:64px;padding:8px;border:1px solid #e3e6ec;border-radius:5px;background:#fff}.mock-module b{display:block;font-size:6px}.mock-stat-row{display:flex;gap:12px;margin-top:8px}.mock-stat-row strong{font-size:11px}.mock-stat-row small{display:block;color:#8b93a2;font-size:4px}.mock-sentiment{height:8px;margin-top:17px;background:linear-gradient(90deg,#5a6ee8 66%,#aaa 66% 83%,#ef7227 83%)}.mock-table{margin-top:8px;padding:8px;border:1px solid #e3e6ec;border-radius:5px;background:#fff}.mock-table b{font-size:6px}.mock-table i{display:block;height:6px;margin:7px 0;border-radius:3px;background:linear-gradient(90deg,#d7dbe3 15%,#eef0f4 15%)}.mock-charts{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.mock-chart-box{height:78px;padding:7px;border:1px solid #e3e6ec;border-radius:5px;background:#fff}.mini-bars{display:flex;height:48px;align-items:flex-end;gap:3px}.mini-bars i{flex:1;background:linear-gradient(#796ef0,#45bcd8)}.mini-bars i:nth-child(1){height:40%}.mini-bars i:nth-child(2){height:80%}.mini-bars i:nth-child(3){height:55%}.mini-bars i:nth-child(4){height:70%}.mini-lines{position:relative;height:50px;background:linear-gradient(165deg,transparent 46%,#6b60e9 47% 49%,transparent 50%),linear-gradient(20deg,transparent 46%,#43bfd3 47% 49%,transparent 50%)}.mock-layer-marker{position:absolute;left:-12px;display:grid;width:25px;height:25px;place-items:center;border-radius:50%;color:#fff;background:#665cf0;font-size:10px;font-weight:700}.mock-layer-marker.m1{top:235px}.mock-layer-marker.m2{top:380px}.mock-layer-marker.m3{top:530px}
+
+.design-walkthrough{margin-top:85px;padding-top:85px;border-top:1px solid var(--line)}
+.walkthrough-intro{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:end;margin-bottom:35px}
+.walkthrough-intro h3{margin:0;font-size:clamp(34px,4vw,54px);letter-spacing:-.045em;line-height:1.02}
+.walkthrough-intro p{margin:0;color:var(--muted);font-size:17px;line-height:1.72}
+.walkthrough-grid{display:grid;grid-template-columns:minmax(290px,.72fr) minmax(0,1.28fr);gap:56px;align-items:start}
+.walkthrough-steps{padding-bottom:24vh}
+.walkthrough-step{position:relative;display:flex;min-height:76vh;align-items:center;padding:70px 8px 70px 42px;outline:none}
+.walkthrough-step::before{position:absolute;top:50%;left:3px;width:2px;height:0;border-radius:2px;background:linear-gradient(#665af0,#42bfd9);content:"";transform:translateY(-50%);transition:height .45s ease}
+.walkthrough-step-copy{opacity:.32;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+.walkthrough-step.active::before{height:78%}.walkthrough-step.active .walkthrough-step-copy,.walkthrough-step:focus-visible .walkthrough-step-copy{opacity:1;transform:none}
+.walkthrough-step:focus-visible{border-radius:18px;box-shadow:0 0 0 3px rgba(102,90,240,.2)}
+.walkthrough-kicker{display:flex;align-items:center;gap:14px;margin-bottom:20px;color:#5548dd;font-size:14px;font-weight:850;letter-spacing:.08em;line-height:1.2;text-transform:uppercase}
+.walkthrough-kicker span{display:grid;width:40px;height:40px;flex:0 0 auto;place-items:center;border:1.5px solid #8175f1;border-radius:50%;background:#f5f3ff;box-shadow:0 8px 20px rgba(96,82,224,.12);font-size:13px}
+.walkthrough-step h4{margin:0 0 17px;font-size:clamp(27px,3vw,39px);letter-spacing:-.04em;line-height:1.04}
+.walkthrough-step p{margin:0;color:#596273;font-size:15px;line-height:1.72}
+.walkthrough-rationale{display:grid;gap:8px;margin-top:23px;padding-top:20px;border-top:1px solid #e2e5ed}
+.walkthrough-rationale div{display:grid;grid-template-columns:84px 1fr;gap:12px;color:#707889;font-size:11px;line-height:1.5}
+.walkthrough-rationale b{color:#242a37;font-size:9px;letter-spacing:.09em;text-transform:uppercase}
+.walkthrough-visual{position:sticky;top:82px;height:calc(100vh - 108px);min-height:640px;max-height:820px;overflow:hidden;padding:14px;border-radius:18px;background:#fff}
+.walkthrough-browser{display:flex;height:31px;align-items:center;gap:6px;padding:0 11px;border:1px solid #dfe3eb;border-bottom:0;border-radius:13px 13px 0 0;background:#f0f2f6}
+.walkthrough-browser i{width:7px;height:7px;border-radius:50%;background:#aeb5c3}.walkthrough-browser span{width:48%;height:9px;margin-left:8px;border-radius:8px;background:#fff}
+.walkthrough-dashboard-window{height:100%;overflow:hidden;border-radius:10px;background:#fff}
+.walkthrough-dashboard{position:relative;padding:0;background:#fff;transition:transform .7s cubic-bezier(.22,.8,.24,1)}
+.design-walkthrough[data-active-stage="ai"] .walkthrough-dashboard{transform:translateY(0)}
+.design-walkthrough[data-active-stage="outcomes"] .walkthrough-dashboard{transform:translateY(-280px)}
+.design-walkthrough[data-active-stage="drivers"] .walkthrough-dashboard{transform:translateY(-650px)}
+.design-walkthrough[data-active-stage="depth"] .walkthrough-dashboard{transform:translateY(-1030px)}
+.walkthrough-image-stack{position:relative;background:#fff}
+.walkthrough-dashboard-image{display:block;width:100%;height:auto}
+.walkthrough-stage-image{position:absolute;inset:0;opacity:0;transform:scale(1.006);transition:opacity .55s ease,transform .75s cubic-bezier(.22,.8,.24,1)}
+.walkthrough-stage-image:first-child{position:relative}
+.design-walkthrough[data-active-stage="ai"] [data-image-stage="ai"],.design-walkthrough[data-active-stage="outcomes"] [data-image-stage="outcomes"],.design-walkthrough[data-active-stage="drivers"] [data-image-stage="drivers"],.design-walkthrough[data-active-stage="depth"] [data-image-stage="depth"]{z-index:1;opacity:1;transform:scale(1)}
+.walkthrough-product-head{padding:0 2px 14px}.walkthrough-product-head b{display:block;font-size:13px}.walkthrough-product-head span{display:block;margin-top:4px;color:#7a8290;font-size:8px}
+.walkthrough-zone{position:relative;margin-bottom:12px;opacity:.13;filter:saturate(.15);transform:scale(.992);transform-origin:center;transition:opacity .5s ease,filter .5s ease,transform .5s ease,box-shadow .5s ease}
+.design-walkthrough[data-active-stage="ai"] [data-ui-zone="ai"],.design-walkthrough[data-active-stage="outcomes"] [data-ui-zone="outcomes"],.design-walkthrough[data-active-stage="drivers"] [data-ui-zone="drivers"],.design-walkthrough[data-active-stage="depth"] [data-ui-zone="depth"]{z-index:2;opacity:1;filter:none;transform:none}
+.walkthrough-zone::after{position:absolute;inset:-5px;border:1px solid transparent;border-radius:14px;pointer-events:none;content:"";transition:border-color .5s ease,box-shadow .5s ease}
+.design-walkthrough[data-active-stage="ai"] [data-ui-zone="ai"]::after,.design-walkthrough[data-active-stage="outcomes"] [data-ui-zone="outcomes"]::after,.design-walkthrough[data-active-stage="drivers"] [data-ui-zone="drivers"]::after,.design-walkthrough[data-active-stage="depth"] [data-ui-zone="depth"]::after{border-color:rgba(102,90,240,.42);box-shadow:0 12px 35px rgba(95,82,225,.11)}
+.ui-ai-summary{padding:15px 17px;border-left:4px solid #56a5e7;border-radius:9px;background:#e9f5fc;box-shadow:0 3px 8px rgba(39,55,85,.08)}
+.ui-ai-summary h5{display:flex;justify-content:space-between;margin:0 0 8px;font-size:9px}.ui-ai-badge{padding:3px 7px;border-radius:999px;color:#655be2;background:#fff;font-size:6px;letter-spacing:.05em;text-transform:uppercase}
+.ui-ai-summary p{margin:0;color:#4d5969;font-size:7px;line-height:1.52}.ui-ai-summary p+p{margin-top:4px}.ui-ai-summary strong{color:#242b37}
+.ui-outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.ui-card{padding:15px;border:1px solid #dfe3eb;border-radius:9px;background:#fff;box-shadow:0 3px 9px rgba(43,54,88,.05)}
+.ui-card h5{margin:0 0 14px;font-size:9px}.ui-metrics{display:grid;grid-template-columns:1fr 1fr;gap:16px}.ui-metric strong{display:block;font-size:19px}.ui-metric span{color:#8a92a1;font-size:6px}.ui-metric:last-child{grid-column:1/-1}
+.ui-funnel-total{font-size:19px}.ui-funnel-total small{display:block;color:#8a92a1;font-size:6px}.ui-funnel-bars{display:grid;gap:7px;margin-top:14px}.ui-funnel-bars i{display:block;height:8px;border-radius:1px;background:#6476ea}.ui-funnel-bars i:nth-child(2){width:24%;background:#ef8ec8}.ui-funnel-bars i:nth-child(3){width:34%;background:#39aeb1}
+.ui-sentiment{grid-column:1/-1}.ui-sentiment-title{font-size:17px}.ui-sentiment-bar{display:grid;grid-template-columns:66fr 17fr 17fr;height:10px;margin:13px 0 10px}.ui-sentiment-bar i:nth-child(1){background:#5c70e7}.ui-sentiment-bar i:nth-child(2){background:#aaa}.ui-sentiment-bar i:nth-child(3){background:#f46d24}.ui-sentiment-values{display:flex;gap:24px}.ui-sentiment-values strong{padding-left:7px;border-left:3px solid #5c70e7;font-size:14px}.ui-sentiment-values strong:nth-child(2){border-color:#aaa}.ui-sentiment-values strong:nth-child(3){border-color:#f46d24}.ui-sentiment-values small{display:block;color:#8a92a1;font-size:6px}
+.ui-table{padding:15px}.ui-table-head,.ui-table-row{display:grid;grid-template-columns:2.2fr .8fr .65fr .8fr .8fr;gap:8px;align-items:center}.ui-table-head{padding-bottom:8px;color:#7d8593;font-size:6px}.ui-table-row{min-height:35px;border-top:1px solid #e8eaf0;font-size:7px}.ui-table-person{display:flex;align-items:center;gap:7px}.ui-avatar{width:19px;height:19px;flex:0 0 auto;border-radius:50%;background:linear-gradient(135deg,#efc7a5,#483329)}.ui-table-person b{display:block;font-size:7px}.ui-table-person small{display:block;overflow:hidden;max-width:145px;color:#8a92a1;font-size:5px;text-overflow:ellipsis;white-space:nowrap}.ui-positive{width:max-content;padding:3px 6px;border:1px solid #b9c5f7;border-radius:999px;color:#5268d8;font-size:5px}
+.ui-depth-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.ui-chart-card{min-height:155px}.ui-chart-card h5{margin-bottom:10px}.ui-horizontal-bars{display:grid;gap:8px}.ui-horizontal-bars i{display:block;height:9px;background:linear-gradient(90deg,#6576ed 20%,#e3399b 20% 38%,#34a9aa 38% 66%,#4fae3c 66% 82%,#5a9fd7 82%)}.ui-horizontal-bars i:nth-child(2){width:82%}.ui-horizontal-bars i:nth-child(3){width:91%}.ui-horizontal-bars i:nth-child(4){width:65%}.ui-line-chart{height:94px;background:linear-gradient(168deg,transparent 46%,#6d5ce8 47% 49%,transparent 50%),linear-gradient(18deg,transparent 46%,#34b6c5 47% 49%,transparent 50%);border-bottom:1px solid #dfe3eb}
+.ui-comments{grid-column:1/-1}.ui-theme-chips{display:flex;flex-wrap:wrap;gap:5px}.ui-theme-chips span{padding:5px 7px;border:1px solid #d9dde6;border-radius:5px;background:#f9fafb;font-size:6px}.ui-theme-chips span:first-child{border-color:#4d9fe3;background:#eef7ff;font-weight:700}.ui-comments-body{display:grid;grid-template-columns:.8fr 1.2fr;gap:16px;margin-top:14px}.ui-theme-summary h6{margin:0;font-size:14px}.ui-theme-summary p{color:#667081;font-size:7px;line-height:1.5}.ui-comment{display:grid;grid-template-columns:22px 1fr auto;gap:7px;align-items:center;padding:6px 0;border-bottom:1px solid #e7e9ee}.ui-comment b{display:block;font-size:7px}.ui-comment p{margin:2px 0 0;color:#737b89;font-size:6px}.ui-comment span{font-size:6px}
+
+.demo{background:#f5f6f9}
+.video{
+  margin-top:55px;
+  aspect-ratio:16/9;
+  border-radius:24px;
+  background:linear-gradient(145deg,#161b26,#252d3d);
+  border:1px solid #303746;
+  box-shadow:0 30px 80px rgba(35,45,73,.16);
+  display:grid;place-items:center;position:relative;overflow:hidden;
+}
+.video video{display:block;width:100%;height:100%;object-fit:cover;background:#111722}
+.play-btn{width:72px;height:72px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);backdrop-filter:blur(10px);display:grid;place-items:center;color:#fff;font-size:22px;position:relative;z-index:2}
+.video-label{position:absolute;left:28px;bottom:25px;color:#fff;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.video-url{margin-top:14px;color:#8a92a1;font-size:11px}
+
+.preview{background:#fff}
+.preview-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);margin-top:55px;border:1px solid var(--line)}
+.preview-card{background:#fff;padding:30px 28px;min-height:190px}.preview-card .num{font-size:11px;color:#7b72d7;font-weight:700}.preview-card h3{font-size:20px;margin:12px 0 8px}.preview-card p{font-size:13px;line-height:1.55;color:var(--muted);margin:0}
+
+.reflection{
+  min-height:75vh;
+  display:grid;place-items:center;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 40%,rgba(119,212,236,.12),transparent 25%),
+    radial-gradient(circle at 50% 60%,rgba(128,115,237,.11),transparent 30%),
+    #fafafd;
+}
+.reflection h2{max-width:850px;margin:18px auto 22px}
+.reflection p{max-width:700px;margin:auto;color:var(--muted);font-size:18px;line-height:1.7}
+
+.footer{padding:30px 0;border-top:1px solid var(--line);font-size:12px;color:#8a92a1;display:flex;justify-content:space-between}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .container{width:min(100% - 40px,var(--max))}
+  .nav-links{display:none}
+  .hero{padding-top:130px}.hero-grid,.context-grid,.challenge-grid,.research-intro,.decision-grid{grid-template-columns:1fr}
+  .hero-orb{height:430px;order:-1}.hero h1{font-size:clamp(52px,13vw,78px)}
+  .meta{grid-template-columns:repeat(2,1fr)}
+  .lifecycle{grid-template-columns:repeat(2,1fr)}
+  .life:nth-child(2){border-right:0}.life:after{display:none!important}
+  .cascade-stage{height:700px}.cascade-core{width:280px;top:43%}.cascade-core.source-post-image{width:360px}
+  .cascade-card .product-image{height:160px}
+  .node{font-size:10px}.n1{left:3%;top:12%}.n2{left:1%;top:42%}.n3{left:5%;top:72%}.n4{right:3%;top:10%}.n5{right:1%;top:41%}.n6{right:4%;top:70%}.n7{left:37%;top:2%}
+  .message{width:170px}.message:nth-of-type(1){right:0;top:18%}.message:nth-of-type(2){right:0;top:50%}.message:nth-of-type(3){right:0;top:80%}
+  .cascade-question{bottom:0;white-space:normal;width:100%}.cascade-question h3{font-size:25px}
+  .question-grid,.methods,.findings,.hierarchy,.preview-grid{grid-template-columns:1fr}
+  .question:not(:last-child),.method:not(:last-child),.h-step:not(:last-child){border-right:0;margin-right:0;padding-right:0;border-bottom:1px solid #303642}
+  .problem-punch{padding-top:75px}
+  .analytics-summary{grid-template-columns:1fr}.metrics-grid{grid-template-columns:repeat(2,1fr)}
+  .solution-tabs{grid-template-columns:1fr}.solution-tab-list{grid-template-columns:repeat(3,1fr);grid-template-rows:none}.solution-tab{grid-template-columns:30px 1fr;padding:18px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}.solution-tab:last-child{border-right:0;border-bottom:1px solid var(--line)}.solution-tab.active{box-shadow:inset 0 3px 0 var(--violet)}.solution-tab small{display:none}.solution-tab-panels{min-height:0}
+  .workflow-shell{padding:28px}.workflow-track{grid-template-columns:1fr 1fr;gap:18px}.workflow-question{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:15px}.workflow-question::before,.workflow-question::after{display:none}.question-orb{width:58px;height:58px;margin:0;font-size:28px}.workflow-question p{max-width:190px}.workflow-measure{grid-column:1/-1;min-height:0}.measure-details{grid-template-columns:1fr 1fr}
+  .analytics-story-head,.analytics-question-beat,.analytics-research-beat,.analytics-principle-copy{grid-template-columns:1fr;gap:28px}.analytics-beat{margin-top:70px}
+  .research-insight-grid{grid-template-columns:repeat(2,1fr)}.principle-reconstruction{grid-template-columns:1fr}.analytics-mock{min-height:560px;margin:0 18px 18px}.principle-map{min-height:590px}
+  .walkthrough-intro{grid-template-columns:1fr;gap:22px}.walkthrough-grid{grid-template-columns:1fr}.walkthrough-steps{display:grid;gap:16px;padding:0}.walkthrough-step{min-height:0;padding:28px 24px;border:1px solid #e0e4ec;border-radius:18px;background:#fff}.walkthrough-step::before{top:0;right:20px;left:20px;width:auto;height:2px;transform:none}.walkthrough-step.active::before{height:2px}.walkthrough-step-copy{opacity:1;transform:none}.walkthrough-visual{position:relative;top:auto;height:760px;min-height:0}.walkthrough-dashboard{transform:none!important}.walkthrough-zone{opacity:1;filter:none;transform:none}.walkthrough-zone::after{display:none}
+}
+@media(max-width:560px){
+  .section{padding:85px 0}
+  .hero{min-height:auto;padding-bottom:70px}.hero-orb{height:330px}.orb-ring.r1{width:240px;height:240px}.orb-ring.r2{width:320px;height:320px}.orb-ring.r3{width:410px;height:410px}.hero-product{width:290px}.hero-note{display:none}
+  .meta{gap:12px}.meta-value{font-size:12px}
+  .cascade-stage{height:760px}.cascade-core{top:38%;width:250px}.cascade-core.source-post-image{width:290px}.ring.one{width:280px;height:280px}.ring.two{width:430px;height:430px}.ring.three{width:590px;height:590px}
+  .message{width:155px}.message p{font-size:10px}
+  .problem h2,.challenge h2,.research h2,.shift h2,.decisions h2,.analytics h2,.preview h2,.reflection h2,.context h2{font-size:42px}
+  .analytics-ui{padding:12px}.ai-card{padding:15px}.metrics-grid{gap:8px}.metric-card{padding:13px}.metric-card strong{font-size:21px}
+  .footer{display:block}.footer span{display:block;margin-top:8px}
+  .solution-tab{display:flex;justify-content:center;padding:14px 8px}.solution-tab>span{display:none}.solution-tab strong{margin:0;font-size:12px;text-align:center}.solution-panel-copy{padding:24px 20px 18px}.solution-panel-copy h3{font-size:30px}.solution-panel .screen{margin:0 14px 14px;padding:10px}
+  .workflow-heading h2{font-size:43px}.workflow-heading p{font-size:15px}.workflow-shell{margin-top:38px;padding:14px;border-radius:20px}.workflow-track{grid-template-columns:1fr}.workflow-card{min-height:0;padding:18px}.workflow-card-head h3{font-size:23px}.workflow-publish,.workflow-question,.workflow-measure{grid-column:auto}.workflow-question{padding:10px 0}.plan-system{height:275px}.publish-stack{height:245px}.measure-details{grid-template-columns:1fr 1fr}
+  .analytics-story{padding:85px 0}.analytics-beat{margin-top:58px}.analytics-visual{border-radius:15px}.analytics-question-copy h3,.analytics-research-copy h3,.analytics-principle-copy h3{font-size:34px}.analytics-principle-beat{padding-top:58px}
+  .plan-question-visual{min-height:430px}.plan-carousel{top:65px;width:170%;gap:12px}.plan-card{width:175px}.plan-card.active{width:220px}.plan-question{bottom:38px}.plan-question-pill{margin-left:30px}.research-insight-visual{padding:24px 16px}.research-insight-grid{grid-template-columns:1fr;margin-top:34px}.research-insight-card{min-height:0}.principle-map{min-height:540px;padding:28px 18px}.principle-map>h3{font-size:38px}.principle-layers{gap:42px;margin:90px 0 0 80px}.principle-layer{grid-template-columns:44px 1fr;gap:12px}.principle-layer>span{width:40px;height:40px}.principle-layer strong{font-size:14px}.principle-layer p{font-size:14px}.ai-vertical{left:10px}.analytics-mock{min-height:500px;margin:0 10px 10px}.mock-layer-marker.m1{top:205px}.mock-layer-marker.m2{top:335px}.mock-layer-marker.m3{top:455px}
+  .design-walkthrough{margin-top:60px;padding-top:60px}.walkthrough-step{padding:24px 18px}.walkthrough-kicker{gap:10px;font-size:12px}.walkthrough-kicker span{width:36px;height:36px;font-size:11px}.walkthrough-step h4{font-size:28px}.walkthrough-rationale div{grid-template-columns:70px 1fr}.walkthrough-visual{height:640px;padding:8px}.walkthrough-dashboard{width:720px;transform:scale(.78)!important;transform-origin:top left}.walkthrough-dashboard-window{overflow:auto}.walkthrough-product-head{padding-top:4px}
+}
+</style>
+</head>
+
+<body>
+
+<nav class="nav">
+  <a class="nav-brand" href="#">Vikram Venkatesh</a>
+  <div class="nav-links">
+    <a href="#context">Context</a>
+    <a href="#problem">Problem</a>
+    <a href="#research">Research</a>
+    <a href="#design">Design</a>
+    <a href="#analytics">Analytics</a>
+    <a href="#reflection">Reflection</a>
+  </div>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">Communication Plans · UX Case Study</div>
+      <h1>Turning organisational complexity into <em>coordinated communication.</em></h1>
+      <p class="hero-copy">A new Viva Engage experience designed to help communicators, leaders and delegates coordinate complex organisational communications — from planning and publishing to understanding the outcome.</p>
+
+      <div class="meta">
+        <div class="meta-item"><div class="meta-label">My role</div><div class="meta-value">Lead Product Designer</div></div>
+        <div class="meta-item"><div class="meta-label">Team</div><div class="meta-value">Product · Engineering · Research</div></div>
+        <div class="meta-item"><div class="meta-label">Scope</div><div class="meta-value">Strategy · UX · Interaction · IA</div></div>
+        <div class="meta-item"><div class="meta-label">Status</div><div class="meta-value">Private Preview</div></div>
+      </div>
+    </div>
+
+    <div class="hero-orb" aria-hidden="true">
+      <div class="orb-ring r1"></div><div class="orb-ring r2"></div><div class="orb-ring r3"></div>
+      <div class="hero-product">
+        <div class="product-top"><div class="avatar">LF</div><strong>Leadership Updates</strong><span>Announcement</span></div>
+        <div class="product-body">
+          <h4>A message from leadership</h4>
+          <p>Today we're sharing an important organisational update. The message begins with one leader — then moves through the organisation.</p>
+          <div class="product-image"></div>
+        </div>
+      </div>
+      <div class="hero-note"><b>One goal → many moments</b><span>People · content · timing · outcome</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cascade-section" id="cascade">
+  <div class="container">
+    <div class="cascade-story-head reveal">
+      <div class="eyebrow">01 · CONTEXT → COMPLEXITY</div>
+      <h2>One message can become<br><em>an entire campaign.</em></h2>
+      <p>Important organisational communications are rarely one post. Leaders, delegates and communicators work together to plan, publish and follow up across the organisation.</p>
+    </div>
+
+    <div class="cascade-storyboard" id="cascadeStage" data-scene="1"
+         aria-label="Three-scene story: one message, the communication cascade, and the coordination problem">
+
+      <div class="cascade-copy">
+        <article class="scene-copy scene-copy-1">
+          <span class="scene-number">01</span>
+          <div class="scene-icon">📣</div>
+          <h3>It starts with one<br>important message.</h3>
+          <p>A reorg. A new initiative. A major launch. One announcement sets the communication in motion.</p>
+          <div class="scene-caption">ONE MESSAGE</div>
+        </article>
+
+        <article class="scene-copy scene-copy-2">
+          <span class="scene-number">02</span>
+          <div class="scene-icon">🌊</div>
+          <h3>Then the message<br>starts to spread.</h3>
+          <p>Leaders amplify it. New posts follow. Different products, audiences, owners and timings enter the picture.</p>
+          <div class="scene-caption">THE COMMUNICATION CASCADE</div>
+        </article>
+
+        <article class="scene-copy scene-copy-3">
+          <span class="scene-number">03</span>
+          <div class="scene-icon">🧩</div>
+          <h3>Now someone has to<br>hold it all together.</h3>
+          <p>The communicator has to coordinate <strong>people, posts, products and timing</strong> — then prove whether it worked.</p>
+          <div class="scene-caption">THE COORDINATION PROBLEM</div>
+        </article>
+      </div>
+
+      <div class="cascade-visual">
+        <div class="cascade-progress" aria-hidden="true">
+          <span class="progress-dot active"></span><span class="progress-line"></span>
+          <span class="progress-dot"></span><span class="progress-line"></span>
+          <span class="progress-dot"></span>
+        </div>
+
+        <div class="ripple-field" aria-hidden="true">
+          <div class="ripple r1"></div><div class="ripple r2"></div><div class="ripple r3"></div><div class="ripple r4"></div>
+        </div>
+
+        <!-- Product surfaces are intentionally behind the posts: they represent the cross-product reality. -->
+        <div class="back-product back-email" aria-hidden="true">
+          <div class="back-product-bar"><span class="mini-logo outlook">O</span><b>Outlook</b><span>Announcement</span></div>
+          <div class="back-product-content"><div class="mini-line w80"></div><div class="mini-line w60"></div><div class="mini-mail-card"><b>Leadership announcement</b><span>Ready for review</span></div><div class="mini-line w70"></div></div>
+        </div>
+        <div class="back-product back-sheet" aria-hidden="true">
+          <div class="back-product-bar"><span class="mini-logo excel">X</span><b>Excel</b><span>Communication tracker</span></div>
+          <div class="sheet-grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="sheet-note">Owner · Timing · Status</div>
+        </div>
+        <div class="back-product back-word" aria-hidden="true">
+          <div class="back-product-bar"><span class="mini-logo word">W</span><b>Word</b><span>Draft</span></div>
+          <div class="back-product-content"><div class="mini-line w70"></div><div class="mini-line w80"></div><div class="mini-line w60"></div><div class="mini-mail-card"><b>Message draft</b><span>Awaiting approval</span></div></div>
+        </div>
+
+        <!-- Scene 1: the single source message. -->
+        <div class="cascade-core single-post source-post-image">
+          <img src="/IMG/Comm%20post.png" alt="Leadership announcement beginning an important organisational communication">
+          <div class="posted-state"><span class="posted-dot"></span> Posted</div>
+        </div>
+
+        <!-- Scene 2: three posts appear as the message cascades. -->
+        <div class="cascade-posts">
+          <div class="cascade-post post-a">
+            <div class="post-mini-top"><span class="post-avatar">LF</span><strong>Cascade post 1</strong><span class="post-status">Leadership</span></div>
+            <p>Prepare the next message for your audience.</p>
+          </div>
+          <div class="cascade-post post-b">
+            <div class="post-mini-top"><span class="post-avatar blue">NW</span><strong>Cascade post 2</strong><span class="post-status">Product</span></div>
+            <p>Amplify the message with your team.</p>
+          </div>
+          <div class="cascade-post post-c">
+            <div class="post-mini-top"><span class="post-avatar purple">LA</span><strong>Cascade post 3</strong><span class="post-status">Teams</span></div>
+            <p>Follow up with the next audience.</p>
+          </div>
+        </div>
+
+        <!-- Scene 2/3 shared complexity objects. -->
+        <div class="spill-badge b-leaders"><span class="badge-icon">◌</span><span>Leaders</span></div>
+        <div class="spill-badge b-conversations"><span class="badge-icon">◌◌</span><span>Conversations</span></div>
+        <div class="spill-badge b-audiences"><span class="badge-icon">◎</span><span>Audiences</span></div>
+        <div class="spill-badge b-followups"><span class="badge-icon">↗</span><span>Follow-ups</span></div>
+        <div class="spill-badge b-schedules"><span class="badge-icon">□</span><span>Schedules</span></div>
+        <div class="spill-badge b-delegates"><span class="badge-icon">◫</span><span>Delegates</span></div>
+        <div class="spill-badge b-reporting"><span class="badge-icon">▥</span><span>Reporting</span></div>
+        <div class="spill-badge b-outlook"><span class="app-icon outlook">O</span><span>Outlook</span></div>
+        <div class="spill-badge b-word"><span class="app-icon word">W</span><span>Word</span></div>
+        <div class="spill-badge b-excel"><span class="app-icon excel">X</span><span>Excel</span></div>
+
+        <!-- Scene 3: everything resolves into a structure. -->
+        <div class="organized-scene">
+          <div class="organized-products">
+            <span class="org-kicker">PRODUCTS</span>
+            <div class="org-product"><span class="mini-logo outlook">O</span> Outlook</div>
+            <div class="org-product"><span class="mini-logo word">W</span> Word</div>
+            <div class="org-product"><span class="mini-logo excel">X</span> Excel</div>
+          </div>
+
+          <div class="organized-posts">
+            <span class="org-kicker">CASCADE POSTS</span>
+            <div class="org-post"><span class="post-avatar">LF</span><b>Post 1</b><small>Leadership</small></div>
+            <div class="org-post"><span class="post-avatar blue">NW</span><b>Post 2</b><small>Product</small></div>
+            <div class="org-post"><span class="post-avatar purple">LA</span><b>Post 3</b><small>Teams</small></div>
+          </div>
+
+          <div class="organized-badges">
+            <div class="org-column"><span class="org-kicker">PEOPLE</span><div class="org-item">◌ &nbsp;Leaders</div><div class="org-item">◫ &nbsp;Delegates</div></div>
+            <div class="org-column"><span class="org-kicker">COMMUNICATION</span><div class="org-item">◎ &nbsp;Audiences</div><div class="org-item">◌◌ &nbsp;Conversations</div></div>
+            <div class="org-column"><span class="org-kicker">ORCHESTRATION</span><div class="org-item">□ &nbsp;Schedules</div><div class="org-item">↗ &nbsp;Follow-ups</div></div>
+            <div class="org-column"><span class="org-kicker">MEASUREMENT</span><div class="org-item">▥ &nbsp;Reporting</div></div>
+          </div>
+        </div>
+
+        <div class="coordination-question">How do you keep all of this coordinated?</div>
+      </div>
+
+      <div class="cascade-bottom">
+        <div class="scene-connector"><span>One message</span><i>→</i><span>Communication cascade</span><i>→</i><strong>Coordination</strong></div>
+        <button id="replay" class="cascade-replay">Replay story ↻</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="problem" id="problem">
+  <div class="container">
+    <div class="eyebrow">02 · The problem</div>
+    <h2>Someone has to hold it all together.</h2>
+    <p class="problem-copy">For the corporate communicator coordinating the initiative, the complexity becomes operational. The challenge isn't simply getting a post published — it is keeping the communication effort coherent.</p>
+
+    <div class="question-grid reveal">
+      <div class="question"><div class="big">What</div><h3>What needs to go out?</h3><p>Which communications belong to the initiative?</p></div>
+      <div class="question"><div class="big">Who</div><h3>Who needs to publish it?</h3><p>Which leader or delegate owns each communication?</p></div>
+      <div class="question"><div class="big">When</div><h3>When should it go live?</h3><p>How does each communication fit the larger sequence?</p></div>
+    </div>
+
+    <div class="problem-punch reveal">
+      <div class="small">After the posts are out</div>
+      <h3>How do I know if all of this <span>worked?</span></h3>
+    </div>
+  </div>
+</section>
+
+<section class="section challenge" id="challenge">
+  <div class="container challenge-grid reveal">
+    <div>
+      <div class="eyebrow">03 · My design challenge</div>
+      <h2>How might we make a complex communication effort feel simple?</h2>
+    </div>
+    <div>
+      <p class="lead">My challenge was to turn a distributed workflow — involving people, content, timing, channels and outcomes — into an experience that felt clear enough to coordinate and meaningful enough to learn from.</p>
+      <div class="challenge-questions">
+        <div class="cq"><strong>01</strong><div><h3>Make ownership clear.</h3><p>Who owns each communication and what happens next?</p></div></div>
+        <div class="cq"><strong>02</strong><div><h3>Make progress understandable.</h3><p>Can communicators quickly see what needs attention?</p></div></div>
+        <div class="cq"><strong>03</strong><div><h3>Connect activity to outcome.</h3><p>Can the team understand the collective response?</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section research" id="research">
+  <div class="container">
+    <div class="research-intro reveal">
+      <div><div class="eyebrow">04 · Research</div><h2>Before evolving the experience, I went back to the evidence.</h2></div>
+      <p class="lead">I used recent research, user interviews and customer feedback to understand where the experience created friction, what users valued, and how the information hierarchy could better support decision making.</p>
+    </div>
+
+    <div class="methods reveal">
+      <div class="method"><div class="method-num">01</div><h3>User interviews</h3><p>Understand workflows, expectations and pain points.</p></div>
+      <div class="method"><div class="method-num">02</div><h3>Customer feedback</h3><p>Identify recurring friction and unmet needs.</p></div>
+      <div class="method"><div class="method-num">03</div><h3>Experience review</h3><p>Evaluate how information was being presented and discovered.</p></div>
+    </div>
+
+    <div class="findings reveal">
+      <div class="finding"><div class="num">FINDING 01</div><h3>Important interpretation could be missed.</h3><p>The Impact Summary was valuable, but attention could move to metrics before the higher-level story.</p><div class="implication"><b>Design implication:</b> Bring meaning earlier in the hierarchy.</div></div>
+      <div class="finding"><div class="num">FINDING 02</div><h3>Users wanted stronger visualisation.</h3><p>People needed easier ways to understand performance and relationships between signals.</p><div class="implication"><b>Design implication:</b> Use visualisation to explain, not decorate.</div></div>
+      <div class="finding"><div class="num">FINDING 03</div><h3>Post-by-post views were harder to interpret.</h3><p>Individual metrics didn't always provide enough context for understanding the broader communication.</p><div class="implication"><b>Design implication:</b> Start with the plan, then reveal the drivers.</div></div>
+      <div class="finding"><div class="num">FINDING 04</div><h3>Analytics needed a clearer narrative.</h3><p>The experience contained useful signals, but they weren't always presented in the order people needed them.</p><div class="implication"><b>Design implication:</b> Move from outcome → driver → explanation.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section shift" id="shift">
+  <div class="container reveal">
+    <div class="eyebrow">05 · The design shift</div>
+    <h2>From a collection of metrics<br>to a <span class="serif">story about impact.</span></h2>
+    <p>The research suggested that the problem wasn't a lack of analytics. It was the order in which information was presented.</p>
+
+    <div class="hierarchy">
+      <div class="h-step"><div class="num">01</div><h3>What happened?</h3><p>Plan-level outcomes: reach, engagement, click-through and sentiment.</p></div>
+      <div class="h-step"><div class="num">02</div><h3>Who / what drove it?</h3><p>Leaders, posts and audiences that contributed to the result.</p></div>
+      <div class="h-step"><div class="num">03</div><h3>Why?</h3><p>Channels, trends, comments and themes that explain the response.</p></div>
+    </div>
+    <div class="ai-strip"><strong>AI · So what?</strong><span>Interpret the signal and help users understand what matters — rather than adding another isolated AI feature.</span><strong>Now what?</strong></div>
+  </div>
+</section>
+
+<section class="section decisions workflow-solution" id="design">
+  <div class="container">
+    <div class="workflow-heading reveal">
+      <div class="eyebrow">SOLUTION</div>
+      <h2>Communication Plans in one connected workflow</h2>
+      <p>Plan, coordinate, publish, track and measure a communication program as one connected plan.</p>
+    </div>
+
+    <div class="workflow-shell reveal">
+      <div class="workflow-track">
+        <article class="workflow-card workflow-plan">
+          <header class="workflow-card-head">
+            <div class="workflow-card-icon" aria-hidden="true">●</div>
+            <div><h3>Plan</h3><p>Bring people, content and timing together in a single plan.</p></div>
+          </header>
+          <div class="plan-system">
+            <svg class="plan-links" viewBox="0 0 300 260" preserveAspectRatio="none" aria-hidden="true">
+              <line x1="150" y1="128" x2="56" y2="37"></line><line x1="150" y1="128" x2="244" y2="37"></line>
+              <line x1="150" y1="128" x2="48" y2="137"></line><line x1="150" y1="128" x2="252" y2="137"></line>
+              <line x1="150" y1="128" x2="150" y2="232"></line>
+            </svg>
+            <div class="plan-node plan-leaders"><i>♟</i><strong>Leaders</strong><small>Align and inform</small></div>
+            <div class="plan-node plan-delegates"><i>♟♟</i><strong>Delegates</strong><small>Collaborate confidently</small></div>
+            <div class="plan-node plan-drafts"><i>▤</i><strong>Drafts</strong><small>Create and iterate</small></div>
+            <div class="plan-hub"><div><i>●●</i><strong>Communication<br>Plan</strong></div></div>
+            <div class="plan-node plan-audiences"><i>♟♟</i><strong>Audiences</strong><small>Target the right people</small></div>
+            <div class="plan-node plan-schedules"><i>▦</i><strong>Schedules</strong><small>Plan and publish clearly</small></div>
+          </div>
+          <div class="workflow-chips" aria-label="Supported communication structures">
+            <div class="workflow-chip"><i>♟</i>Cascade</div><div class="workflow-chip"><i>◆</i>Series of posts</div><div class="workflow-chip"><i>▤</i>Single post</div>
+          </div>
+        </article>
+
+        <article class="workflow-card workflow-publish">
+          <header class="workflow-card-head">
+            <div class="workflow-card-icon" aria-hidden="true">➤</div>
+            <div><h3>Publish</h3><p>Turn the plan into a coordinated series of communications.</p></div>
+          </header>
+          <div class="publish-stack" aria-label="Three coordinated posts distributed across channels">
+            <div class="publish-post"><b>Post 3</b><div class="post-author"><i></i></div><div class="post-copy"><i></i><i></i></div></div>
+            <div class="publish-post"><b>Post 2</b><div class="post-author"><i></i></div><div class="post-copy"><i></i><i></i></div></div>
+            <div class="publish-post"><b>Post 1</b><div class="post-author"><i></i></div><div class="post-copy"><i></i><i></i></div><div class="publish-channels"><i>T</i><i>✉</i><i>S</i><i>•••</i></div></div>
+          </div>
+          <p class="publish-caption">A connected sequence.<br>Multiple channels. Greater reach.</p>
+        </article>
+
+        <div class="workflow-question" aria-label="How did the plan perform as a whole?">
+          <div class="question-orb">?</div>
+          <p>How did the plan<br>perform as a whole?</p>
+        </div>
+
+        <article class="workflow-card workflow-measure">
+          <header class="workflow-card-head">
+            <div class="workflow-card-icon" aria-hidden="true">▥</div>
+            <div><h3>Measure</h3><p>See the full picture. Understand impact across the entire program.</p></div>
+          </header>
+          <div class="measure-metrics">
+            <div class="measure-metric"><i>◇</i><strong>1.2M</strong><small>Total reach</small></div>
+            <div class="measure-metric"><i>♟♟</i><strong>86K</strong><small>Engagements</small></div>
+            <div class="measure-metric"><i>▥</i><strong>12%</strong><small>Engagement rate</small></div>
+          </div>
+          <div class="measure-trend" aria-label="Reach and engagement trend chart">
+            <svg viewBox="0 0 300 100" preserveAspectRatio="none">
+              <defs><linearGradient id="measureArea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#45bfe7"></stop><stop offset="1" stop-color="#45bfe7" stop-opacity="0"></stop></linearGradient></defs>
+              <line class="gridline" x1="0" y1="25" x2="300" y2="25"></line><line class="gridline" x1="0" y1="50" x2="300" y2="50"></line><line class="gridline" x1="0" y1="75" x2="300" y2="75"></line>
+              <path class="area" d="M0,84 C35,78 44,48 73,61 S115,76 145,53 S188,31 210,48 S252,37 300,18 L300,100 L0,100 Z"></path>
+              <path class="line-a" d="M0,84 C35,78 44,48 73,61 S115,76 145,53 S188,31 210,48 S252,37 300,18"></path>
+              <path class="line-b" d="M0,80 C31,66 49,78 70,56 S111,42 142,57 S182,35 211,42 S249,57 300,35"></path>
+            </svg>
+          </div>
+          <div class="measure-details">
+            <div class="measure-detail"><h4>Aggregate analytics</h4><div class="mini-column-chart"><i></i><i></i><i></i><i></i><i></i></div></div>
+            <div class="measure-detail"><h4>Per-post analytics</h4><div class="mini-post-list"><div><i></i><span></span></div><div><i></i><span></span></div><div><i></i><span></span></div><div><i></i><span></span></div></div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="analytics analytics-story" id="analytics">
+  <div class="container">
+    <div class="analytics-story-head reveal">
+      <div><div class="eyebrow">07 · Aggregate Analytics</div></div>
+      <div><p>Once everything is published, the communicator needs to understand what happened across the entire plan—not just how one post performed.</p><strong>Aggregate Analytics brings those signals together to explain the collective impact.</strong></div>
+    </div>
+
+    <div class="analytics-beat analytics-question-beat reveal">
+      <div class="analytics-question-copy">
+        <span class="analytics-beat-label">The question changes</span>
+        <h3>Did the communication effort actually work?</h3>
+        <p>What happened across the plan, what drove the result, and why?</p>
+      </div>
+      <div class="reconstructed-visual plan-question-visual" role="img" aria-label="A Communication Plan selected from several plans with the question: Did it actually work?">
+        <div class="plan-carousel" aria-hidden="true">
+          <article class="plan-card"><div class="plan-card-cover"></div><div class="plan-card-logo">●</div><div class="plan-card-copy"><div class="plan-card-meta"><span>Live</span><span>Edited 1 day ago</span></div><h4>Q1 Org Update</h4><p>Announcing an organisational update and the plan moving forward.</p><div class="plan-card-owner"><i class="plan-card-avatar"></i>Celeste Burton</div></div></article>
+          <article class="plan-card active"><div class="plan-card-cover"></div><div class="plan-card-logo">●</div><div class="plan-card-copy"><div class="plan-card-meta"><span>Live</span><span>Edited 1 day ago</span></div><h4>Q1 FY26 Org Restructure — Leadership</h4><p>Prepare to unveil the communication designed for the organisation.</p><div class="plan-card-owner"><i class="plan-card-avatar"></i>Joseph Tarkatoff and 6 others</div></div></article>
+          <article class="plan-card"><div class="plan-card-cover"></div><div class="plan-card-logo">●</div><div class="plan-card-copy"><div class="plan-card-meta"><span>Live</span><span>Edited 1 day ago</span></div><h4>Mid-Year Financial Update</h4><p>Sharing key insights and financial results from the first half.</p><div class="plan-card-owner"><i class="plan-card-avatar"></i>Joseph Tarkatoff and 6 others</div></div></article>
+        </div>
+        <div class="plan-question"><strong>Did it actually <u>work</u>?</strong><br><span class="plan-question-pill">📈 ?? <b>😰</b></span></div>
+      </div>
+    </div>
+
+    <div class="analytics-beat analytics-research-beat reveal">
+      <div class="analytics-research-copy">
+        <span class="analytics-beat-label">What shaped the direction</span>
+        <h3>Research showed that the insights were valuable—but not always in the right order.</h3>
+        <p>Before exploring layouts, I returned to recent research and customer feedback. Three signals changed the hierarchy.</p>
+      </div>
+      <div class="reconstructed-visual research-insight-visual">
+        <div class="research-insight-header"><h3>What we learned from research</h3><p>Key insights shaping the new experience</p></div>
+        <div class="research-insight-grid">
+          <article class="research-insight-card"><span class="research-insight-number">1</span><div class="research-icon"><div class="summary-shape"><i></i><i></i><i></i></div></div><h4>AI summaries were considered valuable</h4><p>AI-generated insights help communicators quickly grasp the big picture and interpret what the data means.</p></article>
+          <article class="research-insight-card"><span class="research-insight-number">2</span><div class="research-icon"><div class="funnel-shape"><i></i><i></i><i></i></div></div><h4>Users prefer top-down storytelling</h4><p>They want to start with overall outcomes before exploring contributors, channels, and deeper analysis.</p></article>
+          <article class="research-insight-card"><span class="research-insight-number">3</span><div class="research-icon"><div class="chart-shape"><div class="chart-bars"><i></i><i></i><i></i><i></i></div></div></div><h4>Visual representations improve scanning</h4><p>Charts, funnels, and visual summaries make patterns easier to understand and insights faster to find.</p></article>
+          <article class="research-insight-card"><span class="research-insight-number">4</span><div class="research-icon"><div class="target-shape"></div></div><h4>Communicators want outcomes before details</h4><p>They first want to know if the campaign worked, then dive into what drove those results and why.</p></article>
+        </div>
+      </div>
+    </div>
+
+    <div class="design-walkthrough reveal" data-design-walkthrough data-active-stage="ai">
+      <div class="walkthrough-intro">
+        <div><span class="analytics-beat-label">Design execution</span><h3>Turning the hierarchy into an analytical journey.</h3></div>
+        <p>With the structure in place, the page moves deliberately from interpretation and overall outcomes into evidence and deeper analysis. Scroll through the decisions that shaped each layer.</p>
+      </div>
+
+      <div class="walkthrough-grid">
+        <div class="walkthrough-steps">
+          <article class="walkthrough-step active" data-walkthrough-step="ai" tabindex="0" aria-current="step">
+            <div class="walkthrough-step-copy">
+              <div class="walkthrough-kicker"><span>AI</span>Start with interpretation</div>
+              <h4>Answer “so what?” before showing the metrics.</h4>
+              <p>Research showed that AI summaries could be valuable but easy to overlook. Moving the Impact Summary to the top gives communicators context before analysis begins. It works like an executive summary: orient first, then investigate.</p>
+              <div class="walkthrough-rationale"><div><b>Hierarchy</b><span>Meaning appears before measurement.</span></div><div><b>Cognition</b><span>A concise narrative reduces the effort required to connect separate signals.</span></div><div><b>Trust</b><span>AI attribution and feedback controls keep the interpretation transparent.</span></div></div>
+            </div>
+          </article>
+
+          <article class="walkthrough-step" data-walkthrough-step="outcomes" tabindex="0">
+            <div class="walkthrough-step-copy">
+              <div class="walkthrough-kicker"><span>01</span>What happened?</div>
+              <h4>Build a fast, plan-level read of performance.</h4>
+              <p>The first analytical layer stays at the plan level: reach, engagement, click-through rate and sentiment. The funnel makes engagement composition visual, while sentiment shows how audiences responded—before the user asks what drove it.</p>
+              <div class="walkthrough-rationale"><div><b>Sequence</b><span>Outcomes establish a baseline before attribution.</span></div><div><b>Scanning</b><span>Large numbers, visual proportion and consistent card structure support rapid comparison.</span></div><div><b>Balance</b><span>Behavioral metrics and sentiment combine scale with audience response.</span></div></div>
+            </div>
+          </article>
+
+          <article class="walkthrough-step" data-walkthrough-step="drivers" tabindex="0">
+            <div class="walkthrough-step-copy">
+              <div class="walkthrough-kicker"><span>02</span>Who or what drove it?</div>
+              <h4>Connect the headline to its evidence.</h4>
+              <p>Post-by-Post Breakdown links plan-level outcomes to the communications behind them. Communicators can identify which posts contributed most and compare reach, engagement, click-through and sentiment without leaving the analytics journey.</p>
+              <div class="walkthrough-rationale"><div><b>Evidence</b><span>Every headline metric can be traced to its contributing content.</span></div><div><b>Context</b><span>Rows preserve author, timing and message context alongside performance.</span></div><div><b>Continuity</b><span>Comparison happens in place, avoiding a disruptive drill-down.</span></div></div>
+            </div>
+          </article>
+
+          <article class="walkthrough-step" data-walkthrough-step="depth" tabindex="0">
+            <div class="walkthrough-step-copy">
+              <div class="walkthrough-kicker"><span>03</span>Where, how and why?</div>
+              <h4>Move from performance into explanation.</h4>
+              <p>Focused lenses keep deeper analysis from becoming one endless page. Leader Impact reveals how contributors and channels changed performance over time. Comments and Themes then surface audience language, emerging topics and the deeper reasons behind the result.</p>
+              <div class="walkthrough-rationale"><div><b>Progressive depth</b><span>Complexity is revealed only after the outcome and its drivers are understood.</span></div><div><b>Lenses</b><span>Related questions are grouped instead of mixing every signal together.</span></div><div><b>Qualitative why</b><span>Comments add human explanation to quantitative trends.</span></div></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="walkthrough-visual" aria-label="Interactive Aggregate Analytics dashboard walkthrough">
+          <div class="walkthrough-dashboard-window">
+            <div class="walkthrough-dashboard">
+              <div class="walkthrough-image-stack">
+                <img class="walkthrough-dashboard-image walkthrough-stage-image" data-image-stage="ai" src="/IMG/Comms%20Analytics_Metrics_1.png" alt="AI Impact Summary positioned above the faded Communication Plan analytics.">
+                <img class="walkthrough-dashboard-image walkthrough-stage-image" data-image-stage="outcomes" src="/IMG/Comms%20Analytics_Metrics_2.png" alt="Plan performance, Engagement Funnel, and Overall Sentiment highlighted within the analytics.">
+                <img class="walkthrough-dashboard-image walkthrough-stage-image" data-image-stage="drivers" src="/IMG/Comms%20Analytics_Metrics_3.png" alt="Post-by-Post Breakdown highlighted as evidence behind the plan-level metrics.">
+                <img class="walkthrough-dashboard-image walkthrough-stage-image" data-image-stage="depth" src="/IMG/Comms%20Analytics_Metrics_4.png" alt="Channel distribution, reach trends, comments, and themes highlighted for deeper analysis.">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section demo">
+  <div class="container reveal">
+    <div class="eyebrow">08 · Product walkthrough</div>
+    <h2>See the experience in motion.</h2>
+    <p class="lead">An end-to-end walkthrough of how communicators create a plan, coordinate the publishing cascade and understand its collective impact.</p>
+    <div class="video">
+      <video autoplay muted loop playsinline controls preload="metadata" aria-label="End-to-end Communication Plans product walkthrough">
+        <source src="/IMG/E2E%20Comms%20Plan.mp4" type="video/mp4">
+        Your browser does not support embedded video.
+      </video>
+    </div>
+  </div>
+</section>
+
+<section class="section preview">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow">09 · Private preview</div>
+      <h2>Early signals, not victory laps.</h2>
+      <p class="lead">Because the experience is still in private preview, frame impact around evidence, learning and iteration rather than unsupported business metrics.</p>
+    </div>
+    <div class="preview-grid reveal">
+      <div class="preview-card"><div class="num">SIGNAL</div><h3>[What users are responding to]</h3><p>Replace with an observed signal from your research or preview feedback.</p></div>
+      <div class="preview-card"><div class="num">LEARNING</div><h3>[What it tells us]</h3><p>Describe the product or UX learning without inventing quantitative evidence.</p></div>
+      <div class="preview-card"><div class="num">RESPONSE</div><h3>[What changed]</h3><p>Show how the team/design responded to that learning.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="reflection" id="reflection">
+  <div class="container reveal">
+    <div class="eyebrow">10 · Reflection</div>
+    <h2>The hardest part wasn't designing the dashboard. It was deciding <span class="serif">what story the data needed to tell.</span></h2>
+    <p>The work reinforced a principle I carry into complex enterprise products: when the underlying system is complicated, the experience shouldn't expose all of that complexity at once. Good product design creates the right sequence — helping people understand what happened, what matters and what they can do next.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="container footer">
+  <span>Communication Plans · UX Case Study</span>
+  <span>Vikram Venkatesh · Lead Product Designer</span>
+</footer>
+
+<script>
+(function(){
+  const cascade = document.getElementById('cascadeStage');
+  const replay = document.getElementById('replay');
+  let timers = [];
+
+  function clearTimers(){ timers.forEach(clearTimeout); timers=[]; }
+
+  function setScene(scene){
+    cascade.dataset.scene = String(scene);
+    const dots = cascade.querySelectorAll('.progress-dot');
+    dots.forEach((dot,i)=>dot.classList.toggle('active',i===scene-1));
+  }
+
+  function playCascade(){
+    clearTimers();
+    setScene(1);
+
+    // Slow, deliberate pacing: establish → cascade → resolve.
+    timers.push(setTimeout(()=>setScene(2), 5200));
+    timers.push(setTimeout(()=>setScene(3), 10800));
+  }
+
+  replay.addEventListener('click', playCascade);
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        playCascade();
+        observer.disconnect();
+      }
+    });
+  },{threshold:.18});
+
+  observer.observe(cascade);
+
+  const revealObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },{threshold:.12});
+
+  document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+})();</script>
+
+</body>
+</html>
